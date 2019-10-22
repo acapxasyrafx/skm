@@ -11,34 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class index
-    
-    '''<summary>
-    '''PnlPengurusan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents PnlPengurusan As Global.System.Web.UI.WebControls.Panel
-    
-    '''<summary>
-    '''PnlPemohon control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents PnlPemohon As Global.System.Web.UI.WebControls.Panel
-    
-    '''<summary>
-    '''PnlKonfigurasi control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents PnlKonfigurasi As Global.System.Web.UI.WebControls.Panel
+Partial Public Class konfigurasi_kuarters
     
     '''<summary>
     '''PnlIndicator control.
@@ -59,47 +32,74 @@ Partial Public Class index
     Protected WithEvents lbl1 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''lbl2 control.
+    '''MsgTop control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbl2 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lblPangkalan control.
+    '''strlbl_top control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPangkalan As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''lblJenis control.
+    '''Refresh control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblJenis As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''lblKuarters control.
+    '''ddlNegeri control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblKuarters As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''lblKuota control.
+    '''ddlPangkalan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblKuota As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents ddlPangkalan As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlJenis control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlJenis As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlKuarters As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''btnCari control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
 End Class
