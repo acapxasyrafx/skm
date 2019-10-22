@@ -1,0 +1,76 @@
+/*ADMIN.MASTER*/
+html,body{margin:0;padding:0}
+body {font: 76% arial,sans-serif;background-color: #ffffff;}
+
+p{margin:0 10px 10px}
+
+a {padding: 5px;text-decoration: none;color: #000000;text-decoration: none;-webkit-transition: all 0.6s ease;-moz-transition: all 0.6s ease;transition: all 0.6s ease;}
+    a:hover {-webkit-transition: all 0.6s ease;-moz-transition: all 0.6s ease;transition: all 0.6s ease;}
+
+div#wrapper {float: right;width: 100%;margin-left: -200px;height: 100%;}
+
+div#content {margin-left: 280px;margin-right :50px;margin-bottom :20px;}
+
+div#extra {background: #CCC8B3;float: left;clear: left;width: 200px;padding: 5px 5px 5px 5px;}
+
+/*footer-bottom*/
+div#footer {clear: both;width: 100%;height: 20%;text-align: center;color:#000000;background-color:#e9f83c;}
+    div#footer p {margin: 0;padding: 5px 10px}
+
+/*footer-Top*/
+div#footerup {clear: both;width: 100%;height: 10%;background-color: #e9f83c;color: #000000;}
+    div#footerup p{margin: 0px;padding: 5px 5px 5px 5px;text-align: right;}
+    div#footerup a{color :#000000;}
+/*sidebar-Menu*/
+div#navigation {float: left;clear: left;width: 200px;margin-top: 0px;height: 100%;}
+
+.appPentadbiran {height: 35vh;margin-top: 0;}
+
+.appIndeks {height: 90vh;margin-top: 0;}
+
+.sidebar {position: inherit;width: 20em;height: 100%;top: 0;overflow: hidden;-webkit-transform: translateZ(0);visibility: visible;-webkit-backface-visibility: hidden;}
+    .sidebar header {background-color:#fcfcfc;width: 100%;display: block;padding: 3px 3px 3px 3px;font-weight: bold;}
+
+/*sidebar nav*/
+.sidebar-nav {position: absolute;background-color:darkslategray;height: 100%;font-weight: 400;font-size: 1.2em;overflow: auto;padding-bottom: 6em;z-index: 9;overflow: hidden;-webkit-overflow-scrolling: touch;}
+    .sidebar-nav ul {list-style: none;display: block;padding: 0;margin: 0;}
+        .sidebar-nav ul li {margin-left: 0;padding-left: 0;display: inline-block;width: 100%;}
+             .sidebar-nav ul li p{color :#fcfcfc;font-size: 0.7em;text-decoration :underline }
+            .sidebar-nav ul li a {color: rgba(255, 255, 255, 0.9);font-size: 0.8em;padding: 1.05em 1em;position: relative;display: block;}
+                .sidebar-nav ul li a:hover {background-color: rgba(0, 0, 0, 0.9);-webkit-transition: all 0.6s ease;-moz-transition: all 0.6s ease;transition: all 0.6s ease;}
+            .sidebar-nav ul li i {font-size: 1.8em;padding-right: 0.5em;width: 9em;display: inline;vertical-align: middle;}
+                .sidebar-nav > ul > li > a:after {content: "\f125";font-family: ionicons;font-size: 0.5em;width: 10px;color: #fff;position: absolute;right: 0.75em;top: 45%;}
+.sidebar-nav .nav-flyout {position: absolute;background-color:darkslategrey;z-index: 9;left: 1.5em;top: 0;height: 100vh;-webkit-transform: translateX(100%);-moz-transform: translateX(100%);-ms-transform: translateX(100%); -o-transform: translateX(100%);transform: translateX(100%);-webkit-transition: all 1.5s ease;-moz-transition: all 1.3s ease;transition: all 1.3s ease;}
+    .sidebar-nav .nav-flyout a:hover {background-color: rgba(255, 255, 255, 0.05); }
+    .sidebar-nav ul > li:hover .nav-flyout {-webkit-transform: translateX(0);-moz-transform: translateX(0);-ms-transform: translateX(0); -o-transform: translateX(0);transform: translateX(0);-webkit-transition: all 1.3s ease;-moz-transition: all 1.3s ease; transition: all 1.3s ease;}
+    
+/*end admin.master*/
+
+/*TABLE FORM*/
+.fbform {margin-top:2px;width: 100%;border: solid 1px #ececec;padding: 5px 5px 5px 5px;vertical-align: top;text-align: left;background-color: #fcfcfc ;border-radius :3px 3px 3px 3px}
+   .fbform tr{}
+   .fbform td{padding: 5px 5px 5px 5px;}
+.fbform_header tr {}
+.fbform_header td {border: 0px;outline-style: none;padding: 3px 3px 3px 3px;font-weight: bold;}
+.fbform_header a {color: Blue;}
+
+.fbform_mheader tr {}
+.fbform_mheader td {border: 0px;outline-style: none;padding: 5px 5px 5px 5px;font-weight: bold;background-color :#f5f3f3}
+.fbform_mheader a {color: Blue;}
+
+.fbformTree {margin-top:2px;width: 100%;border: solid 1px #ececec;padding: 5px 5px 5px 5px;vertical-align: top;text-align: left;background-color: #fcfcfc ;border-radius :3px 3px 3px 3px}
+   .fbformTree tr{}
+   .fbformTree td{}
+
+/*NAVIGATION MENU*/
+.fbmenu {margin-top:15px;width: 100%;border: solid 1px #1a79c7;padding: 5px 5px 5px 5px;vertical-align: top;text-align: left;background-color: #1a79c7 ;border-radius :3px 3px 3px 3px}
+   .fbmenu tr{}
+   .fbmenu td{border: 0px;outline-style: none;padding: 3px 3px 3px 3px;font-weight: bold;color :#fcfcfc}
+
+/*LABEL*/
+
+.remark{font-size:11px;color :red;}
+.link{text-decoration :underline; color:#1a79c7 }
+.errorMsg{ color :red ; font-weight :bold}
+.successMsg{color :forestgreen ; font-weight :bold}
+.buttonMenu{float :right;}
