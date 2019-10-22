@@ -109,11 +109,43 @@
     </section>
 </asp:Panel>
 
+<%-- Menu Konfigurasi --%>
+<asp:Panel ID="PnlKonfigurasi" runat="server" Visible="true">
+    <section class="appIndeks">
+        <aside class="sidebar">
+            <header>> PENETAPAN UTAMA</header>
+            <nav class="sidebar-nav">
 
+                <ul>
+                    <li>
+                        <a href="Konfigurasi.Pangkalan.aspx?P=<%=lblPangkalan.Text %>"><span>Penetapan Pangkalan</span></a>
+                    </li>
+                    
+                    <li>
+                        <a href="Konfigurasi.Jenis.aspx?P=<%=lblJenis.Text %>"><span>Penetapan Jenis Kuarters</span></a>
+                    </li>
+
+                    <li>
+                        <a href="Konfigurasi.Kuarters.aspx?P=<%=lblKuarters.Text %>"><span>Penetapan Kuarters</span></a>
+                    </li>
+
+                    <li>
+                        <a href="Konfigurasi.Kuota.aspx?P=<%=lbl1.Text %>"><span class="">Penetapan Kuota</span></a>
+                    </li>
+                </ul>
+
+            </nav>
+        </aside>
+    </section>
+</asp:Panel>
 
 <%-- Menu Label Indicator --%>
-<asp:Panel ID ="PnlIndicator" runat ="server" >
-    <asp:Label ID="lbl1" runat ="server" Visible ="false">Pengurusan Pentadbiran > Rekod Senarai Penjawat > Pendaftaran Baharu</asp:Label>
-    <asp:Label ID="lbl2" runat ="server" Visible ="false">Pengurusan Pentadbiran > Rekod Senarai Penjawat > Carian Senarai Penjawat</asp:Label>
-   
+<asp:Panel ID="PnlIndicator" runat="server">
+    <asp:Label ID="lbl1" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Senarai Penjawat > Pendaftaran Baharu</asp:Label>
+    <asp:Label ID="lbl2" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Senarai Penjawat > Carian Senarai Penjawat</asp:Label>
+
+    <asp:Label ID="lblPangkalan" runat="server" Visible="false">Konfigurasi Utama > Penetapan Pangkalan</asp:Label>
+    <asp:Label ID="lblJenis" runat="server" Visible="false">Konfigurasi Utama > Penetapan Jenis Kuarters</asp:Label>
+    <asp:Label ID="lblKuarters" runat="server" Visible="false">Konfigurasi Utama > Penetapan Kuarters</asp:Label>
+    <asp:Label ID="lblKuota" runat="server" Visible="false">Konfigurasi Utama > Penetapan Kuota</asp:Label>
 </asp:Panel>
