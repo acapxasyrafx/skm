@@ -111,7 +111,7 @@
 
 <%-- Menu Konfigurasi --%>
 <asp:Panel ID="PnlKonfigurasi" runat="server" Visible="true">
-    <section class="appIndeks">
+    <section class="appKonfigurasi">
         <aside class="sidebar">
             <header>> PENETAPAN UTAMA</header>
             <nav class="sidebar-nav">
