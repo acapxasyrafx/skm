@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class konfigurasi_kuota1
+Partial Public Class konfigurasi_pangkat_baru
     
     '''<summary>
     '''PnlIndicator control.
@@ -21,15 +21,6 @@ Partial Public Class konfigurasi_kuota1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PnlIndicator As Global.System.Web.UI.WebControls.Panel
-    
-    '''<summary>
-    '''lbl1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbl1 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''lblRefresh control.
@@ -59,29 +50,38 @@ Partial Public Class konfigurasi_kuota1
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''ddlJenis control.
+    '''SaveFunction control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlJenis As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''ddlKuarters control.
+    '''ddlPangkat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlKuarters As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlPangkat As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''btnCari control.
+    '''txtNamaPangkat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents txtNamaPangkat As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnHantar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnHantar As Global.System.Web.UI.WebControls.Button
 End Class
