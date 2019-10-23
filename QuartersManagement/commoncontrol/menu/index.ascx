@@ -17,7 +17,6 @@
             <li>
               <a href="Senarai.Penjawat.aspx?P=<%=lbl2.Text %>"><i></i><img src ="icons/bullet_red.png" /> Carian Senarai Penjawat</a>
             </li>
-           
           </ul>
         </li>
         <li>
@@ -47,12 +46,10 @@
             </li>
           </ul>
         </li>
-        
-        <li>
       </ul>
     </nav>
   </aside>
-    </section>
+</section>
 </asp:Panel>
 
 
@@ -61,26 +58,30 @@
 <asp:Panel ID ="PnlPemohon" runat ="server" visible ="true">
 <section class ="appIndeks">
   <aside class="sidebar">
-         <header>> PERMOHONAN KUATERS</header>
+    <header>> PERMOHONAN KUATERS</header>
     <nav class="sidebar-nav">
       <ul>
-         <li>
+        <li>
+            <a href="Permohonan.Kuarters.aspx">Permohonan Kuarters</a>
+        </li>
+        <li runat="server" id="linkStatusPermohonan">
+            <a href="Status.Permohonan.aspx">Status Permohonan</a>
+        </li>
+        <li>
           <a href="#"><span class="">Senarai Permohonan </span></a>
              <ul class="nav-flyout">
-            <li><p>Senarai Permohonan</p></li>
-            <li>
-              <a href="#"><i></i><img src ="icons/bullet_red.png" /> Senarai Permohonan Baharu</a>
-            </li>
-            <li>
-              <a href="#"><i></i><img src ="icons/bullet_red.png" />Senarai Permohonan Menunggu</a>
-            </li>
-            <li>
-              <a href="#"><i></i><img src ="icons/bullet_red.png" />Senarai Permohonan Tolak</a>
-            </li>
-           
+                <li><p>Senarai Permohonan</p></li>
+                <li>
+                  <a href="#"><i></i><img src ="icons/bullet_red.png" /> Senarai Permohonan Baharu</a>
+                </li>
+                <li>
+                  <a href="#"><i></i><img src ="icons/bullet_red.png" />Senarai Permohonan Menunggu</a>
+                </li>
+                <li>
+                  <a href="#"><i></i><img src ="icons/bullet_red.png" />Senarai Permohonan Tolak</a>
+                </li>
           </ul>
         </li>
-        
         <li>
           <a href="#"><span>Senarai Penempatan Kuarters Pemohon</span></a>
             <ul class="nav-flyout">
@@ -102,14 +103,12 @@
             </li>
            
           </ul>
-   
+        <%--</li>--%>
       </ul>
     </nav>
   </aside>
-    </section>
+</section>
 </asp:Panel>
-
-
 
 <%-- Menu Label Indicator --%>
 <asp:Panel ID ="PnlIndicator" runat ="server" >

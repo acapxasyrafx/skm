@@ -94,13 +94,16 @@
   <ItemGroup>
     <Content Include="commoncontrol\main\homepage.ascx" />
     <Content Include="commoncontrol\main\login_page.ascx" />
+    <Content Include="commoncontrol\main\user_homepage.ascx" />
     <Content Include="commoncontrol\management\pendaftaran_penjawat.ascx" />
+    <Content Include="commoncontrol\management\permohonan_kuarters.ascx" />
+    <Content Include="commoncontrol\management\status_permohonan.ascx" />
     <Content Include="commoncontrol\menu\index.ascx" />
     <Content Include="commoncontrol\menu\navigation_menu.ascx" />
     <Content Include="css\styles.css" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="Homepage.aspx" />
+    <Content Include="Admin.Homepage.aspx" />
     <Content Include="icons\authorise.png" />
     <Content Include="icons\back.png" />
     <Content Include="icons\bullet_red.png" />
@@ -118,6 +121,9 @@
     <Content Include="img\backlog.jpg" />
     <Content Include="img\tudmlogo.png" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
+    <Content Include="Permohonan.Kuarters.aspx" />
+    <Content Include="Status.Permohonan.aspx" />
+    <Content Include="User.Homepage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -143,11 +149,32 @@
       <DependentUpon>login_page.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\main\user_homepage.ascx.designer.vb">
+      <DependentUpon>user_homepage.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\main\user_homepage.ascx.vb">
+      <DependentUpon>user_homepage.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\management\pendaftaran_penjawat.ascx.designer.vb">
       <DependentUpon>pendaftaran_penjawat.ascx</DependentUpon>
     </Compile>
     <Compile Include="commoncontrol\management\pendaftaran_penjawat.ascx.vb">
       <DependentUpon>pendaftaran_penjawat.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\management\permohonan_kuarters.ascx.designer.vb">
+      <DependentUpon>permohonan_kuarters.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\management\permohonan_kuarters.ascx.vb">
+      <DependentUpon>permohonan_kuarters.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\management\status_permohonan.ascx.designer.vb">
+      <DependentUpon>status_permohonan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\management\status_permohonan.ascx.vb">
+      <DependentUpon>status_permohonan.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\menu\index.ascx.designer.vb">
@@ -174,11 +201,11 @@
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Homepage.aspx.designer.vb">
-      <DependentUpon>Homepage.aspx</DependentUpon>
+    <Compile Include="Admin.Homepage.aspx.designer.vb">
+      <DependentUpon>Admin.Homepage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Homepage.aspx.vb">
-      <DependentUpon>Homepage.aspx</DependentUpon>
+    <Compile Include="Admin.Homepage.aspx.vb">
+      <DependentUpon>Admin.Homepage.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -207,6 +234,34 @@
       <DependentUpon>Pendaftaran.Penjawat.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Permohonan.Kuarters.aspx.designer.vb">
+      <DependentUpon>Permohonan.Kuarters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Permohonan.Kuarters.aspx.vb">
+      <DependentUpon>Permohonan.Kuarters.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Status.Permohonan.aspx.designer.vb">
+      <DependentUpon>Status.Permohonan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Status.Permohonan.aspx.vb">
+      <DependentUpon>Status.Permohonan.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="User.Homepage.aspx.designer.vb">
+      <DependentUpon>User.Homepage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User.Homepage.aspx.vb">
+      <DependentUpon>User.Homepage.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="user.Master.designer.vb">
+      <DependentUpon>user.Master</DependentUpon>
+    </Compile>
+    <Compile Include="user.Master.vb">
+      <DependentUpon>user.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -229,6 +284,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <Content Include="user.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

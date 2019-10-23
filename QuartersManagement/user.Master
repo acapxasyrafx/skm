@@ -1,0 +1,33 @@
+<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="user.master.vb" Inherits="QuartersManagement.user" %>
+<%@ Register src="commoncontrol/menu/index.ascx" tagname="index" tagprefix="uc2" %>
+
+<!DOCTYPE html>
+
+<html>
+
+<head runat ="server" >
+<title>Prototaip Pengurusan Kuarters</title>
+<link rel = "icon" href ="mini.ico"> 
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <div id="container">
+           <div id="footerup"><p><a href="Homepage.aspx?p=Paparan Utama">Paparan Utama</a>|<a href="#">Notifikasi</a>|<a href="#">Panduan Pengguna</a>|<a href="default.aspx">Log Keluar </a>&nbsp</p></div>
+           <div id="wrapper">
+               <div id="content">
+                   <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+                   <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server"></asp:ContentPlaceHolder>
+               </div>
+           </div> 
+           <div id ="navigation">
+               <uc2:index ID="indek" runat="server" />
+           </div>
+           <div id="footer"><p>Tentera Udara Diraja Malaysia (TUDM) @ 2019<br />Prototaip Versi 0.1</p></div>
+        </div>
+    </form>
+</body>
+
+</html>
