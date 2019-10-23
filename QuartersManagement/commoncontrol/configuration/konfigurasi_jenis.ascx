@@ -1,9 +1,9 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="konfigurasi_kuarters.ascx.vb" Inherits="QuartersManagement.konfigurasi_kuarters" %>
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="konfigurasi_jenis.ascx.vb" Inherits="QuartersManagement.konfigurasi_jenis1" %>
 
 <%-- Menu Label Indicator --%>
 <asp:Panel ID="PnlIndicator" runat="server">
-    <asp:Label ID="lbl1" runat="server" Visible="false">Konfigurasi Utama > Penetapan Kuarters > Penetapan Baru</asp:Label>
-    <asp:Label ID="lblRefresh" runat="server" Visible="false">Konfigurasi Utama > Penetapan Kuarters</asp:Label>
+    <asp:Label ID="lbl1" runat="server" Visible="false">Konfigurasi Utama > Penetapan Jenis Kuarters > Penetapan Baru</asp:Label>
+    <asp:Label ID="lblRefresh" runat="server" Visible="false">Konfigurasi Utama > Penetapan Jenis Kuarters</asp:Label>
 </asp:Panel>
 
 <table class="fbform" style="width: 100%">
@@ -12,9 +12,9 @@
             <asp:Label ID="strlbl_top" runat="server"></asp:Label></span></td>
         <td>
             <span class="buttonMenu">
-                <a href="Konfigurasi.Kuarters.Baru.aspx?P=<%=lbl1.Text %>" id="SaveFunction">
+                <a href="Konfigurasi.Jenis.Baru.aspx?P=<%=lbl1.Text %>" id="SaveFunction">
                     <img title="Add" style="vertical-align: middle;" src="icons/add.png" width="25" height="25" alt="::" /></a>
-                | <a href="Konfigurasi.Kuarters.aspx?P=<%=lblRefresh.Text %>" id="Refresh">
+                | <a href="Konfigurasi.Jenis.aspx?P=<%=lblRefresh.Text %>" id="Refresh">
                     <img title="Refresh" style="vertical-align: middle;" src="icons/refresh.png" width="22" height="22" alt="::" /></a>
                 | <a href="#" id="Help">
                     <img title="Help" style="vertical-align: middle;" src="icons/help.png" width="22" height="22" alt="::" /></a>
@@ -27,23 +27,7 @@
 <table class="fbform" style="width: 100%">
 
     <tr class="fbform_mheader">
-        <td colspan="3">MAKLUMAT KUARTERS</td>
-    </tr>
-
-    <tr>
-        <td style="width: 150px">NEGERI</td>
-        <td style="width: 20px">:</td>
-        <td>
-            <asp:DropDownList ID="ddlNegeri" runat="server" AutoPostBack="true"></asp:DropDownList>
-        </td>
-    </tr>
-
-    <tr>
-        <td style="width: 150px">PANGKALAN</td>
-        <td style="width: 20px">:</td>
-        <td>
-            <asp:DropDownList ID="ddlPangkalan" runat="server" AutoPostBack="true"></asp:DropDownList>
-        </td>
+        <td colspan="3">MAKLUMAT JENIS KUARTERS</td>
     </tr>
 
     <tr>
@@ -51,14 +35,6 @@
         <td style="width: 20px">:</td>
         <td>
             <asp:DropDownList ID="ddlJenis" runat="server" AutoPostBack="true"></asp:DropDownList>
-        </td>
-    </tr>
-
-    <tr>
-        <td style="width: 150px">KUARTERS</td>
-        <td style="width: 20px">:</td>
-        <td>
-            <asp:DropDownList ID="ddlKuarters" runat="server" AutoPostBack="true"></asp:DropDownList>
         </td>
     </tr>
 
@@ -77,7 +53,7 @@
 <table class="fbform" style="width: 100%">
 
     <tr class="fbform_mheader">
-        <td colspan="7">SENARAI KUARTERS</td>
+        <td colspan="7">SENARAI JENIS KUARTERS</td>
     </tr>
 
     <%--LIST--%>
@@ -85,4 +61,3 @@
     </tr>
     <%--LIST--%>
 </table>
-

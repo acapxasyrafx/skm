@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Konfigurasi_Jenis
+Partial Public Class Konfigurasi_Jenis_Kemaskini1
     
     '''<summary>
     '''navigation_menu control.
@@ -23,11 +23,11 @@ Partial Public Class Konfigurasi_Jenis
     Protected WithEvents navigation_menu As Global.QuartersManagement.navigation_menu
     
     '''<summary>
-    '''konfigurasi_jenis control.
+    '''konfigurasi_jenis_kemaskini control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents konfigurasi_jenis As Global.QuartersManagement.konfigurasi_jenis1
+    Protected WithEvents konfigurasi_jenis_kemaskini As Global.QuartersManagement.konfigurasi_jenis_kemaskini
 End Class

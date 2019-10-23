@@ -130,7 +130,15 @@
                     </li>
 
                     <li>
-                        <a href="Konfigurasi.Kuota.aspx?P=<%=lbl1.Text %>"><span class="">Penetapan Kuota</span></a>
+                        <a href="Konfigurasi.Kuota.aspx?P=<%=lblKuota.Text %>"><span class="">Penetapan Kuota</span></a>
+                    </li>
+                    
+                    <li>
+                        <a href="Konfigurasi.Pangkat.aspx?P=<%=lblPangkat.Text %>"><span class="">Penetapan Pangkat</span></a>
+                    </li>
+
+                    <li>
+                        <a href="Konfigurasi.Mata.aspx?P=<%=lblMata.Text %>"><span class="">Penetapan Mata</span></a>
                     </li>
                 </ul>
 
@@ -148,4 +156,6 @@
     <asp:Label ID="lblJenis" runat="server" Visible="false">Konfigurasi Utama > Penetapan Jenis Kuarters</asp:Label>
     <asp:Label ID="lblKuarters" runat="server" Visible="false">Konfigurasi Utama > Penetapan Kuarters</asp:Label>
     <asp:Label ID="lblKuota" runat="server" Visible="false">Konfigurasi Utama > Penetapan Kuota</asp:Label>
+    <asp:Label ID="lblPangkat" runat="server" Visible="false">Konfigurasi Utama > Penetapan Pangkat</asp:Label>
+    <asp:Label ID="lblMata" runat="server" Visible="false">Konfigurasi Utama > Penetapan Mata</asp:Label>
 </asp:Panel>

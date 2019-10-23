@@ -106,6 +106,8 @@
         <td></td>
         <td>
             <asp:Button ID="btnKemaskini" runat="server" Text="KEMASKINI" Width="100px" />
+                        <asp:Button ID="btnPadam" runat="server" Text="PADAM" Width="100px" />
+
         </td>
     </tr>
 

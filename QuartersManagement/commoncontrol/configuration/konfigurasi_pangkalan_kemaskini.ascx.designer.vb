@@ -23,13 +23,13 @@ Partial Public Class konfigurasi_pangkalan_kemaskini1
     Protected WithEvents PnlIndicator As Global.System.Web.UI.WebControls.Panel
     
     '''<summary>
-    '''lbl1 control.
+    '''lblRefresh control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbl1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblRefresh As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''MsgTop control.
@@ -156,4 +156,13 @@ Partial Public Class konfigurasi_pangkalan_kemaskini1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnKemaskini As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnPadam control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnPadam As Global.System.Web.UI.WebControls.Button
 End Class

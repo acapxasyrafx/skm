@@ -32,6 +32,15 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents lbl1 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblRefresh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblRefresh As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''MsgTop control.
     '''</summary>
     '''<remarks>
@@ -48,15 +57,6 @@ Partial Public Class konfigurasi_kuarters
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''Refresh control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
     '''ddlNegeri control.

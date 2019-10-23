@@ -102,4 +102,22 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblKuota As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblPangkat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblPangkat As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblMata control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMata As Global.System.Web.UI.WebControls.Label
 End Class
