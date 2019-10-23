@@ -41,6 +41,24 @@ Partial Public Class login_page
     Protected WithEvents btnLogin As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''lblDebug control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDebug As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblMsg control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMsg As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''lbl1 control.
     '''</summary>
     '''<remarks>

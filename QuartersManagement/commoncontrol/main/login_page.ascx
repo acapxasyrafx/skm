@@ -37,4 +37,10 @@
 </table>
 <br />
 <br />
+
+<asp:Label ID="lblDebug" runat="server" Text=""></asp:Label>
+<asp:Label ID="lblMsg" runat="server" Text=""></asp:Label>
+<br />
+<br />
+
 <asp:Label ID="lbl1" runat ="server" Visible ="false">Paparan Utama</asp:Label>
