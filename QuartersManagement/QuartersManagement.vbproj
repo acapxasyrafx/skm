@@ -92,6 +92,24 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="commoncontrol\configuration\konfigurasi_jenis.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_jenis_baru.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_jenis_kemaskini.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_kuarters.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_kuarters_baru.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_kuarters_kemaskini.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_kuota.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_kuota_baru.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_kuota_kemaskini.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_mata.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_mata_baru.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_mata_kemaskini.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_pangkalan_baru.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_pangkalan_kemaskini.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_pangkat.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_pangkat_baru.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_pangkat_kemaskini.ascx" />
     <Content Include="commoncontrol\main\homepage.ascx" />
     <Content Include="commoncontrol\main\login_page.ascx" />
     <Content Include="commoncontrol\main\user_homepage.ascx" />
@@ -120,6 +138,24 @@
     <Content Include="icons\select.png" />
     <Content Include="img\backlog.jpg" />
     <Content Include="img\tudmlogo.png" />
+    <Content Include="Konfigurasi.Jenis.aspx" />
+    <Content Include="Konfigurasi.Jenis.Baru.aspx" />
+    <Content Include="Konfigurasi.Jenis.Kemaskini.aspx" />
+    <Content Include="Konfigurasi.Kuarters.aspx" />
+    <Content Include="Konfigurasi.Kuarters.Baru.aspx" />
+    <Content Include="Konfigurasi.Kuarters.Kemaskini.aspx" />
+    <Content Include="Konfigurasi.Kuota.aspx" />
+    <Content Include="Konfigurasi.Kuota.Baru.aspx" />
+    <Content Include="Konfigurasi.Kuota.Kemaskini.aspx" />
+    <Content Include="Konfigurasi.Mata.aspx" />
+    <Content Include="Konfigurasi.Mata.Baru.aspx" />
+    <Content Include="Konfigurasi.Mata.Kemaskini.aspx" />
+    <Content Include="Konfigurasi.Pangkalan.aspx" />
+    <Content Include="Konfigurasi.Pangkalan.Baru.aspx" />
+    <Content Include="Konfigurasi.Pangkalan.Kemaskini.aspx" />
+    <Content Include="Konfigurasi.Pangkat.aspx" />
+    <Content Include="Konfigurasi.Pangkat.Baru.aspx" />
+    <Content Include="Konfigurasi.Pangkat.Kemaskini.aspx" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
     <Content Include="Permohonan.Kuarters.aspx" />
     <Content Include="Status.Permohonan.aspx" />
@@ -135,6 +171,132 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="common.function.vb" />
+    <Compile Include="commoncontrol\configuration\konfigurasi_jenis.ascx.designer.vb">
+      <DependentUpon>konfigurasi_jenis.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jenis.ascx.vb">
+      <DependentUpon>konfigurasi_jenis.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jenis_baru.ascx.designer.vb">
+      <DependentUpon>konfigurasi_jenis_baru.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jenis_baru.ascx.vb">
+      <DependentUpon>konfigurasi_jenis_baru.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jenis_kemaskini.ascx.designer.vb">
+      <DependentUpon>konfigurasi_jenis_kemaskini.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jenis_kemaskini.ascx.vb">
+      <DependentUpon>konfigurasi_jenis_kemaskini.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuarters.ascx.designer.vb">
+      <DependentUpon>konfigurasi_kuarters.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuarters.ascx.vb">
+      <DependentUpon>konfigurasi_kuarters.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuarters_baru.ascx.designer.vb">
+      <DependentUpon>konfigurasi_kuarters_baru.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuarters_baru.ascx.vb">
+      <DependentUpon>konfigurasi_kuarters_baru.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuarters_kemaskini.ascx.designer.vb">
+      <DependentUpon>konfigurasi_kuarters_kemaskini.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuarters_kemaskini.ascx.vb">
+      <DependentUpon>konfigurasi_kuarters_kemaskini.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuota.ascx.designer.vb">
+      <DependentUpon>konfigurasi_kuota.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuota.ascx.vb">
+      <DependentUpon>konfigurasi_kuota.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuota_baru.ascx.designer.vb">
+      <DependentUpon>konfigurasi_kuota_baru.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuota_baru.ascx.vb">
+      <DependentUpon>konfigurasi_kuota_baru.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuota_kemaskini.ascx.designer.vb">
+      <DependentUpon>konfigurasi_kuota_kemaskini.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuota_kemaskini.ascx.vb">
+      <DependentUpon>konfigurasi_kuota_kemaskini.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_mata.ascx.designer.vb">
+      <DependentUpon>konfigurasi_mata.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_mata.ascx.vb">
+      <DependentUpon>konfigurasi_mata.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_mata_baru.ascx.designer.vb">
+      <DependentUpon>konfigurasi_mata_baru.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_mata_baru.ascx.vb">
+      <DependentUpon>konfigurasi_mata_baru.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_mata_kemaskini.ascx.designer.vb">
+      <DependentUpon>konfigurasi_mata_kemaskini.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_mata_kemaskini.ascx.vb">
+      <DependentUpon>konfigurasi_mata_kemaskini.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx.designer.vb">
+      <DependentUpon>konfigurasi_pangkalan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx.vb">
+      <DependentUpon>konfigurasi_pangkalan.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkalan_baru.ascx.designer.vb">
+      <DependentUpon>konfigurasi_pangkalan_baru.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkalan_baru.ascx.vb">
+      <DependentUpon>konfigurasi_pangkalan_baru.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkalan_kemaskini.ascx.designer.vb">
+      <DependentUpon>konfigurasi_pangkalan_kemaskini.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkalan_kemaskini.ascx.vb">
+      <DependentUpon>konfigurasi_pangkalan_kemaskini.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkat.ascx.designer.vb">
+      <DependentUpon>konfigurasi_pangkat.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkat.ascx.vb">
+      <DependentUpon>konfigurasi_pangkat.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkat_baru.ascx.designer.vb">
+      <DependentUpon>konfigurasi_pangkat_baru.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkat_baru.ascx.vb">
+      <DependentUpon>konfigurasi_pangkat_baru.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkat_kemaskini.ascx.designer.vb">
+      <DependentUpon>konfigurasi_pangkat_kemaskini.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkat_kemaskini.ascx.vb">
+      <DependentUpon>konfigurasi_pangkat_kemaskini.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\main\homepage.ascx.designer.vb">
       <DependentUpon>homepage.ascx</DependentUpon>
     </Compile>
@@ -206,6 +368,132 @@
     </Compile>
     <Compile Include="Admin.Homepage.aspx.vb">
       <DependentUpon>Admin.Homepage.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Jenis.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Jenis.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Jenis.aspx.vb">
+      <DependentUpon>Konfigurasi.Jenis.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Jenis.Baru.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Jenis.Baru.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Jenis.Baru.aspx.vb">
+      <DependentUpon>Konfigurasi.Jenis.Baru.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Jenis.Kemaskini.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Jenis.Kemaskini.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Jenis.Kemaskini.aspx.vb">
+      <DependentUpon>Konfigurasi.Jenis.Kemaskini.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuarters.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Kuarters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuarters.aspx.vb">
+      <DependentUpon>Konfigurasi.Kuarters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuarters.Baru.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Kuarters.Baru.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuarters.Baru.aspx.vb">
+      <DependentUpon>Konfigurasi.Kuarters.Baru.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuarters.Kemaskini.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Kuarters.Kemaskini.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuarters.Kemaskini.aspx.vb">
+      <DependentUpon>Konfigurasi.Kuarters.Kemaskini.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuota.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Kuota.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuota.aspx.vb">
+      <DependentUpon>Konfigurasi.Kuota.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuota.Baru.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Kuota.Baru.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuota.Baru.aspx.vb">
+      <DependentUpon>Konfigurasi.Kuota.Baru.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuota.Kemaskini.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Kuota.Kemaskini.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuota.Kemaskini.aspx.vb">
+      <DependentUpon>Konfigurasi.Kuota.Kemaskini.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Mata.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Mata.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Mata.aspx.vb">
+      <DependentUpon>Konfigurasi.Mata.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Mata.Baru.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Mata.Baru.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Mata.Baru.aspx.vb">
+      <DependentUpon>Konfigurasi.Mata.Baru.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Mata.Kemaskini.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Mata.Kemaskini.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Mata.Kemaskini.aspx.vb">
+      <DependentUpon>Konfigurasi.Mata.Kemaskini.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkalan.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Pangkalan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkalan.aspx.vb">
+      <DependentUpon>Konfigurasi.Pangkalan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkalan.Baru.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Pangkalan.Baru.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkalan.Baru.aspx.vb">
+      <DependentUpon>Konfigurasi.Pangkalan.Baru.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkalan.Kemaskini.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Pangkalan.Kemaskini.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkalan.Kemaskini.aspx.vb">
+      <DependentUpon>Konfigurasi.Pangkalan.Kemaskini.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkat.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Pangkat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkat.aspx.vb">
+      <DependentUpon>Konfigurasi.Pangkat.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkat.Baru.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Pangkat.Baru.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkat.Baru.aspx.vb">
+      <DependentUpon>Konfigurasi.Pangkat.Baru.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkat.Kemaskini.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Pangkat.Kemaskini.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkat.Kemaskini.aspx.vb">
+      <DependentUpon>Konfigurasi.Pangkat.Kemaskini.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -295,7 +583,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="commoncontrol\application\" />
-    <Folder Include="commoncontrol\configuration\" />
     <Folder Include="commoncontrol\maintenance\" />
     <Folder Include="Models\" />
   </ItemGroup>

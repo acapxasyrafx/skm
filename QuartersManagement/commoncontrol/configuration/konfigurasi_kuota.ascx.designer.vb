@@ -11,52 +11,16 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class login_page
+Partial Public Class konfigurasi_kuota1
     
     '''<summary>
-    '''txtLoginID control.
+    '''PnlIndicator control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtLoginID As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtPwd control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtPwd As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''btnLogin control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnLogin As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''lblDebug control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblDebug As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblMsg control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblMsg As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents PnlIndicator As Global.System.Web.UI.WebControls.Panel
     
     '''<summary>
     '''lbl1 control.
@@ -66,4 +30,58 @@ Partial Public Class login_page
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl1 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblRefresh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblRefresh As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''MsgTop control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''strlbl_top control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''ddlJenis control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlJenis As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlKuarters As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''btnCari control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
 End Class

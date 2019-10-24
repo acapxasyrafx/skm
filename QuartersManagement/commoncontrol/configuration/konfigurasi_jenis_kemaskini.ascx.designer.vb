@@ -11,43 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class index
-
-    '''<summary>
-    '''PnlPengurusan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents PnlPengurusan As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''PnlPemohon control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents PnlPemohon As Global.System.Web.UI.WebControls.Panel
-
-    '''<summary>
-    '''linkStatusPermohonan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents linkStatusPermohonan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
-    '''<summary>
-    '''PnlKonfigurasi control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents PnlKonfigurasi As Global.System.Web.UI.WebControls.Panel
+Partial Public Class konfigurasi_jenis_kemaskini
     
     '''<summary>
     '''PnlIndicator control.
@@ -57,7 +21,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PnlIndicator As Global.System.Web.UI.WebControls.Panel
-
+    
     '''<summary>
     '''lbl1 control.
     '''</summary>
@@ -66,67 +30,76 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl1 As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lbl2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbl2 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''lblPangkalan control.
+    '''MsgTop control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPangkalan As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lblJenis control.
+    '''strlbl_top control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblJenis As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''lblKuarters control.
+    '''SaveFunction control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblKuarters As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''lblKuota control.
+    '''txtJenis control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblKuota As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txtJenis As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''lblPangkat control.
+    '''txtBilanganUnit control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPangkat As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txtBilanganUnit As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''lblMata control.
+    '''txtKeluasan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblMata As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txtKeluasan As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnHantar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnHantar As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnPadam control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnPadam As Global.System.Web.UI.WebControls.Button
 End Class
