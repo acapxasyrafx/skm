@@ -68,31 +68,31 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents ddlJantina As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlHari control.
+    '''ddlLahirHari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlHari As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlLahirHari As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlBulan control.
+    '''ddlLahirBulan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlBulan As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlLahirBulan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlTahun control.
+    '''ddlLahirTahun control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlLahirTahun As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''ddlKewarganegaraan control.
@@ -185,166 +185,193 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents txtBilAnak As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''DropDownList1 control.
+    '''ddlSewaMulaHari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList1 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSewaMulaHari As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList2 control.
+    '''ddlSewaMulaBulan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList2 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSewaMulaBulan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList3 control.
+    '''ddlSewaMulaTahun control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList3 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSewaMulaTahun As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList4 control.
+    '''cbSewaSekarang control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList4 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents cbSewaSekarang As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''DropDownList5 control.
+    '''ddlSewaAkhirHari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList5 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSewaAkhirHari As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList6 control.
+    '''ddlSewaAkhirBulan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList6 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSewaAkhirBulan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList7 control.
+    '''ddlSewaAkhirTahun control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList7 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSewaAkhirTahun As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList8 control.
+    '''ddlWismaMulaHari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList8 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlWismaMulaHari As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList9 control.
+    '''ddlWismaMulaBulan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList9 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlWismaMulaBulan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList10 control.
+    '''ddlWismaMulaTahun control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList10 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlWismaMulaTahun As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList11 control.
+    '''cbWismaSekarang control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList11 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents cbWismaSekarang As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''DropDownList12 control.
+    '''ddlWismaAkhir control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList12 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlWismaAkhir As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList13 control.
+    '''ddlWismaMAKhirBulan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList13 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlWismaMAKhirBulan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList14 control.
+    '''ddlWismaMAKhirTahun control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList14 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlWismaMAKhirTahun As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList15 control.
+    '''ddlSeberangMulaHari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList15 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSeberangMulaHari As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList16 control.
+    '''ddlSeberangMulaBulan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList16 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSeberangMulaBulan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList17 control.
+    '''ddlSeberangMulaTahun control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList17 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSeberangMulaTahun As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList18 control.
+    '''cbSeberangSekarang control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList18 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents cbSeberangSekarang As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''ddlSeberangAkhirHari control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlSeberangAkhirHari As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlSeberangAkhirBulan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlSeberangAkhirBulan As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlSeberangAkhirTahun control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlSeberangAkhirTahun As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''txtRumahDikehendaki control.
@@ -374,29 +401,38 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents txtKePasukan As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''DropDownList19 control.
+    '''ddlTarikhMulaHari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList19 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlTarikhMulaHari As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList20 control.
+    '''ddlTarikhBulan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList20 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlTarikhBulan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''DropDownList21 control.
+    '''ddlTarikhTahun control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents DropDownList21 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlTarikhTahun As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''cbPerakuanPemohon control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cbPerakuanPemohon As Global.System.Web.UI.WebControls.CheckBox
 End Class
