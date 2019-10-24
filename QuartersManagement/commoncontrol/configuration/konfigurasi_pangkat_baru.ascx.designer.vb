@@ -11,59 +11,77 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class login_page
+Partial Public Class konfigurasi_pangkat_baru
     
     '''<summary>
-    '''txtLoginID control.
+    '''PnlIndicator control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtLoginID As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents PnlIndicator As Global.System.Web.UI.WebControls.Panel
     
     '''<summary>
-    '''txtPwd control.
+    '''lblRefresh control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtPwd As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents lblRefresh As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''btnLogin control.
+    '''MsgTop control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnLogin As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lblDebug control.
+    '''strlbl_top control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblDebug As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''lblMsg control.
+    '''SaveFunction control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblMsg As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''lbl1 control.
+    '''ddlPangkat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbl1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents ddlPangkat As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtNamaPangkat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtNamaPangkat As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnHantar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnHantar As Global.System.Web.UI.WebControls.Button
 End Class

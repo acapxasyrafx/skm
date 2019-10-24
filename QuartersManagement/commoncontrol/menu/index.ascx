@@ -110,9 +110,53 @@
 </section>
 </asp:Panel>
 
+<%-- Menu Konfigurasi --%>
+<asp:Panel ID="PnlKonfigurasi" runat="server" Visible="true">
+    <section class="appKonfigurasi">
+        <aside class="sidebar">
+            <header>> PENETAPAN UTAMA</header>
+            <nav class="sidebar-nav">
+
+                <ul>
+                    <li>
+                        <a href="Konfigurasi.Pangkalan.aspx?P=<%=lblPangkalan.Text %>"><span>Penetapan Pangkalan</span></a>
+                    </li>
+                    
+                    <li>
+                        <a href="Konfigurasi.Jenis.aspx?P=<%=lblJenis.Text %>"><span>Penetapan Jenis Kuarters</span></a>
+                    </li>
+
+                    <li>
+                        <a href="Konfigurasi.Kuarters.aspx?P=<%=lblKuarters.Text %>"><span>Penetapan Kuarters</span></a>
+                    </li>
+
+                    <li>
+                        <a href="Konfigurasi.Kuota.aspx?P=<%=lblKuota.Text %>"><span class="">Penetapan Kuota</span></a>
+                    </li>
+                    
+                    <li>
+                        <a href="Konfigurasi.Pangkat.aspx?P=<%=lblPangkat.Text %>"><span class="">Penetapan Pangkat</span></a>
+                    </li>
+
+                    <li>
+                        <a href="Konfigurasi.Mata.aspx?P=<%=lblMata.Text %>"><span class="">Penetapan Mata</span></a>
+                    </li>
+                </ul>
+
+            </nav>
+        </aside>
+    </section>
+</asp:Panel>
+
 <%-- Menu Label Indicator --%>
-<asp:Panel ID ="PnlIndicator" runat ="server" >
-    <asp:Label ID="lbl1" runat ="server" Visible ="false">Pengurusan Pentadbiran > Rekod Senarai Penjawat > Pendaftaran Baharu</asp:Label>
-    <asp:Label ID="lbl2" runat ="server" Visible ="false">Pengurusan Pentadbiran > Rekod Senarai Penjawat > Carian Senarai Penjawat</asp:Label>
-   
+<asp:Panel ID="PnlIndicator" runat="server">
+    <asp:Label ID="lbl1" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Senarai Penjawat > Pendaftaran Baharu</asp:Label>
+    <asp:Label ID="lbl2" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Senarai Penjawat > Carian Senarai Penjawat</asp:Label>
+
+    <asp:Label ID="lblPangkalan" runat="server" Visible="false">Konfigurasi Utama > Penetapan Pangkalan</asp:Label>
+    <asp:Label ID="lblJenis" runat="server" Visible="false">Konfigurasi Utama > Penetapan Jenis Kuarters</asp:Label>
+    <asp:Label ID="lblKuarters" runat="server" Visible="false">Konfigurasi Utama > Penetapan Kuarters</asp:Label>
+    <asp:Label ID="lblKuota" runat="server" Visible="false">Konfigurasi Utama > Penetapan Kuota</asp:Label>
+    <asp:Label ID="lblPangkat" runat="server" Visible="false">Konfigurasi Utama > Penetapan Pangkat</asp:Label>
+    <asp:Label ID="lblMata" runat="server" Visible="false">Konfigurasi Utama > Penetapan Mata</asp:Label>
 </asp:Panel>
