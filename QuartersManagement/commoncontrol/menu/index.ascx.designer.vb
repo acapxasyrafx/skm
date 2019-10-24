@@ -48,7 +48,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PnlKonfigurasi As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''PnlIndicator control.
     '''</summary>
@@ -75,58 +75,13 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl2 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
-    '''lblPangkalan control.
+    '''lblKonfigurasi control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPangkalan As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblJenis control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblJenis As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblKuarters control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblKuarters As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblKuota control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblKuota As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblPangkat control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblPangkat As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblMata control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblMata As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblKonfigurasi As Global.System.Web.UI.WebControls.Label
 End Class
