@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class index
-    
+
     '''<summary>
     '''PnlPengurusan control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PnlPengurusan As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''PnlPemohon control.
     '''</summary>
@@ -30,7 +30,16 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PnlPemohon As Global.System.Web.UI.WebControls.Panel
-    
+
+    '''<summary>
+    '''linkStatusPermohonan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents linkStatusPermohonan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
     '''<summary>
     '''PnlKonfigurasi control.
     '''</summary>
@@ -48,7 +57,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PnlIndicator As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''lbl1 control.
     '''</summary>
@@ -57,7 +66,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl1 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl2 control.
     '''</summary>
