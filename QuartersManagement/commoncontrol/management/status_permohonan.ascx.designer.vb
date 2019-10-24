@@ -32,11 +32,56 @@ Partial Public Class status_permohonan1
     Protected WithEvents lblStatusPermohonan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''lblJawatanPemohon control.
+    '''lblJantina control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblJawatanPemohon As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblJantina As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblTarikhLahir control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhLahir As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblStatusKewarganegaraan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblStatusKewarganegaraan As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblJawatan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblJawatan As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblTarikhBerkhidmatMula control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhBerkhidmatMula As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblTarikhBerkhidmatAkhir control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhBerkhidmatAkhir As Global.System.Web.UI.WebControls.Label
 End Class

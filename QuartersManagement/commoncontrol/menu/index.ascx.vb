@@ -3,10 +3,9 @@
     Dim user_type As String = ""
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         user_type = CType(Session("user_type"), String)
-        If user_type.Equals("Admin") Then
-        ElseIf user_type.Equals("User") Then
+        If user_type.Equals("User") Then
             PnlPengurusan.Visible = False
-        Else
+        ElseIf user_type = "" Then
             Response.Redirect("default.aspx")
         End If
     End Sub
