@@ -102,6 +102,9 @@
     <Content Include="commoncontrol\management\status_permohonan.ascx" />
     <Content Include="commoncontrol\menu\index.ascx" />
     <Content Include="commoncontrol\menu\navigation_menu.ascx" />
+    <Content Include="commoncontrol\Registration\edit_registration.ascx" />
+    <Content Include="commoncontrol\Registration\main_registration.ascx" />
+    <Content Include="commoncontrol\Registration\new_registration.ascx" />
     <Content Include="css\styles.css" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
@@ -207,6 +210,27 @@
     </Compile>
     <Compile Include="commoncontrol\menu\navigation_menu.ascx.vb">
       <DependentUpon>navigation_menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\Registration\edit_registration.ascx.designer.vb">
+      <DependentUpon>edit_registration.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\Registration\edit_registration.ascx.vb">
+      <DependentUpon>edit_registration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\Registration\main_registration.ascx.designer.vb">
+      <DependentUpon>main_registration.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\Registration\main_registration.ascx.vb">
+      <DependentUpon>main_registration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\Registration\new_registration.ascx.designer.vb">
+      <DependentUpon>new_registration.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\Registration\new_registration.ascx.vb">
+      <DependentUpon>new_registration.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="default.aspx.designer.vb">
@@ -328,6 +352,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="commoncontrol\application\" />
     <Folder Include="commoncontrol\maintenance\" />
+    <Folder Include="commoncontrol\Reports\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
