@@ -1,24 +1,54 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="konfigurasi.ascx.vb" Inherits="QuartersManagement.konfigurasi" %>
 
 <table class="fbform">
-        
+
     <tr class="fbform_header">
         <td>Konfigurasi Umum</td>
     </tr>
 
     <tr>
-        <td><img src ="icons/bullet_red.png" /><a href ="Konfigurasi.Khusus.aspx?q=NEGERI&p=Konfigurasi Negeri" class ="link">Konfigurasi Negeri</a></td>
+        <td>
+            <img src="icons/bullet_red.png" /><a href="Konfigurasi.Khusus.aspx?q=NEGARA&p=Konfigurasi Negara" class="link">Konfigurasi Negara</a></td>
     </tr>
-    <tr>
 
-    </tr>
     <tr>
-        <td><img src ="icons/bullet_red.png" /><a href ="Konfigurasi.Khusus.aspx?q=JANTINA&p=Konfigurasi Jantina" class ="link">Konfigurasi Jantina</a></td>
+        <td>
+            <img src="icons/bullet_red.png" /><a href="Konfigurasi.Khusus.aspx?q=NEGERI&p=Konfigurasi Negeri" class="link">Konfigurasi Negeri</a></td>
     </tr>
+
     <tr>
-        <td><img src ="icons/bullet_red.png" /><a href ="Konfigurasi.Khusus.aspx?q=JAWATAN&p=Konfigurasi Jawatan" class ="link">Konfigurasi Jawatan</a></td>
+        <td>
+            <img src="icons/bullet_red.png" /><a href="Konfigurasi.Khusus.aspx?q=JANTINA&p=Konfigurasi Jantina" class="link">Konfigurasi Jantina</a></td>
     </tr>
+
     <tr>
-        <td><img src ="icons/bullet_red.png" /><a href ="Konfigurasi.Khusus.aspx?q=POINT&p=Konfigurasi Markah" class ="link">Konfigurasi Markah</a></td>
+        <td>
+            <img src="icons/bullet_red.png" /><a href="Konfigurasi.Pangkalan.aspx?q=PANGKALAN&p=Konfigurasi Pangkalan" class="link">Konfigurasi Pangkalan</a></td>
     </tr>
+
+    <tr>
+        <td>
+            <img src="icons/bullet_red.png" /><a href="Konfigurasi.Jenis.Kuarters.aspx?q=JENIS KUARTERS&p=Konfigurasi Jenis Kuarters" class="link">Konfigurasi Jenis Kuarters</a></td>
+    </tr>
+
+    <tr>
+        <td>
+            <img src="icons/bullet_red.png" /><a href="Konfigurasi.Kuarters.aspx?q=KUARTERS&p=Konfigurasi Kuarters" class="link">Konfigurasi Kuarters</a></td>
+    </tr>
+
+    <tr>
+        <td>
+            <img src="icons/bullet_red.png" /><a href="Konfigurasi.Kuota.aspx?q=KUOTA&p=Konfigurasi Kuota" class="link">Konfigurasi Kuota</a></td>
+    </tr>
+
+    <tr>
+        <td>
+            <img src="icons/bullet_red.png" /><a href="Konfigurasi.Pangkat.aspx?q=PANGKAT&p=Konfigurasi Pangkat" class="link">Konfigurasi Pangkat</a></td>
+    </tr>
+
+    <tr>
+        <td>
+            <img src="icons/bullet_red.png" /><a href="Konfigurasi.Mata.aspx?q=MATA&p=Konfigurasi Mata" class="link">Konfigurasi Mata</a></td>
+    </tr>
+
 </table>
