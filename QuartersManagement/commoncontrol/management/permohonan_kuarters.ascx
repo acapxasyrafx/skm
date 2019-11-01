@@ -4,8 +4,10 @@
         <td><span id="MsgTop" runat="server">
             <asp:Label ID="strlbl_top" runat="server"></asp:Label></span></td>
         <td>
-            <span class="buttonMenu"><a href="#" runat="server" id="SaveFunction">
-                <img title="Save" style="vertical-align: middle;" src="icons/save.png" width="25" height="25" alt="::" /></a>
+            <span class="buttonMenu">
+                <a href="#" runat="server" id="SaveFunction">
+                    <img title="Save" style="vertical-align: middle;" src="icons/save.png" width="25" height="25" alt="::" />
+                </a>
                 | <a href="#" id="Refresh" runat="server"><img title="Refresh" style="vertical-align: middle;" src="icons/refresh.png" width="22" height="22" alt="::" /></a>
                 | <a href="#" id="Help"><img title="Help" style="vertical-align: middle;" src="icons/help.png" width="22" height="22" alt="::" /></a>
             </span>
@@ -58,7 +60,6 @@
         <td>Jawatan</td>
         <td>:</td>
         <td>
-            <asp:DropDownList runat="server" ID="ddlJawatan"></asp:DropDownList>
             <asp:Label runat="server" ID="lblJawatan" Text=""/>
         </td>
         <td>No. Tentera</td>
@@ -93,10 +94,7 @@
     </tr>
     <tr>
         <td>Bil. Anak</td>
-        <td>:</td>
-        <td>
-            <asp:TextBox runat="server" ID="txtBilAnak"/>
-        </td>
+        <td>:<asp:TextBox runat="server" ID="txtBilAnak"/></td>
     </tr>
     <tr>
         <td>Tinggal Di Luar(Menyewa Rumah Sewa)</td>
@@ -175,7 +173,6 @@
     <tr>
         <td>Rumah Dikehendaki Di: </td>
         <td>
-            <asp:TextBox runat="server" id="txtRumahDikehendaki"/>
             <asp:DropDownList runat="server" ID="ddlSenaraiRumah"></asp:DropDownList>
         </td>
     </tr>

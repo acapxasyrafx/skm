@@ -104,15 +104,6 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents ddlKewarganegaraan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlJawatan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlJawatan As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
     '''lblJawatan control.
     '''</summary>
     '''<remarks>
@@ -354,15 +345,6 @@ Partial Public Class permohonan_kuarters
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlSeberangAkhirTahun As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''txtRumahDikehendaki control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtRumahDikehendaki As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''ddlSenaraiRumah control.
