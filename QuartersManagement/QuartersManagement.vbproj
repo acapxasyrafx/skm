@@ -94,6 +94,8 @@
   <ItemGroup>
     <Content Include="commoncontrol\configuration\konfigurasi.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_khusus.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_mata.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx" />
     <Content Include="commoncontrol\main\homepage.ascx" />
     <Content Include="commoncontrol\main\login_page.ascx" />
     <Content Include="commoncontrol\main\user_homepage.ascx" />
@@ -127,6 +129,7 @@
     <Content Include="img\tudmlogo.png" />
     <Content Include="Konfigurasi.aspx" />
     <Content Include="Konfigurasi.Khusus.aspx" />
+    <Content Include="Konfigurasi.Pangkalan.aspx" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
     <Content Include="Permohonan.Kuarters.aspx" />
     <Content Include="Status.Permohonan.aspx" />
@@ -154,6 +157,20 @@
     </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_khusus.ascx.vb">
       <DependentUpon>konfigurasi_khusus.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_mata.ascx.designer.vb">
+      <DependentUpon>konfigurasi_mata.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_mata.ascx.vb">
+      <DependentUpon>konfigurasi_mata.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx.designer.vb">
+      <DependentUpon>konfigurasi_pangkalan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx.vb">
+      <DependentUpon>konfigurasi_pangkalan.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\main\homepage.ascx.designer.vb">
@@ -262,6 +279,13 @@
     </Compile>
     <Compile Include="Konfigurasi.Khusus.aspx.vb">
       <DependentUpon>Konfigurasi.Khusus.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkalan.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Pangkalan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkalan.aspx.vb">
+      <DependentUpon>Konfigurasi.Pangkalan.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />

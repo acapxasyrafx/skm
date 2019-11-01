@@ -100,7 +100,7 @@
 <asp:Panel ID ="PnlPemohon" runat ="server" visible ="true">
     <section class ="appIndeks">
       <aside class="sidebar">
-        <header>> PERMOHONAN KUATERS</header>
+        <header>> PERMOHONAN KUARTERS</header>
         <nav class="sidebar-nav">
           <ul>
             <li>
@@ -123,8 +123,8 @@
             <nav class="sidebar-nav">
                 <ul>
                     <li>
-                        <a href="Konfigurasi.aspx?P=<%=lblKonfigurasi.Text %>"><span>Konfigurasi</span></a>
-                    </li>                    
+                        <a href="Konfigurasi.aspx?P=<%=lblKonfigurasi.Text %>">Konfigurasi Sistem</a>
+                    </li>                   
                 </ul>
 
             </nav>
