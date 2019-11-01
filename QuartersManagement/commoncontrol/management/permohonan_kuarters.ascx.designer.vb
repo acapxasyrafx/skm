@@ -113,67 +113,49 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents ddlJawatan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''txtNoTentera control.
+    '''lblJawatan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtNoTentera As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents lblJawatan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''ddlBerkhidmatMulaHari control.
+    '''lblNoTentera control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlBerkhidmatMulaHari As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents lblNoTentera As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''ddlBerkhidmatMulaBulan control.
+    '''lblTarikhMulaBerkhidmat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlBerkhidmatMulaBulan As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents lblTarikhMulaBerkhidmat As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''ddlBerkhidmatMulaTahun control.
+    '''lblMasihBerkhidmat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlBerkhidmatMulaTahun As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents lblMasihBerkhidmat As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''ddlBerkhidmatAkhirHari control.
+    '''lblTarikhAkhirBerkhidmat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlBerkhidmatAkhirHari As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ddlBerkhidmatAkhirBulan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlBerkhidmatAkhirBulan As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ddlBerkhidmatAkhirTahun control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlBerkhidmatAkhirTahun As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents lblTarikhAkhirBerkhidmat As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''txtBilAnak control.
@@ -383,22 +365,31 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents txtRumahDikehendaki As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtDariPasukan control.
+    '''ddlSenaraiRumah control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtDariPasukan As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlSenaraiRumah As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''txtKePasukan control.
+    '''ddlDariPasukan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtKePasukan As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlDariPasukan As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlKePasukan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlKePasukan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''ddlTarikhMulaHari control.
@@ -410,22 +401,22 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents ddlTarikhMulaHari As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlTarikhBulan control.
+    '''ddlTarikhMulaBulan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlTarikhBulan As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlTarikhMulaBulan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlTarikhTahun control.
+    '''ddlTarikhMulaTahun control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlTarikhTahun As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlTarikhMulaTahun As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''cbPerakuanPemohon control.

@@ -59,32 +59,29 @@
         <td>:</td>
         <td>
             <asp:DropDownList runat="server" ID="ddlJawatan"></asp:DropDownList>
+            <asp:Label runat="server" ID="lblJawatan" Text=""/>
         </td>
         <td>No. Tentera</td>
         <td>:</td>
         <td>
-            <asp:TextBox runat="server" ID="txtNoTentera"/>
+            <asp:Label runat="server" ID="lblNoTentera"/>
         </td>
     </tr>
 
     <tr>
         <td>Tarikh Berkhidmat</td>
         <td colspan="2">
-            <asp:DropDownList ID="ddlBerkhidmatMulaHari" runat="server"></asp:DropDownList> / 
-            <asp:DropDownList ID="ddlBerkhidmatMulaBulan" runat="server"></asp:DropDownList> / 
-            <asp:DropDownList ID="ddlBerkhidmatMulaTahun" runat="server"></asp:DropDownList>
+            <asp:Label Text="text"  runat="server" ID="lblTarikhMulaBerkhidmat"/>
         </td>
         <td>Hingga</td>
         <td colspan="2">
             <table class="fbform" style="width:100%">
                 <tr>
                     <td>
-                        <asp:CheckBox Text="Sekarang" runat="server" />
+                        <asp:CheckBox Text="Sekarang" runat="server" ID="lblMasihBerkhidmat"/>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlBerkhidmatAkhirHari" runat="server"></asp:DropDownList> / 
-                        <asp:DropDownList ID="ddlBerkhidmatAkhirBulan" runat="server"></asp:DropDownList> / 
-                        <asp:DropDownList ID="ddlBerkhidmatAkhirTahun" runat="server"></asp:DropDownList>
+                        <asp:Label Text="text" runat="server" ID="lblTarikhAkhirBerkhidmat"/>
                     </td>
                 </tr>
             </table>
@@ -104,6 +101,7 @@
     <tr>
         <td>Tinggal Di Luar(Menyewa Rumah Sewa)</td>
         <td colspan="2">
+
             <asp:DropDownList ID="ddlSewaMulaHari" runat="server"></asp:DropDownList> / 
             <asp:DropDownList ID="ddlSewaMulaBulan" runat="server"></asp:DropDownList> / 
             <asp:DropDownList ID="ddlSewaMulaTahun" runat="server"></asp:DropDownList>
@@ -178,16 +176,17 @@
         <td>Rumah Dikehendaki Di: </td>
         <td>
             <asp:TextBox runat="server" id="txtRumahDikehendaki"/>
+            <asp:DropDownList runat="server" ID="ddlSenaraiRumah"></asp:DropDownList>
         </td>
     </tr>
     <tr>
         <td>Dari (Pasukan): </td>
         <td>
-            <asp:TextBox runat="server" ID="txtDariPasukan"/>
+            <asp:DropDownList runat="server" ID="ddlDariPasukan"></asp:DropDownList>
         </td>
         <td>Ke (Pasukan): </td>
         <td>
-            <asp:TextBox runat="server" ID="txtKePasukan"/>
+            <asp:DropDownList runat="server" ID="ddlKePasukan"></asp:DropDownList>
         </td>
     </tr>
     <tr>
@@ -195,8 +194,8 @@
         <td>:</td>
         <td colspan="2">
             <asp:DropDownList ID="ddlTarikhMulaHari" runat="server"></asp:DropDownList> / 
-            <asp:DropDownList ID="ddlTarikhBulan" runat="server"></asp:DropDownList> / 
-            <asp:DropDownList ID="ddlTarikhTahun" runat="server"></asp:DropDownList>
+            <asp:DropDownList ID="ddlTarikhMulaBulan" runat="server"></asp:DropDownList> / 
+            <asp:DropDownList ID="ddlTarikhMulaTahun" runat="server"></asp:DropDownList>
         </td>
     </tr>
     <tr>
