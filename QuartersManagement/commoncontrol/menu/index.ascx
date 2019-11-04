@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="index.ascx.vb" Inherits="QuartersManagement.index" %>
-
+<div>
 <%-- Menu pengurusan pentadbiran --%>
 <asp:Panel ID ="PnlPengurusan" runat ="server" visible ="true">
     <section class ="appPentadbiran">
@@ -8,7 +8,7 @@
             <nav class="sidebar-nav">
                 <ul>
                     <li>
-                        <a href="#"><span>Rekod Senarai Penjawat</span></a>
+                        <a href="#"><span class="">Rekod Senarai Penjawat</span></a>
                         <ul class="nav-flyout">
                             <li><p>Rekod Senarai Penjawat</p></li>
                             <li>
@@ -94,6 +94,28 @@
     </section>
 </asp:Panel>
 
+<%-- Menu Konfigurasi --%>
+<asp:Panel ID="PnlKonfigurasi" runat="server" Visible="true">
+    <section class="appKonfigurasi">
+        <aside class="sidebar">
+            <header>> PENETAPAN UTAMA</header>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="#"><span class="">Konfigurasi Sistem</span></a>
+                         <ul class="nav-flyout">
+                            <li><p>Konfigurasi Sistem Kuarters</p></li>
+                            <li>
+                                <a href="Konfigurasi.aspx?P=<%=lblKonfigurasi.Text %>"><i></i><img src ="icons/bullet_red.png" /> Konfigurasi Sistem </a>
+                            </li>
+                        </ul>
+                    </li>                   
+                </ul>
+            </nav>
+        </aside>
+    </section>
+</asp:Panel>
+</div>
 
 
 <%-- Menu Indeks Permohonan --%>
@@ -115,22 +137,6 @@
     </section>
 </asp:Panel>
 
-<%-- Menu Konfigurasi --%>
-<asp:Panel ID="PnlKonfigurasi" runat="server" Visible="true">
-    <section class="appKonfigurasi">
-        <aside class="sidebar">
-            <header>> PENETAPAN UTAMA</header>
-            <nav class="sidebar-nav">
-                <ul>
-                    <li>
-                        <a href="Konfigurasi.aspx?P=<%=lblKonfigurasi.Text %>">Konfigurasi Sistem</a>
-                    </li>                   
-                </ul>
-
-            </nav>
-        </aside>
-    </section>
-</asp:Panel>
 
 <%-- Menu Label Indicator --%>
 <asp:Panel ID="PnlIndicator" runat="server">

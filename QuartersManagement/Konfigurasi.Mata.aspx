@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/admin.Master" CodeBehind="Konfigurasi.Mata.aspx.vb" Inherits="QuartersManagement.Konfigurasi_Mata1" %>
 
-<%@ Register Src="~/commoncontrol/menu/navigation_menu.ascx" TagPrefix="uc1" TagName="navigation_menu" %>
 <%@ Register Src="~/commoncontrol/configuration/konfigurasi_mata.ascx" TagPrefix="uc1" TagName="konfigurasi_mata" %>
+<%@ Register Src="~/commoncontrol/menu/navigation_menu.ascx" TagPrefix="uc1" TagName="navigation_menu" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
