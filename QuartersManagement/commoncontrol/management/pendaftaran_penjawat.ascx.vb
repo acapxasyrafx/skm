@@ -2,6 +2,7 @@
 Public Class pendaftaran_penjawat
     Inherits System.Web.UI.UserControl
     Dim oCommon As New Commonfunction
+    Dim conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
     Dim strSQL As String = ""
     Dim strRet As String = ""
 
@@ -27,9 +28,7 @@ Public Class pendaftaran_penjawat
                 Else
                     strlbl_top.Visible = False
                 End If
-
-
-
+                populateJawatan()
             End If
 
         Catch ex As Exception
@@ -37,6 +36,29 @@ Public Class pendaftaran_penjawat
             strlbl_top.Text = strSysErrorAlert
         Finally
         End Try
+    End Sub
+
+    Protected Sub populateJawatan()
+        Dim cmd As New SqlCommand("SELECT * FROM admin.spk_pangkat", conn)
+        Dim ds As New DataSet
+        Try
+            conn.Open()
+            Dim sda As New SqlDataAdapter(cmd)
+            sda.Fill(ds)
+            ddlJawatan.DataSource = ds
+            ddlJawatan.DataTextField = "pangkat_nama"
+            ddlJawatan.DataValueField = "pangkat_id"
+            ddlJawatan.DataBind()
+        Catch ex As Exception
+            Debug.Write("ERROR")
+            Debug.Write(ex.Message)
+        Finally
+            conn.Close()
+        End Try
+    End Sub
+
+    Protected Sub populateJabatan()
+
     End Sub
 
 End Class
