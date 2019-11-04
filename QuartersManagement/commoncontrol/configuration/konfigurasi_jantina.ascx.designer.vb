@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class konfigurasi_mata
+Partial Public Class konfigurasi_jantina
     
     '''<summary>
     '''MsgTop control.
@@ -50,15 +50,6 @@ Partial Public Class konfigurasi_mata
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''lbl_Pangkat control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbl_Pangkat As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
     '''ddlAkses control.
     '''</summary>
     '''<remarks>
@@ -68,58 +59,49 @@ Partial Public Class konfigurasi_mata
     Protected WithEvents ddlAkses As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''chk_pangkat control.
+    '''txtParameter control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chk_pangkat As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents txtParameter As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''chk_anak control.
+    '''txtValue control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chk_anak As Global.System.Web.UI.WebControls.CheckBox
+    Protected WithEvents txtValue As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddl_tahap control.
+    '''txtCode control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddl_tahap As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtCode As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddl_pangkat control.
+    '''txtDesc control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddl_pangkat As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtDesc As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddlNegara control.
+    '''txtIdx control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlNegara As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''ddlNegeri control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtIdx As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''lblConfig control.

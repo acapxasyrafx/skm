@@ -93,9 +93,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="commoncontrol\configuration\konfigurasi.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_jantina.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_jenisKuarters.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_khusus.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_kuarters.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_kuota.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_mata.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_negara.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_pangkat.ascx" />
     <Content Include="commoncontrol\main\homepage.ascx" />
     <Content Include="commoncontrol\main\login_page.ascx" />
     <Content Include="commoncontrol\main\user_homepage.ascx" />
@@ -129,12 +135,13 @@
     <Content Include="img\tudmlogo.png" />
     <Content Include="Konfigurasi.aspx" />
     <Content Include="Konfigurasi.Khusus.aspx" />
+    <Content Include="Konfigurasi.Mata.aspx" />
     <Content Include="Konfigurasi.Pangkalan.aspx" />
+    <Content Include="Konfigurasi.Pangkat.aspx" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
     <Content Include="Permohonan.Kuarters.aspx" />
     <Content Include="Status.Permohonan.aspx" />
     <Content Include="User.Homepage.aspx" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="admin.Master.designer.vb">
@@ -152,11 +159,39 @@
       <DependentUpon>konfigurasi.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jantina.ascx.designer.vb">
+      <DependentUpon>konfigurasi_jantina.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jantina.ascx.vb">
+      <DependentUpon>konfigurasi_jantina.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jenisKuarters.ascx.designer.vb">
+      <DependentUpon>konfigurasi_jenisKuarters.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jenisKuarters.ascx.vb">
+      <DependentUpon>konfigurasi_jenisKuarters.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_khusus.ascx.designer.vb">
       <DependentUpon>konfigurasi_khusus.ascx</DependentUpon>
     </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_khusus.ascx.vb">
       <DependentUpon>konfigurasi_khusus.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuarters.ascx.designer.vb">
+      <DependentUpon>konfigurasi_kuarters.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuarters.ascx.vb">
+      <DependentUpon>konfigurasi_kuarters.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuota.ascx.designer.vb">
+      <DependentUpon>konfigurasi_kuota.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_kuota.ascx.vb">
+      <DependentUpon>konfigurasi_kuota.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_mata.ascx.designer.vb">
@@ -166,11 +201,25 @@
       <DependentUpon>konfigurasi_mata.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_negara.ascx.designer.vb">
+      <DependentUpon>konfigurasi_negara.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_negara.ascx.vb">
+      <DependentUpon>konfigurasi_negara.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx.designer.vb">
       <DependentUpon>konfigurasi_pangkalan.ascx</DependentUpon>
     </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx.vb">
       <DependentUpon>konfigurasi_pangkalan.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkat.ascx.designer.vb">
+      <DependentUpon>konfigurasi_pangkat.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_pangkat.ascx.vb">
+      <DependentUpon>konfigurasi_pangkat.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\main\homepage.ascx.designer.vb">
@@ -281,11 +330,25 @@
       <DependentUpon>Konfigurasi.Khusus.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Konfigurasi.Mata.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Mata.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Mata.aspx.vb">
+      <DependentUpon>Konfigurasi.Mata.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Konfigurasi.Pangkalan.aspx.designer.vb">
       <DependentUpon>Konfigurasi.Pangkalan.aspx</DependentUpon>
     </Compile>
     <Compile Include="Konfigurasi.Pangkalan.aspx.vb">
       <DependentUpon>Konfigurasi.Pangkalan.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkat.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Pangkat.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Pangkat.aspx.vb">
+      <DependentUpon>Konfigurasi.Pangkat.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -365,6 +428,7 @@
     </None>
     <None Include="packages.config" />
     <Content Include="user.Master" />
+    <Content Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,4 +1,4 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="konfigurasi_kuarters.ascx.vb" Inherits="QuartersManagement.konfigurasi_kuarters" %>
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="konfigurasi_jantina.ascx.vb" Inherits="QuartersManagement.konfigurasi_jantina" %>
 
 <table class ="fbform" style ="width :100%">
     <tr class ="fbform_header">
@@ -15,7 +15,7 @@
 <table class="fbform" style="width :100%">
 
     <tr>
-         <td>AKSES SISTEM</td>
+         <td>Akses Sistem</td>
          <td>:</td>
          <td colspan="4"><asp:DropDownList  ID ="ddlAkses" runat ="server" AutoPostBack ="true"  >
          <asp:ListItem Value ="GLOBAL">- GLOBAL -</asp:ListItem>
@@ -23,57 +23,33 @@
     </tr>
 
     <tr>
-         <td>NEGARA</td>
+         <td>Parameter</td>
          <td>:</td>
-         <td colspan="4"><asp:DropDownList ID="ddlNegara" runat="server" Width="200px" AutoPostBack="true"></asp:DropDownList></td>
+         <td colspan="4"><asp:TextBox ID="txtParameter" runat="server" Width="350px" ></asp:TextBox></td>
     </tr>
 
     <tr>
-         <td>NEGERI</td>
+         <td>Value</td>
          <td>:</td>
-         <td colspan="4"><asp:DropDownList ID="ddlNegeri" runat="server" Width="200px" AutoPostBack="true"></asp:DropDownList></td>
-    </tr>   
-
-    <tr>
-         <td>NAMA PANGKALAN</td>
-         <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtNamaPangkalan" runat="server" Width="400px" ></asp:TextBox></td>
+         <td colspan="4"><asp:TextBox ID="txtValue" runat="server" Width="200px" ></asp:TextBox></td>
     </tr>
 
     <tr>
-         <td>ALAMAT</td>
+         <td>Kod</td>
          <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtAlamat" runat="server" Width="400px" ></asp:TextBox></td>
-    </tr>
-
-     <tr>
-         <td>POSKOD</td>
-         <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtPoskod" runat="server" Width="50px" ></asp:TextBox></td>
+         <td colspan="4"><asp:TextBox ID="txtCode" runat="server" Width="200px" ></asp:TextBox></td>
     </tr>
 
     <tr>
-         <td>BANDAR</td>
+         <td>Perincian</td>
          <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtBandar" runat="server" Width="50px" ></asp:TextBox></td>
+         <td colspan="4"><asp:TextBox ID="txtDesc" runat="server" Width="350px"></asp:TextBox></td>
     </tr>
-
-    <tr>
-         <td>TELEFON</td>
-         <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtTelefon" runat="server" Width="200px" ></asp:TextBox></td>
-    </tr>    
-
-    <tr>
-         <td>FAKS</td>
-         <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtFaks" runat="server" Width="200px" ></asp:TextBox></td>
-    </tr> 
     
     <tr>
-         <td style="width: 15%;">EMEL</td>
+         <td style="width: 15%;">Index</td>
          <td width:1%;">:</td>
-         <td colspan="4"><asp:TextBox ID="txtEmel" runat="server" Width="100px" ></asp:TextBox></td>
+         <td colspan="4"><asp:TextBox ID="txtIdx" runat="server" Width="100px" ></asp:TextBox></td>
     </tr>
     
    
@@ -85,8 +61,7 @@
 <table class="fbform">
     <tr class="fbform_header">
         <td> 
-            Senarai Pangkalan 
-            <asp:Label ID="lblConfig" runat="server" Visible ="false"></asp:Label>
+            Senarai <asp:Label ID="lblConfig" runat="server" Visible ="true"></asp:Label>
             <asp:Label ID="lblQ" runat="server" Visible ="false"></asp:Label>
         </td>
     </tr>
@@ -94,7 +69,7 @@
         <td>
             <asp:Panel ID="Panel" runat="server" ScrollBars="vertical" Height="350">
             <asp:GridView ID="datRespondent" runat="server" AutoGenerateColumns="False" AllowPaging="false"  
-             CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="pangkalan_id"
+             CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="config_id"
                 Width="100%" PageSize="100" CssClass="gridview_footer">
                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                 <Columns>
@@ -107,46 +82,49 @@
                         <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="NEGARA" >
+                    <asp:TemplateField HeaderText="Parameter" >
                         <ItemTemplate>
-                            <asp:Label ID="pangkalan_negara" runat="server" Text='<%# Bind("pangkalan_negara")%>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>   
-                    
-                    <asp:TemplateField HeaderText="NEGERI" >
-                        <ItemTemplate>
-                            <asp:Label ID="pangkalan_negeri" runat="server" Text='<%# Bind("pangkalan_negeri")%>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>   
-                    
-                    <asp:TemplateField HeaderText="NAMA PANGKALAN" >
-                        <ItemTemplate>
-                            <asp:Label ID="pangkalan_nama" runat="server" Text='<%# Bind("pangkalan_nama")%>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>
-                    
-                    <asp:TemplateField HeaderText="TELEFON" >
-                        <ItemTemplate>
-                            <asp:Label ID="pangkalan_telefon" runat="server" Text='<%# Bind("pangkalan_telefon")%>'></asp:Label>
+                            <asp:Label ID="CONFIG_PARAMETER" runat="server" Text='<%# Bind("config_parameter")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="EMEL" >
+                    <asp:TemplateField HeaderText="Value">
                         <ItemTemplate>
-                            <asp:Label ID="pangkalan_emel" runat="server" Text='<%# Bind("pangkalan_emel")%>'></asp:Label>
+                            <asp:Label ID="CONFIG_VALUE" runat="server" Text='<%# Bind("config_value")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                         <ItemStyle HorizontalAlign ="Center" />
+                        <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width ="10%" /><ItemStyle VerticalAlign="Middle" />
+
                     </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Kod">
+                        <ItemTemplate>
+                            <asp:Label ID="CONFIG_CODE" runat="server" Text='<%# Bind("config_code")%>'></asp:Label>
+                        </ItemTemplate>
+                        <ItemStyle HorizontalAlign ="Center" />
+                        <HeaderStyle HorizontalAlign="Center" VerticalAlign="Top" Width ="10%" /><ItemStyle VerticalAlign="Middle" />
+                    </asp:TemplateField>
+
+                    <asp:TemplateField HeaderText="Keterangan">
+                        <ItemTemplate>
+                            <asp:Label ID="CONFIG_DESC" runat="server" Text='<%# Bind("config_desc")%>'></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width ="35%" /><ItemStyle VerticalAlign="Middle" />
+                    </asp:TemplateField>
+                     
+                    <asp:TemplateField HeaderText="Index">
+                        <ItemTemplate>
+                            <asp:Label ID="CONFIG_IDX" runat="server" Text='<%# Bind("config_idx")%>'></asp:Label>
+                        </ItemTemplate>
+                        <ItemStyle HorizontalAlign ="Center" />
+                        <HeaderStyle HorizontalAlign="center" VerticalAlign="Top" Width ="5%" /><ItemStyle VerticalAlign="Middle" />
+                    </asp:TemplateField>                    
                     
                     <asp:TemplateField HeaderText="Action">
                         <ItemTemplate>
                            <span runat="server" style="float:right">
-                           <a href ="Konfigurasi.Pangkalan.aspx?edit=<%#Eval("pangkalan_id")%>&p=<%# lblConfig.Text  %>"><img title="Kemaskini"  src="icons/edit.png" width="13" height="13" alt="::"/></a>
-                           | <asp:ImageButton Width ="12" Height ="12" ID="btnDelete" CommandName ="Delete" CommandArgument ='<%#Eval("pangkalan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete"/>
+                           <a href ="Konfigurasi.Jantina.aspx?edit=<%#Eval("config_id")%>&P=<%# lblConfig.Text  %>"><img title="Kemaskini"  src="icons/edit.png" width="13" height="13" alt="::"/></a>
+                           | <asp:ImageButton Width ="12" Height ="12" ID="btnDelete" CommandName ="Delete" CommandArgument ='<%#Eval("config_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete"/>
                         </span> 
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="right" VerticalAlign="Top"  /><ItemStyle VerticalAlign="Middle" />

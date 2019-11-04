@@ -1,8 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
-Public Class konfigurasi_pangkalan
+Public Class konfigurasi_jenisKuarters
     Inherits System.Web.UI.UserControl
-
     Dim oCommon As New Commonfunction
     Dim strSQL As String = ""
     Dim strRet As String = ""
