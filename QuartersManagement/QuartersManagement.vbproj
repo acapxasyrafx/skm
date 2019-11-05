@@ -129,6 +129,7 @@
     <Content Include="icons\download.gif" />
     <Content Include="icons\edit.png" />
     <Content Include="icons\help.png" />
+    <Content Include="icons\form_process.png" />
     <Content Include="icons\option.png" />
     <Content Include="icons\print.png" />
     <Content Include="icons\refresh.png" />
