@@ -33,37 +33,37 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="No.Tentera" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_noTentera" runat="server" ></asp:Label>
+                            <asp:Label ID="lbl_noTentera" runat="server" Text='<%# Bind("no_tentera")%>' ></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
                     <asp:TemplateField HeaderText="Nama" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_nama" runat="server" ></asp:Label>
+                            <asp:Label ID="lbl_nama" runat="server" Text='<%# Bind("nama")%>' ></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
                     <asp:TemplateField HeaderText="Pangkat" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_pangkat" runat="server" ></asp:Label>
+                            <asp:Label ID="lbl_pangkat" runat="server" Text='<%# Bind("pangkat")%>' ></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
-                    <asp:TemplateField HeaderText="Pangkalan Terknini" >
+                    <asp:TemplateField HeaderText="Pangkalan" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_pangkalanTerknini" runat="server" ></asp:Label>
+                            <asp:Label ID="lbl_pangkalanTerknini" runat="server" Text='<%# Bind("pangkalan")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
                     <asp:TemplateField HeaderText="Kuarters Dipohon" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_kuartersDipohon" runat="server"> </asp:Label>
+                            <asp:Label ID="lbl_kuartersDipohon" runat="server" Text='<%# Bind("unit")%>'> </asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
                     <asp:TemplateField HeaderText="Tarikh Permohonan" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_tarikhPermohonan" runat="server" ></asp:Label>
+                            <asp:Label ID="lbl_tarikhPermohonan" runat="server" Text='<%# Bind("tarikhMohon")%>' ></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
