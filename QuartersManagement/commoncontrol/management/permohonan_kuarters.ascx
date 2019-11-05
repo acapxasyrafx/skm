@@ -22,70 +22,56 @@
     <tr>
         <td>Nama</td>
         <td>:</td>
-        <td colspan="4">
-            <asp:TextBox runat="server" ID="txtNama"/>
+        <td colspan="5">
+            <asp:Label runat="server" ID="lblNama"/>
+            <asp:HiddenField runat="server" ID="pengguna_id" Value="" />
         </td>
     </tr>
     <tr>
         <td>Jantina</td>
         <td>:</td>
-        <td colspan="4">
-            <asp:DropDownList ID="ddlJantina" runat="server">
-                <asp:ListItem Value="">- PILIH -</asp:ListItem>
-                <asp:ListItem Value="Lelaki">LELAKI</asp:ListItem>
-                <asp:ListItem Value="Perempuan">PEREMPUAN</asp:ListItem>
-            </asp:DropDownList>
+        <td colspan="5">
+            <asp:Label runat="server" ID="lblJantina"/>
         </td>
     </tr>
     <tr>
-        <td>Taikh Lahir</td>
-        <td>
-            <asp:DropDownList ID="ddlLahirHari" runat="server"></asp:DropDownList> / 
-            <asp:DropDownList ID="ddlLahirBulan" runat="server"></asp:DropDownList> / 
-            <asp:DropDownList ID="ddlLahirTahun" runat="server"></asp:DropDownList>
-        </td>
-        <td>Status Kewarganegaraan</td>
+        <td>Tarikh Lahir</td>
         <td>:</td>
-        <td>
-            <asp:DropDownList ID="ddlKewarganegaraan" runat="server" AutoPostBack="true">
-                <asp:ListItem Value="">- PILIH -</asp:ListItem>
-                <asp:ListItem Value="WARGANEGARA">WARGANEGARA</asp:ListItem>
-                <asp:ListItem Value="BUKAN WARGANEGARA">BUKAN WARGANEGARA</asp:ListItem>
-                <asp:ListItem Value="PENDUDUK TETAP">PENDUDUK TETAP</asp:ListItem>
-            </asp:DropDownList>
+        <td colspan="5">
+            <asp:Label runat="server" ID="lblTarikhLahir"/>
         </td>
     </tr>
-
+    <tr>
+        <td>Status Kewarganegaraan</td>
+        <td>:</td>
+        <td colspan="5">
+            <asp:Label runat="server" ID="lblKewarganegaraan"/>
+        </td>
+    </tr>
     <tr>
         <td>Jawatan</td>
         <td>:</td>
-        <td>
+        <td colspan="5">
             <asp:Label runat="server" ID="lblJawatan" Text=""/>
         </td>
+    </tr>
+    <tr>
         <td>No. Tentera</td>
         <td>:</td>
-        <td>
+        <td colspan="5">
             <asp:Label runat="server" ID="lblNoTentera"/>
         </td>
     </tr>
-
     <tr>
         <td>Tarikh Berkhidmat</td>
-        <td colspan="2">
-            <asp:Label Text="text"  runat="server" ID="lblTarikhMulaBerkhidmat"/>
+        <td>:</td>
+        <td>
+            <asp:Label Text="01/01/1990" runat="server" ID="lblTarikhMulaBerkhidmat"/>
         </td>
         <td>Hingga</td>
-        <td colspan="2">
-            <table class="fbform" style="width:100%">
-                <tr>
-                    <td>
-                        <asp:CheckBox Text="Sekarang" runat="server" ID="lblMasihBerkhidmat"/>
-                    </td>
-                    <td>
-                        <asp:Label Text="text" runat="server" ID="lblTarikhAkhirBerkhidmat"/>
-                    </td>
-                </tr>
-            </table>
+        <td>:</td>
+        <td>
+            <asp:Label runat="server" ID="lblTarikhAkhirBerkhidmat"/>
         </td>
     </tr>
 
@@ -94,7 +80,7 @@
     </tr>
     <tr>
         <td>Bil. Anak</td>
-        <td>:<asp:TextBox runat="server" ID="txtBilAnak"/></td>
+        <td>:<asp:TextBox runat="server" ID="txtBilAnak" Text="0"/></td>
     </tr>
     <tr>
         <td>Tinggal Di Luar(Menyewa Rumah Sewa)</td>
@@ -121,7 +107,7 @@
         </td>
     </tr>
     <tr>
-        <td>Tinggal Di Wisma(Keluarg Di kampung)</td>
+        <td>Tinggal Di Wisma(Keluarga Di kampung)</td>
         <td colspan="2">
             <asp:DropDownList ID="ddlWismaMulaHari" runat="server"></asp:DropDownList> / 
             <asp:DropDownList ID="ddlWismaMulaBulan" runat="server"></asp:DropDownList> / 
@@ -135,9 +121,9 @@
                         <asp:CheckBox Text="Sekarang" runat="server" id="cbWismaSekarang"/>
                     </td>
                     <td>
-                        <asp:DropDownList ID="ddlWismaAkhir" runat="server"></asp:DropDownList> / 
-                        <asp:DropDownList ID="ddlWismaMAKhirBulan" runat="server"></asp:DropDownList> / 
-                        <asp:DropDownList ID="ddlWismaMAKhirTahun" runat="server"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlWismaAkhirHari" runat="server"></asp:DropDownList> / 
+                        <asp:DropDownList ID="ddlWismaAKhirBulan" runat="server"></asp:DropDownList> / 
+                        <asp:DropDownList ID="ddlWismaAKhirTahun" runat="server"></asp:DropDownList>
                     </td>
                 </tr>
             </table>
@@ -198,6 +184,12 @@
     <tr>
         <td colspan="6">
             <asp:CheckBox runat="server" ID="cbPerakuanPemohon"/>
+            <asp:Label runat="server" ID="lblCheckBoxAlert" Visible=false/>
         </td>
+    </tr>
+</table>
+<table class ="fbform">
+    <tr>
+        <td><span id ="MsgBottom" runat ="server" ><asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label></span></td>
     </tr>
 </table>
