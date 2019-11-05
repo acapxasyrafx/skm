@@ -59,24 +59,6 @@ Partial Public Class konfigurasi_pangkalan
     Protected WithEvents ddlAkses As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''ddlNegara control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlNegara As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''ddlNegeri control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''txtNamaPangkalan control.
     '''</summary>
     '''<remarks>
@@ -111,6 +93,15 @@ Partial Public Class konfigurasi_pangkalan
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtBandar As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''ddlNegeri control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''txtTelefon control.

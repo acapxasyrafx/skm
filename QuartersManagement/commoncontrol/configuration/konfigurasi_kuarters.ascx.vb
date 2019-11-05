@@ -37,7 +37,8 @@ Public Class konfigurasi_kuarters
                     strlbl_top.Visible = False
                 End If
 
-                requestNegara()
+                requestPangkalan()
+                requestJenis()
                 requestNegeri()
 
                 If Not Request.QueryString("edit") = "" Then
@@ -63,23 +64,56 @@ Public Class konfigurasi_kuarters
 
     End Sub
 
-    Private Sub requestNegara()
+    Private Sub requestPangkalan()
 
         Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
         Dim objConn As SqlConnection = New SqlConnection(strConn)
 
-        strSQL = "SELECT config_id, config_parameter FROM general_config WHERE config_access = 'GLOBAL' AND config_type = 'NEGARA' ORDER BY config_idx, config_parameter"
+        strSQL = "SELECT pangkalan_id, pangkalan_nama FROM spk_pangkalan WHERE pangkalan_id IS NOT NULL"
+
+        If Not ddlNegeri.SelectedValue = "" Then
+            strSQL += " AND pangkalan_negeri = '" & ddlNegeri.SelectedValue & "'"
+        End If
+
+        strSQL += " ORDER BY pangkalan_nama"
+
         Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
 
         Try
             Dim ds As DataSet = New DataSet
             sqlDA.Fill(ds, "AnyTable")
 
-            ddlNegara.DataSource = ds
-            ddlNegara.DataTextField = "config_parameter"
-            ddlNegara.DataValueField = "config_parameter"
-            ddlNegara.DataBind()
-            ddlNegara.Items.Insert(0, New ListItem("- PILIH -", String.Empty))
+            ddlPangkalan.DataSource = ds
+            ddlPangkalan.DataTextField = "pangkalan_nama"
+            ddlPangkalan.DataValueField = "pangkalan_id"
+            ddlPangkalan.DataBind()
+            ddlPangkalan.Items.Insert(0, New ListItem("- PILIH -", String.Empty))
+
+        Catch ex As Exception
+
+        Finally
+            objConn.Dispose()
+        End Try
+
+    End Sub
+
+    Private Sub requestJenis()
+
+        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+        Dim objConn As SqlConnection = New SqlConnection(strConn)
+
+        strSQL = "SELECT jenisKuarters_id, jenisKuarters_nama FROM spk_jenisKuarters ORDER BY jenisKuarters_nama"
+        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+
+        Try
+            Dim ds As DataSet = New DataSet
+            sqlDA.Fill(ds, "AnyTable")
+
+            ddlJenisKuarters.DataSource = ds
+            ddlJenisKuarters.DataTextField = "jenisKuarters_nama"
+            ddlJenisKuarters.DataValueField = "jenisKuarters_id"
+            ddlJenisKuarters.DataBind()
+            ddlJenisKuarters.Items.Insert(0, New ListItem("- PILIH -", String.Empty))
 
         Catch ex As Exception
 
@@ -117,8 +151,14 @@ Public Class konfigurasi_kuarters
 
     Private Sub Load_page()
 
-        strSQL = " SELECT pangkalan_id, pangkalan_negara, pangkalan_negeri, pangkalan_nama, pangkalan_alamat, pangkalan_poskod, pangkalan_bandar, pangkalan_telefon, pangkalan_faks, pangkalan_emel FROM spk_pangkalan"
-        strSQL += " WHERE pangkalan_id = '" & Request.QueryString("edit") & "'"
+        strSQL = "  SELECT spk_pangkalan.pangkalan_negeri, spk_pangkalan.pangkalan_id, 
+                    spk_jenisKuarters.jenisKuarters_id, 
+                    spk_kuarters.kuarters_nama, spk_kuarters.kuarters_alamat, spk_kuarters.kuarters_poskod, spk_kuarters.kuarters_bandar, spk_kuarters.kuarters_telefon, spk_kuarters.kuarters_faks, spk_kuarters.kuarters_emel
+                    FROM spk_kuarters
+                    LEFT JOIN spk_jenisKuarters ON spk_jenisKuarters.jenisKuarters_id = spk_kuarters.jenisKuarters_id
+                    LEFT JOIN spk_pangkalan ON spk_pangkalan.pangkalan_id = spk_kuarters.pangkalan_id"
+
+        strSQL += " WHERE kuarters_id = '" & Request.QueryString("edit") & "'"
 
         Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
         Dim objConn As SqlConnection = New SqlConnection(strConn)
@@ -135,56 +175,62 @@ Public Class konfigurasi_kuarters
             MyTable = ds.Tables(0)
             If MyTable.Rows.Count > 0 Then
 
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_negara")) Then
-                    ddlNegara.SelectedValue = ds.Tables(0).Rows(0).Item("pangkalan_negara")
-                Else
-                    ddlNegara.SelectedValue = ""
-                End If
-
                 If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_negeri")) Then
                     ddlNegeri.SelectedValue = ds.Tables(0).Rows(0).Item("pangkalan_negeri")
                 Else
                     ddlNegeri.SelectedValue = ""
                 End If
 
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_nama")) Then
-                    txtNamaPangkalan.Text = ds.Tables(0).Rows(0).Item("pangkalan_nama")
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_id")) Then
+                    ddlPangkalan.SelectedValue = ds.Tables(0).Rows(0).Item("pangkalan_id")
                 Else
-                    txtNamaPangkalan.Text = ""
+                    ddlPangkalan.SelectedValue = ""
                 End If
 
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_alamat")) Then
-                    txtAlamat.Text = ds.Tables(0).Rows(0).Item("pangkalan_alamat")
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("jenisKuarters_id")) Then
+                    ddlJenisKuarters.SelectedValue = ds.Tables(0).Rows(0).Item("jenisKuarters_id")
+                Else
+                    ddlJenisKuarters.SelectedValue = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("kuarters_nama")) Then
+                    txtNamaKuarters.Text = ds.Tables(0).Rows(0).Item("kuarters_nama")
+                Else
+                    txtNamaKuarters.Text = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("kuarters_alamat")) Then
+                    txtAlamat.Text = ds.Tables(0).Rows(0).Item("kuarters_alamat")
                 Else
                     txtAlamat.Text = ""
                 End If
 
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_poskod")) Then
-                    txtPoskod.Text = ds.Tables(0).Rows(0).Item("pangkalan_poskod")
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("kuarters_poskod")) Then
+                    txtPoskod.Text = ds.Tables(0).Rows(0).Item("kuarters_poskod")
                 Else
                     txtPoskod.Text = ""
                 End If
 
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_bandar")) Then
-                    txtBandar.Text = ds.Tables(0).Rows(0).Item("pangkalan_bandar")
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("kuarters_bandar")) Then
+                    txtBandar.Text = ds.Tables(0).Rows(0).Item("kuarters_bandar")
                 Else
                     txtBandar.Text = ""
                 End If
 
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_telefon")) Then
-                    txtTelefon.Text = ds.Tables(0).Rows(0).Item("pangkalan_telefon")
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("kuarters_telefon")) Then
+                    txtTelefon.Text = ds.Tables(0).Rows(0).Item("kuarters_telefon")
                 Else
                     txtTelefon.Text = ""
                 End If
 
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_faks")) Then
-                    txtFaks.Text = ds.Tables(0).Rows(0).Item("pangkalan_faks")
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("kuarters_faks")) Then
+                    txtFaks.Text = ds.Tables(0).Rows(0).Item("kuarters_faks")
                 Else
                     txtFaks.Text = ""
                 End If
 
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_emel")) Then
-                    txtEmel.Text = ds.Tables(0).Rows(0).Item("pangkalan_emel")
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("kuarters_emel")) Then
+                    txtEmel.Text = ds.Tables(0).Rows(0).Item("kuarters_emel")
                 Else
                     txtEmel.Text = ""
                 End If
@@ -207,22 +253,28 @@ Public Class konfigurasi_kuarters
         Dim tmpSQL As String
         Dim strWhere As String = ""
 
-        Dim strOrder As String = " ORDER BY pangkalan_nama ASC"
+        Dim strOrder As String = " ORDER BY spk_pangkalan.pangkalan_negeri, spk_pangkalan.pangkalan_nama, spk_kuarters.kuarters_nama ASC"
 
-        tmpSQL = "SELECT pangkalan_id, pangkalan_negara, pangkalan_negeri, pangkalan_nama, pangkalan_alamat, pangkalan_poskod, pangkalan_bandar, pangkalan_telefon, pangkalan_faks, pangkalan_emel FROM spk_pangkalan"
+        tmpSQL = "  SELECT spk_pangkalan.pangkalan_negeri, spk_pangkalan.pangkalan_nama, 
+                    spk_jenisKuarters.jenisKuarters_nama, 
+                    spk_kuarters.kuarters_id, spk_kuarters.kuarters_nama, spk_kuarters.kuarters_alamat, spk_kuarters.kuarters_poskod, spk_kuarters.kuarters_bandar, spk_kuarters.kuarters_negeri, spk_kuarters.kuarters_telefon, spk_kuarters.kuarters_faks, spk_kuarters.kuarters_emel
+                    FROM spk_kuarters
+                    LEFT JOIN spk_jenisKuarters ON spk_jenisKuarters.jenisKuarters_id = spk_kuarters.jenisKuarters_id
+                    LEFT JOIN spk_pangkalan ON spk_pangkalan.pangkalan_id = spk_kuarters.pangkalan_id"
 
-        strWhere += " WHERE pangkalan_id IS NOT NULL"
+        strWhere += " WHERE kuarters_id IS NOT NULL"
 
-        If Not ddlNegara.SelectedValue = "" Then
-            strWhere += " AND pangkalan_negara = '" & ddlNegara.SelectedValue & "'"
-        End If
 
         If Not ddlNegeri.SelectedValue = "" Then
-            strWhere += " AND pangkalan_negeri = '" & ddlNegeri.SelectedValue & "'"
+            strWhere += " AND spk_kuarters.kuarters_negeri = '" & ddlNegeri.SelectedValue & "'"
         End If
 
-        If Not txtNamaPangkalan.Text = "" Then
-            strWhere += " AND pangkalan_nama LIKE '%" & txtNamaPangkalan.Text & "%'"
+        If Not ddlPangkalan.SelectedValue = "" Then
+            strWhere += " AND spk_kuarters.pangkalan_id = '" & ddlPangkalan.SelectedValue & "%'"
+        End If
+
+        If Not ddlJenisKuarters.SelectedValue = "" Then
+            strWhere += " AND spk_jenisKuarters.jenisKuarters_id = '" & ddlJenisKuarters.SelectedValue & "%'"
         End If
 
         getSQL = tmpSQL & strWhere & strOrder
@@ -289,33 +341,35 @@ Public Class konfigurasi_kuarters
 
         If Not Request.QueryString("edit") = "" Then
 
-            strSQL = "UPDATE spk_pangkalan SET "
+            strSQL = "UPDATE spk_kuarters SET "
 
-            strSQL += " pangkalan_negara = '" & oCommon.FixSingleQuotes(ddlNegara.SelectedValue) & "',"
-            strSQL += " pangkalan_negeri = '" & oCommon.FixSingleQuotes(ddlNegeri.SelectedValue) & "',"
-            strSQL += " pangkalan_nama = '" & oCommon.FixSingleQuotes(txtNamaPangkalan.Text) & "',"
-            strSQL += " pangkalan_alamat = '" & txtAlamat.Text & "',"
-            strSQL += " pangkalan_poskod = '" & oCommon.FixSingleQuotes(txtPoskod.Text) & "',"
-            strSQL += " pangkalan_bandar = '" & oCommon.FixSingleQuotes(txtBandar.Text) & "',"
-            strSQL += " pangkalan_telefon = '" & oCommon.FixSingleQuotes(txtTelefon.Text) & "',"
-            strSQL += " pangkalan_faks = '" & oCommon.FixSingleQuotes(txtFaks.Text) & "',"
-            strSQL += " pangkalan_emel = '" & txtEmel.Text & "'"
+            strSQL += " jenisKuarters_id = UPPER('" & ddlJenisKuarters.SelectedValue & "'),"
+            strSQL += " pangkalan_id = UPPER('" & ddlPangkalan.SelectedValue & "'),"
+            strSQL += " kuarters_negeri = UPPER('" & ddlNegeri.SelectedValue & "'),"
+            strSQL += " kuarters_bandar = UPPER('" & txtBandar.Text & "'),"
+            strSQL += " kuarters_poskod = UPPER('" & txtPoskod.Text & "'),"
+            strSQL += " kuarters_nama = UPPER('" & txtNamaKuarters.Text & "'),"
+            strSQL += " kuarters_alamat = UPPER('" & txtAlamat.Text & "'),"
+            strSQL += " kuarters_telefon = UPPER('" & txtTelefon.Text & "'),"
+            strSQL += " kuarters_faks = '" & txtFaks.Text & "',"
+            strSQL += " kuarters_emel = UPPER('" & txtEmel.Text & "')"
 
 
-            strSQL += " WHERE pangkalan_id = '" & Request.QueryString("edit") & "'"
+            strSQL += " WHERE kuarters_id = '" & Request.QueryString("edit") & "'"
 
         Else
-            strSQL = "INSERT INTO spk_pangkalan (pangkalan_negara, pangkalan_negeri, pangkalan_nama, pangkalan_alamat, pangkalan_poskod, pangkalan_bandar, pangkalan_telefon, pangkalan_faks, pangkalan_emel)"
+            strSQL = "INSERT INTO spk_kuarters (jenisKuarters_id, pangkalan_id, kuarters_negeri, kuarters_bandar, kuarters_poskod, kuarters_nama, kuarters_alamat, kuarters_telefon, kuarters_faks, kuarters_emel)"
 
             strSQL += " VALUES ("
-            strSQL += " UPPER('" & ddlNegara.SelectedValue & "'),"
+            strSQL += " UPPER('" & ddlJenisKuarters.SelectedValue & "'),"
+            strSQL += " UPPER('" & ddlPangkalan.SelectedValue & "'),"
             strSQL += " UPPER('" & ddlNegeri.SelectedValue & "'),"
-            strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtNamaPangkalan.Text) & "'),"
+            strSQL += " UPPER('" & txtBandar.Text & "'),"
+            strSQL += " UPPER('" & txtPoskod.Text & "'),"
+            strSQL += " UPPER('" & txtNamaKuarters.Text & "'),"
             strSQL += " UPPER('" & txtAlamat.Text & "'),"
-            strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtPoskod.Text) & "'),"
-            strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtBandar.Text) & "'),"
-            strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtTelefon.Text) & "'),"
-            strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtFaks.Text) & "'),"
+            strSQL += " UPPER('" & txtTelefon.Text & "'),"
+            strSQL += " UPPER('" & txtFaks.Text & "'),"
             strSQL += " UPPER('" & txtEmel.Text & "'))"
 
         End If
@@ -378,7 +432,7 @@ Public Class konfigurasi_kuarters
 
         If Not Request.QueryString("edit") = "" Then
             Dim Pagelabel As String = lblConfig.Text & "&q=" & lblQ.Text & "&lblTop=" & strlbl_top.Text & "&lblBottom=" & strlbl_top.Text
-            Response.Redirect("Konfigurasi.Pangkalan.aspx?p=" & Pagelabel)
+            Response.Redirect("Konfigurasi.Kuarters.aspx?p=" & Pagelabel)
         Else
             strRet = BindData(datRespondent)
         End If
@@ -389,7 +443,7 @@ Public Class konfigurasi_kuarters
     '--REFRESH BUTTON--'
     Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick
         Dim Pagelabel As String = lblConfig.Text & "&q=" & lblQ.Text
-        Response.Redirect("Konfigurasi.Pangkalan.aspx?p=" & Pagelabel)
+        Response.Redirect("Konfigurasi.Kuarters.aspx?p=" & Pagelabel)
     End Sub
 
     Private Sub requestPage()
@@ -402,9 +456,10 @@ Public Class konfigurasi_kuarters
     End Sub
 
     Private Sub clear()
-        ddlNegara.SelectedValue = ""
         ddlNegeri.SelectedValue = ""
-        txtNamaPangkalan.Text = ""
+        ddlPangkalan.SelectedValue = ""
+        ddlJenisKuarters.Text = ""
+        txtNamaKuarters.Text = ""
         txtAlamat.Text = ""
         txtPoskod.Text = ""
         txtBandar.Text = ""
@@ -416,11 +471,11 @@ Public Class konfigurasi_kuarters
     '--DELETE FUNCTION--'
     Private Sub datRespondent_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles datRespondent.RowDeleting
 
-        Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("pangkalan_id").ToString
+        Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("kuarters_id").ToString
 
         'chk session to prevent postback
         If Not strCID = Session("strCID") Then
-            strSQL = "DELETE FROM spk_pangkalan WHERE pangkalan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
+            strSQL = "DELETE FROM spk_kuarters WHERE kuarters_id = '" & strCID & "'"
             strRet = oCommon.ExecuteSQL(strSQL)
 
             Session("strCID") = ""
@@ -429,12 +484,8 @@ Public Class konfigurasi_kuarters
 
     End Sub
 
-    '--INDEX CHANGE--'
-    Private Sub ddlNegara_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlNegara.SelectedIndexChanged
-        strRet = BindData(datRespondent)
-    End Sub
-
     Private Sub ddlNegeri_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlNegeri.SelectedIndexChanged
+        requestPangkalan()
         strRet = BindData(datRespondent)
     End Sub
 

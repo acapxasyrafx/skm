@@ -80,10 +80,10 @@
                         <ul class="nav-flyout">
                             <li><p>Penyelenggaraan Kuarters</p></li>
                             <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" /> Rekod Penyelenggaraan</a>
+                                <a href="Rekod.Penyelenggaraan.aspx?P=<%=lblMaintenance1.Text %>"><i></i><img src ="icons/bullet_red.png" /> Rekod Penyelenggaraan</a>
                             </li>
                             <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" /> Jadual Penyelenggaraan</a>
+                                <a href="Rekod.Penyelenggaraan.aspx?P=<%=lblMaintenance2.Text %>"><i></i><img src ="icons/bullet_red.png" /> Jadual Penyelenggaraan</a>
                             </li>
                         </ul>
                     </li>
@@ -95,24 +95,22 @@
 </asp:Panel>
 
 <%-- Menu Konfigurasi --%>
-<asp:Panel ID="PnlKonfigurasi" runat="server" Visible="true">
-    <section class="appKonfigurasi">
-        <aside class="sidebar">
-            <header>> PENETAPAN UTAMA</header>
-            <nav class="sidebar-nav">
-                <ul>
-                    <li>
-                        <a href="#"><span class="">Konfigurasi Sistem</span></a>
-                         <ul class="nav-flyout">
-                            <li><p>Konfigurasi Sistem Kuarters</p></li>
-                            <li>
-                                <a href="Konfigurasi.aspx?P=<%=lblKonfigurasi.Text %>"><i></i><img src ="icons/bullet_red.png" /> Konfigurasi Sistem </a>
-                            </li>
-                        </ul>
-                    </li>                   
-                </ul>
-            </nav>
-        </aside>
+
+<asp:Panel ID ="pnlKonfigurasi" runat ="server" visible ="true">
+    <section class ="appKonfigurasi">
+      <aside class="sidebar">
+        <header>> KONFIGURASI SISTEM</header>
+        <nav class="sidebar-nav">
+          <ul>
+            <li>
+                <span><a href="Konfigurasi.aspx">Konfigurasi Sistem</a></span>
+            </li>
+              <li>
+                <span><a href="Konfigurasi.aspx">Konfigurasi Sistem</a></span>
+            </li>
+          </ul>
+        </nav>
+      </aside>
     </section>
 </asp:Panel>
 </div>
@@ -149,5 +147,8 @@
     <asp:Label ID="lbl10" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Tolak</asp:Label>
 
     <asp:Label ID="lblKonfigurasi" runat="server" Visible="false">Penetapan Utama > Konfigurasi</asp:Label>
+
+    <asp:Label ID="lblMaintenance1" runat="server" Visible="false">Penyelenggaraan Kuarters > Rekod Penyelenggaraan</asp:Label>
+    <asp:Label ID="lblMaintenance2" runat="server" Visible="false">Penyelenggaraan Kuarters > Jadual Penyelenggaraan</asp:Label>
 
 </asp:Panel>

@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Konfigurasi_Kuarters1
+Partial Public Class Rekod_Penyelenggaraan
     
     '''<summary>
     '''navigation_menu control.
@@ -23,11 +23,11 @@ Partial Public Class Konfigurasi_Kuarters1
     Protected WithEvents navigation_menu As Global.QuartersManagement.navigation_menu
     
     '''<summary>
-    '''konfigurasi_kuarters control.
+    '''rekod_penyelenggaraan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents konfigurasi_kuarters As Global.QuartersManagement.konfigurasi_kuarters
+    Protected WithEvents rekod_penyelenggaraan As Global.QuartersManagement.rekod_penyelenggaraan1
 End Class

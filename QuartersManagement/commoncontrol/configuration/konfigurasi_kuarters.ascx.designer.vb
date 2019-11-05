@@ -59,31 +59,22 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents ddlAkses As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''ddlNegara control.
+    '''ddlJenisKuarters control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlNegara As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlJenisKuarters As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''ddlNegeri control.
+    '''txtNamaKuarters control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''txtNamaPangkalan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtNamaPangkalan As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtNamaKuarters As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''txtAlamat control.
@@ -111,6 +102,24 @@ Partial Public Class konfigurasi_kuarters
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtBandar As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''ddlNegeri control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlPangkalan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlPangkalan As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''txtTelefon control.

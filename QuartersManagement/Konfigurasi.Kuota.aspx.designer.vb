@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class Konfigurasi_Kuota
+Partial Public Class Konfigurasi_Kuota1
     
     '''<summary>
     '''navigation_menu control.
@@ -29,5 +29,5 @@ Partial Public Class Konfigurasi_Kuota
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents konfigurasi_kuota As Global.QuartersManagement.konfigurasi_kuota1
+    Protected WithEvents konfigurasi_kuota As Global.QuartersManagement.konfigurasi_kuota
 End Class
