@@ -54,13 +54,13 @@
                         <ul class="nav-flyout">
                             <li><p>Senarai Permohonan</p></li>
                             <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" /> Senarai Permohonan Baharu</a>
+                                <a href="Senarai.Permohonan.Baru.aspx?P=<%=lbl8.Text %>"><i></i><img src ="icons/bullet_red.png" /> Senarai Permohonan Baharu</a>
                             </li>
                             <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" />Senarai Permohonan Menunggu</a>
+                                <a href="Senarai.Permohonan.Menunggu.aspx?P=<%=lbl9.Text %>"><i></i><img src ="icons/bullet_red.png" />Senarai Permohonan Menunggu</a>
                             </li>
                             <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" />Senarai Permohonan Tolak</a>
+                                <a href="Senarai.Permohonan.Tolak.aspx?P=<%=lbl10.Text %>"><i></i><img src ="icons/bullet_red.png" />Senarai Permohonan Tolak</a>
                             </li>
                         </ul>
                     </li>
@@ -143,6 +143,10 @@
 
     <asp:Label ID="lbl1" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Senarai Penjawat > Pendaftaran Baharu</asp:Label>
     <asp:Label ID="lbl2" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Senarai Penjawat > Carian Senarai Penjawat</asp:Label>
+
+    <asp:Label ID="lbl8" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Baru</asp:Label>
+    <asp:Label ID="lbl9" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Menunggu</asp:Label>
+    <asp:Label ID="lbl10" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Tolak</asp:Label>
 
     <asp:Label ID="lblKonfigurasi" runat="server" Visible="false">Penetapan Utama > Konfigurasi</asp:Label>
 
