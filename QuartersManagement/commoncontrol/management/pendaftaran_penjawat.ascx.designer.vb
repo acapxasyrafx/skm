@@ -113,31 +113,13 @@ Partial Public Class pendaftaran_penjawat
     Protected WithEvents ddlJantina As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''ddlHari control.
+    '''txt_MyDate control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlHari As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''ddlBulan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlBulan As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''ddlTahun control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlTahun As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txt_MyDate As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''ddlKewarganegaraan control.

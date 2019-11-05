@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="pendaftaran_penjawat.ascx.vb" Inherits="QuartersManagement.pendaftaran_penjawat" %>
+
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
         <td><span id="MsgTop" runat="server">
@@ -60,7 +61,7 @@
     <tr>
         <td>Tarikh Lahir</td>
         <td>:</td>
-        <td><asp:DropDownList ID="ddlHari" runat="server"></asp:DropDownList> / <asp:DropDownList ID="ddlBulan" runat="server"></asp:DropDownList> / <asp:DropDownList ID="ddlTahun" runat="server"></asp:DropDownList>
+        <td><asp:TextBox runat="server" ID="txt_MyDate" MaxLength="10"/>
         <td>Warganegara</td>
         <td>:</td>
         <td>

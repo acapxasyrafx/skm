@@ -110,6 +110,9 @@
     <Content Include="commoncontrol\management\status_permohonan.ascx" />
     <Content Include="commoncontrol\menu\index.ascx" />
     <Content Include="commoncontrol\menu\navigation_menu.ascx" />
+    <Content Include="commoncontrol\permohonan\permohonan_baru.ascx" />
+    <Content Include="commoncontrol\permohonan\permohonan_menunggu.ascx" />
+    <Content Include="commoncontrol\permohonan\permohonan_tolak.ascx" />
     <Content Include="commoncontrol\Registration\edit_registration.ascx" />
     <Content Include="commoncontrol\Registration\main_registration.ascx" />
     <Content Include="commoncontrol\Registration\new_registration.ascx" />
@@ -140,7 +143,15 @@
     <Content Include="Konfigurasi.Pangkat.aspx" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
     <Content Include="Permohonan.Kuarters.aspx" />
+    <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <Content Include="Status.Permohonan.aspx" />
+    <Content Include="Senarai.Permohonan.Baru.aspx" />
+    <Content Include="Senarai.Permohonan.Menunggu.aspx" />
+    <Content Include="Senarai.Permohonan.Tolak.aspx" />
     <Content Include="User.Homepage.aspx" />
   </ItemGroup>
   <ItemGroup>
@@ -278,6 +289,27 @@
       <DependentUpon>navigation_menu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_baru.ascx.designer.vb">
+      <DependentUpon>permohonan_baru.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_baru.ascx.vb">
+      <DependentUpon>permohonan_baru.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_menunggu.ascx.designer.vb">
+      <DependentUpon>permohonan_menunggu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_menunggu.ascx.vb">
+      <DependentUpon>permohonan_menunggu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_tolak.ascx.designer.vb">
+      <DependentUpon>permohonan_tolak.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_tolak.ascx.vb">
+      <DependentUpon>permohonan_tolak.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\Registration\edit_registration.ascx.designer.vb">
       <DependentUpon>edit_registration.ascx</DependentUpon>
     </Compile>
@@ -391,6 +423,27 @@
       <DependentUpon>Status.Permohonan.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Senarai.Permohonan.Baru.aspx.designer.vb">
+      <DependentUpon>Senarai.Permohonan.Baru.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Baru.aspx.vb">
+      <DependentUpon>Senarai.Permohonan.Baru.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Menunggu.aspx.designer.vb">
+      <DependentUpon>Senarai.Permohonan.Menunggu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Menunggu.aspx.vb">
+      <DependentUpon>Senarai.Permohonan.Menunggu.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Tolak.aspx.designer.vb">
+      <DependentUpon>Senarai.Permohonan.Tolak.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Tolak.aspx.vb">
+      <DependentUpon>Senarai.Permohonan.Tolak.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="User.Homepage.aspx.designer.vb">
       <DependentUpon>User.Homepage.aspx</DependentUpon>
     </Compile>
@@ -429,6 +482,8 @@
     <None Include="packages.config" />
     <Content Include="user.Master" />
     <Content Include="Web.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

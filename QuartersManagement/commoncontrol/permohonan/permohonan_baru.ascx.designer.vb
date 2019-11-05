@@ -11,104 +11,77 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class index
+Partial Public Class permohonan_baru
     
     '''<summary>
-    '''PnlPengurusan control.
+    '''MsgTop control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents PnlPengurusan As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''PnlKonfigurasi control.
+    '''strlbl_top control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents PnlKonfigurasi As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''PnlPemohon control.
+    '''SaveFunction control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents PnlPemohon As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''linkStatusPermohonan control.
+    '''Refresh control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents linkStatusPermohonan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''PnlIndicator control.
+    '''Panel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents PnlIndicator As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents Panel As Global.System.Web.UI.WebControls.Panel
     
     '''<summary>
-    '''lbl1 control.
+    '''datRespondent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbl1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
     
     '''<summary>
-    '''lbl2 control.
+    '''MsgBottom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbl2 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lbl8 control.
+    '''strlbl_bottom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbl8 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lbl9 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbl9 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lbl10 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lbl10 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblKonfigurasi control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblKonfigurasi As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
 End Class
