@@ -102,6 +102,7 @@
     <Content Include="commoncontrol\configuration\konfigurasi_negara.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_pangkat.ascx" />
+    <Content Include="commoncontrol\maintenance\rekod_penyelenggaraan.ascx" />
     <Content Include="commoncontrol\main\homepage.ascx" />
     <Content Include="commoncontrol\main\login_page.ascx" />
     <Content Include="commoncontrol\main\user_homepage.ascx" />
@@ -137,13 +138,17 @@
     <Content Include="img\backlog.jpg" />
     <Content Include="img\tudmlogo.png" />
     <Content Include="Konfigurasi.aspx" />
+    <Content Include="Konfigurasi.Jenis.Kuarters.aspx" />
     <Content Include="Konfigurasi.Khusus.aspx" />
+    <Content Include="Konfigurasi.Kuarters.aspx" />
+    <Content Include="Konfigurasi.Kuota.aspx" />
     <Content Include="Konfigurasi.Mata.aspx" />
     <Content Include="Konfigurasi.Pangkalan.aspx" />
     <Content Include="Konfigurasi.Pangkat.aspx" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
     <Content Include="Permohonan.Kuarters.aspx" />
     <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
+    <Content Include="Rekod.Penyelenggaraan.aspx" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -231,6 +236,13 @@
     </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_pangkat.ascx.vb">
       <DependentUpon>konfigurasi_pangkat.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\maintenance\rekod_penyelenggaraan.ascx.designer.vb">
+      <DependentUpon>rekod_penyelenggaraan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\maintenance\rekod_penyelenggaraan.ascx.vb">
+      <DependentUpon>rekod_penyelenggaraan.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\main\homepage.ascx.designer.vb">
@@ -355,11 +367,32 @@
       <DependentUpon>Konfigurasi.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Konfigurasi.Jenis.Kuarters.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Jenis.Kuarters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Jenis.Kuarters.aspx.vb">
+      <DependentUpon>Konfigurasi.Jenis.Kuarters.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Konfigurasi.Khusus.aspx.designer.vb">
       <DependentUpon>Konfigurasi.Khusus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Konfigurasi.Khusus.aspx.vb">
       <DependentUpon>Konfigurasi.Khusus.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuarters.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Kuarters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuarters.aspx.vb">
+      <DependentUpon>Konfigurasi.Kuarters.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuota.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Kuota.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuota.aspx.vb">
+      <DependentUpon>Konfigurasi.Kuota.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Konfigurasi.Mata.aspx.designer.vb">
@@ -414,6 +447,13 @@
     </Compile>
     <Compile Include="Permohonan.Kuarters.aspx.vb">
       <DependentUpon>Permohonan.Kuarters.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Rekod.Penyelenggaraan.aspx.designer.vb">
+      <DependentUpon>Rekod.Penyelenggaraan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Rekod.Penyelenggaraan.aspx.vb">
+      <DependentUpon>Rekod.Penyelenggaraan.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Status.Permohonan.aspx.designer.vb">
@@ -494,7 +534,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="commoncontrol\application\" />
-    <Folder Include="commoncontrol\maintenance\" />
     <Folder Include="commoncontrol\Reports\" />
     <Folder Include="Models\" />
   </ItemGroup>

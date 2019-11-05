@@ -17,7 +17,7 @@
     <tr>
          <td>Akses Sistem</td>
          <td>:</td>
-         <td colspan="4"><asp:DropDownList  ID ="ddlAkses" runat ="server" AutoPostBack ="true"  >
+         <td colspan="4"><asp:DropDownList  ID ="ddlAkses" runat ="server" AutoPostBack ="true" Width="150px" >
          <asp:ListItem Value ="GLOBAL">- GLOBAL -</asp:ListItem>
          </asp:DropDownList></td>
     </tr>
@@ -31,13 +31,13 @@
     <tr>
          <td>Value</td>
          <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtValue" runat="server" Width="200px" ></asp:TextBox></td>
+         <td colspan="4"><asp:TextBox ID="txtValue" runat="server" Width="350px" ></asp:TextBox></td>
     </tr>
 
     <tr>
          <td>Kod</td>
          <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtCode" runat="server" Width="200px" ></asp:TextBox></td>
+         <td colspan="4"><asp:TextBox ID="txtCode" runat="server" Width="350px" ></asp:TextBox></td>
     </tr>
 
     <tr>

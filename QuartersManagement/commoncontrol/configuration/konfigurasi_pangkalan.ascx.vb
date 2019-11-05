@@ -37,7 +37,7 @@ Public Class konfigurasi_pangkalan
                     strlbl_top.Visible = False
                 End If
 
-                requestNegara()
+                'requestNegara()
                 requestNegeri()
 
                 If Not Request.QueryString("edit") = "" Then
@@ -63,31 +63,31 @@ Public Class konfigurasi_pangkalan
 
     End Sub
 
-    Private Sub requestNegara()
+    'Private Sub requestNegara()
 
-        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
-        Dim objConn As SqlConnection = New SqlConnection(strConn)
+    '    Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+    '    Dim objConn As SqlConnection = New SqlConnection(strConn)
 
-        strSQL = "SELECT config_id, config_parameter FROM general_config WHERE config_access = 'GLOBAL' AND config_type = 'NEGARA' ORDER BY config_idx, config_parameter"
-        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+    '    strSQL = "SELECT config_id, config_parameter FROM general_config WHERE config_access = 'GLOBAL' AND config_type = 'NEGARA' ORDER BY config_idx, config_parameter"
+    '    Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
 
-        Try
-            Dim ds As DataSet = New DataSet
-            sqlDA.Fill(ds, "AnyTable")
+    '    Try
+    '        Dim ds As DataSet = New DataSet
+    '        sqlDA.Fill(ds, "AnyTable")
 
-            ddlNegara.DataSource = ds
-            ddlNegara.DataTextField = "config_parameter"
-            ddlNegara.DataValueField = "config_parameter"
-            ddlNegara.DataBind()
-            ddlNegara.Items.Insert(0, New ListItem("- PILIH -", String.Empty))
+    '        ddlNegara.DataSource = ds
+    '        ddlNegara.DataTextField = "config_parameter"
+    '        ddlNegara.DataValueField = "config_parameter"
+    '        ddlNegara.DataBind()
+    '        ddlNegara.Items.Insert(0, New ListItem("- PILIH -", String.Empty))
 
-        Catch ex As Exception
+    '    Catch ex As Exception
 
-        Finally
-            objConn.Dispose()
-        End Try
+    '    Finally
+    '        objConn.Dispose()
+    '    End Try
 
-    End Sub
+    'End Sub
 
     Private Sub requestNegeri()
 
@@ -134,12 +134,6 @@ Public Class konfigurasi_pangkalan
             Dim MyTable As DataTable = New DataTable
             MyTable = ds.Tables(0)
             If MyTable.Rows.Count > 0 Then
-
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_negara")) Then
-                    ddlNegara.SelectedValue = ds.Tables(0).Rows(0).Item("pangkalan_negara")
-                Else
-                    ddlNegara.SelectedValue = ""
-                End If
 
                 If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_negeri")) Then
                     ddlNegeri.SelectedValue = ds.Tables(0).Rows(0).Item("pangkalan_negeri")
@@ -212,10 +206,6 @@ Public Class konfigurasi_pangkalan
         tmpSQL = "SELECT pangkalan_id, pangkalan_negara, pangkalan_negeri, pangkalan_nama, pangkalan_alamat, pangkalan_poskod, pangkalan_bandar, pangkalan_telefon, pangkalan_faks, pangkalan_emel FROM spk_pangkalan"
 
         strWhere += " WHERE pangkalan_id IS NOT NULL"
-
-        If Not ddlNegara.SelectedValue = "" Then
-            strWhere += " AND pangkalan_negara = '" & ddlNegara.SelectedValue & "'"
-        End If
 
         If Not ddlNegeri.SelectedValue = "" Then
             strWhere += " AND pangkalan_negeri = '" & ddlNegeri.SelectedValue & "'"
@@ -291,24 +281,24 @@ Public Class konfigurasi_pangkalan
 
             strSQL = "UPDATE spk_pangkalan SET "
 
-            strSQL += " pangkalan_negara = '" & oCommon.FixSingleQuotes(ddlNegara.SelectedValue) & "',"
-            strSQL += " pangkalan_negeri = '" & oCommon.FixSingleQuotes(ddlNegeri.SelectedValue) & "',"
-            strSQL += " pangkalan_nama = '" & oCommon.FixSingleQuotes(txtNamaPangkalan.Text) & "',"
-            strSQL += " pangkalan_alamat = '" & txtAlamat.Text & "',"
-            strSQL += " pangkalan_poskod = '" & oCommon.FixSingleQuotes(txtPoskod.Text) & "',"
-            strSQL += " pangkalan_bandar = '" & oCommon.FixSingleQuotes(txtBandar.Text) & "',"
-            strSQL += " pangkalan_telefon = '" & oCommon.FixSingleQuotes(txtTelefon.Text) & "',"
-            strSQL += " pangkalan_faks = '" & oCommon.FixSingleQuotes(txtFaks.Text) & "',"
-            strSQL += " pangkalan_emel = '" & txtEmel.Text & "'"
+            'strSQL += " pangkalan_negara = 'MALAYSIA',"
+            strSQL += " pangkalan_negeri = UPPER('" & ddlNegeri.SelectedValue & "'),"
+            strSQL += " pangkalan_nama = UPPER('" & oCommon.FixSingleQuotes(txtNamaPangkalan.Text) & "'),"
+            strSQL += " pangkalan_alamat = UPPER('" & txtAlamat.Text & "'),"
+            strSQL += " pangkalan_poskod = UPPER('" & oCommon.FixSingleQuotes(txtPoskod.Text) & "'),"
+            strSQL += " pangkalan_bandar = UPPER('" & oCommon.FixSingleQuotes(txtBandar.Text) & "'),"
+            strSQL += " pangkalan_telefon = UPPER('" & oCommon.FixSingleQuotes(txtTelefon.Text) & "'),"
+            strSQL += " pangkalan_faks = UPPER('" & oCommon.FixSingleQuotes(txtFaks.Text) & "'),"
+            strSQL += " pangkalan_emel = UPPER('" & txtEmel.Text & "')"
 
 
             strSQL += " WHERE pangkalan_id = '" & Request.QueryString("edit") & "'"
 
         Else
-            strSQL = "INSERT INTO spk_pangkalan (pangkalan_negara, pangkalan_negeri, pangkalan_nama, pangkalan_alamat, pangkalan_poskod, pangkalan_bandar, pangkalan_telefon, pangkalan_faks, pangkalan_emel)"
+            strSQL = "INSERT INTO spk_pangkalan (pangkalan_negeri, pangkalan_nama, pangkalan_alamat, pangkalan_poskod, pangkalan_bandar, pangkalan_telefon, pangkalan_faks, pangkalan_emel)"
 
             strSQL += " VALUES ("
-            strSQL += " UPPER('" & ddlNegara.SelectedValue & "'),"
+            'strSQL += " UPPER('MALAYSIA'),"
             strSQL += " UPPER('" & ddlNegeri.SelectedValue & "'),"
             strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtNamaPangkalan.Text) & "'),"
             strSQL += " UPPER('" & txtAlamat.Text & "'),"
@@ -402,7 +392,7 @@ Public Class konfigurasi_pangkalan
     End Sub
 
     Private Sub clear()
-        ddlNegara.SelectedValue = ""
+        'ddlNegara.SelectedValue = ""
         ddlNegeri.SelectedValue = ""
         txtNamaPangkalan.Text = ""
         txtAlamat.Text = ""
@@ -430,9 +420,9 @@ Public Class konfigurasi_pangkalan
     End Sub
 
     '--INDEX CHANGE--'
-    Private Sub ddlNegara_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlNegara.SelectedIndexChanged
-        strRet = BindData(datRespondent)
-    End Sub
+    'Private Sub ddlNegara_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlNegara.SelectedIndexChanged
+    '    strRet = BindData(datRespondent)
+    'End Sub
 
     Private Sub ddlNegeri_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlNegeri.SelectedIndexChanged
         strRet = BindData(datRespondent)

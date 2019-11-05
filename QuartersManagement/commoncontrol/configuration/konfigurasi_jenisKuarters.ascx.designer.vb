@@ -59,85 +59,31 @@ Partial Public Class konfigurasi_jenisKuarters
     Protected WithEvents ddlAkses As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''ddlNegara control.
+    '''txtJenisKuarters control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlNegara As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtJenisKuarters As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddlNegeri control.
+    '''txtKeluasan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlNegeri As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtKeluasan As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtNamaPangkalan control.
+    '''txtUnit control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtNamaPangkalan As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtAlamat control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtAlamat As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtPoskod control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtPoskod As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtBandar control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtBandar As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtTelefon control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtTelefon As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtFaks control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtFaks As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtEmel control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtEmel As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtUnit As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''lblConfig control.

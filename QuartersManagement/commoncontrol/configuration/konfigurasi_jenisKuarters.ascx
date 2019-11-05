@@ -23,60 +23,23 @@
     </tr>
 
     <tr>
-         <td>NEGARA</td>
+         <td>JENIS KUARTERS</td>
          <td>:</td>
-         <td colspan="4"><asp:DropDownList ID="ddlNegara" runat="server" Width="200px" AutoPostBack="true"></asp:DropDownList></td>
+         <td colspan="4"><asp:TextBox ID="txtJenisKuarters" runat="server" Width="300px" ></asp:TextBox></td>
     </tr>
 
     <tr>
-         <td>NEGERI</td>
+         <td>KELUASAN</td>
          <td>:</td>
-         <td colspan="4"><asp:DropDownList ID="ddlNegeri" runat="server" Width="200px" AutoPostBack="true"></asp:DropDownList></td>
+         <td colspan="4"><asp:TextBox ID="txtKeluasan" runat="server" Width="50px" ></asp:TextBox></td>
     </tr>   
 
     <tr>
-         <td>NAMA PANGKALAN</td>
+         <td>UNIT</td>
          <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtNamaPangkalan" runat="server" Width="400px" ></asp:TextBox></td>
+         <td colspan="4"><asp:TextBox ID="txtUnit" runat="server" Width="50px" ></asp:TextBox></td>
     </tr>
-
-    <tr>
-         <td>ALAMAT</td>
-         <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtAlamat" runat="server" Width="400px" ></asp:TextBox></td>
-    </tr>
-
-     <tr>
-         <td>POSKOD</td>
-         <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtPoskod" runat="server" Width="50px" ></asp:TextBox></td>
-    </tr>
-
-    <tr>
-         <td>BANDAR</td>
-         <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtBandar" runat="server" Width="50px" ></asp:TextBox></td>
-    </tr>
-
-    <tr>
-         <td>TELEFON</td>
-         <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtTelefon" runat="server" Width="200px" ></asp:TextBox></td>
-    </tr>    
-
-    <tr>
-         <td>FAKS</td>
-         <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtFaks" runat="server" Width="200px" ></asp:TextBox></td>
-    </tr> 
-    
-    <tr>
-         <td style="width: 15%;">EMEL</td>
-         <td width:1%;">:</td>
-         <td colspan="4"><asp:TextBox ID="txtEmel" runat="server" Width="100px" ></asp:TextBox></td>
-    </tr>
-    
-   
+       
 </table>
 
 <br />
@@ -85,7 +48,7 @@
 <table class="fbform">
     <tr class="fbform_header">
         <td> 
-            Senarai Pangkalan 
+            Senarai Jenis Kuarters
             <asp:Label ID="lblConfig" runat="server" Visible ="false"></asp:Label>
             <asp:Label ID="lblQ" runat="server" Visible ="false"></asp:Label>
         </td>
@@ -94,7 +57,7 @@
         <td>
             <asp:Panel ID="Panel" runat="server" ScrollBars="vertical" Height="350">
             <asp:GridView ID="datRespondent" runat="server" AutoGenerateColumns="False" AllowPaging="false"  
-             CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="pangkalan_id"
+             CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="jenisKuarters_id"
                 Width="100%" PageSize="100" CssClass="gridview_footer">
                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                 <Columns>
@@ -107,46 +70,32 @@
                         <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
 
-                    <asp:TemplateField HeaderText="NEGARA" >
+                    <asp:TemplateField HeaderText="JENIS" >
                         <ItemTemplate>
-                            <asp:Label ID="pangkalan_negara" runat="server" Text='<%# Bind("pangkalan_negara")%>'></asp:Label>
+                            <asp:Label ID="pangkalan_negara" runat="server" Text='<%# Bind("jenisKuarters_nama")%>'></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                    </asp:TemplateField>   
+                    
+                    <asp:TemplateField HeaderText="KELUASAN" >
+                        <ItemTemplate>
+                            <asp:Label ID="pangkalan_negeri" runat="server" Text='<%# Bind("jenisKuarters_keluasan")%>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
                     
-                    <asp:TemplateField HeaderText="NEGERI" >
+                    <asp:TemplateField HeaderText="UNIT" >
                         <ItemTemplate>
-                            <asp:Label ID="pangkalan_negeri" runat="server" Text='<%# Bind("pangkalan_negeri")%>'></asp:Label>
+                            <asp:Label ID="pangkalan_nama" runat="server" Text='<%# Bind("jenisKuarters_unit")%>'></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>   
-                    
-                    <asp:TemplateField HeaderText="NAMA PANGKALAN" >
-                        <ItemTemplate>
-                            <asp:Label ID="pangkalan_nama" runat="server" Text='<%# Bind("pangkalan_nama")%>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>
-                    
-                    <asp:TemplateField HeaderText="TELEFON" >
-                        <ItemTemplate>
-                            <asp:Label ID="pangkalan_telefon" runat="server" Text='<%# Bind("pangkalan_telefon")%>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>
-
-                    <asp:TemplateField HeaderText="EMEL" >
-                        <ItemTemplate>
-                            <asp:Label ID="pangkalan_emel" runat="server" Text='<%# Bind("pangkalan_emel")%>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                    </asp:TemplateField>      
                     
                     <asp:TemplateField HeaderText="Action">
                         <ItemTemplate>
                            <span runat="server" style="float:right">
-                           <a href ="Konfigurasi.Pangkalan.aspx?edit=<%#Eval("pangkalan_id")%>&p=<%# lblConfig.Text  %>"><img title="Kemaskini"  src="icons/edit.png" width="13" height="13" alt="::"/></a>
-                           | <asp:ImageButton Width ="12" Height ="12" ID="btnDelete" CommandName ="Delete" CommandArgument ='<%#Eval("pangkalan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete"/>
+                           <a href ="Konfigurasi.Jenis.Kuarters.aspx?edit=<%#Eval("jenisKuarters_id")%>&p=<%# lblConfig.Text  %>"><img title="Kemaskini"  src="icons/edit.png" width="13" height="13" alt="::"/></a>
+                           | <asp:ImageButton Width ="12" Height ="12" ID="btnDelete" CommandName ="Delete" CommandArgument ='<%#Eval("jenisKuarters_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete"/>
                         </span> 
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="right" VerticalAlign="Top"  /><ItemStyle VerticalAlign="Middle" />

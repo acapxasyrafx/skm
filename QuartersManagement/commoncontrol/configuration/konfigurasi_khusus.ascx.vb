@@ -223,11 +223,11 @@ Public Class konfigurasi_khusus
 
             strSQL = "UPDATE general_config SET "
 
-            strSQL += " config_parameter = UPPER('" & txtParameter.Text & "')"
-            strSQL += " config_value = UPPER('" & txtValue.Text & "')"
-            strSQL += " config_code = UPPER('" & txtCode.Text & "')"
-            strSQL += " config_desc = UPPER('" & txtDesc.Text & "')"
-            strSQL += " config_idx = UPPER('" & txtIdx.Text & "')"
+            strSQL += " config_parameter = UPPER('" & txtParameter.Text & "'),"
+            strSQL += " config_value = UPPER('" & txtValue.Text & "'),"
+            strSQL += " config_code = UPPER('" & txtCode.Text & "'),"
+            strSQL += " config_desc = UPPER('" & txtDesc.Text & "'),"
+            strSQL += " config_idx = '" & txtIdx.Text & "'"
 
             strSQL += " WHERE config_id='" & Request.QueryString("edit") & "'"
 

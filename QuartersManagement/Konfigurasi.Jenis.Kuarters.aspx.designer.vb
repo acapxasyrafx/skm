@@ -23,11 +23,11 @@ Partial Public Class Konfigurasi_Jenis_Kuarters
     Protected WithEvents navigation_menu As Global.QuartersManagement.navigation_menu
     
     '''<summary>
-    '''konfigurasi_jenis_kuarters control.
+    '''konfigurasi_jenisKuarters control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents konfigurasi_jenis_kuarters As Global.QuartersManagement.konfigurasi_jenis_kuarters1
+    Protected WithEvents konfigurasi_jenisKuarters As Global.QuartersManagement.konfigurasi_jenisKuarters
 End Class
