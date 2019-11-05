@@ -14,74 +14,38 @@ Option Explicit On
 Partial Public Class status_permohonan1
 
     '''<summary>
-    '''lblNamaPemohon control.
+    '''permohonanDiterima control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblNamaPemohon As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents permohonanDiterima As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''lblStatusPermohonan control.
+    '''permohonanDiproses control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblStatusPermohonan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents permohonanDiproses As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''lblJantina control.
+    '''permohonanKeputusan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblJantina As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents permohonanKeputusan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''lblTarikhLahir control.
+    '''lblAlamatDiminta control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblTarikhLahir As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblStatusKewarganegaraan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblStatusKewarganegaraan As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblJawatan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblJawatan As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblTarikhBerkhidmatMula control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblTarikhBerkhidmatMula As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''lblTarikhBerkhidmatAkhir control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblTarikhBerkhidmatAkhir As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblAlamatDiminta As Global.System.Web.UI.WebControls.Label
 End Class
