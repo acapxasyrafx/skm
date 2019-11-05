@@ -23,29 +23,17 @@ Public Class permohonan_kuarters
         populateDDLKuarters()
         loadUser()
         'HARI
-        populateDay(ddlSewaMulaHari)
-        populateDay(ddlSewaAkhirHari)
-        populateDay(ddlWismaMulaHari)
-        populateDay(ddlWismaAkhirHari)
-        populateDay(ddlSeberangMulaHari)
-        populateDay(ddlSeberangAkhirHari)
-        populateDay(ddlTarikhMulaHari)
+        populateDay(ddlTarikhTinggalHariMula)
+        populateDay(ddlTarikhTinggalHariAkhir)
+        populateDay(ddlTarikhTukarHari)
         'BULAN
-        populateMonth(ddlSewaMulaBulan)
-        populateMonth(ddlSewaAkhirBulan)
-        populateMonth(ddlWismaMulaBulan)
-        populateMonth(ddlWismaAKhirBulan)
-        populateMonth(ddlSeberangMulaBulan)
-        populateMonth(ddlSeberangAkhirBulan)
-        populateMonth(ddlTarikhMulaBulan)
+        populateMonth(ddlTarikhTinggalBulanMula)
+        populateMonth(ddlTarikhTinggalBulanAkhir)
+        populateMonth(ddlTarikhTukarBulan)
         'TAHUN
-        populateYear(ddlSewaMulaTahun)
-        populateYear(ddlSewaAkhirTahun)
-        populateYear(ddlWismaMulaTahun)
-        populateYear(ddlWismaAKhirTahun)
-        populateYear(ddlSeberangMulaTahun)
-        populateYear(ddlSeberangAkhirTahun)
-        populateYear(ddlTarikhMulaTahun)
+        populateYear(ddlTarikhTinggalTahunMula)
+        populateYear(ddlTarikhTinggalTahunAkhir)
+        populateYear(ddlTarikhTukarTahun)
     End Sub
 
     Private Sub populateDDLKuarters()
@@ -99,12 +87,9 @@ Public Class permohonan_kuarters
     Private Sub populateYear(ByVal ddl As DropDownList)
         Dim startYear As Integer = Date.Now().Year - 20
         For i As Integer = 1 To 20
-            Dim item As String = startYear + i
+            Dim item As Integer = startYear + i
             Dim temp As New ListItem(item, item)
-            If item.Equals(Date.Now().Year) Then
-                temp.Selected = True
-            End If
-            ddl.Items.Add(temp)
+            ddl.Items.Add(item)
         Next
     End Sub
 
@@ -135,18 +120,18 @@ Public Class permohonan_kuarters
                 If reader.HasRows Then
                     If reader.Read() Then
                         pengguna_id.Value = reader("pengguna_id")
-                        lblNama.Text = reader("pengguna_nama")
-                        lblTarikhLahir.Text = reader("pengguna_tarikh_lahir")
-                        lblJantina.Text = reader("pengguna_jantina")
-                        lblKewarganegaraan.Text = reader("pengguna_kewarganegaraan")
-                        lblJawatan.Text = reader("pangkat_nama")
-                        lblNoTentera.Text = reader("pengguna_no_tentera")
-                        lblTarikhMulaBerkhidmat.Text = reader("pengguna_mula_perkhidmatan")
+                        lblNama.InnerText = reader("pengguna_nama")
+                        lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
+                        lblJantina.InnerText = reader("pengguna_jantina")
+                        lblKewarganegaraan.InnerText = reader("pengguna_kewarganegaraan")
+                        lblJawatan.InnerText = reader("pangkat_nama")
+                        lblNoTentera.InnerText = reader("pengguna_no_tentera")
+                        lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
                         '-------------------
                         If IsDBNull(reader("pengguna_tamat_perkhidmatan")) Then
-                            lblTarikhAkhirBerkhidmat.Text = "Masih Berkhidmat"
+                            lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
                         Else
-                            lblTarikhAkhirBerkhidmat.Text = reader("pengguna_tamat_perkhidmatan")
+                            lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
                         End If
                         '-------------------
                     Else
@@ -167,19 +152,11 @@ Public Class permohonan_kuarters
         Dim kuartersId = ddlSenaraiRumah.SelectedValue
         Dim penggunaId = pengguna_id.Value
         Dim bilAnak = txtBilAnak.Text
-        Dim tarikhMula As String = getDate(ddlTarikhMulaHari.SelectedValue, ddlTarikhMulaBulan.SelectedValue, ddlTarikhMulaTahun.SelectedValue)
-        'SEWA
-        Dim tarikhSewaMula As String = getDate(ddlSewaMulaHari.SelectedValue, ddlSewaMulaBulan.SelectedValue, ddlSewaMulaTahun.SelectedValue)
-        Dim tarikhSewaAkhir As String = getDate(ddlSewaAkhirHari.SelectedValue, ddlSewaAkhirBulan.SelectedValue, ddlSewaAkhirTahun.SelectedValue)
-        'WISMA
-        Dim tarikWismaMula As String = getDate(ddlWismaMulaHari.SelectedValue, ddlWismaMulaBulan.SelectedValue, ddlWismaMulaTahun.SelectedValue)
-        Dim tarikWismaAkhir As String = getDate(ddlWismaAkhirHari.SelectedValue, ddlWismaAKhirBulan.SelectedValue, ddlWismaAKhirTahun.SelectedValue)
-        'Seberang
-        Dim tarikhSeberangMula As String = getDate(ddlSeberangMulaHari.SelectedValue, ddlSeberangMulaBulan.SelectedValue, ddlSeberangMulaTahun.SelectedValue)
-        Dim tarikhSeberangAkhir As String = getDate(ddlSeberangAkhirHari.SelectedValue, ddlSeberangAkhirBulan.SelectedValue, ddlSeberangAkhirTahun.SelectedValue)
-        'Transfer Pasukan
-        Dim dariPasukan = ddlDariPasukan.SelectedValue
-        Dim kePasukan = ddlKePasukan.SelectedValue
+        Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
+        Dim mulaMenetap = getDate(ddlTarikhTinggalHariMula.SelectedValue, ddlTarikhTinggalBulanMula.SelectedValue, ddlTarikhTinggalTahunMula.SelectedValue)
+        Dim akhirMenetap = getDate(ddlTarikhTinggalHariAkhir.SelectedValue, ddlTarikhTinggalBulanAkhir.SelectedValue, ddlTarikhTinggalTahunAkhir.SelectedValue)
+        Dim tarikhPindah = getDate(ddlTarikhTukarHari.SelectedValue, ddlTarikhTukarBulan.SelectedValue, ddlTarikhTukarTahun.SelectedValue)
+        Dim masihMenetap = cbMasihMenetap.Checked
 
         strSQL += "INSERT INTO spk_permohonan (pengguna_id,unit_id,pemohonan_tarikh,permohonan_status) "
         strSQL += "VALUES (" & penggunaId & ", " & kuartersId & ", '" & Date.Now & "', 'Permohonan Baru')"
