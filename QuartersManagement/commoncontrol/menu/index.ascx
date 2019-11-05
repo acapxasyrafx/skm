@@ -99,14 +99,14 @@
 <asp:Panel ID ="pnlKonfigurasi" runat ="server" visible ="true">
     <section class ="appKonfigurasi">
       <aside class="sidebar">
-        <header>> KONFIGURASI SISTEM</header>
+        <header>> KONFIGURASI</header>
         <nav class="sidebar-nav">
           <ul>
             <li>
-                <span><a href="Konfigurasi.aspx">Konfigurasi Sistem</a></span>
+                <span><a href="Konfigurasi.aspx?P=<%=lblKonfigurasiUmum.Text %>">Konfigurasi Umum</a></span>
             </li>
               <li>
-                <span><a href="Konfigurasi.aspx">Konfigurasi Sistem</a></span>
+                <span><a href="Konfigurasi.Sistem.aspx?P=<%=lblKonfigurasiSistem.Text %>">Konfigurasi Sistem</a></span>
             </li>
           </ul>
         </nav>
@@ -146,7 +146,8 @@
     <asp:Label ID="lbl9" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Menunggu</asp:Label>
     <asp:Label ID="lbl10" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Tolak</asp:Label>
 
-    <asp:Label ID="lblKonfigurasi" runat="server" Visible="false">Penetapan Utama > Konfigurasi</asp:Label>
+    <asp:Label ID="lblKonfigurasiUmum" runat="server" Visible="false">Penetapan Utama > Konfigurasi Umum</asp:Label>
+    <asp:Label ID="lblKonfigurasiSistem" runat="server" Visible="false">Penetapan Utama > Konfigurasi Sistem</asp:Label>
 
     <asp:Label ID="lblMaintenance1" runat="server" Visible="false">Penyelenggaraan Kuarters > Rekod Penyelenggaraan</asp:Label>
     <asp:Label ID="lblMaintenance2" runat="server" Visible="false">Penyelenggaraan Kuarters > Jadual Penyelenggaraan</asp:Label>

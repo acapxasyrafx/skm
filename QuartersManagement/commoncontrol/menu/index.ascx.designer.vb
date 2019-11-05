@@ -104,13 +104,22 @@ Partial Public Class index
     Protected WithEvents lbl10 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''lblKonfigurasi control.
+    '''lblKonfigurasiUmum control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblKonfigurasi As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblKonfigurasiUmum As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblKonfigurasiSistem control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblKonfigurasiSistem As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''lblMaintenance1 control.
