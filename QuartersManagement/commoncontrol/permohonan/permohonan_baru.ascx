@@ -21,7 +21,7 @@
             <asp:Panel ID="Panel" runat="server" ScrollBars="vertical" Height="350">
             <asp:GridView ID="datRespondent" runat="server" AutoGenerateColumns="False" AllowPaging="false"  
              CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="permohonan_id"
-                Width="100%" PageSize="100" CssClass="gridview_footer">
+                Width="100%" PageSize="100" CssClass="gridview_footer" onrowcommand="datRespondent_RowCommand" >
                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                 <Columns>
                     <asp:TemplateField HeaderText="#">
@@ -31,21 +31,27 @@
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
                         <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Tarikh Permohonan" >
+                        <ItemTemplate>
+                            <asp:Label ID="lbl_tarikhPermohonan" runat="server" Text='<%# Bind("tarikhMohon")%>' ></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                    </asp:TemplateField>   
                     <asp:TemplateField HeaderText="No.Tentera" >
                         <ItemTemplate>
                             <asp:Label ID="lbl_noTentera" runat="server" Text='<%# Bind("no_tentera")%>' ></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>   
-                    <asp:TemplateField HeaderText="Nama" >
-                        <ItemTemplate>
-                            <asp:Label ID="lbl_nama" runat="server" Text='<%# Bind("nama")%>' ></asp:Label>
-                        </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>   
+                    </asp:templatefield>
                     <asp:TemplateField HeaderText="Pangkat" >
                         <ItemTemplate>
                             <asp:Label ID="lbl_pangkat" runat="server" Text='<%# Bind("pangkat")%>' ></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                    </asp:TemplateField>    
+                    <asp:TemplateField HeaderText="Nama" >
+                        <ItemTemplate>
+                            <asp:Label ID="lbl_nama" runat="server" Text='<%# Bind("nama")%>' ></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
@@ -61,16 +67,12 @@
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
-                    <asp:TemplateField HeaderText="Tarikh Permohonan" >
-                        <ItemTemplate>
-                            <asp:Label ID="lbl_tarikhPermohonan" runat="server" Text='<%# Bind("tarikhMohon")%>' ></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>   
                     <asp:TemplateField HeaderText="Action">
                         <ItemTemplate>
                             <span runat="server" style="float: right">
-                                <asp:ImageButton Width="12" Height="12" ID="btnDelete" CommandName="Delete" OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete" />
+                                <asp:ImageButton Width="12" Height="12" ID="btnProcess" CommandName ="Process" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memproses permohonan ini? ')" runat="server" ImageUrl="~/icons/form_process.png" ToolTip="Update" />
+                                |
+                                <asp:ImageButton Width="12" Height="12" ID="btnDelete" CommandName="Batal" OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete" />
                             </span>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="right" VerticalAlign="Top" />

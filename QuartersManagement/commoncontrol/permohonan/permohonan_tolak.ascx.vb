@@ -66,13 +66,19 @@ Public Class permohonan_tolak
 
         Dim strOrder As String = " ORDER BY A.pengguna_id ASC"
 
-        tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,A.pangkalan_id as pangkalan ,A.pangkat_id as pangkat ,B.pengguna_id as pengguna_idx,B.unit_id as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status, B.permohonan_id as permohonan_id as status FROM spk_permohonan as B
-                    left join spk_pengguna A on B.pengguna_id = A.pengguna_id"
+        tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
+                    ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,B.unit_id as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
+                    , B.permohonan_id as permohonan_id 
+                    FROM spk_permohonan as B
+                    left join spk_pengguna A on B.pengguna_id = A.pengguna_id
+					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
+					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
+					"
         strWhere += " WHERE pangkalan_id IS NOT NULL AND B.permohonan_status = 'PERMOHONAN DITOLAK'"
 
 
 
-        getSQL = tmpSQL & strOrder
+        getSQL = tmpSQL & strWhere & strOrder
 
         Return getSQL
 

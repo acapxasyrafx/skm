@@ -68,13 +68,19 @@ Public Class permohonan_baru
 
         Dim strOrder As String = " ORDER BY A.pengguna_id ASC"
 
-        tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,A.pangkalan_id as pangkalan ,A.pangkat_id as pangkat ,B.pengguna_id as pengguna_idx,B.unit_id as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status, B.permohonan_id as permohonan_id FROM spk_permohonan as B
-                    left join spk_pengguna A on B.pengguna_id = A.pengguna_id"
+        tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
+                    ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,B.unit_id as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
+                    , B.permohonan_id as permohonan_id 
+                    FROM spk_permohonan as B
+                    left join spk_pengguna A on B.pengguna_id = A.pengguna_id
+					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
+					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
+					"
         strWhere += " WHERE pangkalan_id IS NOT NULL AND B.permohonan_status = 'PERMOHONAN BARU'"
 
 
 
-        getSQL = tmpSQL & strOrder
+        getSQL = tmpSQL & strWhere & strOrder
 
         Return getSQL
 
@@ -133,20 +139,41 @@ Public Class permohonan_baru
 
     End Function
 
-    '--DELETE FUNCTION--'
-    Private Sub datRespondent_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles datRespondent.RowDeleting
+    Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
+        Try
 
-        Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("pangkalan_id").ToString
+            If (e.CommandName = "Process") Then
+                Dim strCID = e.CommandArgument.ToString
 
-        'chk session to prevent postback
-        If Not strCID = Session("strCID") Then
-            ''strSQL = "DELETE FROM spk_pangkalan WHERE pangkalan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
-            strRet = oCommon.ExecuteSQL(strSQL)
+                'chk session to prevent postback
+                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN SEDANG DIPROSES' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
 
-            Session("strCID") = ""
-        End If
-        ''strRet = BindData(datRespondent)
+                strRet = oCommon.ExecuteSQL(strSQL)
+                If (strRet = 0) Then
+                    strlbl_bottom.Text = "Data Diproses"
 
+                    BindData(datRespondent)
+                Else
+                    strlbl_bottom.Text = "Pemprosesan Gagal"
+
+                    BindData(datRespondent)
+                End If
+
+                BindData(datRespondent)
+            ElseIf (e.CommandName = "Batal") Then
+                    Dim strCID = e.CommandArgument.ToString
+
+                'chk session to prevent postback
+                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN ANDA DITOLAK' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
+                oCommon.ExecuteSQL(strSQL)
+
+                BindData(datRespondent)
+            End If
+            BindData(datRespondent)
+
+        Catch ex As Exception
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
+        End Try
     End Sub
-
 End Class
