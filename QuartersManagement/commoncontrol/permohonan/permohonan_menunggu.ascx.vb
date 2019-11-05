@@ -141,7 +141,7 @@ Public Class permohonan_menunggu
     Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
         Try
 
-            If (e.CommandName = "ViewApplicant") Then
+            If (e.CommandName = "ViewApllicant") Then
                 Dim strCID = e.CommandArgument.ToString
 
                 Response.Redirect("maklumat_pemohon.ascx?uid=" + strCID)
