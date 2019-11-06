@@ -100,7 +100,7 @@
         <td style="width:100px;">Bilangan Anak</td>
         <td>:</td>
         <td>
-            <asp:TextBox CssClass="label" runat="server" ID="txtBilAnak" Text="1"/>
+            <asp:TextBox CssClass="label" runat="server" ID="txtBilAnak" Text="0" TextMode="Number"/>
             <asp:CheckBox Text="Tiada Anak" runat="server" ID="cbTiadaAnak" AutoPostBack="true"/>
         </td>
     </tr>
