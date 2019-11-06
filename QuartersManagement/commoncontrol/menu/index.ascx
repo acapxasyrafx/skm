@@ -71,6 +71,7 @@
                             <li><p>Senarai Penempatan Kuarters Pemohon</p></li>
                             <li>
                                 <a href="#"><i></i><img src ="icons/bullet_red.png" /> Proses Penempatan Kuarters</a>
+                                <a href="Senarai.Penempatan.Pemohon.aspx"><i></i><img src ="icons/bullet_red.png" /> Senarai Penempatan Pemohon</a>
                             </li>
                         </ul>
                     </li>
