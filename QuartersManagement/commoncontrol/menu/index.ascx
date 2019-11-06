@@ -15,7 +15,7 @@
                                 <a href="Pendaftaran.Penjawat.aspx?P=<%=lbl1.Text %>"><i></i><img src ="icons/bullet_red.png" />Pendaftaran Baharu</a>
                             </li>
                             <li>
-                                <a href="Senarai.Penjawat.aspx?P=<%=lbl2.Text %>"><i></i><img src ="icons/bullet_red.png" /> Carian Senarai Penjawat</a>
+                                <a href="Pendaftaran.Penjawat.Senarai.aspx?P=<%=lbl2.Text %>"><i></i><img src ="icons/bullet_red.png" /> Carian Senarai Penjawat</a>
                             </li>
                         </ul>
                     </li>
@@ -25,7 +25,7 @@
                         <ul class="nav-flyout">
                             <li><p>Rekod Lokasi Pangkalan TUDM</p></li>
                             <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" /> Pendaftaran Baharu</a>
+                                <a href="Konfigurasi.Pangkalan.aspx"><i></i><img src ="icons/bullet_red.png" /> Pendaftaran Baharu</a>
                             </li>
                             <li>
                                 <a href="#"><i></i><img src ="icons/bullet_red.png" /> Carian Senarai Pangkalan</a>
@@ -38,13 +38,13 @@
                         <ul class="nav-flyout">
                             <li><p>Rekod Kuarters</p></li>
                             <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" /> Konfigurasi Jenis Kuarters</a>
+                                <a href="Konfigurasi.Jenis.Kuarters.aspx"><i></i><img src ="icons/bullet_red.png" /> Konfigurasi Jenis Kuarters</a>
                             </li>
                             <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" /> Konfigurasi Koata Kuarters</a> 
+                                <a href="Konfigurasi.Kuota.aspx"><i></i><img src ="icons/bullet_red.png" /> Konfigurasi Koata Kuarters</a> 
                             </li>
                             <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" /> Penempatan Lokasi Kuaters</a>
+                                <a href="Konfigurasi.Kuarters.aspx"><i></i><img src ="icons/bullet_red.png" /> Penempatan Lokasi Kuaters</a>
                             </li>
                         </ul>
                     </li>

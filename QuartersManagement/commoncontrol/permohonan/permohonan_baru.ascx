@@ -1,5 +1,14 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="permohonan_baru.ascx.vb" Inherits="QuartersManagement.permohonan_baru" %>
 
+<style type="text/css">
+    .auto-style1 {
+        width: 107px;
+    }
+    .auto-style2 {
+        width: 13px;
+    }
+</style>
+
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
         <td><span id="MsgTop" runat="server">
@@ -11,6 +20,19 @@
                 | <a href="#" id="Help"><img title="Help" style="vertical-align: middle;" src="icons/help.png" width="22" height="22" alt="::" /></a>
 
             </span>
+        </td>
+    </tr>
+</table>
+<table class="fbform" style="width: 100%">
+    <tr class="fbform_mheader">
+        <td class="auto-style1">
+            Aturan Mengikut
+        </td>
+        <td class="auto-style2">:</td>
+        <td>
+            <asp:DropDownList runat ="server" ID="ddlSort" AutoPostBack ="true" >
+                
+            </asp:DropDownList>
         </td>
     </tr>
 </table>
@@ -70,6 +92,8 @@
                     <asp:TemplateField HeaderText="Action">
                         <ItemTemplate>
                             <span runat="server" style="float: right">
+                                 <asp:ImageButton Width="12" Height="12" ID="btnView" CommandName ="ViewApllicant" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memproses permohonan ini? ')" runat="server" ImageUrl="~/icons/form_process.png" ToolTip="View" />
+                                |
                                 <asp:ImageButton Width="12" Height="12" ID="btnProcess" CommandName ="Process" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memproses permohonan ini? ')" runat="server" ImageUrl="~/icons/form_process.png" ToolTip="Update" />
                                 |
                                 <asp:ImageButton Width="12" Height="12" ID="btnDelete" CommandName="Batal" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete" />
@@ -99,9 +123,10 @@
         <td colspan="3"></td>
     </tr>
 </table>
-<table class ="fbform">
+<table class="fbform">
     <tr>
-        <td><span id ="MsgBottom" runat ="server" ><asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label></span></td>
+        <td><span id="MsgBottom" runat="server">
+            <asp:Label ID="strlbl_bottom" runat="server"></asp:Label></span></td>
     </tr>
 
 </table>

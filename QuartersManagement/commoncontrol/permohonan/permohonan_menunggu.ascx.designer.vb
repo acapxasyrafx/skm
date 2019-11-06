@@ -50,6 +50,15 @@ Partial Public Class permohonan_menunggu
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
+    '''ddlSort control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlSort As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
     '''Panel control.
     '''</summary>
     '''<remarks>
