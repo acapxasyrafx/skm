@@ -1,26 +1,6 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="permohonan_kuarters.ascx.vb" Inherits="QuartersManagement.permohonan_kuarters" %>
 
 <style>
-    /*input[type=text]{
-        width:100%;
-        padding:12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing:border-box;
-    }*/
-    /*select {
-        padding:12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing:border-box;
-    }*/
-    /*label{
-        font-size: 100%;
-    }*/
     .label{
         display: inline-block;
         margin:0;
@@ -120,7 +100,16 @@
         <td style="width:100px;">Bilangan Anak</td>
         <td>:</td>
         <td>
-            <asp:TextBox CssClass="label" runat="server" ID="txtBilAnak" Text="0" Width="30%"/>
+            <asp:TextBox CssClass="label" runat="server" ID="txtBilAnak" Text="1"/>
+            <asp:CheckBox Text="Tiada Anak" runat="server" ID="cbTiadaAnak" AutoPostBack="true"/>
+        </td>
+    </tr>
+    <!-- Table anak Nama, IC, Umur-->
+    <tr runat="server" visible="false" id="tableBilAnak">
+        <td>
+            <table>
+
+            </table>
         </td>
     </tr>
     <tr>
@@ -141,16 +130,6 @@
             <asp:DropDownList CssClass="label" ID="ddlTarikhTinggalHariMula" runat="server"></asp:DropDownList> / 
             <asp:DropDownList CssClass="label"  ID="ddlTarikhTinggalBulanMula" runat="server"></asp:DropDownList> / 
             <asp:DropDownList CssClass="label"  ID="ddlTarikhTinggalTahunMula" runat="server"></asp:DropDownList>
-        </td>
-    </tr>
-    <tr>
-        <td>Tarikh Akhir Menetap</td>
-        <td>:</td>
-        <td>
-            <asp:DropDownList CssClass="label"  ID="ddlTarikhTinggalHariAkhir" runat="server"></asp:DropDownList> / 
-            <asp:DropDownList CssClass="label"  ID="ddlTarikhTinggalBulanAkhir" runat="server"></asp:DropDownList> / 
-            <asp:DropDownList CssClass="label"  ID="ddlTarikhTinggalTahunAkhir" runat="server"></asp:DropDownList>
-            <asp:CheckBox CssClass="label" Text="Masih Menetap" runat="server" ID="cbMasihMenetap"/>
         </td>
     </tr>
 </table>
@@ -196,7 +175,8 @@
     </tr>
     <tr>
         <td colspan="4">
-            <asp:CheckBox runat="server" ID="cbPerakuanPemohon"/>
+            <asp:CheckBox CssClass="label" runat="server" ID="cbPerakuanPemohon"/>
+            <p class="label">Saya dengan ini memohon sebuah Rumah Keluarga mengikut peraturan dan<u><a href="#" target="_blank">Undang-Undang PAT Jil III(3)</a></u> dan mengaku iaitu butiran-butiran yang dinyatakan seperti berikut adalah benar.</p>
             <asp:Label runat="server" ID="lblCheckBoxAlert" Visible=false/>
         </td>
     </tr>

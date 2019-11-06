@@ -140,6 +140,24 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents txtBilAnak As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''cbTiadaAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cbTiadaAnak As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''tableBilAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tableBilAnak As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
     '''ddlJenisPenempatan control.
     '''</summary>
     '''<remarks>
@@ -174,42 +192,6 @@ Partial Public Class permohonan_kuarters
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlTarikhTinggalTahunMula As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ddlTarikhTinggalHariAkhir control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlTarikhTinggalHariAkhir As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ddlTarikhTinggalBulanAkhir control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlTarikhTinggalBulanAkhir As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ddlTarikhTinggalTahunAkhir control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlTarikhTinggalTahunAkhir As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''cbMasihMenetap control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cbMasihMenetap As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
     '''ddlSenaraiRumah control.

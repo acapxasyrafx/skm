@@ -19,20 +19,16 @@ Public Class permohonan_kuarters
     Dim strSQL As String = ""
     Dim strRet As String = ""
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        cbPerakuanPemohon.Text = "Saya dengan ini memohon sebuah Rumah Keluarga mengikut peraturan dan Undang-Undang PAT Jil III(3) dan mengaku iaitu butiran-butiran yang dinyatakan seperti berikut adalah benar."
         populateDDLKuarters()
         loadUser()
         'HARI
         populateDay(ddlTarikhTinggalHariMula)
-        populateDay(ddlTarikhTinggalHariAkhir)
         populateDay(ddlTarikhTukarHari)
         'BULAN
         populateMonth(ddlTarikhTinggalBulanMula)
-        populateMonth(ddlTarikhTinggalBulanAkhir)
         populateMonth(ddlTarikhTukarBulan)
         'TAHUN
         populateYear(ddlTarikhTinggalTahunMula)
-        populateYear(ddlTarikhTinggalTahunAkhir)
         populateYear(ddlTarikhTukarTahun)
     End Sub
 
@@ -154,9 +150,7 @@ Public Class permohonan_kuarters
         Dim bilAnak = txtBilAnak.Text
         Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
         Dim mulaMenetap = getDate(ddlTarikhTinggalHariMula.SelectedValue, ddlTarikhTinggalBulanMula.SelectedValue, ddlTarikhTinggalTahunMula.SelectedValue)
-        Dim akhirMenetap = getDate(ddlTarikhTinggalHariAkhir.SelectedValue, ddlTarikhTinggalBulanAkhir.SelectedValue, ddlTarikhTinggalTahunAkhir.SelectedValue)
         Dim tarikhPindah = getDate(ddlTarikhTukarHari.SelectedValue, ddlTarikhTukarBulan.SelectedValue, ddlTarikhTukarTahun.SelectedValue)
-        Dim masihMenetap = cbMasihMenetap.Checked
 
         strSQL += "INSERT INTO spk_permohonan (pengguna_id,unit_id,pemohonan_tarikh,permohonan_status) "
         strSQL += "VALUES (" & penggunaId & ", " & kuartersId & ", '" & Date.Now & "', 'Permohonan Baru')"
@@ -204,5 +198,15 @@ Public Class permohonan_kuarters
 
     Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick
         Response.Redirect("Permohonan.Kuarters.aspx")
+    End Sub
+
+    Private Sub cbTiadaAnak_CheckedChanged(sender As Object, e As EventArgs) Handles cbTiadaAnak.CheckedChanged
+        If cbTiadaAnak.Checked Then
+            Debug.WriteLine("Checked")
+            txtBilAnak.Enabled = False
+        Else
+            Debug.WriteLine("UnChecked")
+            txtBilAnak.Enabled = True
+        End If
     End Sub
 End Class
