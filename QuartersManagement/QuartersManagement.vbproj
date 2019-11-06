@@ -381,12 +381,12 @@
       <DependentUpon>Konfigurasi.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-
     <Compile Include="Konfigurasi.Jenis.Kuarters.aspx.designer.vb">
       <DependentUpon>Konfigurasi.Jenis.Kuarters.aspx</DependentUpon>
     </Compile>
     <Compile Include="Konfigurasi.Jenis.Kuarters.aspx.vb">
       <DependentUpon>Konfigurasi.Jenis.Kuarters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Konfigurasi.Khusus.aspx.designer.vb">
       <DependentUpon>Konfigurasi.Khusus.aspx</DependentUpon>
@@ -482,6 +482,8 @@
     </Compile>
     <Compile Include="Senarai.Penempatan.Pemohon.aspx.vb">
       <DependentUpon>Senarai.Penempatan.Pemohon.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Rekod.Penyelenggaraan.aspx.vb">
       <DependentUpon>Rekod.Penyelenggaraan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
