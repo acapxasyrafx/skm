@@ -147,7 +147,7 @@ Public Class permohonan_kuarters
     Private Function Save() As Boolean
         Dim kuartersId = ddlSenaraiRumah.SelectedValue
         Dim penggunaId = pengguna_id.Value
-        Dim bilAnak = txtBilAnak.Text
+        Dim bilAnak = 0
         Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
         Dim mulaMenetap = getDate(ddlTarikhTinggalHariMula.SelectedValue, ddlTarikhTinggalBulanMula.SelectedValue, ddlTarikhTinggalTahunMula.SelectedValue)
         Dim tarikhPindah = getDate(ddlTarikhTukarHari.SelectedValue, ddlTarikhTukarBulan.SelectedValue, ddlTarikhTukarTahun.SelectedValue)
@@ -157,7 +157,23 @@ Public Class permohonan_kuarters
 
         strRet = oCommon.ExecuteSQL(strSQL)
         If strRet = "0" Then
-            Return True
+            If cbTiadaAnak.Checked = False Then
+                bilAnak = txtBilAnak.Text
+            End If
+            '--- PERLU UBAH TABLE or UBAH FORM untuk tarikh masuk n akhir
+            strSQL = "INSERT INTO spk_keluarga (pengguna_id, keluarga_anak, keluarga_tempat_tiggal) "
+            strSQL += "VALUES (" & penggunaId & "," & bilAnak & "," & jenisRumahSebelum & ")"
+            strRet = oCommon.ExecuteSQL(strSQL)
+            If strRet = "0" Then
+                Return True
+            Else
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = strSysErrorAlert
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = strSysErrorAlert & "<br>" & strRet
+                Return False
+            End If
+            '----
         Else
             MsgTop.Attributes("class") = "errorMsg"
             strlbl_top.Text = strSysErrorAlert
