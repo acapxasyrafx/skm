@@ -3,6 +3,16 @@
     .auto-style1 {
         height: 26px;
     }
+    .auto-style2 {
+        width: 1%;
+    }
+    .auto-style3 {
+        width: 176px;
+        align-items :center ;
+    }
+    .auto_style4{
+        position :center
+    }
 </style>
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
@@ -10,10 +20,7 @@
             <asp:Label ID="strlbl_top" runat="server"></asp:Label></span></td>
         <td>
             <span class="buttonMenu">
-                <a href="#" runat="server" id="SaveFunction">
-                    <img title="Save" style="vertical-align: middle;" src="icons/save.png" width="25" height="25" alt="::" />
-                </a>
-                | <a href="#" id="Refresh" runat="server"><img title="Refresh" style="vertical-align: middle;" src="icons/refresh.png" width="22" height="22" alt="::" /></a>
+                 <a href="#" id="Refresh" runat="server"><img title="Refresh" style="vertical-align: middle;" src="icons/refresh.png" width="22" height="22" alt="::" /></a>
                 | <a href="#" id="Help"><img title="Help" style="vertical-align: middle;" src="icons/help.png" width="22" height="22" alt="::" /></a>
             </span>
         </td>
@@ -166,4 +173,20 @@
         </td>
     </tr>
     
+</table>
+<table class="fbform" style="width:100%">
+    <tr class="fbform_mheader">
+        <td width="10%">
+            Total Poin Terkumpul
+        </td>
+        <td class="auto-style2">:</td>
+        <td class="auto-style3">
+            <asp:Label runat="server" ID="lblpoinDisplay"></asp:Label>
+        </td>
+        <td class="auto-style4">
+            <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName ="Approved" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/form_process.png" ToolTip="Approved"/>
+            <asp:ImageButton runat="server" ID="btnImg_ditolak" />
+        </td>
+    </tr>
+
 </table>

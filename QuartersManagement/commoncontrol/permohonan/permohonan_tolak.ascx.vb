@@ -74,7 +74,7 @@ Public Class permohonan_tolak
 					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
 					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
 					"
-        strWhere += " WHERE pangkalan_id IS NOT NULL AND B.permohonan_status = 'PERMOHONAN DITOLAK'"
+        strWhere += " WHERE B.permohonan_status = 'PERMOHONAN DITOLAK'"
 
 
 
@@ -153,4 +153,7 @@ Public Class permohonan_tolak
 
     End Sub
 
+    Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
+
+    End Sub
 End Class

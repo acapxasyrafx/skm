@@ -72,7 +72,7 @@
                             <span runat="server" style="float: right">
                                 <asp:ImageButton Width="12" Height="12" ID="btnProcess" CommandName ="Process" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memproses permohonan ini? ')" runat="server" ImageUrl="~/icons/form_process.png" ToolTip="Update" />
                                 |
-                                <asp:ImageButton Width="12" Height="12" ID="btnDelete" CommandName="Batal" OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete" />
+                                <asp:ImageButton Width="12" Height="12" ID="btnDelete" CommandName="Batal" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete" />
                             </span>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="right" VerticalAlign="Top" />
