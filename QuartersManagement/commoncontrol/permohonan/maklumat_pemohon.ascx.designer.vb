@@ -32,15 +32,6 @@ Partial Public Class maklumat_pemohon
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''SaveFunction control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
-    '''<summary>
     '''Refresh control.
     '''</summary>
     '''<remarks>
@@ -219,4 +210,31 @@ Partial Public Class maklumat_pemohon
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTarikhMulaHari As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblpoinDisplay control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblpoinDisplay As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''btnImg_lulus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnImg_lulus As Global.System.Web.UI.WebControls.ImageButton
+    
+    '''<summary>
+    '''btnImg_ditolak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnImg_ditolak As Global.System.Web.UI.WebControls.ImageButton
 End Class

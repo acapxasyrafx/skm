@@ -75,7 +75,7 @@ Public Class permohonan_menunggu
 					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
 					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
 					"
-        strWhere += " WHERE B.pengguna_id IS NOT NULL AND B.permohonan_status = 'PERMOHONAN SEDANG DIPROSES'"
+        strWhere += " WHERE B.permohonan_status = 'PERMOHONAN SEDANG DIPROSES'"
 
 
 
@@ -144,12 +144,17 @@ Public Class permohonan_menunggu
             If (e.CommandName = "ViewApllicant") Then
                 Dim strCID = e.CommandArgument.ToString
 
-                Response.Redirect("maklumat_pemohon.ascx?uid=" + strCID)
+                Response.Redirect("Senarai.Pemohon.Maklumat.Pemohon.aspx?uid=" + strCID)
             ElseIf (e.CommandName = "Batal") Then
                 Dim strCID = e.CommandArgument.ToString
 
                 'chk session to prevent postback
                 strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN ANDA DITOLAK' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
+                oCommon.ExecuteSQL(strSQL)
+            ElseIf (e.CommandArgument = "Diluluskan") Then
+                Dim strCID = e.CommandArgument.ToString
+
+                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'Diluluskan' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
                 oCommon.ExecuteSQL(strSQL)
             End If
             BindData(datRespondent)

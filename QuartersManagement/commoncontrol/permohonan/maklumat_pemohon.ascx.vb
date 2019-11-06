@@ -20,6 +20,7 @@ Public Class maklumat_pemohon
     Dim objConn As SqlConnection = New SqlConnection(strConn)
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
         Try
             data_load()
         Catch ex As Exception
@@ -57,7 +58,7 @@ Public Class maklumat_pemohon
 	            JOIN admin.spk_pangkat B ON A.pangkat_id = B.pangkat_id
 	            JOIN dbo.spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id
 				JOIN admin.spk_keluarga D on A.pengguna_id = D.pengguna_id
-            WHERE ",
+            WHERE  WHERE A.pengguna_id = '" & Request.QueryString("uid") & "'",
             conn)
 
             Try
@@ -122,6 +123,9 @@ Public Class maklumat_pemohon
                 conn.Close()
             End Try
         End Using
+
+    End Sub
+    Private Sub poin_load()
 
     End Sub
 End Class
