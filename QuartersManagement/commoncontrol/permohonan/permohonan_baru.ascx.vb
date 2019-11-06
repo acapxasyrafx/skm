@@ -76,7 +76,7 @@ Public Class permohonan_baru
 					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
 					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
 					"
-        strWhere += " WHERE pangkalan_id IS NOT NULL AND B.permohonan_status = 'PERMOHONAN BARU'"
+        strWhere += " WHERE B.permohonan_status = 'PERMOHONAN BARU'"
 
 
 

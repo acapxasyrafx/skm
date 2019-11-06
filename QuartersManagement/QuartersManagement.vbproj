@@ -95,6 +95,7 @@
     <Content Include="commoncontrol\configuration\konfigurasi.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_jantina.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_jenisKuarters.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_jenis_kuarters.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_khusus.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_kuarters.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_kuota.ascx" />
@@ -111,6 +112,10 @@
     <Content Include="commoncontrol\management\status_permohonan.ascx" />
     <Content Include="commoncontrol\menu\index.ascx" />
     <Content Include="commoncontrol\menu\navigation_menu.ascx" />
+    <Content Include="commoncontrol\permohonan\maklumat_pemohon.ascx" />
+    <Content Include="commoncontrol\permohonan\permohonan_baru.ascx" />
+    <Content Include="commoncontrol\permohonan\permohonan_menunggu.ascx" />
+    <Content Include="commoncontrol\permohonan\permohonan_tolak.ascx" />
     <Content Include="commoncontrol\Registration\edit_registration.ascx" />
     <Content Include="commoncontrol\Registration\main_registration.ascx" />
     <Content Include="commoncontrol\Registration\new_registration.ascx" />
@@ -139,9 +144,18 @@
     <Content Include="Konfigurasi.Mata.aspx" />
     <Content Include="Konfigurasi.Pangkalan.aspx" />
     <Content Include="Konfigurasi.Pangkat.aspx" />
+    <Content Include="Konfigurasi.Sistem.aspx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_sistem.ascx" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
     <Content Include="Permohonan.Kuarters.aspx" />
     <Content Include="Senarai.Penempatan.Pemohon.aspx" />
+    <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
+    <Content Include="Rekod.Penyelenggaraan.aspx" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Senarai.Pemohon.Maklumat.Pemohon.aspx" />
     <Content Include="Status.Permohonan.aspx" />
     <Content Include="User.Homepage.aspx" />
   </ItemGroup>
@@ -173,6 +187,13 @@
     </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_jenisKuarters.ascx.vb">
       <DependentUpon>konfigurasi_jenisKuarters.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jenis_kuarters.ascx.designer.vb">
+      <DependentUpon>konfigurasi_jenis_kuarters.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_jenis_kuarters.ascx.vb">
+      <DependentUpon>konfigurasi_jenis_kuarters.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_khusus.ascx.designer.vb">
@@ -287,6 +308,34 @@
       <DependentUpon>navigation_menu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\permohonan\maklumat_pemohon.ascx.designer.vb">
+      <DependentUpon>maklumat_pemohon.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\maklumat_pemohon.ascx.vb">
+      <DependentUpon>maklumat_pemohon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_baru.ascx.designer.vb">
+      <DependentUpon>permohonan_baru.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_baru.ascx.vb">
+      <DependentUpon>permohonan_baru.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_menunggu.ascx.designer.vb">
+      <DependentUpon>permohonan_menunggu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_menunggu.ascx.vb">
+      <DependentUpon>permohonan_menunggu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_tolak.ascx.designer.vb">
+      <DependentUpon>permohonan_tolak.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\permohonan_tolak.ascx.vb">
+      <DependentUpon>permohonan_tolak.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\Registration\edit_registration.ascx.designer.vb">
       <DependentUpon>edit_registration.ascx</DependentUpon>
     </Compile>
@@ -332,12 +381,33 @@
       <DependentUpon>Konfigurasi.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+
+    <Compile Include="Konfigurasi.Jenis.Kuarters.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Jenis.Kuarters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Jenis.Kuarters.aspx.vb">
+      <DependentUpon>Konfigurasi.Jenis.Kuarters.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Konfigurasi.Khusus.aspx.designer.vb">
       <DependentUpon>Konfigurasi.Khusus.aspx</DependentUpon>
     </Compile>
     <Compile Include="Konfigurasi.Khusus.aspx.vb">
       <DependentUpon>Konfigurasi.Khusus.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuarters.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Kuarters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuarters.aspx.vb">
+      <DependentUpon>Konfigurasi.Kuarters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuota.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Kuota.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Kuota.aspx.vb">
+      <DependentUpon>Konfigurasi.Kuota.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Konfigurasi.Mata.aspx.designer.vb">
       <DependentUpon>Konfigurasi.Mata.aspx</DependentUpon>
@@ -359,6 +429,20 @@
     <Compile Include="Konfigurasi.Pangkat.aspx.vb">
       <DependentUpon>Konfigurasi.Pangkat.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Sistem.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Sistem.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Sistem.aspx.vb">
+      <DependentUpon>Konfigurasi.Sistem.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_sistem.ascx.designer.vb">
+      <DependentUpon>konfigurasi_sistem.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_sistem.ascx.vb">
+      <DependentUpon>konfigurasi_sistem.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -398,6 +482,15 @@
     </Compile>
     <Compile Include="Senarai.Penempatan.Pemohon.aspx.vb">
       <DependentUpon>Senarai.Penempatan.Pemohon.aspx</DependentUpon>
+    <Compile Include="Rekod.Penyelenggaraan.aspx.vb">
+      <DependentUpon>Rekod.Penyelenggaraan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Senarai.Pemohon.Maklumat.Pemohon.aspx.designer.vb">
+      <DependentUpon>Senarai.Pemohon.Maklumat.Pemohon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Senarai.Pemohon.Maklumat.Pemohon.aspx.vb">
+      <DependentUpon>Senarai.Pemohon.Maklumat.Pemohon.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Status.Permohonan.aspx.designer.vb">
