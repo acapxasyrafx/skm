@@ -184,9 +184,22 @@
             <asp:Label runat="server" ID="lblpoinDisplay"></asp:Label>
         </td>
         <td class="auto-style4">
-            <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName ="Approved" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/form_process.png" ToolTip="Approved"/>
-            <asp:ImageButton runat="server" ID="btnImg_ditolak" />
+            <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName ="Approved" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/verified-text-paper.png" ToolTip="Approved" Height="39px"/>
+            <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="16px" CommandName ="Rejected" CommandArgument ='<%#Eval("permohonan_id")%>'   OnClientClick="javascript:return confirm('Adakah anda pasti mahu menolak permohonan ini? ')"  ToolTip="Reject" />
         </td>
+    </tr>
+
+</table>
+
+
+<table>
+    <tr>
+        <td colspan="3"></td>
+    </tr>
+</table>
+<table class ="fbform">
+    <tr>
+        <td><span id ="MsgBottom" runat ="server" ><asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label></span></td>
     </tr>
 
 </table>

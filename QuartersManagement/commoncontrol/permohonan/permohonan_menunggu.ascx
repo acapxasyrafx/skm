@@ -1,5 +1,14 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="permohonan_menunggu.ascx.vb" Inherits="QuartersManagement.permohonan_menunggu" %>
 
+<style type="text/css">
+    .auto-style1 {
+        width: 107px;
+    }
+    .auto-style2 {
+        width: 13px;
+    }
+</style>
+
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
         <td><span id="MsgTop" runat="server">
@@ -11,6 +20,18 @@
                 | <a href="#" id="Help"><img title="Help" style="vertical-align: middle;" src="icons/help.png" width="22" height="22" alt="::" /></a>
 
             </span>
+        </td>
+    </tr>
+</table>
+
+<table class="fbform" style="width: 100%">
+    <tr class="fbform_mheader">
+        <td class="auto-style1">
+            Aturan Mengikut
+        </td>
+        <td class="auto-style2">:</td>
+        <td>
+            <asp:DropDownList runat ="server" ID="ddlSort" AutoPostBack ="true" ></asp:DropDownList>
         </td>
     </tr>
 </table>
@@ -101,9 +122,10 @@
         <td colspan="3"></td>
     </tr>
 </table>
-<table class ="fbform">
+<table class="fbform">
     <tr>
-        <td><span id ="MsgBottom" runat ="server" ><asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label></span></td>
+        <td><span id="MsgBottom" runat="server">
+            <asp:Label ID="strlbl_bottom" runat="server"></asp:Label></span></td>
     </tr>
 
 </table>

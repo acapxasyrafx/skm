@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class permohonan_tolak
+Partial Public Class penjawat_senarai
     
     '''<summary>
     '''MsgTop control.
@@ -48,15 +48,6 @@ Partial Public Class permohonan_tolak
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
-    '''<summary>
-    '''ddlSort control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlSort As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''Panel control.

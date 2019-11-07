@@ -24,6 +24,7 @@ Public Class permohonan_baru
         Try
 
             If Not IsPostBack Then
+                Sortdata()
 
                 If strlblMsgBottom = 0 Then
                     strlbl_bottom.Visible = True
@@ -61,12 +62,41 @@ Public Class permohonan_baru
 
     End Sub
 
+    Private Sub Sortdata()
+        Dim listItem1 As ListItem
+        listItem1 = New ListItem("Default", "0")
+        listItem1.Selected = True
+
+        Dim listItem2 As ListItem
+        listItem2 = New ListItem("Pangkat", "1")
+        listItem2.Selected = False
+
+        Dim listItem3 As ListItem
+        listItem3 = New ListItem("Mata Poin", "2")
+        listItem3.Selected = False
+
+        ddlSort.Items.Insert(0, listItem1)
+        ddlSort.Items.Insert(1, listItem2)
+        ddlSort.Items.Insert(2, listItem3)
+
+
+
+    End Sub
+
     '-- BIND DATA --'
     Private Function getSQL() As String
         Dim tmpSQL As String
         Dim strWhere As String = ""
 
-        Dim strOrder As String = " ORDER BY A.pengguna_id ASC"
+        Dim strOrder As String = ""
+
+        If ddlSort.SelectedValue = "0" Then
+            strOrder = " ORDER BY A.pengguna_id ASC"
+        ElseIf ddlSort.SelectedValue = "1" Then
+            strOrder = " ORDER BY D.pangkat_idx ASC"
+        ElseIf ddlSort.SelectedValue = "2" Then
+            strOrder = " ORDER BY B.permohonan_poinTerkumpul ASC"
+        End If
 
         tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
                     ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,B.unit_id as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
@@ -142,7 +172,11 @@ Public Class permohonan_baru
     Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
         Try
 
-            If (e.CommandName = "Process") Then
+            If (e.CommandName = "ViewApllicant") Then
+                Dim strCID = e.CommandArgument.ToString
+
+                Response.Redirect("Senarai.Pemohon.Maklumat.Pemohon.aspx?uid=" + strCID)
+            ElseIf (e.CommandName = "Process") Then
                 Dim strCID = e.CommandArgument.ToString
 
                 'chk session to prevent postback
