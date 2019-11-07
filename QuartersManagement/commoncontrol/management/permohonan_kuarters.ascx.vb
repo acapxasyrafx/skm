@@ -19,8 +19,12 @@ Public Class permohonan_kuarters
     Dim strSQL As String = ""
     Dim strRet As String = ""
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        populateDDLKuarters()
-        loadUser()
+        If Not IsPostBack Then
+            populateDDLKuarters()
+            loadUser()
+            readMaklumatAnak()
+        End If
+
         'HARI
         populateDay(ddlTarikhTinggalHariMula)
         populateDay(ddlTarikhTukarHari)
@@ -97,7 +101,6 @@ Public Class permohonan_kuarters
 	            A.pengguna_mykad,
 	            A.pengguna_jantina,
 	            A.pengguna_tarikh_lahir,
-	            A.pengguna_kewarganegaraan,
                 A.pengguna_mula_perkhidmatan,
                 A.pengguna_tamat_perkhidmatan,
                 A.pengguna_no_tentera,
@@ -119,12 +122,11 @@ Public Class permohonan_kuarters
                         lblNama.InnerText = reader("pengguna_nama")
                         lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
                         lblJantina.InnerText = reader("pengguna_jantina")
-                        lblKewarganegaraan.InnerText = reader("pengguna_kewarganegaraan")
                         lblJawatan.InnerText = reader("pangkat_nama")
                         lblNoTentera.InnerText = reader("pengguna_no_tentera")
                         lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
                         '-------------------
-                        If IsDBNull(reader("pengguna_tamat_perkhidmatan")) Then
+                        If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
                             lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
                         Else
                             lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
@@ -137,7 +139,7 @@ Public Class permohonan_kuarters
                     Debug.Write("NO ROWS")
                 End If
             Catch ex As Exception
-                Debug.Write("ERROR: " & ex.Message)
+                Debug.WriteLine("ERROR(loadUser): " & ex.Message)
             Finally
                 conn.Close()
             End Try
@@ -153,27 +155,18 @@ Public Class permohonan_kuarters
         Dim tarikhPindah = getDate(ddlTarikhTukarHari.SelectedValue, ddlTarikhTukarBulan.SelectedValue, ddlTarikhTukarTahun.SelectedValue)
 
         strSQL += "INSERT INTO spk_permohonan (pengguna_id,unit_id,pemohonan_tarikh,permohonan_status) "
-        strSQL += "VALUES (" & penggunaId & ", " & kuartersId & ", '" & Date.Now & "', 'Permohonan Baru')"
+        strSQL += "VALUES (" & penggunaId & ", " & kuartersId & ", '" & Date.Now & "', 'PERMOHONAN BARU');"
+
+        If cbTiadaAnak.Checked = False Then
+            bilAnak = txtBilAnak.Text
+        End If
+
+        strSQL += "INSERT INTO spk_keluarga (pengguna_id, keluarga_anak, keluarga_tempat_tinggal, keluarga_tarikh_mula) "
+        strSQL += "VALUES (" & penggunaId & "," & bilAnak & ",'" & jenisRumahSebelum & "','" & mulaMenetap & "');"
 
         strRet = oCommon.ExecuteSQL(strSQL)
         If strRet = "0" Then
-            If cbTiadaAnak.Checked = False Then
-                bilAnak = txtBilAnak.Text
-            End If
-            '--- PERLU UBAH TABLE or UBAH FORM untuk tarikh masuk n akhir
-            strSQL = "INSERT INTO spk_keluarga (pengguna_id, keluarga_anak, keluarga_tempat_tiggal) "
-            strSQL += "VALUES (" & penggunaId & "," & bilAnak & "," & jenisRumahSebelum & ")"
-            strRet = oCommon.ExecuteSQL(strSQL)
-            If strRet = "0" Then
-                Return True
-            Else
-                MsgTop.Attributes("class") = "errorMsg"
-                strlbl_top.Text = strSysErrorAlert
-                MsgBottom.Attributes("class") = "errorMsg"
-                strlbl_bottom.Text = strSysErrorAlert & "<br>" & strRet
-                Return False
-            End If
-            '----
+            Return True
         Else
             MsgTop.Attributes("class") = "errorMsg"
             strlbl_top.Text = strSysErrorAlert
@@ -206,7 +199,7 @@ Public Class permohonan_kuarters
             End Try
 
         Else
-            lblCheckBoxAlert.Text = "Sila setuju dengan perkara diatas."
+            lblCheckBoxAlert.Text = "Sila setuju dengan perkara berikut."
             lblCheckBoxAlert.Attributes.CssStyle.Add("color", "red")
             lblCheckBoxAlert.Visible = True
         End If
@@ -220,9 +213,84 @@ Public Class permohonan_kuarters
         If cbTiadaAnak.Checked Then
             Debug.WriteLine("Checked")
             txtBilAnak.Enabled = False
+            trMaklumatAnak.Visible = False
         Else
             Debug.WriteLine("UnChecked")
             txtBilAnak.Enabled = True
+            trMaklumatAnak.Visible = True
+        End If
+    End Sub
+
+    Private Sub btnTambahRow_Click(sender As Object, e As EventArgs) Handles btnTambahRow.Click
+
+        If insertMaklumatAnak() Then
+            If readMaklumatAnak() Then
+                Debug.WriteLine("OK(btnTambahRow): WRITE OK, READ OK")
+            End If
+        End If
+
+    End Sub
+
+    Private Function insertMaklumatAnak() As Boolean
+        Dim namaAnak = txtNamaAnak.Text
+        Dim icAnak = txtICAnak.Text
+        Dim umurAnak = txtUmurAnak.Text
+        Dim penggunaID = pengguna_id.Value
+        Dim strRet As String
+
+        strRet = oCommon.ExecuteSQL("INSERT INTO spk_anak(pengguna_id,anak_nama,anak_ic,anak_umur) VALUES(" & penggunaID & ",'" & namaAnak & "','" & icAnak & "','" & umurAnak & "')")
+        If strRet = "0" Then
+            Return True
+        Else
+            Debug.WriteLine("ERROR (insertMaklumatAnak)")
+            Return False
+        End If
+    End Function
+
+    Private Function readMaklumatAnak() As Boolean
+        Dim penggunaID = pengguna_id.Value
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim table As DataTable = New DataTable
+            Dim ds As New DataSet
+            Dim da As New SqlDataAdapter(
+                    "SELECT 
+                        anak_id,
+                        pengguna_id,
+                        anak_nama,
+                        anak_ic,
+                        anak_umur
+                        FROM spk_anak
+                        WHERE pengguna_id = " & penggunaID & "",
+                    conn)
+            Try
+                conn.Open()
+                da.Fill(ds, "AnyTable")
+                Dim nRows As Integer = 0
+                Dim nCount As Integer = 1
+                If ds.Tables(0).Rows.Count > 0 Then
+                    datRespondent.DataSource = ds
+                    datRespondent.DataBind()
+                End If
+                Return True
+            Catch ex As Exception
+                Debug.WriteLine("ERROR(readMaklumatAak): " & ex.Message)
+                Return False
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Function
+
+    Private Sub datRespondent_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles datRespondent.RowDeleting
+        Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("anak_id").ToString
+        If Not strCID = "" Then
+            strSQL = "DELETE FROM spk_anak WHERE anak_id='" & oCommon.FixSingleQuotes(strCID) & "'"
+            strRet = oCommon.ExecuteSQL(strSQL)
+            If strRet = "0" Then
+                readMaklumatAnak()
+            Else
+                Debug.WriteLine("ERROR(datRespondent_RowDeleting)")
+            End If
         End If
     End Sub
 End Class

@@ -86,15 +86,6 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents lblTarikhLahir As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''lblKewarganegaraan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblKewarganegaraan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
-    '''<summary>
     '''lblJawatan control.
     '''</summary>
     '''<remarks>
@@ -149,13 +140,58 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents cbTiadaAnak As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
-    '''tableBilAnak control.
+    '''trMaklumatAnak control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents tableBilAnak As Global.System.Web.UI.HtmlControls.HtmlTableRow
+    Protected WithEvents trMaklumatAnak As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''txtNamaAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtNamaAnak As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtICAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtICAnak As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtUmurAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtUmurAnak As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnTambahRow control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnTambahRow As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''datRespondent control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
     '''ddlJenisPenempatan control.

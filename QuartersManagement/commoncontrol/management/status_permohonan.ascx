@@ -75,9 +75,11 @@
     <div class="fbform">
         <div class="div-center">
             <ul class="progress" data-progresstracker-step="3">
-                <li runat="server" id="permohonanDiterima">Permohonan Diterima</li>
-                <li runat="server" id="permohonanDiproses">Permohonan Diproses</li>
-                <li runat="server" id="permohonanKeputusan">Keputusan Permohonan</li>
+                <li runat="server" id="permohonanBaharu">Permohonan Baharu</li>
+                <li runat="server" id="permohonanLayak">Kelayakan Permohonan</li>
+                <li runat="server" id="permohonanMenunggu">Kelayakan Menunggu</li>
+                <li runat="server" id="permohonanUnitDicadang">Permohonan Unit Dicadang</li>
+                <li runat="server" id="suratTawaran">Surat Tawaran</li>
             </ul>
         </div>
         <div class="">
@@ -86,7 +88,7 @@
                     <td colspan="3">Maklumat Keluarga</td>
                 </tr>
                 <tr>
-                    <td style="width:100px;">Billangan Anak</td>
+                    <td style="width:100px;">Bilangan Anak</td>
                     <td>:</td>
                     <td>
                         <asp:Label CssClass="label" runat="server" ID="lblBilAnak" Text="4"></asp:Label>

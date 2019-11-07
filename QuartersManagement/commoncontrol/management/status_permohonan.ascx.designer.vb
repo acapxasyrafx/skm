@@ -14,31 +14,49 @@ Option Explicit On
 Partial Public Class status_permohonan1
 
     '''<summary>
-    '''permohonanDiterima control.
+    '''permohonanBaharu control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents permohonanDiterima As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents permohonanBaharu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''permohonanDiproses control.
+    '''permohonanLayak control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents permohonanDiproses As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents permohonanLayak As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''permohonanKeputusan control.
+    '''permohonanMenunggu control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents permohonanKeputusan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents permohonanMenunggu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''permohonanUnitDicadang control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents permohonanUnitDicadang As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''suratTawaran control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents suratTawaran As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''lblBilAnak control.
