@@ -64,6 +64,12 @@
     .div-center ul {
         margin:0;
     }
+    .label{
+        display:inline-block;
+        margin:0;
+        padding:5px;
+        font-size:100%;
+    }
 </style>
 <div class="status-permohonan" style="height:85vh;">
     <div class="fbform">
@@ -77,17 +83,47 @@
         <div class="">
             <table class="fbform" style="width:100%;">
                 <tr class="fbform_mheader">
-                    <td colspan="6">Maklumat Permohonan</td>
+                    <td colspan="3">Maklumat Keluarga</td>
                 </tr>
                 <tr>
-                    <td>Alamat Rumah</td>
+                    <td style="width:100px;">Billangan Anak</td>
                     <td>:</td>
-                    <td colspan="4">
-                        <asp:Label Text="Alamat" runat="server" ID="lblAlamatDiminta"/>
+                    <td>
+                        <asp:Label CssClass="label" runat="server" ID="lblBilAnak" Text="4"></asp:Label>
                     </td>
                 </tr>
                 <tr>
-
+                    <td>Jenis Tempat Tinggal</td>
+                    <td>:</td>
+                    <td>
+                        <asp:Label Text="text" runat="server" ID="lblJenisTempatTinggal"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tarikh Mula Menetap</td>
+                    <td>:</td>
+                    <td>
+                        <asp:Label Text="text" runat="server" ID="lblTarikhMulaMenetap"/>
+                    </td>
+                </tr>
+            </table>
+            <table class="fbform" style="width:100%;">
+                <tr class="fbform_mheader">
+                    <td colspan="3">Maklumat Kuarters Dimohon</td>
+                </tr>
+                <tr>
+                    <td style="width:100px;">Nama Kuarters</td>
+                    <td>:</td>
+                    <td>
+                        <asp:Label Text="text" runat="server" ID="lblKuarterDipohon" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:100px;">Tarikh Permohonan</td>
+                    <td>:</td>
+                    <td>
+                        <asp:Label Text="text" runat="server" ID="lblTarikhPermohonan" />
+                    </td>
                 </tr>
             </table>
         </div>

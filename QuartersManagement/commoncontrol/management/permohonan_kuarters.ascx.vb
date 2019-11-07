@@ -19,20 +19,16 @@ Public Class permohonan_kuarters
     Dim strSQL As String = ""
     Dim strRet As String = ""
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        cbPerakuanPemohon.Text = "Saya dengan ini memohon sebuah Rumah Keluarga mengikut peraturan dan Undang-Undang PAT Jil III(3) dan mengaku iaitu butiran-butiran yang dinyatakan seperti berikut adalah benar."
         populateDDLKuarters()
         loadUser()
         'HARI
         populateDay(ddlTarikhTinggalHariMula)
-        populateDay(ddlTarikhTinggalHariAkhir)
         populateDay(ddlTarikhTukarHari)
         'BULAN
         populateMonth(ddlTarikhTinggalBulanMula)
-        populateMonth(ddlTarikhTinggalBulanAkhir)
         populateMonth(ddlTarikhTukarBulan)
         'TAHUN
         populateYear(ddlTarikhTinggalTahunMula)
-        populateYear(ddlTarikhTinggalTahunAkhir)
         populateYear(ddlTarikhTukarTahun)
     End Sub
 
@@ -151,19 +147,33 @@ Public Class permohonan_kuarters
     Private Function Save() As Boolean
         Dim kuartersId = ddlSenaraiRumah.SelectedValue
         Dim penggunaId = pengguna_id.Value
-        Dim bilAnak = txtBilAnak.Text
+        Dim bilAnak = 0
         Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
         Dim mulaMenetap = getDate(ddlTarikhTinggalHariMula.SelectedValue, ddlTarikhTinggalBulanMula.SelectedValue, ddlTarikhTinggalTahunMula.SelectedValue)
-        Dim akhirMenetap = getDate(ddlTarikhTinggalHariAkhir.SelectedValue, ddlTarikhTinggalBulanAkhir.SelectedValue, ddlTarikhTinggalTahunAkhir.SelectedValue)
         Dim tarikhPindah = getDate(ddlTarikhTukarHari.SelectedValue, ddlTarikhTukarBulan.SelectedValue, ddlTarikhTukarTahun.SelectedValue)
-        Dim masihMenetap = cbMasihMenetap.Checked
 
         strSQL += "INSERT INTO spk_permohonan (pengguna_id,unit_id,pemohonan_tarikh,permohonan_status) "
         strSQL += "VALUES (" & penggunaId & ", " & kuartersId & ", '" & Date.Now & "', 'Permohonan Baru')"
 
         strRet = oCommon.ExecuteSQL(strSQL)
         If strRet = "0" Then
-            Return True
+            If cbTiadaAnak.Checked = False Then
+                bilAnak = txtBilAnak.Text
+            End If
+            '--- PERLU UBAH TABLE or UBAH FORM untuk tarikh masuk n akhir
+            strSQL = "INSERT INTO spk_keluarga (pengguna_id, keluarga_anak, keluarga_tempat_tiggal) "
+            strSQL += "VALUES (" & penggunaId & "," & bilAnak & "," & jenisRumahSebelum & ")"
+            strRet = oCommon.ExecuteSQL(strSQL)
+            If strRet = "0" Then
+                Return True
+            Else
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = strSysErrorAlert
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = strSysErrorAlert & "<br>" & strRet
+                Return False
+            End If
+            '----
         Else
             MsgTop.Attributes("class") = "errorMsg"
             strlbl_top.Text = strSysErrorAlert
@@ -204,5 +214,15 @@ Public Class permohonan_kuarters
 
     Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick
         Response.Redirect("Permohonan.Kuarters.aspx")
+    End Sub
+
+    Private Sub cbTiadaAnak_CheckedChanged(sender As Object, e As EventArgs) Handles cbTiadaAnak.CheckedChanged
+        If cbTiadaAnak.Checked Then
+            Debug.WriteLine("Checked")
+            txtBilAnak.Enabled = False
+        Else
+            Debug.WriteLine("UnChecked")
+            txtBilAnak.Enabled = True
+        End If
     End Sub
 End Class
