@@ -5,9 +5,11 @@ Public Class status_permohonan1
     Dim conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        permohonanDiterima.Attributes("class") = "progress-done"
-        permohonanDiproses.Attributes("class") = "progress-todo"
-        permohonanKeputusan.Attributes("class") = "progress-todo"
+        permohonanBaharu.Attributes("class") = "progress-done"
+        permohonanLayak.Attributes("class") = "progress-todo"
+        permohonanMenunggu.Attributes("class") = "progress-todo"
+        permohonanUnitDicadang.Attributes("class") = "progress-todo"
+        suratTawaran.Attributes("class") = "progress-todo"
         Load_Page()
     End Sub
 
@@ -47,23 +49,10 @@ Public Class status_permohonan1
                         lblTarikhMulaMenetap.Text = "01/01/2019"
                         lblKuarterDipohon.Text = reader("kuarters_nama")
                         lblTarikhPermohonan.Text = reader("pemohonan_tarikh")
-                        If reader("status").Equals("PERMOHONAN SEDANG DIPROSES") Then
-                            permohonanDiterima.Attributes("class") = "progress-done"
-                            permohonanDiproses.Attributes("class") = "progress-done"
-                            permohonanKeputusan.Attributes("class") = "progress-todo"
-                        ElseIf reader("status").Equals("PERMOHONAN BARU") Then
-                            permohonanDiterima.Attributes("class") = "progress-done"
-                            permohonanDiproses.Attributes("class") = "progress-todo"
-                            permohonanKeputusan.Attributes("class") = "progress-todo"
-                        Else
-                            permohonanDiterima.Attributes("class") = "progress-done"
-                            permohonanDiproses.Attributes("class") = "progress-done"
-                            permohonanKeputusan.Attributes("class") = "progress-done"
-                        End If
                     End If
                 End If
             Catch ex As Exception
-                Console.WriteLine("Error: " & ex.Message)
+                Debug.WriteLine("Error: " & ex.Message)
             Finally
                 conn.Close()
             End Try

@@ -56,13 +56,6 @@
         </td>
     </tr>
     <tr>
-        <td>Kewarganegaraan</td>
-        <td>:</td>
-        <td>
-            <h5 class="label" runat="server" id="lblKewarganegaraan"></h5>
-        </td>
-    </tr>
-    <tr>
         <td>Jawatan</td>
         <td>:</td>
         <td>
@@ -87,7 +80,7 @@
         <td>Tarikh Akhir Berkhidmat</td>
         <td>:</td>
         <td>
-            <h5 class="label" runat="server" id="lblTarikhAkhirBerkhidmat">01/01/2019</h5>
+            <h5 class="label" runat="server" id="lblTarikhAkhirBerkhidmat"></h5>
         </td>
     </tr>
 </table>
@@ -104,12 +97,100 @@
             <asp:CheckBox Text="Tiada Anak" runat="server" ID="cbTiadaAnak" AutoPostBack="true"/>
         </td>
     </tr>
-    <!-- Table anak Nama, IC, Umur-->
-    <tr runat="server" visible="false" id="tableBilAnak">
+    <tr runat="server" id="trMaklumatAnak">
+        <td>Maklumat Anak</td>
+        <td>:</td>
         <td>
-            <table>
+            <p>Masukkan Maklumat Anak </p>
+            <div>
+                <table>
+                    <tr>
+                        <td style="width:20px;">Nama Anak</td>
+                        <td>:</td>
+                        <td><asp:TextBox CssClass="label" runat="server" ID="txtNamaAnak"/></td>
+                    </tr>
+                    <tr>
+                        <td>IC Anak</td>
+                        <td>:</td>
+                        <td><asp:TextBox CssClass="label" runat="server" ID="txtICAnak"/></td>
+                    </tr>
+                    <tr>
+                        <td>Umur</td>
+                        <td>:</td>
+                        <td><asp:TextBox CssClass="label" runat="server" ID="txtUmurAnak"/></td>
+                    </tr>
+                    <tr>
+                        <td><asp:Button Text="Tambah" runat="server" ID="btnTambahRow"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <asp:GridView 
+                                ID="datRespondent" 
+                                runat="server" 
+                                DataKeyNames="anak_id"
+                                AutoGenerateColumns="False" 
+                                AllowPaging="false"
+                                CellPadding="4" 
+                                ForeColor="#333333" 
+                                GridLines="None" 
+                                Width="100%" 
+                                PageSize="100" 
+                                CssClass="gridview_footer">
+                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                <Columns>
+                                    <asp:TemplateField HeaderText="#">
+                                        <ItemTemplate>
+                                            <%# Container.DataItemIndex + 1 %>
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                                        <ItemStyle VerticalAlign="Middle" />
+                                    </asp:TemplateField>
 
-            </table>
+                                    <asp:TemplateField HeaderText="Nama" >
+                                       <ItemTemplate>
+                                           <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("anak_nama")%>'></asp:Label>
+                                       </ItemTemplate>
+                                       <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
+                                       <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="IC" >
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("anak_ic")%>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                        
+                                    <asp:TemplateField HeaderText="UMUR" >
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblUmurAnak" runat="server" Text='<%# Bind("anak_umur")%>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="Action">
+                                        <ItemTemplate>
+                                            <span runat="server" style="float:right">
+                                                <asp:ImageButton Width ="12" Height ="12" ID="btnDelete" CommandName ="Delete" CommandArgument ='<%#Eval("anak_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete"/>
+                                            </span> 
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="right" VerticalAlign="Top"  /><ItemStyle VerticalAlign="Middle" />
+                                    </asp:TemplateField> 
+                                </Columns>
+                                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
+                                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
+                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle"
+                                    HorizontalAlign="Center" />
+                                <EditRowStyle BackColor="#999999" />
+                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                            </asp:GridView>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </td>
     </tr>
     <tr>
