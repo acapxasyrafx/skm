@@ -122,31 +122,13 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents lblTarikhAkhirBerkhidmat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''txtBilAnak control.
+    '''tblMaklumatAnak control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtBilAnak As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''cbTiadaAnak control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cbTiadaAnak As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''trMaklumatAnak control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents trMaklumatAnak As Global.System.Web.UI.HtmlControls.HtmlTableRow
+    Protected WithEvents tblMaklumatAnak As Global.System.Web.UI.HtmlControls.HtmlTable
 
     '''<summary>
     '''txtNamaAnak control.
@@ -167,15 +149,6 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents txtICAnak As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''txtUmurAnak control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtUmurAnak As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
     '''btnTambahRow control.
     '''</summary>
     '''<remarks>
@@ -192,6 +165,15 @@ Partial Public Class permohonan_kuarters
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''cbTiadaAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cbTiadaAnak As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
     '''ddlJenisPenempatan control.

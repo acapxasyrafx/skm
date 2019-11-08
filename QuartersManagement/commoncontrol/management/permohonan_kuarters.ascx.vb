@@ -18,13 +18,19 @@ Public Class permohonan_kuarters
     Dim oCommon As New Commonfunction
     Dim strSQL As String = ""
     Dim strRet As String = ""
+    Dim countAnak As Integer = 0
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
             populateDDLKuarters()
             loadUser()
             readMaklumatAnak()
+            If countAnak > 0 Then
+                cbTiadaAnak.Enabled = False
+            Else
+                cbTiadaAnak.Enabled = True
+            End If
         End If
-
         'HARI
         populateDay(ddlTarikhTinggalHariMula)
         populateDay(ddlTarikhTukarHari)
@@ -149,7 +155,6 @@ Public Class permohonan_kuarters
     Private Function Save() As Boolean
         Dim kuartersId = ddlSenaraiRumah.SelectedValue
         Dim penggunaId = pengguna_id.Value
-        Dim bilAnak = 0
         Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
         Dim mulaMenetap = getDate(ddlTarikhTinggalHariMula.SelectedValue, ddlTarikhTinggalBulanMula.SelectedValue, ddlTarikhTinggalTahunMula.SelectedValue)
         Dim tarikhPindah = getDate(ddlTarikhTukarHari.SelectedValue, ddlTarikhTukarBulan.SelectedValue, ddlTarikhTukarTahun.SelectedValue)
@@ -158,11 +163,11 @@ Public Class permohonan_kuarters
         strSQL += "VALUES (" & penggunaId & ", " & kuartersId & ", '" & Date.Now & "', 'PERMOHONAN BARU');"
 
         If cbTiadaAnak.Checked = False Then
-            bilAnak = txtBilAnak.Text
+
         End If
 
         strSQL += "INSERT INTO spk_keluarga (pengguna_id, keluarga_anak, keluarga_tempat_tinggal, keluarga_tarikh_mula) "
-        strSQL += "VALUES (" & penggunaId & "," & bilAnak & ",'" & jenisRumahSebelum & "','" & mulaMenetap & "');"
+        strSQL += "VALUES (" & penggunaId & "," & countAnak & ",'" & jenisRumahSebelum & "','" & mulaMenetap & "');"
 
         strRet = oCommon.ExecuteSQL(strSQL)
         If strRet = "0" Then
@@ -211,22 +216,25 @@ Public Class permohonan_kuarters
 
     Private Sub cbTiadaAnak_CheckedChanged(sender As Object, e As EventArgs) Handles cbTiadaAnak.CheckedChanged
         If cbTiadaAnak.Checked Then
-            Debug.WriteLine("Checked")
-            txtBilAnak.Enabled = False
-            trMaklumatAnak.Visible = False
+            Debug.WriteLine("TiadaAnak Checked")
+            tblMaklumatAnak.Disabled = True
         Else
-            Debug.WriteLine("UnChecked")
-            txtBilAnak.Enabled = True
-            trMaklumatAnak.Visible = True
+            Debug.WriteLine("TiadaAnak UnChecked")
+            tblMaklumatAnak.Disabled = False
         End If
     End Sub
 
     Private Sub btnTambahRow_Click(sender As Object, e As EventArgs) Handles btnTambahRow.Click
 
         If insertMaklumatAnak() Then
+            txtNamaAnak.Text = ""
+            txtICAnak.Text = ""
             If readMaklumatAnak() Then
                 Debug.WriteLine("OK(btnTambahRow): WRITE OK, READ OK")
+            Else
+
             End If
+        Else
         End If
 
     End Sub
@@ -234,7 +242,7 @@ Public Class permohonan_kuarters
     Private Function insertMaklumatAnak() As Boolean
         Dim namaAnak = txtNamaAnak.Text
         Dim icAnak = txtICAnak.Text
-        Dim umurAnak = txtUmurAnak.Text
+        Dim umurAnak = icToAge(icAnak)
         Dim penggunaID = pengguna_id.Value
         Dim strRet As String
 
@@ -267,13 +275,14 @@ Public Class permohonan_kuarters
                 da.Fill(ds, "AnyTable")
                 Dim nRows As Integer = 0
                 Dim nCount As Integer = 1
+                countAnak = ds.Tables(0).Rows.Count
                 If ds.Tables(0).Rows.Count > 0 Then
                     datRespondent.DataSource = ds
                     datRespondent.DataBind()
                 End If
                 Return True
             Catch ex As Exception
-                Debug.WriteLine("ERROR(readMaklumatAak): " & ex.Message)
+                Debug.WriteLine("ERROR(readMaklumatAnak): " & ex.Message)
                 Return False
             Finally
                 conn.Close()
@@ -293,4 +302,14 @@ Public Class permohonan_kuarters
             End If
         End If
     End Sub
+
+    Private Function icToAge(ByVal ic As String) As Integer
+        Dim year = ic.Substring(0, 2)
+        Dim month = ic.Substring(2, 2)
+        Dim day = ic.Substring(4, 2)
+        Dim dob_string = day & "/" & month & "/" & year
+        Dim dob_date = Convert.ToDateTime(dob_string)
+        Dim age = Date.Now().Year - dob_date.Year
+        Return age
+    End Function
 End Class

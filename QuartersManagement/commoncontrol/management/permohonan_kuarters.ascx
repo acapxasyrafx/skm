@@ -90,20 +90,12 @@
         <td colspan="3">Butiran Keluarga</td>
     </tr>
     <tr>
-        <td style="width:100px;">Bilangan Anak</td>
-        <td>:</td>
-        <td>
-            <asp:TextBox CssClass="label" runat="server" ID="txtBilAnak" Text="0" TextMode="Number"/>
-            <asp:CheckBox Text="Tiada Anak" runat="server" ID="cbTiadaAnak" AutoPostBack="true"/>
-        </td>
-    </tr>
-    <tr runat="server" id="trMaklumatAnak">
         <td>Maklumat Anak</td>
         <td>:</td>
         <td>
             <p>Masukkan Maklumat Anak </p>
             <div>
-                <table>
+                <table runat="server" id="tblMaklumatAnak">
                     <tr>
                         <td style="width:20px;">Nama Anak</td>
                         <td>:</td>
@@ -113,11 +105,6 @@
                         <td>IC Anak</td>
                         <td>:</td>
                         <td><asp:TextBox CssClass="label" runat="server" ID="txtICAnak"/></td>
-                    </tr>
-                    <tr>
-                        <td>Umur</td>
-                        <td>:</td>
-                        <td><asp:TextBox CssClass="label" runat="server" ID="txtUmurAnak"/></td>
                     </tr>
                     <tr>
                         <td><asp:Button Text="Tambah" runat="server" ID="btnTambahRow"/></td>
@@ -191,6 +178,7 @@
                     </tr>
                 </table>
             </div>
+            <asp:CheckBox Text="Tiada Anak" runat="server" ID="cbTiadaAnak" AutoPostBack="true"/>
         </td>
     </tr>
     <tr>
