@@ -14,7 +14,6 @@ Public Class permohonan_kuarters
     Dim strSysErrorAlert As String = ConfigurationManager.AppSettings("systemErrorAlert")
     Dim strDataValAlert As String = ConfigurationManager.AppSettings("dataValidationAlert")
 
-    Dim perakuan_pemohon As String = ""
     Dim oCommon As New Commonfunction
     Dim strSQL As String = ""
     Dim strRet As String = ""
@@ -22,7 +21,7 @@ Public Class permohonan_kuarters
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
-            populateDDLKuarters()
+            loadPangkalan()
             loadUser()
             readMaklumatAnak()
             If countAnak > 0 Then
@@ -40,63 +39,6 @@ Public Class permohonan_kuarters
         'TAHUN
         populateYear(ddlTarikhTinggalTahunMula)
         populateYear(ddlTarikhTukarTahun)
-    End Sub
-
-    Private Sub populateDDLKuarters()
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters", conn)
-            Dim ds As New DataSet
-            Try
-                conn.Open()
-                Dim da As New SqlDataAdapter(cmd)
-                da.Fill(ds)
-                ddlSenaraiRumah.DataSource = ds
-                ddlSenaraiRumah.DataTextField = "kuarters_nama"
-                ddlSenaraiRumah.DataValueField = "kuarters_id"
-                ddlSenaraiRumah.DataBind()
-            Catch ex As Exception
-                Debug.Write("ERROR: " & ex.Message)
-            Finally
-                conn.Close()
-            End Try
-        End Using
-    End Sub
-
-    Private Function getDate(ByVal hari As String, ByVal bulan As String, ByVal tahun As String) As String
-        Return (tahun & "-" & bulan & "-" & hari)
-    End Function
-
-    Private Sub populateDay(ByVal ddl As DropDownList)
-        For i As Integer = 1 To 31
-            Dim temp As ListItem
-            If i < 10 Then
-                temp = New ListItem("0" & i, i)
-            Else
-                temp = New ListItem(i, i)
-            End If
-            ddl.Items.Add(temp)
-        Next
-    End Sub
-
-    Private Sub populateMonth(ByVal ddl As DropDownList)
-        For i As Integer = 1 To 12
-            Dim temp As ListItem
-            If i < 10 Then
-                temp = New ListItem("0" & i, i)
-            Else
-                temp = New ListItem(i, i)
-            End If
-            ddl.Items.Add(temp)
-        Next
-    End Sub
-
-    Private Sub populateYear(ByVal ddl As DropDownList)
-        Dim startYear As Integer = Date.Now().Year - 20
-        For i As Integer = 1 To 20
-            Dim item As Integer = startYear + i
-            Dim temp As New ListItem(item, item)
-            ddl.Items.Add(item)
-        Next
     End Sub
 
     Private Sub loadUser()
@@ -152,8 +94,91 @@ Public Class permohonan_kuarters
         End Using
     End Sub
 
+    Private Sub loadPangkalan()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim cmd As New SqlCommand("SELECT * FROM spk_pangkalan;", conn)
+            Dim ds As New DataSet
+            Try
+                conn.Open()
+                Dim da As New SqlDataAdapter(cmd)
+                da.Fill(ds)
+                ddlSenaraiPangkalan.DataSource = ds
+                ddlSenaraiPangkalan.DataTextField = "pangkalan_nama"
+                ddlSenaraiPangkalan.DataValueField = "pangkalan_id"
+                ddlSenaraiPangkalan.DataBind()
+                ddlSenaraiPangkalan.Items.Insert(0, New ListItem("Senarai Pangkalan...", String.Empty))
+                ddlSenaraiPangkalan.SelectedIndex = 0
+                loadKuarters()
+                ddlSenaraiKuarters.Enabled = True
+            Catch ex As Exception
+                Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Sub
+
+    Private Sub loadKuarters()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters WHERE pangkalan_id = " & ddlSenaraiPangkalan.SelectedValue & "", conn)
+            Dim ds As New DataSet
+            Try
+                conn.Open()
+                Dim da As New SqlDataAdapter(cmd)
+                da.Fill(ds)
+                ddlSenaraiKuarters.DataSource = ds
+                ddlSenaraiKuarters.DataTextField = "kuarters_nama"
+                ddlSenaraiKuarters.DataValueField = "kuarters_id"
+                ddlSenaraiKuarters.DataBind()
+                ddlSenaraiKuarters.Items.Insert(0, New ListItem("Senarai Kuarters...", String.Empty))
+                ddlSenaraiKuarters.SelectedIndex = 0
+            Catch ex As Exception
+                Debug.Write("ERROR(loadKuarters): " & ex.Message)
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Sub
+
+    Private Function getDate(ByVal hari As String, ByVal bulan As String, ByVal tahun As String) As String
+        Return (hari & "/" & bulan & "/" & tahun)
+    End Function
+
+    Private Sub populateDay(ByVal ddl As DropDownList)
+        For i As Integer = 1 To 31
+            Dim temp As ListItem
+            If i < 10 Then
+                temp = New ListItem("0" & i, i)
+            Else
+                temp = New ListItem(i, i)
+            End If
+            ddl.Items.Add(temp)
+        Next
+    End Sub
+
+    Private Sub populateMonth(ByVal ddl As DropDownList)
+        For i As Integer = 1 To 12
+            Dim temp As ListItem
+            If i < 10 Then
+                temp = New ListItem("0" & i, i)
+            Else
+                temp = New ListItem(i, i)
+            End If
+            ddl.Items.Add(temp)
+        Next
+    End Sub
+
+    Private Sub populateYear(ByVal ddl As DropDownList)
+        Dim startYear As Integer = Date.Now().Year - 20
+        For i As Integer = 1 To 20
+            Dim item As Integer = startYear + i
+            Dim temp As New ListItem(item, item)
+            ddl.Items.Add(item)
+        Next
+    End Sub
+
     Private Function Save() As Boolean
-        Dim kuartersId = ddlSenaraiRumah.SelectedValue
+        Dim kuartersId = ddlSenaraiKuarters.SelectedValue
         Dim penggunaId = pengguna_id.Value
         Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
         Dim mulaMenetap = getDate(ddlTarikhTinggalHariMula.SelectedValue, ddlTarikhTinggalBulanMula.SelectedValue, ddlTarikhTinggalTahunMula.SelectedValue)
@@ -202,7 +227,6 @@ Public Class permohonan_kuarters
                 strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
                 Debug.WriteLine("ERROR: " & ex.Message)
             End Try
-
         Else
             lblCheckBoxAlert.Text = "Sila setuju dengan perkara berikut."
             lblCheckBoxAlert.Attributes.CssStyle.Add("color", "red")
@@ -312,4 +336,16 @@ Public Class permohonan_kuarters
         Dim age = Date.Now().Year - dob_date.Year
         Return age
     End Function
+
+    Private Sub cbBertukarPangkalan_CheckedChanged(sender As Object, e As EventArgs) Handles cbBertukarPangkalan.CheckedChanged
+        If cbBertukarPangkalan.Checked = True Then
+            tblBertukar.Visible = True
+        ElseIf cbBertukarPangkalan.Checked = False Then
+            tblBertukar.Visible = False
+        End If
+    End Sub
+
+    Private Sub ddlSenaraiPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlSenaraiPangkalan.SelectedIndexChanged
+        loadKuarters()
+    End Sub
 End Class

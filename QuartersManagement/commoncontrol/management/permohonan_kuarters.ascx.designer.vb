@@ -212,13 +212,40 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents ddlTarikhTinggalTahunMula As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlSenaraiRumah control.
+    '''ddlSenaraiPangkalan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlSenaraiRumah As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlSenaraiPangkalan As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlSenaraiKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlSenaraiKuarters As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''cbBertukarPangkalan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cbBertukarPangkalan As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
+    '''tblBertukar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tblBertukar As Global.System.Web.UI.HtmlControls.HtmlTable
 
     '''<summary>
     '''ddlPasukanLama control.
