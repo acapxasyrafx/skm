@@ -97,9 +97,7 @@
                     <asp:TemplateField HeaderText="Action">
                         <ItemTemplate>
                             <span runat="server" style="float: right">
-                                <asp:ImageButton Width="12" Height="12" ID="btnView" CommandName ="ViewApllicant" CommandArgument ='<%#Eval("pengguna_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memproses permohonan ini? ')" runat="server" ImageUrl="~/icons/form_process.png" ToolTip="View" />
-                                |
-                                <asp:ImageButton Width="12" Height="12" ID="btnProses" CommandName ="Diluluskan" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memproses permohonan ini? ')" runat="server" ImageUrl="~/icons/form_process.png" ToolTip="Update" />
+                                <asp:ImageButton Width="12" Height="12" ID="btnView" CommandName ="ViewApllicant" CommandArgument ='<%#Eval("pengguna_id")%>' runat="server" ImageUrl="~/icons/form_process.png" ToolTip="View" />
                                 |
                                 <asp:ImageButton Width="12" Height="12" ID="btnDelete" CommandName="Batal" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete" />
                             </span>

@@ -116,6 +116,7 @@
     <Content Include="commoncontrol\menu\navigation_menu.ascx" />
     <Content Include="commoncontrol\penjawat_senarai.ascx" />
     <Content Include="commoncontrol\permohonan\maklumat_pemohon.ascx" />
+    <Content Include="commoncontrol\permohonan\maklumat_pemohon_menunggu.ascx" />
     <Content Include="commoncontrol\permohonan\permohonan_baru.ascx" />
     <Content Include="commoncontrol\permohonan\permohonan_menunggu.ascx" />
     <Content Include="commoncontrol\permohonan\permohonan_tolak.ascx" />
@@ -157,6 +158,7 @@
     <Content Include="Pendaftaran.Penjawat.Senarai.aspx" />
     <Content Include="Permohonan.Kuarters.aspx" />
     <Content Include="Senarai.Penempatan.Pemohon.aspx" />
+    <Content Include="Maklumat.Pemohon.Menunggu.aspx" />
     <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
     <Content Include="Rekod.Penyelenggaraan.aspx" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -345,6 +347,13 @@
     </Compile>
     <Compile Include="commoncontrol\permohonan\maklumat_pemohon.ascx.vb">
       <DependentUpon>maklumat_pemohon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\maklumat_pemohon_menunggu.ascx.designer.vb">
+      <DependentUpon>maklumat_pemohon_menunggu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\maklumat_pemohon_menunggu.ascx.vb">
+      <DependentUpon>maklumat_pemohon_menunggu.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\permohonan\permohonan_baru.ascx.designer.vb">
@@ -575,6 +584,13 @@
     <Compile Include="user.Master.vb">
       <DependentUpon>user.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Maklumat.Pemohon.Menunggu.aspx.designer.vb">
+      <DependentUpon>Maklumat.Pemohon.Menunggu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maklumat.Pemohon.Menunggu.aspx.vb">
+      <DependentUpon>Maklumat.Pemohon.Menunggu.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

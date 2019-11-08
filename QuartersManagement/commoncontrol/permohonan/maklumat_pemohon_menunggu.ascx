@@ -1,4 +1,4 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="maklumat_pemohon.ascx.vb" Inherits="QuartersManagement.maklumat_pemohon" %>
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="maklumat_pemohon_menunggu.ascx.vb" Inherits="QuartersManagement.maklumat_pemohon_menunggu" %>
 <style type="text/css">
     .auto-style1 {
         height: 26px;
@@ -12,10 +12,6 @@
     }
     .auto_style4{
         position :center
-    }
-    .auto-style4 {
-        height: 26px;
-        width: 646px;
     }
     .auto-style6 {
         height: 26px;
@@ -71,6 +67,12 @@
     }
     .auto-style37 {
         width: 16%;
+    }
+    .auto-style38 {
+        width: 189px;
+    }
+    .auto-style39 {
+        width: 18px;
     }
 </style>
 <table class="fbform" style="width: 100%">
@@ -255,11 +257,53 @@
         <td class="auto-style3">
             <asp:Label runat="server" ID="lblpoinDisplay"></asp:Label>
         </td>
-        <td class="auto-style4">
-            <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName ="Approved" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/verified-text-paper.png" ToolTip="Approved" Height="39px"/>
-            <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="16px" CommandName ="Rejected" CommandArgument ='<%#Eval("permohonan_id")%>'   OnClientClick="javascript:return confirm('Adakah anda pasti mahu menolak permohonan ini? ')"  ToolTip="Reject" />
+        
+    </tr>
+
+</table>
+
+<table class="fbform" style="width:100%">
+    <tr nclass="fbform_mheader">
+        <td colspan="3">Rummah Dipohon</td>
+    </tr>
+    <tr>
+        <td class="auto-style38">
+        <asp:Label runat="server" >Rumah Yang Dipohon</asp:Label>
+        </td>
+        <td class="auto-style39">:</td>
+        <td><asp:Label runat ="server" ID="lblrumahpemohonDipohon"></asp:Label></td>
+    </tr>
+    <tr class="fbform_mheader">
+        <td colspan="3">Cadangan Unit</td>
+    </tr>
+    <tr>
+        <td class="auto-style38">
+            Unit 1
+        </td>
+        <td class="auto-style39">:</td>
+        <td>
+            <asp:DropDownList ID="ddlcadanganUnit1" runat="server"></asp:DropDownList>
         </td>
     </tr>
+    <tr>
+        <td class="auto-style38">
+            Unit 2
+        </td>
+        <td class="auto-style39">:</td>
+        <td>
+            <asp:DropDownList ID="ddlcadanganUnit2" runat="server"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td class="auto-style38">
+            Unit 3
+        </td>
+        <td class="auto-style39">:</td>
+        <td>
+            <asp:DropDownList ID="ddlcadanganUnit3" runat="server"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr><td colspan="3"> <asp:Button runat ="server" ID ="btn_submitUnit" Text ="Hantar Unit Cadangan" /> </td></tr>
 
 </table>
 
