@@ -175,18 +175,14 @@ Public Class permohonan_menunggu
             If (e.CommandName = "ViewApllicant") Then
                 Dim strCID = e.CommandArgument.ToString
 
-                Response.Redirect("Senarai.Pemohon.Maklumat.Pemohon.aspx?uid=" + strCID)
+                Response.Redirect("Maklumat.Pemohon.Menunggu.aspx?uid=" + strCID)
             ElseIf (e.CommandName = "Batal") Then
                 Dim strCID = e.CommandArgument.ToString
 
                 'chk session to prevent postback
                 strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN ANDA DITOLAK' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
                 oCommon.ExecuteSQL(strSQL)
-            ElseIf (e.CommandArgument = "Diluluskan") Then
-                Dim strCID = e.CommandArgument.ToString
 
-                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'Diluluskan' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
-                oCommon.ExecuteSQL(strSQL)
             End If
             BindData(datRespondent)
 
