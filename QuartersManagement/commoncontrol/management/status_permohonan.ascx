@@ -129,5 +129,68 @@
                 </tr>
             </table>
         </div>
+        <div class="">
+            <table class="fbform">
+                <tr class="fbform_mheader">
+                    <td>Maklumat Anak</td>
+                </tr>
+                <tr>
+                    <asp:GridView 
+                        ID="tblMaklumatAnak" 
+                        runat="server" 
+                        DataKeyNames="anak_id"
+                        AutoGenerateColumns="False" 
+                        AllowPaging="false"
+                        CellPadding="4" 
+                        ForeColor="#333333" 
+                        GridLines="None" 
+                        Width="100%" 
+                        PageSize="100" 
+                        CssClass="gridview_footer">
+                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                        <Columns>
+                            <asp:TemplateField HeaderText="#">
+                                <ItemTemplate>
+                                    <%# Container.DataItemIndex + 1 %>
+                                </ItemTemplate>
+                                <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" width="10%"/>
+                                <ItemStyle VerticalAlign="Middle" />
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Nama" >
+                                <ItemTemplate>
+                                    <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("anak_nama")%>'></asp:Label>
+                                </ItemTemplate>
+                                <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                            </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="IC" >
+                                <ItemTemplate>
+                                    <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("anak_ic")%>'></asp:Label>
+                                </ItemTemplate>
+                                <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                            </asp:TemplateField>
+                        
+                            <asp:TemplateField HeaderText="UMUR" >
+                                <ItemTemplate>
+                                    <asp:Label ID="lblUmurAnak" runat="server" Text='<%# Bind("anak_umur")%>'></asp:Label>
+                                </ItemTemplate>
+                                <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" />
+                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                            </asp:TemplateField>
+                        </Columns>
+                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
+                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
+                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle"
+                            HorizontalAlign="Center" />
+                        <EditRowStyle BackColor="#999999" />
+                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                    </asp:GridView>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
