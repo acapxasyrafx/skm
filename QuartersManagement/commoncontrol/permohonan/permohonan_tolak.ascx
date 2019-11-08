@@ -88,7 +88,7 @@
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Kuarters Dipohon" >
+                    <asp:TemplateField HeaderText="Markah" >
                         <ItemTemplate>
                             <asp:Label ID="lbl_kuartersDipohon" runat="server" Text='<%# Bind("total_poin")%>'> </asp:Label>
                         </ItemTemplate>
