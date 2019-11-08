@@ -13,6 +13,65 @@
     .auto_style4{
         position :center
     }
+    .auto-style4 {
+        height: 26px;
+        width: 646px;
+    }
+    .auto-style6 {
+        height: 26px;
+        width: 22%;
+    }
+    .auto-style12 {
+        height: 26px;
+        width: 1%;
+    }
+    .auto-style17 {
+        width: 8%;
+    }
+    .auto-style18 {
+        width: 21%;
+    }
+    .auto-style20 {
+        width: 26%;
+    }
+    .auto-style23 {
+        width: 13px;
+    }
+    .auto-style25 {
+        width: 32%;
+    }
+    .auto-style27 {
+        width: 22%;
+    }
+    .auto-style29 {
+        width: 95px;
+    }
+    .auto-style30 {
+        width: 22%;
+        height: 29px;
+    }
+    .auto-style31 {
+        width: 1%;
+        height: 29px;
+    }
+    .auto-style33 {
+        width: 95px;
+        height: 29px;
+    }
+    .auto-style34 {
+        width: 13px;
+        height: 29px;
+    }
+    .auto-style35 {
+        height: 29px;
+    }
+    .auto-style36 {
+        width: 16%;
+        height: 29px;
+    }
+    .auto-style37 {
+        width: 16%;
+    }
 </style>
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
@@ -29,79 +88,85 @@
 
 <table class="fbform" style="width:100%">
     <tr class="fbform_mheader">
-        <td colspan="6">Butiran Peribadi</td>
+        <td colspan="7">Butiran Peribadi</td>
     </tr>
     <tr>
-        <td class="auto-style1">Nama</td>
-        <td class="auto-style1">:</td>
-        <td colspan="4" class="auto-style1">
+        <td class="auto-style6">Nama</td>
+        <td class="auto-style12">:</td>
+        <td colspan="5" class="auto-style1">
             <asp:Label runat="server" ID="lblNama"></asp:Label>
         </td>
     </tr>
     <tr>
-        <td>Jantina</td>
-        <td>:</td>
-        <td colspan="4">
+        <td class="auto-style27">Jantina</td>
+        <td class="auto-style2">:</td>
+        <td colspan="5">
             <asp:Label ID="lblJantina" runat="server"></asp:Label>
         </td>
     </tr>
     <tr>
-        <td>Taikh Lahir</td>
-        <td>
+        <td class="auto-style27">Taikh Lahir</td>
+        <td class="auto-style2">:</td>
+        <td class="auto-style37" colspan="2">
             <asp:Label ID="lblLahirTahun" text="" runat="server"></asp:Label>
         </td>
-        <td>Status Kewarganegaraan</td>
-        <td>:</td>
-        <td>
+        <td class="auto-style29">Status Kewarganegaraan</td>
+        <td class="auto-style23">:</td>
+        <td class="auto-style17">
             <asp:label ID="lblKewarganegaraan" runat="server" > </asp:label>
         </td>
     </tr>
 
     <tr>
-        <td>Jawatan</td>
-        <td>:</td>
-        <td>
+        <td class="auto-style27">Jawatan</td>
+        <td class="auto-style2">:</td>
+        <td class="auto-style37" colspan ="2">
             <asp:Label runat="server" ID="lblJawatan" Text=""/>
         </td>
-        <td>No. Tentera</td>
-        <td>:</td>
-        <td>
+        <td class="auto-style29">No. Tentera</td>
+        <td class="auto-style23">:</td>
+        <td class="auto-style17">
             <asp:Label runat="server" ID="lblNoTentera"/>
         </td>
     </tr>
 
     <tr>
-        <td>Tarikh Berkhidmat</td>
-        <td colspan="2">
+        <td class="auto-style27">Tarikh Berkhidmat</td>
+        <td class="auto-style2">
+            :
+        </td>
+        <td colspan="2" class="auto-style37">
             <asp:Label Text=""  runat="server" ID="lblTarikhMulaBerkhidmat"/>
         </td>
-        <td>Hingga</td>
-        <td colspan="2">
-            <table class="fbform" style="width:100%">
-                <tr>
-                    <td>
-                        <asp:Label Text="" runat="server" ID="lblTarikhAkhirBerkhidmat"/>
+        <td class="auto-style29">Hingga</td>
+        <td class="auto-style23" >:</td>
+            
+                    
+        
+            <td>
+              <asp:Label Text="" runat="server" ID="lblTarikhAkhirBerkhidmat"/>
                     </td>
-                </tr>
-            </table>
-        </td>
+           
     </tr>
 
      <tr class="fbform_mheader">
-        <td colspan="6">Butiran Keluarga</td>
+        <td colspan="7">Butiran Keluarga</td>
     </tr>
     <tr>
-        <td>Bil. Anak</td>
-        <td>:<asp:Label runat="server" ID="lblBilAnak"></asp:Label></td>
+        <td class="auto-style27">Bil. Anak</td>
+        <td class="auto-style2">:</td>
+        <td class="auto-style20" colspan="5"><asp:Label runat="server" ID="lblBilAnak"></asp:Label></td>
     </tr>
     <tr>
-        <td>Tinggal Di Luar(Menyewa Rumah Sewa)</td>
-        <td colspan="2">
+        <td class="auto-style30">Tinggal Di Luar(Menyewa Rumah Sewa)</td>
+        <td class="auto-style31">:</td>
+        <td colspan="2" class="auto-style36">
 
             <asp:label ID="lblSewaMulaHari" runat="server"></asp:label> 
         </td>
-        <td>Hingga</td>
-        <td colspan="2">
+        <td class="auto-style33">Hingga</td>
+        <td class="auto-style34">:</td>
+        <td colspan="2" class="auto-style35">
             <table class="fbform" style="width:100%">
                 <tr>
                     
@@ -114,11 +179,13 @@
         </td>
     </tr>
     <tr>
-        <td>Tinggal Di Wisma(Keluarg Di kampung)</td>
-        <td colspan="2">
+        <td class="auto-style27">Tinggal Di Wisma(Keluarg Di kampung)</td>
+        <td class="auto-style2">:</td>
+        <td colspan="2" class="auto-style37">
             <asp:Label ID="lblWismaMulaHari" runat="server"></asp:Label> 
         </td>
-        <td>Hingga</td>
+        <td class="auto-style29">Hingga</td>
+        <td class="auto-style23">:</td>
         <td colspan="2">
             <table class="fbform" style="width:100%">
                 <tr>
@@ -130,12 +197,14 @@
         </td>
     </tr>
     <tr>
-        <td>Bertugas Di Seberang (Keluarga Berada Di Rumah Sewa Di Malaysia Barat)</td>
-        <td colspan="2">
+        <td class="auto-style27">Bertugas Di Seberang (Keluarga Berada Di Rumah Sewa Di Malaysia Barat)</td>        
+        <td class="auto-style2">:</td>
+        <td colspan="2" class="auto-style37">
             <asp:Label ID="lblSeberangMulaHari" runat="server"></asp:Label>
         </td>
-        <td>Hingga</td>
-        <td colspan="2">
+        <td class="auto-style29">Hingga</td>
+        <td class="auto-style23">:</td>
+        <td colspan="2" class="auto-style18">
             <table class="fbform" style="width:100%">
                 <tr>
                     <td>
@@ -147,28 +216,31 @@
     </tr>
 
      <tr class="fbform_mheader">
-        <td colspan="6">Butiran Permohonan</td>
+        <td colspan="7">Butiran Permohonan</td>
     </tr>
     <tr>
-        <td>Rumah Dikehendaki Di: </td>
-        <td>
+        <td class="auto-style27">Rumah Dikehendaki Di </td>
+        <td class="auto-style2">:</td>
+        <td class="auto-style20" colspan="5">
             <asp:Label runat="server" ID="lblSenaraiRumah"></asp:Label>
         </td>
     </tr>
     <tr>
-        <td>Dari (Pasukan): </td>
-        <td>
+        <td class="auto-style27">Dari (Pasukan)</td>
+        <td class="auto-style2">:</td>
+        <td class="auto-style37" colspan="2">
             <asp:Label runat="server" ID="lblDariPasukan"></asp:Label>
         </td>
-        <td>Ke (Pasukan): </td>
-        <td>
+        <td class="auto-style29">Ke (Pasukan)</td>
+        <td class="auto-style23">:</td>
+        <td class="auto-style17">
             <asp:Label runat="server" ID="lblKePasukan"></asp:Label>
         </td>
     </tr>
     <tr>
-        <td>Dari (Tarikh Mula): </td>
-        <td>:</td>
-        <td colspan="2">
+        <td class="auto-style27">Dari (Tarikh Mula): </td>
+        <td class="auto-style2">:</td>
+        <td colspan="5" class="auto-style25">
             <asp:Label ID="lblTarikhMulaHari" runat="server"></asp:Label>
         </td>
     </tr>
