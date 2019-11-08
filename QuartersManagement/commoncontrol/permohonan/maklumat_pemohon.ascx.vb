@@ -28,6 +28,28 @@ Public Class maklumat_pemohon
         End Try
     End Sub
 
+    Private Sub data_poinLoad()
+        Dim strSQL2 As String = ""
+        Dim strSQL3 As String = ""
+        Dim dataJumlah As Integer = ""
+        Dim dataPangkatPoin As Integer = ""
+        Dim dataUmurAnak As Integer = ""
+        Dim jumlah_anak As Integer = ""
+
+        strSQL = "select count(anak_nama) from spk_anak where anak_umur <= 18"
+        strSQL2 = "select B.pangkat_mata from spk_pengguna A left join spk_pangkat B on A.pangkat_id = B.pangkat_id"
+
+        Dim jumlah_anakUmur18 = oCommon.ExecuteSQL(strSQL)
+        Dim jumlah_poinPangkat = oCommon.ExecuteSQL(strSQL2)
+
+
+        Dim jumlah_mataTerkumpul = jumlah_poinPangkat + (jumlah_anakUmur18 * 5)
+
+        lblpoinDisplay.Text = jumlah_mataTerkumpul.ToString
+
+
+    End Sub
+
     Private Sub data_load()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim cmd As New SqlCommand("SELECT 
@@ -45,21 +67,25 @@ Public Class maklumat_pemohon
                 
 				D.keluarga_anak,
 				D.keluarga_tempat_tinggal,
-				D.keluarga_tarikh_mula,
-				D.keluarga_tarikh_akhir,
-				D.keluarga_tarikh_sewa_mula,
-				D.keluarga_tarikh_sewa_akhir,
-				D.keluarga_tarikh_wisma_mula,
-				D.keluarga_tarikh_wisma_akhir,
-				D.keluarga_tarikh_seberang_mula,
-				D.keluarga_tarikh_seberang_akhir
+				D.keluarga_tarikh_mula
+                (((SELECT COUNT(anak_nama) FROM spk_anak where anak_umur < 18) * 5) + pangkat_mata ) as jumlahPoin
+
             FROM 
 	            admin.spk_pengguna A
 	            JOIN admin.spk_pangkat B ON A.pangkat_id = B.pangkat_id
 	            JOIN dbo.spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id
 				JOIN admin.spk_keluarga D on A.pengguna_id = D.pengguna_id
-            WHERE  WHERE A.pengguna_id = '" & Request.QueryString("uid") & "'",
+                left join spk_anak E on A.pengguna_id = E.pengguna_id
+
+            WHERE A.pengguna_id = '" & Request.QueryString("uid") & "'",
             conn)
+            'D.keluarga_tarikh_akhir,
+            'D.keluarga_tarikh_sewa_mula,
+            'D.keluarga_tarikh_sewa_akhir,
+            'D.keluarga_tarikh_wisma_mula,
+            'D.keluarga_tarikh_wisma_akhir,
+            'D.keluarga_tarikh_seberang_mula,
+            'D.keluarga_tarikh_seberang_akhir
 
             Try
                 conn.Open()
@@ -80,6 +106,8 @@ Public Class maklumat_pemohon
                         lblWismaMulaHari.Text = reader("keluarga_tarikh_wisma_mula")
 
                         lblSeberangMulaHari.Text = reader("keluarga_tarikh_seberang_mula")
+
+                        lblpoinDisplay.Text = reader("jumlahPoin")
 
                         'lblSenaraiRumah.Text = reader("pengguna_mula_perkhidmatan")
                         'lblDariPasukan.Text = reader("pengguna_mula_perkhidmatan")

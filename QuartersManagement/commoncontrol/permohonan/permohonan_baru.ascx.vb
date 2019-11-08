@@ -99,12 +99,14 @@ Public Class permohonan_baru
         End If
 
         tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
-                    ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,B.unit_id as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
-                    , B.permohonan_id as permohonan_id 
+                    ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
+                    , B.permohonan_id as permohonan_id ,(((SELECT COUNT(anak_nama) FROM spk_anak where anak_umur < 18) * 5) + pangkat_mata ) as jumlahPoin
                     FROM spk_permohonan as B
                     left join spk_pengguna A on B.pengguna_id = A.pengguna_id
 					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
 					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
+                    left join spk_kuarters E on B.kuarters_id = E.kuarters_id
+                    left join spk_unit F on B.unit_id = F.unit_id
 					"
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN BARU'"
 

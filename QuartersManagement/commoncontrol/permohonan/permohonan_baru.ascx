@@ -88,7 +88,13 @@
                             <asp:Label ID="lbl_kuartersDipohon" runat="server" Text='<%# Bind("unit")%>'> </asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>   
+                    </asp:TemplateField> 
+                    <asp:TemplateField HeaderText="Mata Poin" >
+                        <ItemTemplate>
+                            <asp:Label ID="lbl_mataPoin" runat="server" Text='<%# Bind("total_poin")%>'> </asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                    </asp:TemplateField> 
                     <asp:TemplateField HeaderText="Action">
                         <ItemTemplate>
                             <span runat="server" style="float: right">
