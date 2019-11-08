@@ -74,6 +74,9 @@
     .auto-style39 {
         width: 18px;
     }
+    .auto-style40 {
+        width: 12%;
+    }
 </style>
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
@@ -250,8 +253,8 @@
 </table>
 <table class="fbform" style="width:100%">
     <tr class="fbform_mheader">
-        <td width="10%">
-            Total Poin Terkumpul
+        <td class="auto-style40">
+            Total Markah Terkumpul
         </td>
         <td class="auto-style2">:</td>
         <td class="auto-style3">
@@ -263,7 +266,7 @@
 </table>
 
 <table class="fbform" style="width:100%">
-    <tr nclass="fbform_mheader">
+    <tr >
         <td colspan="3">Rummah Dipohon</td>
     </tr>
     <tr>
