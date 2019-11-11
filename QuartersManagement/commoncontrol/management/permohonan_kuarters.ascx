@@ -208,16 +208,22 @@
         <td colspan="4">Butiran Permohonan</td>
     </tr>
     <tr>
-        <td style="width:100px;">Rumah Dimohon</td>
+        <td style="width:100px;">Pangkalan</td>
         <td>:</td>
         <td colspan="2">
-            <asp:DropDownList runat="server" ID="ddlSenaraiRumah"></asp:DropDownList>
+            <asp:DropDownList runat="server" ID="ddlSenaraiPangkalan" AutoPostBack="true"></asp:DropDownList></td>
+    </tr>
+    <tr>
+        <td style="width:100px;">Kuarters/Rumah</td>
+        <td>:</td>
+        <td colspan="2">
+            <asp:DropDownList runat="server" ID="ddlSenaraiKuarters" Enabled="false"></asp:DropDownList>
         </td>
     </tr>
     <tr>
         <td colspan="4">
-            Untuk yang bertukar pasukan
-            <table>
+            <asp:CheckBox Text="Tanda ini untuk yang bertukar pangkalan" runat="server" ID="cbBertukarPangkalan" AutoPostBack="true"/>
+            <table runat="server" id="tblBertukar" visible="false">
                 <tr>
                     <td>Dari Pasukan</td>
                     <td>:</td>
