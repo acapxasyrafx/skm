@@ -108,7 +108,9 @@ Public Class permohonan_menunggu
 					"
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN SEDANG DIPROSES'"
 
-
+        If Not txt_nama.Text = "" Then
+            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "')"
+        End If
 
         getSQL = tmpSQL & strWhere & strOrder
 
@@ -191,5 +193,7 @@ Public Class permohonan_menunggu
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
         End Try
     End Sub
-
+    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        strRet = BindData(datRespondent)
+    End Sub
 End Class

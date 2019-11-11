@@ -21,7 +21,7 @@ Partial Public Class Senarai_Pangkalan
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents navigation_menu As Global.QuartersManagement.navigation_menu
-    
+
     '''<summary>
     '''senarai_pangkalan control.
     '''</summary>

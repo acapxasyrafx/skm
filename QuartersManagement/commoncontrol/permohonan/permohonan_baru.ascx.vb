@@ -110,7 +110,9 @@ Public Class permohonan_baru
 					"
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN BARU'"
 
-
+        If Not txt_nama.Text = "" Then
+            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "')"
+        End If
 
         getSQL = tmpSQL & strWhere & strOrder
 
@@ -196,14 +198,6 @@ Public Class permohonan_baru
                 End If
 
                 BindData(datRespondent)
-            ElseIf (e.CommandName = "Batal") Then
-                    Dim strCID = e.CommandArgument.ToString
-
-                'chk session to prevent postback
-                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN ANDA DITOLAK' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
-                oCommon.ExecuteSQL(strSQL)
-
-                BindData(datRespondent)
             End If
             BindData(datRespondent)
 
@@ -211,5 +205,9 @@ Public Class permohonan_baru
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
         End Try
+    End Sub
+
+    Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        strRet = BindData(datRespondent)
     End Sub
 End Class

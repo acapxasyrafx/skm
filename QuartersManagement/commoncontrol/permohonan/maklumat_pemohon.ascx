@@ -72,6 +72,9 @@
     .auto-style37 {
         width: 16%;
     }
+    .auto-style38 {
+        width: 241px;
+    }
 </style>
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
@@ -139,14 +142,10 @@
             <asp:Label Text=""  runat="server" ID="lblTarikhMulaBerkhidmat"/>
         </td>
         <td class="auto-style29">Hingga</td>
-        <td class="auto-style23" >:</td>
-            
-                    
-        
-            <td>
-              <asp:Label Text="" runat="server" ID="lblTarikhAkhirBerkhidmat"/>
-                    </td>
-           
+        <td class="auto-style23" >:</td>                 
+        <td>
+            <asp:Label Text="" runat="server" ID="lblTarikhAkhirBerkhidmat" />
+        </td>          
     </tr>
 
      <tr class="fbform_mheader">
@@ -248,16 +247,16 @@
 </table>
 <table class="fbform" style="width:100%">
     <tr class="fbform_mheader">
-        <td width="10%">
+        <td class="auto-style38">
             Total Poin Terkumpul
         </td>
         <td class="auto-style2">:</td>
         <td class="auto-style3">
-            <asp:Label runat="server" ID="lblpoinDisplay"></asp:Label>
+            <asp:Label runat="server" ID="lblpoinDisplay" Text =""></asp:Label>
         </td>
         <td class="auto-style4">
             <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName ="Approved" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/verified-text-paper.png" ToolTip="Approved" Height="39px"/>
-            <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="16px" CommandName ="Rejected" CommandArgument ='<%#Eval("permohonan_id")%>'   OnClientClick="javascript:return confirm('Adakah anda pasti mahu menolak permohonan ini? ')"  ToolTip="Reject" />
+            <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="39px" CommandName ="Rejected" CommandArgument ='<%#Eval("permohonan_id")%>'   OnClientClick="javascript:return confirm('Adakah anda pasti mahu menolak permohonan ini? ')" ImageUrl="~/icons/reject-text-paper.png" ToolTip="Reject" />
         </td>
     </tr>
 
@@ -270,9 +269,10 @@
         <td colspan="3"></td>
     </tr>
 </table>
-<table class ="fbform">
+<table class="fbform">
     <tr>
-        <td><span id ="MsgBottom" runat ="server" ><asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label></span></td>
+        <td><span id="MsgBottom" runat="server">
+            <asp:Label ID="strlbl_bottom" runat="server"></asp:Label></span></td>
     </tr>
 
 </table>
