@@ -59,6 +59,15 @@ Partial Public Class status_permohonan1
     Protected WithEvents suratTawaran As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''mvStatusPermohonan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents mvStatusPermohonan As Global.System.Web.UI.WebControls.MultiView
+
+    '''<summary>
     '''viewPemohonanDir control.
     '''</summary>
     '''<remarks>

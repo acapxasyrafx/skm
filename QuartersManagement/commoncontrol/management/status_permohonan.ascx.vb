@@ -5,6 +5,7 @@ Public Class status_permohonan1
     Dim penggunaID As Integer = 1
     Dim pangkalanID As Integer = 0
     Dim permohonanID As Integer = 14
+    Dim statusPermohon As String = ""
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         permohonanBaharu.Attributes("class") = "progress-done"
@@ -16,55 +17,62 @@ Public Class status_permohonan1
     End Sub
 
     Private Sub Load_Page()
-        Dim status_permohonan = "LULUS_TANPA_KEKOSONGAN"
         maklumatUser()
         maklumatAnak()
-        If status_permohonan.Equals("LULUS_TANPA_KEKOSONGAN") Then
+        statusPermohon = "LULUS TANPA KEKOSONGAN"
+        If statusPermohon.Equals("PERMOHONAN BARU") Then
+            mvStatusPermohonan.ActiveViewIndex = 0
+        ElseIf statusPermohon.Equals("LULUS TANPA KEKOSONGAN") Then
             maklumatCadanganKuarters()
+            mvStatusPermohonan.ActiveViewIndex = 1
         End If
     End Sub
 
     Private Sub maklumatUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim cmd As New SqlCommand("SELECT TOP 1
-            A.pengguna_id,
-            A.pengguna_nama,
-            A.pengguna_status_perkahwinan,
-            E.keluarga_anak,
-            E.keluarga_tempat_tinggal,
-            A.pengguna_mula_perkhidmatan,
-            B.unit_id,
-            B.permohonan_status,
-            D.kuarters_nama,
-	        F.pangkalan_id,
-	        F.pangkalan_nama,
-            B.pemohonan_tarikh
-        FROM 
-            admin.spk_pengguna A
-            JOIN admin.spk_permohonan B on B.pengguna_id = A.pengguna_id
-            JOIN admin.spk_keluarga E ON E.pengguna_id = A.pengguna_id
-            JOIN admin.spk_unit C ON C.unit_id = B.unit_id
-            JOIN admin.spk_kuarters D ON D.kuarters_id = C.kuarters_id
-	        JOIN dbo.spk_pangkalan F ON F.pangkalan_id = C.pangkalan_id
-        WHERE
-            A.pengguna_id = " & pangkalanID & "
-        ORDER BY
-            B.pemohonan_tarikh DESC;",
+                A.pengguna_id,
+                A.pengguna_nama,
+                A.pengguna_status_perkahwinan,
+                E.keluarga_anak,
+                E.keluarga_tempat_tinggal,
+                E.keluarga_tarikh_mula,
+                A.pengguna_mula_perkhidmatan,
+                B.unit_id,
+                B.permohonan_status,
+                D.kuarters_nama,
+	            F.pangkalan_id,
+	            F.pangkalan_nama,
+                B.pemohonan_tarikh
+            FROM 
+                admin.spk_pengguna A
+                JOIN admin.spk_permohonan B on B.pengguna_id = A.pengguna_id
+                JOIN admin.spk_keluarga E ON E.pengguna_id = A.pengguna_id
+                JOIN admin.spk_unit C ON C.unit_id = B.unit_id
+                JOIN admin.spk_kuarters D ON D.kuarters_id = C.kuarters_id
+	            JOIN dbo.spk_pangkalan F ON F.pangkalan_id = C.pangkalan_id
+            WHERE
+                A.pengguna_id = 1
+            ORDER BY
+                B.pemohonan_tarikh DESC;",
             conn)
 
             Try
                 conn.Open()
                 Dim reader As SqlDataReader = cmd.ExecuteReader
                 If reader.HasRows Then
-                    If reader.Read() Then
-                        lblBilAnak.Text = reader("keluarga_anak")
+                    Do While reader.Read = True
                         lblJenisTempatTinggal.Text = reader("keluarga_tempat_tinggal")
-                        lblTarikhMulaMenetap.Text = reader("keluarga_tarikh_mula")
+                        lblTarikhMulaMenetap.Text = reader("keluarga_tarikh_mula").ToString()
                         lblKuarterDipohon.Text = reader("kuarters_nama")
                         lblTarikhPermohonan.Text = reader("pemohonan_tarikh")
-                    End If
+                        statusPermohon = reader("permohonan_status")
+                        Debug.WriteLine("Success: maklumatUser")
+                    Loop
+                Else
+                    Debug.WriteLine("Error(maklumatUser): No Rows")
                 End If
-                Debug.WriteLine("Success: maklumatUser")
+                reader.Close()
             Catch ex As Exception
                 Debug.WriteLine("Error(maklumatUser): " & ex.Message)
             Finally
@@ -84,8 +92,8 @@ Public Class status_permohonan1
                     lblBilAnak.Text = ds.Tables(0).Rows.Count
                     tblMaklumatAnak.DataSource = ds
                     tblMaklumatAnak.DataBind()
+                    Debug.WriteLine("Success: maklumatAnak")
                 End If
-                Debug.WriteLine("Success: maklumatAnak")
             Catch ex As Exception
                 Debug.WriteLine("Error(maklumatAnak):" & ex.Message)
             Finally
@@ -118,9 +126,10 @@ Public Class status_permohonan1
                 If ds.Tables(0).Rows.Count > 0 Then
                     tblCadanganKuarters.DataSource = ds
                     tblCadanganKuarters.DataBind()
+                    Debug.WriteLine("Success: maklumatCadanganKuarters")
                 End If
             Catch ex As Exception
-                Debug.WriteLine("Error(maklumaCadangantKuartes): " & ex.Message)
+                Debug.WriteLine("Error(maklumatCadangantKuartes): " & ex.Message)
             Finally
                 conn.Close()
             End Try
