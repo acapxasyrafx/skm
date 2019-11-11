@@ -140,6 +140,42 @@ Partial Public Class status_permohonan1
     Protected WithEvents viewCadanganKuarters As Global.System.Web.UI.WebControls.View
 
     '''<summary>
+    '''MsgTop control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''strlbl_top control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''SaveFunction control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
+    '''Refresh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
     '''tblCadanganKuarters control.
     '''</summary>
     '''<remarks>
@@ -149,11 +185,20 @@ Partial Public Class status_permohonan1
     Protected WithEvents tblCadanganKuarters As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
-    '''btnPilihCadangan control.
+    '''MsgBottom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnPilihCadangan As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''strlbl_bottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
 End Class

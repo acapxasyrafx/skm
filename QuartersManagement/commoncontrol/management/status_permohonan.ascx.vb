@@ -1,11 +1,27 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data
+Imports System.Drawing
+Imports System.Data.SqlClient
 Public Class status_permohonan1
     Inherits System.Web.UI.UserControl
+
+    Dim strlblMsgBottom As String = ConfigurationManager.AppSettings("lblMessage_bottom")
+    Dim strlblMsgTop As String = ConfigurationManager.AppSettings("lblMessage_top")
+    Dim strSucDelAlert As String = ConfigurationManager.AppSettings("deleteSuccessAlert")
+    Dim strFailDelAlert As String = ConfigurationManager.AppSettings("deleteFailAlert")
+    Dim strSaveSuccessAlert As String = ConfigurationManager.AppSettings("saveSuccessAlert")
+    Dim strSaveFailAlert As String = ConfigurationManager.AppSettings("saveFailAlert")
+    Dim strDataBindAlert As String = ConfigurationManager.AppSettings("dataBindAlert")
+    Dim strRecordBindAlert As String = ConfigurationManager.AppSettings("recordBindAlert")
+    Dim strSysErrorAlert As String = ConfigurationManager.AppSettings("systemErrorAlert")
+    Dim strDataValAlert As String = ConfigurationManager.AppSettings("dataValidationAlert")
+
+    Dim oCommon As New Commonfunction
 
     Dim penggunaID As Integer = 1
     Dim pangkalanID As Integer = 0
     Dim permohonanID As Integer = 14
     Dim statusPermohon As String = ""
+    Dim idKuartersDipilih As Integer
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         permohonanBaharu.Attributes("class") = "progress-done"
@@ -134,5 +150,44 @@ Public Class status_permohonan1
                 conn.Close()
             End Try
         End Using
+    End Sub
+
+    Private Sub tblCadanganKuarters_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles tblCadanganKuarters.RowDataBound
+        If e.Row.RowType = DataControlRowType.DataRow Then
+            e.Row.Attributes("onclick") = Page.ClientScript.GetPostBackClientHyperlink(tblCadanganKuarters, "Select$" & e.Row.RowIndex)
+            e.Row.ToolTip = "Clik row untuk pilih kuarters."
+        End If
+    End Sub
+
+    Private Sub tblCadanganKuarters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tblCadanganKuarters.SelectedIndexChanged
+        For Each row As GridViewRow In tblCadanganKuarters.Rows
+            If row.RowIndex = tblCadanganKuarters.SelectedIndex Then
+                row.BackColor = ColorTranslator.FromHtml(" #e9f83c")
+                idKuartersDipilih = Integer.Parse(tblCadanganKuarters.DataKeys(row.RowIndex).Value)
+                Debug.WriteLine("Selected DataKeyValue: " & tblCadanganKuarters.DataKeys(row.RowIndex).Value)
+                Debug.WriteLine("Selected Index: " & row.RowIndex)
+                SaveFunction.Disabled = False
+                row.ToolTip = String.Empty
+            Else
+                row.BackColor = ColorTranslator.FromHtml("#FFFFFF")
+                row.ToolTip = "Clik row untuk pilih kuarters."
+            End If
+        Next
+    End Sub
+
+    Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
+        Debug.WriteLine("Selected Kuarters ID: " & idKuartersDipilih)
+        If idKuartersDipilih = 0 Then
+            MsgTop.Attributes("class") = "errorMsg"
+            strlbl_top.Text = "Sila pilih SATU kuarters untuk meneruskan proses."
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = "Sila pilih SATU kuarters untuk meneruskan proses."
+        Else
+            Debug.WriteLine("ID Kuarters Dipilih:" & idKuartersDipilih)
+            MsgTop.Attributes("class") = "successMsg"
+            strlbl_top.Text = "Pemilihan kuarters berjaya. Pemohonan anda diprosess"
+            MsgBottom.Attributes("class") = "successMsg"
+            strlbl_bottom.Text = "Pemilihan kuarters bejaya. Pemohonan anda diprosess"
+        End If
     End Sub
 End Class
