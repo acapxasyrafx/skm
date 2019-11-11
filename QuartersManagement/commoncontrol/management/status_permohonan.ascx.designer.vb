@@ -59,6 +59,15 @@ Partial Public Class status_permohonan1
     Protected WithEvents suratTawaran As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''viewPemohonanDir control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents viewPemohonanDir As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
     '''lblBilAnak control.
     '''</summary>
     '''<remarks>
@@ -111,4 +120,31 @@ Partial Public Class status_permohonan1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents tblMaklumatAnak As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''viewCadanganKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents viewCadanganKuarters As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
+    '''tblCadanganKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tblCadanganKuarters As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''btnPilihCadangan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnPilihCadangan As Global.System.Web.UI.WebControls.Button
 End Class

@@ -60,15 +60,30 @@
         display:flex;
         align-items:center;
         justify-content: center;
+        margin-bottom: 15px;
     }
     .div-center ul {
         margin:0;
+    }
+    .div-right{
+        position:relative;
+        left:300px;
+        top:10px;
     }
     .label{
         display:inline-block;
         margin:0;
         padding:5px;
         font-size:100%;
+    }
+    .hoverWrapper #hoverShow{
+        display:none;
+        position:absolute;
+        background-color:#ccc;
+        height:250px;
+    }
+    .hoverWrapper:hover #hoverShow{
+        display:block;
     }
 </style>
 <div class="status-permohonan" style="height:85vh;">
@@ -81,116 +96,196 @@
                 <li runat="server" id="permohonanUnitDicadang">Permohonan Unit Dicadang</li>
                 <li runat="server" id="suratTawaran">Surat Tawaran</li>
             </ul>
+            <div class="div-right hoverWrapper">
+                <button>Help</button>
+                <div id="hoverShow">
+                    Help
+                </div>
+            </div>
         </div>
         <div class="">
-            <table class="fbform" style="width:100%;">
-                <tr class="fbform_mheader">
-                    <td colspan="3">Maklumat Keluarga</td>
-                </tr>
-                <tr>
-                    <td style="width:100px;">Bilangan Anak</td>
-                    <td>:</td>
-                    <td>
-                        <asp:Label CssClass="label" runat="server" ID="lblBilAnak" Text="4"></asp:Label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Jenis Tempat Tinggal</td>
-                    <td>:</td>
-                    <td>
-                        <asp:Label Text="text" runat="server" ID="lblJenisTempatTinggal"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Tarikh Mula Menetap</td>
-                    <td>:</td>
-                    <td>
-                        <asp:Label Text="text" runat="server" ID="lblTarikhMulaMenetap"/>
-                    </td>
-                </tr>
-            </table>
-            <table class="fbform" style="width:100%;">
-                <tr class="fbform_mheader">
-                    <td colspan="3">Maklumat Kuarters Dimohon</td>
-                </tr>
-                <tr>
-                    <td style="width:100px;">Nama Kuarters</td>
-                    <td>:</td>
-                    <td>
-                        <asp:Label Text="text" runat="server" ID="lblKuarterDipohon" />
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width:100px;">Tarikh Permohonan</td>
-                    <td>:</td>
-                    <td>
-                        <asp:Label Text="text" runat="server" ID="lblTarikhPermohonan" />
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="">
-            <table class="fbform">
-                <tr class="fbform_mheader">
-                    <td>Maklumat Anak</td>
-                </tr>
-                <tr>
-                    <asp:GridView 
-                        ID="tblMaklumatAnak" 
-                        runat="server" 
-                        DataKeyNames="anak_id"
-                        AutoGenerateColumns="False" 
-                        AllowPaging="false"
-                        CellPadding="4" 
-                        ForeColor="#333333" 
-                        GridLines="None" 
-                        Width="100%" 
-                        PageSize="100" 
-                        CssClass="gridview_footer">
-                        <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                        <Columns>
-                            <asp:TemplateField HeaderText="#">
-                                <ItemTemplate>
-                                    <%# Container.DataItemIndex + 1 %>
-                                </ItemTemplate>
-                                <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" width="10%"/>
-                                <ItemStyle VerticalAlign="Middle" />
-                            </asp:TemplateField>
+            <asp:MultiView ActiveViewIndex="0" runat="server">
+                <asp:View runat="server" ID="viewPemohonanDir">
+                    <table class="fbform" style="width:100%;">
+                        <tr class="fbform_mheader">
+                            <td colspan="3">Maklumat Keluarga</td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px;">Bilangan Anak</td>
+                            <td style="width:5px;">:</td>
+                            <td>
+                                <asp:Label CssClass="label" runat="server" ID="lblBilAnak" Text="4"></asp:Label>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td>Jenis Tempat Tinggal</td>
+                        <td>:</td>
+                        <td>
+                            <asp:Label Text="text" runat="server" ID="lblJenisTempatTinggal"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tarikh Mula Menetap</td>
+                        <td>:</td>
+                        <td>
+                            <asp:Label Text="text" runat="server" ID="lblTarikhMulaMenetap"/>
+                        </td>
+                    </tr>
+                    </table>
+                    <table class="fbform" style="width:100%;">
+                        <tr class="fbform_mheader">
+                            <td colspan="3">Maklumat Kuarters Dimohon</td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px;">Nama Kuarters</td>
+                            <td style="width:5px;">:</td>
+                            <td>
+                                <asp:Label runat="server" ID="lblKuarterDipohon" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px;">Tarikh Permohonan</td>
+                            <td style="width:5px;">:</td>
+                            <td>
+                                <asp:Label runat="server" ID="lblTarikhPermohonan" />
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="">
+                        <table class="fbform">
+                            <tr class="fbform_mheader">
+                                <td>Maklumat Anak</td>
+                            </tr>
+                            <tr>
+                                <asp:GridView 
+                                    ID="tblMaklumatAnak" 
+                                    runat="server" 
+                                    DataKeyNames="anak_id"
+                                    AutoGenerateColumns="False" 
+                                    AllowPaging="false"
+                                    CellPadding="4" 
+                                    ForeColor="#333333" 
+                                    GridLines="None" 
+                                    Width="100%" 
+                                    PageSize="100" 
+                                    CssClass="gridview_footer">
+                                <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                <Columns>
+                                    <asp:TemplateField HeaderText="#">
+                                        <ItemTemplate>
+                                            <%# Container.DataItemIndex + 1 %>
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" width="10%"/>
+                                        <ItemStyle VerticalAlign="Middle" />
+                                    </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="Nama" >
-                                <ItemTemplate>
-                                    <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("anak_nama")%>'></asp:Label>
-                                </ItemTemplate>
-                                <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                            </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Nama" >
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("anak_nama")%>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
 
-                            <asp:TemplateField HeaderText="IC" >
-                                <ItemTemplate>
-                                    <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("anak_ic")%>'></asp:Label>
-                                </ItemTemplate>
-                                <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                            </asp:TemplateField>
-                        
-                            <asp:TemplateField HeaderText="UMUR" >
-                                <ItemTemplate>
-                                    <asp:Label ID="lblUmurAnak" runat="server" Text='<%# Bind("anak_umur")%>'></asp:Label>
-                                </ItemTemplate>
-                                <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" />
-                                <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                            </asp:TemplateField>
-                        </Columns>
-                        <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
-                        <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
-                        <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                        <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle"
-                            HorizontalAlign="Center" />
-                        <EditRowStyle BackColor="#999999" />
-                        <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                    </asp:GridView>
-                </tr>
-            </table>
+                                    <asp:TemplateField HeaderText="IC" >
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("anak_ic")%>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                </Columns>
+                                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
+                                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
+                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle" HorizontalAlign="Center" />
+                                <EditRowStyle BackColor="#999999" />
+                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                            </asp:GridView>
+                        </tr>
+                    </table>
+                </div>
+            </asp:View>
+            <asp:View runat="server" ID="viewCadanganKuarters">
+                    <table class="fbform">
+                        <tr class="fbform_mheader">
+                            <td colspan="3">Pemilihan Kuarters</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Kuarters yang dipohon pada waktu ini tiada sebarang kekosongan. Sila pilih dari senarai kuarters yang dicadangkan dibawah: </td>
+                        </tr>
+                        <tr>
+                            <div>
+                                <asp:GridView 
+                                    ID="tblCadanganKuarters" 
+                                    runat="server" 
+                                    DataKeyNames="kuarters_dicadang"
+                                    AutoGenerateColumns="False" 
+                                    AllowPaging="false"
+                                    CellPadding="4" 
+                                    ForeColor="#333333" 
+                                    GridLines="None" 
+                                    Width="100%" 
+                                    PageSize="100" 
+                                    CssClass="gridview_footer">
+                                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="#">
+                                            <ItemTemplate>
+                                                <%# Container.DataItemIndex + 1 %>
+                                            </ItemTemplate>
+                                            <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" width="10%"/>
+                                            <ItemStyle VerticalAlign="Middle" />
+                                        </asp:TemplateField>
+
+                                        <asp:TemplateField HeaderText="Nama Kuarters" >
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("kuarters_nama")%>'></asp:Label>
+                                            </ItemTemplate>
+                                            <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        </asp:TemplateField>
+
+                                        <asp:TemplateField HeaderText="Lokasi Kuarters" >
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("kuarters_alamat")%>'></asp:Label>
+                                            </ItemTemplate>
+                                            <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" />
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        </asp:TemplateField>
+
+                                        <asp:TemplateField HeaderText="Nama Pangkalan" >
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("pangkalan_nama")%>'></asp:Label>
+                                            </ItemTemplate>
+                                            <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        </asp:TemplateField>
+
+                                        <asp:TemplateField HeaderText="Nama Pangkalan" >
+                                            <ItemTemplate>
+                                                <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("pangkalan_nama")%>'></asp:Label>
+                                            </ItemTemplate>
+                                            <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" />
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        </asp:TemplateField>
+
+                                    </Columns>
+                                    <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
+                                    <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
+                                    <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                    <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <EditRowStyle BackColor="#999999" />
+                                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                </asp:GridView>
+                                <div class="div-center">
+                                    <asp:Button Text="Simpan" runat="server" ID="btnPilihCadangan"/>
+                                </div>
+                            </div>
+                        </tr>
+                    </table>
+                </asp:View>
+            </asp:MultiView>
         </div>
     </div>
 </div>
