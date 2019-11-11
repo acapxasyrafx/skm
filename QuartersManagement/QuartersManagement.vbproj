@@ -109,11 +109,14 @@
     <Content Include="commoncontrol\main\user_homepage.ascx" />
     <Content Include="commoncontrol\management\pendaftaran_penjawat.ascx" />
     <Content Include="commoncontrol\management\permohonan_kuarters.ascx" />
+    <Content Include="commoncontrol\management\senarai_pangkalan.ascx" />
     <Content Include="commoncontrol\management\senarai_penempatan_pemohon.ascx" />
     <Content Include="commoncontrol\management\senarai_penjawat.ascx" />
     <Content Include="commoncontrol\management\status_permohonan.ascx" />
     <Content Include="commoncontrol\menu\index.ascx" />
     <Content Include="commoncontrol\menu\navigation_menu.ascx" />
+    <Content Include="commoncontrol\penempatan_kuarters\proses_penempatan_kuarters.ascx" />
+    <Content Include="commoncontrol\penempatan_kuarters\status_tawaran.ascx" />
     <Content Include="commoncontrol\penjawat_senarai.ascx" />
     <Content Include="commoncontrol\permohonan\maklumat_pemohon.ascx" />
     <Content Include="commoncontrol\permohonan\maklumat_pemohon_menunggu.ascx" />
@@ -156,7 +159,11 @@
     <Content Include="commoncontrol\configuration\konfigurasi_sistem.ascx" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
     <Content Include="Pendaftaran.Penjawat.Senarai.aspx" />
+    <Content Include="Pengguna.Pendaftaran.Edit.aspx" />
     <Content Include="Permohonan.Kuarters.aspx" />
+    <Content Include="Proses.Penempatan.Kuarters.aspx" />
+    <Content Include="Proses.Penempatan.Tawaran.aspx" />
+    <Content Include="Senarai.Pangkalan.aspx" />
     <Content Include="Senarai.Penempatan.Pemohon.aspx" />
     <Content Include="Maklumat.Pemohon.Menunggu.aspx" />
     <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
@@ -300,6 +307,13 @@
       <DependentUpon>permohonan_kuarters.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\management\senarai_pangkalan.ascx.designer.vb">
+      <DependentUpon>senarai_pangkalan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\management\senarai_pangkalan.ascx.vb">
+      <DependentUpon>senarai_pangkalan.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\management\senarai_penempatan_pemohon.ascx.designer.vb">
       <DependentUpon>senarai_penempatan_pemohon.ascx</DependentUpon>
     </Compile>
@@ -333,6 +347,20 @@
     </Compile>
     <Compile Include="commoncontrol\menu\navigation_menu.ascx.vb">
       <DependentUpon>navigation_menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\penempatan_kuarters\proses_penempatan_kuarters.ascx.designer.vb">
+      <DependentUpon>proses_penempatan_kuarters.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\penempatan_kuarters\proses_penempatan_kuarters.ascx.vb">
+      <DependentUpon>proses_penempatan_kuarters.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\penempatan_kuarters\status_tawaran.ascx.designer.vb">
+      <DependentUpon>status_tawaran.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\penempatan_kuarters\status_tawaran.ascx.vb">
+      <DependentUpon>status_tawaran.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\penjawat_senarai.ascx.designer.vb">
@@ -518,12 +546,40 @@
       <DependentUpon>Pendaftaran.Penjawat.Senarai.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Pengguna.Pendaftaran.Edit.aspx.designer.vb">
+      <DependentUpon>Pengguna.Pendaftaran.Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pengguna.Pendaftaran.Edit.aspx.vb">
+      <DependentUpon>Pengguna.Pendaftaran.Edit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Permohonan.Kuarters.aspx.designer.vb">
       <DependentUpon>Permohonan.Kuarters.aspx</DependentUpon>
     </Compile>
     <Compile Include="Permohonan.Kuarters.aspx.vb">
       <DependentUpon>Permohonan.Kuarters.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Proses.Penempatan.Kuarters.aspx.designer.vb">
+      <DependentUpon>Proses.Penempatan.Kuarters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Proses.Penempatan.Kuarters.aspx.vb">
+      <DependentUpon>Proses.Penempatan.Kuarters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Proses.Penempatan.Tawaran.aspx.designer.vb">
+      <DependentUpon>Proses.Penempatan.Tawaran.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Proses.Penempatan.Tawaran.aspx.vb">
+      <DependentUpon>Proses.Penempatan.Tawaran.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Senarai.Pangkalan.aspx.designer.vb">
+      <DependentUpon>Senarai.Pangkalan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Senarai.Pangkalan.aspx.vb">
+      <DependentUpon>Senarai.Pangkalan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Senarai.Penempatan.Pemohon.aspx.designer.vb">
       <DependentUpon>Senarai.Penempatan.Pemohon.aspx</DependentUpon>

@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class rekod_penyelenggaraan1
+Partial Public Class status_tawaran
     
     '''<summary>
     '''MsgTop control.
@@ -32,6 +32,15 @@ Partial Public Class rekod_penyelenggaraan1
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''SaveFunction control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
     '''Refresh control.
     '''</summary>
     '''<remarks>
@@ -41,56 +50,11 @@ Partial Public Class rekod_penyelenggaraan1
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''lblConfig control.
+    '''ddlSort control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblConfig As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblQ control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblQ As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''Panel control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Panel As Global.System.Web.UI.WebControls.Panel
-    
-    '''<summary>
-    '''datRespondent control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
-    
-    '''<summary>
-    '''MsgBottom control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''strlbl_bottom control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents ddlSort As Global.System.Web.UI.WebControls.DropDownList
 End Class

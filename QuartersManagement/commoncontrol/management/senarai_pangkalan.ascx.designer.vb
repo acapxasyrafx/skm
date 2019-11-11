@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class rekod_penyelenggaraan1
+Partial Public Class senarai_pangkalan1
     
     '''<summary>
     '''MsgTop control.
@@ -30,6 +30,15 @@ Partial Public Class rekod_penyelenggaraan1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''SaveFunction control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
     '''Refresh control.

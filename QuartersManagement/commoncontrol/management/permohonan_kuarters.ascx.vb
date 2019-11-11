@@ -248,6 +248,7 @@ Public Class permohonan_kuarters
 
         strRet = oCommon.ExecuteSQL("INSERT INTO spk_anak(pengguna_id,anak_nama,anak_ic,anak_umur) VALUES(" & penggunaID & ",'" & namaAnak & "','" & icAnak & "','" & umurAnak & "')")
         If strRet = "0" Then
+            calcPoin()
             Return True
         Else
             Debug.WriteLine("ERROR (insertMaklumatAnak)")
@@ -302,6 +303,36 @@ Public Class permohonan_kuarters
             End If
         End If
     End Sub
+
+    Private Function calcPoin()
+        Dim penggunaID = pengguna_id.Value
+        Dim totalPoin
+        Dim markahAnak
+        Dim totalMarkahAnak
+        Dim markahPangkat
+        markahAnak = (oCommon.ExecuteSQL("select count(*) from (select count(*) from (select anak_umur from spk_anak where anak_umur <18 and pengguna_id = '" & penggunaID & "') A")) * 5
+        markahPangkat = oCommon.ExecuteSQL("select B.pangkat_mata from spk_pengguna A 
+                                            left join spk_pangkat B on A.pangkat_id = B.pangkat_id
+                                            where A.pengguna_id = '" & penggunaID & "'")
+        If markahAnak > 20 Then
+            totalMarkahAnak = 20
+            totalPoin = markahPangkat + totalMarkahAnak
+        ElseIf markahAnak <= 20 Then
+            totalMarkahAnak = markahAnak
+            totalPoin = markahPangkat + totalMarkahAnak
+
+            strRet = oCommon.ExecuteSQL("insert into spk_permohonan (permohonan_mata) values ('" & totalPoin.ToString & "')  where pengguna_id = '" & penggunaID & "'")
+            If strRet = 0 Then
+
+                Debug.WriteLine(0)
+
+            ElseIf strRet = 1 Then
+
+                Debug.WriteLine(0)
+
+            End If
+        End If
+    End Function
 
     Private Function icToAge(ByVal ic As String) As Integer
         Dim year = ic.Substring(0, 2)

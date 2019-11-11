@@ -20,27 +20,153 @@ Public Class pendaftaran_penjawat
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Dim Status As String = Request.QueryString("z")
         Try
-            If Not IsPostBack Then
+            If Request.QueryString("z") = "Edit" Then
+                If Not IsPostBack Then
 
-                If strlblMsgTop = 0 Then
-                    strlbl_top.Visible = True
-                Else
-                    strlbl_top.Visible = False
+                    If strlblMsgTop = 0 Then
+                        strlbl_top.Visible = True
+                    Else
+                        strlbl_top.Visible = False
+                    End If
+                    populateJawatan()
+                    populateNegara()
+                    populateNegeri()
+                    populateJabatan()
+                    populatePangkalan()
+                    Load_page()
+
                 End If
-                populateJawatan()
-                populateNegara()
-                populateNegeri()
-                populateJabatan()
-                populatePangkalan()
+
+            Else
+
+                If Not IsPostBack Then
+
+                    If strlblMsgTop = 0 Then
+                        strlbl_top.Visible = True
+                    Else
+                        strlbl_top.Visible = False
+                    End If
+                    populateJawatan()
+                    populateNegara()
+                    populateNegeri()
+                    populateJabatan()
+                    populatePangkalan()
+
+                End If
 
             End If
-
         Catch ex As Exception
             MsgTop.Attributes("class") = "errorMsg"
             strlbl_top.Text = strSysErrorAlert
         Finally
         End Try
+    End Sub
+
+    Private Sub Load_page()
+
+        strSQL = " SELECT pengguna_id,pangkalan_id,pangkat_id,pengguna_jenis,pengguna_mykad,pengguna_jantina,pengguna_kewarganegaraan
+                    ,pengguna_tarikh_lahir,pengguna_nama,pengguna_alamat,pengguna_poskod,pengguna_bandar,pengguna_negeri
+                    ,pengguna_negara,pengguna_status_perkahwinan,pengguna_no_tentera,pengguna_mula_perkhidmatan,pengguna_tamat_perkhidmatan FROM spk_pengguna"
+        strSQL += " WHERE pengguna_id = '" & Request.QueryString("edit") & "'"
+
+        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+        Dim objConn As SqlConnection = New SqlConnection(strConn)
+        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
+
+        Try
+
+            Dim ds As DataSet = New DataSet
+            sqlDA.Fill(ds, "AnyTable")
+
+            Dim nRows As Integer = 0
+            Dim nCount As Integer = 1
+            Dim MyTable As DataTable = New DataTable
+            MyTable = ds.Tables(0)
+            If MyTable.Rows.Count > 0 Then
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkalan_id")) Then
+                    ddlCawangan.SelectedValue = ds.Tables(0).Rows(0).Item("pangkalan_id")
+                Else
+                    ddlCawangan.SelectedValue = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pengguna_mykad")) Then
+                    txtNoKP.Text = ds.Tables(0).Rows(0).Item("pengguna_mykad")
+                Else
+                    txtNoKP.Text = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pengguna_kewarganegaraan")) Then
+                    ddlKewarganegaraan.SelectedValue = ds.Tables(0).Rows(0).Item("pengguna_kewarganegaraan")
+                Else
+                    ddlKewarganegaraan.SelectedValue = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pengguna_tarikh_lahir")) Then
+                    txt_MyDate.Text = ds.Tables(0).Rows(0).Item("pengguna_tarikh_lahir")
+                Else
+                    txt_MyDate.Text = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pengguna_nama")) Then
+                    txtNamaPertama.Text = ds.Tables(0).Rows(0).Item("pengguna_nama")
+                Else
+                    txtNamaPertama.Text = ""
+                End If
+
+                'If Not IsDBNull(ds.Tables(0).Rows(0).Item("pengguna_telefon")) Then
+                '    txtTelefon.Text = ds.Tables(0).Rows(0).Item("pengguna_telefon")
+                'Else
+                '    txtTelefon.Text = ""
+                'End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pengguna_poskod")) Then
+                    txtPoskodDaftar.Text = ds.Tables(0).Rows(0).Item("pengguna_poskod")
+                Else
+                    txtPoskodDaftar.Text = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pengguna_negeri")) Then
+                    ddlNegeriDaftar.SelectedValue = ds.Tables(0).Rows(0).Item("pengguna_negeri")
+                Else
+                    ddlNegeriDaftar.SelectedValue = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pengguna_status_perkahwinan")) Then
+                    ddlStatus.SelectedValue = ds.Tables(0).Rows(0).Item("pengguna_status_perkahwinan")
+                Else
+                    ddlStatus.SelectedValue = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pengguna_no_tentera")) Then
+                    txtNoPekerja.Text = ds.Tables(0).Rows(0).Item("pengguna_no_tentera")
+                Else
+                    txtNoPekerja.Text = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pangkat_id")) Then
+                    ddlJawatan.SelectedValue = ds.Tables(0).Rows(0).Item("pangkat_id")
+                Else
+                    ddlJawatan.SelectedValue = ""
+                End If
+
+                If Not IsDBNull(ds.Tables(0).Rows(0).Item("pengguna_negara")) Then
+                    ddlNegaraDaftar.SelectedValue = ds.Tables(0).Rows(0).Item("pengguna_negara")
+                Else
+                    ddlNegaraDaftar.SelectedValue = ""
+                End If
+
+            End If
+        Catch ex As Exception
+            MsgTop.Attributes("class") = "errorMsg"
+            'strlbl_top.Text = strSysErrorAlert
+            strlbl_top.Text = ex.ToString
+        Finally
+            objConn.Dispose()
+        End Try
+
     End Sub
 
     Protected Sub populateJawatan()
@@ -165,7 +291,7 @@ Public Class pendaftaran_penjawat
     '--SAVE FUNCTION--'
     Private Function Save() As Boolean
 
-        If Not Request.QueryString("edit") = "" Then
+        If Request.QueryString("z") = "edit" Then
 
             strSQL = "UPDATE spk_pengguna SET "
 
