@@ -1,8 +1,7 @@
 ﻿Imports System.Data.SqlClient
 
-Public Class rekod_penyelenggaraan1
+Public Class senarai_pangkalan1
     Inherits System.Web.UI.UserControl
-
     Dim oCommon As New Commonfunction
     Dim strSQL As String = ""
     Dim strRet As String = ""
@@ -24,22 +23,6 @@ Public Class rekod_penyelenggaraan1
 
         Try
 
-            If Not IsPostBack Then
-
-                If strlblMsgBottom = 0 Then
-                    strlbl_bottom.Visible = True
-                Else
-                    strlbl_bottom.Visible = False
-                End If
-                If strlblMsgTop = 0 Then
-                    strlbl_top.Visible = True
-                Else
-                    strlbl_top.Visible = False
-                End If
-                strRet = BindData(datRespondent)
-
-            End If
-
         Catch ex As Exception
 
             MsgTop.Attributes("class") = "errorMsg"
@@ -54,22 +37,18 @@ Public Class rekod_penyelenggaraan1
     End Sub
 
 
+
     '-- BIND DATA --'
     Private Function getSQL() As String
         Dim tmpSQL As String
         Dim strWhere As String = ""
 
-        Dim strOrder As String = " ORDER BY C.kuarters_nama, unit_name ASC"
+        Dim strOrder As String = " ORDER BY pangkalan_nama ASC"
 
-        tmpSQL = "SELECT TOP (1000) A.selenggara_id as selenggara_id ,D.jenisKuarters_nama as jenisKuarters_nama ,E.pangkalan_nama as pangkalan_nama ,C.kuarters_nama as kuarters_nama ,A.unit_id as unit_id , Concat(unit_nombor,unit_tingkat,unit_blok) as unit_name,A.selenggara_tarikh_mula as selenggara_tarikh_mula
-                    ,A.selenggara_tarikh_akhir as selenggara_tarikh_akhir ,A.selenggara_hari as selenggara_hari FROM spk_selenggara A
-                   
-                    left join spk_unit B on A.unit_id = B.unit_id
-                    left join spk_kuarters C on B.kuarters_id = C.kuarters_id
-                    left join spk_jenisKuarters D on C.jenisKuarters_id = D.jenisKuarters_id
-                    left join spk_pangkalan E on C.pangkalan_id = E.pangkalan_id"
+        tmpSQL = "SELECT pangkalan_id, pangkalan_negara, pangkalan_negeri, pangkalan_nama, pangkalan_alamat, pangkalan_poskod, pangkalan_bandar, pangkalan_telefon, pangkalan_faks, pangkalan_emel FROM spk_pangkalan"
 
-        strWhere += " WHERE A.selenggara_id IS NOT NULL"
+        strWhere += " WHERE pangkalan_id IS NOT NULL"
+
 
         getSQL = tmpSQL & strWhere & strOrder
 
@@ -140,52 +119,10 @@ Public Class rekod_penyelenggaraan1
         Return True
     End Function
 
-    'Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
-
-    '    strlbl_bottom.Text = ""
-    '    strlbl_top.Text = ""
-    '    '--validate--'
-    '    If ValidateData() = False Then
-    '        MsgTop.Attributes("class") = "errorMsg"
-    '        strlbl_top.Text = strDataValAlert
-    '        MsgBottom.Attributes("class") = "errorMsg"
-    '        strlbl_bottom.Text = strDataValAlert
-    '        Exit Sub
-    '    End If
-    '    Try
-    '        '--execute--'
-    '        If Save() = True Then
-    '            MsgTop.Attributes("class") = "successMsg"
-    '            strlbl_top.Text = strSaveSuccessAlert
-    '            MsgBottom.Attributes("class") = "successMsg"
-    '            strlbl_bottom.Text = strSaveSuccessAlert
-    '        Else
-    '            MsgTop.Attributes("class") = "errorMsg"
-    '            strlbl_top.Text = strSaveFailAlert
-    '            MsgBottom.Attributes("class") = "errorMsg"
-    '            strlbl_bottom.Text = strSaveFailAlert
-    '        End If
-    '    Catch ex As Exception
-    '        MsgTop.Attributes("class") = "errorMsg"
-    '        strlbl_top.Text = strSysErrorAlert
-    '        MsgBottom.Attributes("class") = "errorMsg"
-    '        strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-    '    End Try
-
-    '    If Not Request.QueryString("edit") = "" Then
-    '        Dim Pagelabel As String = lblConfig.Text & "&q=" & lblQ.Text & "&lblTop=" & strlbl_top.Text & "&lblBottom=" & strlbl_top.Text
-    '        Response.Redirect("Konfigurasi.Pangkat.aspx?p=" & Pagelabel)
-    '    Else
-    '        strRet = BindData(datRespondent)
-    '    End If
-
-
-
-    'End Sub
     '--REFRESH BUTTON--'
     Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick
         Dim Pagelabel As String = lblConfig.Text & "&q=" & lblQ.Text
-        Response.Redirect("Konfigurasi.Pangkat.aspx?p=" & Pagelabel)
+        Response.Redirect("Konfigurasi.Pangkalan.aspx?p=" & Pagelabel)
     End Sub
 
     Private Sub requestPage()
@@ -197,15 +134,14 @@ Public Class rekod_penyelenggaraan1
         End If
     End Sub
 
-
     '--DELETE FUNCTION--'
     Private Sub datRespondent_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles datRespondent.RowDeleting
 
-        Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("pangkat_id").ToString
+        Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("pangkalan_id").ToString
 
         'chk session to prevent postback
         If Not strCID = Session("strCID") Then
-            strSQL = "DELETE FROM spk_pangkat WHERE pangkat_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
+            strSQL = "DELETE FROM spk_pangkalan WHERE pangkalan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
             strRet = oCommon.ExecuteSQL(strSQL)
 
             Session("strCID") = ""
@@ -213,4 +149,5 @@ Public Class rekod_penyelenggaraan1
         strRet = BindData(datRespondent)
 
     End Sub
+
 End Class

@@ -25,11 +25,11 @@
                         <ul class="nav-flyout">
                             <li><p>Rekod Lokasi Pangkalan TUDM</p></li>
                             <li>
-                                <a href="Konfigurasi.Pangkalan.aspx"><i></i><img src ="icons/bullet_red.png" /> Pendaftaran Baharu</a>
+                                <a href="Konfigurasi.Pangkalan.aspx?P=<%=lbl5.Text %>"><i></i><img src ="icons/bullet_red.png" /> Pendaftaran Baharu</a>
                             </li>
-                            <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" /> Carian Senarai Pangkalan</a>
-                            </li>
+                            <%--<li>
+                                <a href="Senarai.Pangkalan.aspx?P=<%=lbl4.Text %>"><i></i><img src ="icons/bullet_red.png" /> Carian Senarai Pangkalan</a>
+                            </li>--%>
                         </ul>
                     </li>
                     
@@ -38,13 +38,13 @@
                         <ul class="nav-flyout">
                             <li><p>Rekod Kuarters</p></li>
                             <li>
-                                <a href="Konfigurasi.Jenis.Kuarters.aspx"><i></i><img src ="icons/bullet_red.png" /> Konfigurasi Jenis Kuarters</a>
+                                <a href="Konfigurasi.Jenis.Kuarters.aspx?P=<%=lbl3.Text %>"><i></i><img src ="icons/bullet_red.png" /> Konfigurasi Jenis Kuarters</a>
                             </li>
                             <li>
-                                <a href="Konfigurasi.Kuota.aspx"><i></i><img src ="icons/bullet_red.png" /> Konfigurasi Koata Kuarters</a> 
+                                <a href="Konfigurasi.Kuota.aspx?P=<%=lbl2.Text %>"><i></i><img src ="icons/bullet_red.png" /> Konfigurasi Koata Kuarters</a> 
                             </li>
                             <li>
-                                <a href="Konfigurasi.Kuarters.aspx"><i></i><img src ="icons/bullet_red.png" /> Penempatan Lokasi Kuaters</a>
+                                <a href="Konfigurasi.Kuarters.aspx?P=<%=lbl11.Text %>"><i></i><img src ="icons/bullet_red.png" /> Penempatan Lokasi Kuaters</a>
                             </li>
                         </ul>
                     </li>
@@ -70,8 +70,8 @@
                         <ul class="nav-flyout">
                             <li><p>Senarai Penempatan Kuarters Pemohon</p></li>
                             <li>
-                                <a href="#"><i></i><img src ="icons/bullet_red.png" /> Proses Penempatan Kuarters</a>
-                                <a href="Senarai.Penempatan.Pemohon.aspx"><i></i><img src ="icons/bullet_red.png" /> Senarai Penempatan Pemohon</a>
+                                <a href="Proses.Penempatan.Kuarters.aspx?P=<%=lbl7.Text %>"><i></i><img src ="icons/bullet_red.png" /> Proses Penempatan Kuarters</a>
+                                <a href="Senarai.Penempatan.Pemohon.aspx?P=<%=lbl6.Text %>"><i></i><img src ="icons/bullet_red.png" /> Senarai Penempatan Pemohon</a>
                             </li>
                         </ul>
                     </li>
@@ -146,6 +146,18 @@
     <asp:Label ID="lbl8" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Baru</asp:Label>
     <asp:Label ID="lbl9" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Menunggu</asp:Label>
     <asp:Label ID="lbl10" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Tolak</asp:Label>
+
+    
+    <asp:Label ID="lbl5" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Lokasi Pangkalan TUDM > Pendaftaran Baharu</asp:Label>
+    <asp:Label ID="lbl4" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Lokasi Pangkalan TUDM > Carian Senarai Pangkalan</asp:Label>
+
+    
+    <asp:Label ID="lbl3" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Kuarters > Konfigurasi Jenis Kuarters</asp:Label>
+    <asp:Label ID="lvl2" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Kuarters > Konfigurasi Kuota Kuarters</asp:Label>
+    <asp:Label ID="lbl11" runat="server" Visible="false">Pengurusan Pentadbiran > Rekod Kuarters > Penempatan Lokasi Kuarters</asp:Label>
+    
+    <asp:Label ID="lbl7" runat="server" Visible="false">Pengurusan Pentadbiran > Kuarters > Proses Penempatan Kuarters</asp:Label>    
+    <asp:Label ID="lbl6" runat="server" Visible="false">Pengurusan Pentadbiran > Kuarters > Senarai Penempatan Kuarters</asp:Label>
 
     <asp:Label ID="lblKonfigurasiUmum" runat="server" Visible="false">Penetapan Utama > Konfigurasi Umum</asp:Label>
     <asp:Label ID="lblKonfigurasiSistem" runat="server" Visible="false">Penetapan Utama > Konfigurasi Sistem</asp:Label>

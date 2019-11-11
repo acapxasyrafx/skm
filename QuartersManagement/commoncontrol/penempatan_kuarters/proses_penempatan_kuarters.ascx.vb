@@ -1,6 +1,6 @@
 ﻿Imports System.Data.SqlClient
 
-Public Class rekod_penyelenggaraan1
+Public Class proses_penempatan_kuarters1
     Inherits System.Web.UI.UserControl
 
     Dim oCommon As New Commonfunction
@@ -25,6 +25,7 @@ Public Class rekod_penyelenggaraan1
         Try
 
             If Not IsPostBack Then
+                Sortdata()
 
                 If strlblMsgBottom = 0 Then
                     strlbl_bottom.Visible = True
@@ -36,7 +37,14 @@ Public Class rekod_penyelenggaraan1
                 Else
                     strlbl_top.Visible = False
                 End If
-                strRet = BindData(datRespondent)
+
+                If Not Request.QueryString("edit") = "" Then
+                    ''lblConfig.Text = Request.QueryString("p")
+                    '' Load_page()
+                Else
+                    ''requestPage()
+                    strRet = BindData(datRespondent)
+                End If
 
             End If
 
@@ -52,24 +60,56 @@ Public Class rekod_penyelenggaraan1
         End Try
 
     End Sub
+    Private Sub Sortdata()
+        Dim listItem1 As ListItem
+        listItem1 = New ListItem("Default", "0")
+        listItem1.Selected = True
 
+        Dim listItem2 As ListItem
+        listItem2 = New ListItem("Pangkat", "1")
+        listItem2.Selected = False
+
+        Dim listItem3 As ListItem
+        listItem3 = New ListItem("Mata Poin", "2")
+        listItem3.Selected = False
+
+        ddlSort.Items.Add(listItem1)
+
+        ddlSort.Items.Add(listItem2)
+
+        ddlSort.Items.Add(listItem3)
+
+    End Sub
 
     '-- BIND DATA --'
     Private Function getSQL() As String
         Dim tmpSQL As String
         Dim strWhere As String = ""
 
-        Dim strOrder As String = " ORDER BY C.kuarters_nama, unit_name ASC"
+        Dim strOrder As String = ""
 
-        tmpSQL = "SELECT TOP (1000) A.selenggara_id as selenggara_id ,D.jenisKuarters_nama as jenisKuarters_nama ,E.pangkalan_nama as pangkalan_nama ,C.kuarters_nama as kuarters_nama ,A.unit_id as unit_id , Concat(unit_nombor,unit_tingkat,unit_blok) as unit_name,A.selenggara_tarikh_mula as selenggara_tarikh_mula
-                    ,A.selenggara_tarikh_akhir as selenggara_tarikh_akhir ,A.selenggara_hari as selenggara_hari FROM spk_selenggara A
-                   
-                    left join spk_unit B on A.unit_id = B.unit_id
-                    left join spk_kuarters C on B.kuarters_id = C.kuarters_id
-                    left join spk_jenisKuarters D on C.jenisKuarters_id = D.jenisKuarters_id
-                    left join spk_pangkalan E on C.pangkalan_id = E.pangkalan_id"
+        If ddlSort.SelectedValue = "0" Then
+            strOrder = " ORDER BY A.pengguna_id ASC"
+        ElseIf ddlSort.SelectedValue = "1" Then
+            strOrder = " ORDER BY D.pangkat_idx ASC"
+        ElseIf ddlSort.SelectedValue = "2" Then
+            strOrder = " ORDER BY B.permohonan_poinTerkumpul ASC"
+        End If
 
-        strWhere += " WHERE A.selenggara_id IS NOT NULL"
+        tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
+                    ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
+                    , B.permohonan_id as permohonan_id ,G.penempatan_status as statur_tawaran
+					FROM spk_permohonan as B
+                    left join spk_pengguna A on B.pengguna_id = A.pengguna_id
+					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
+					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
+                    left join spk_kuarters E on B.kuarters_id = E.kuarters_id
+                    left join spk_unit F on B.unit_id = F.unit_id
+					left join spk_penempatan G on B.permohonan_id = A.pengguna_id
+					"
+        strWhere += " WHERE G.penempatan_status IS NOT NULL"
+
+
 
         getSQL = tmpSQL & strWhere & strOrder
 
@@ -130,87 +170,47 @@ Public Class rekod_penyelenggaraan1
 
     End Function
 
-    '--DATA VALIDATION--'
-    Private Function ValidateData() As Boolean
-        'If Not oCommon.isNumeric(txtidx.Text) Then
-        '    txtidx.Focus()
-        '    Return False
-
-        'End If
-        Return True
-    End Function
-
-    'Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
-
-    '    strlbl_bottom.Text = ""
-    '    strlbl_top.Text = ""
-    '    '--validate--'
-    '    If ValidateData() = False Then
-    '        MsgTop.Attributes("class") = "errorMsg"
-    '        strlbl_top.Text = strDataValAlert
-    '        MsgBottom.Attributes("class") = "errorMsg"
-    '        strlbl_bottom.Text = strDataValAlert
-    '        Exit Sub
-    '    End If
-    '    Try
-    '        '--execute--'
-    '        If Save() = True Then
-    '            MsgTop.Attributes("class") = "successMsg"
-    '            strlbl_top.Text = strSaveSuccessAlert
-    '            MsgBottom.Attributes("class") = "successMsg"
-    '            strlbl_bottom.Text = strSaveSuccessAlert
-    '        Else
-    '            MsgTop.Attributes("class") = "errorMsg"
-    '            strlbl_top.Text = strSaveFailAlert
-    '            MsgBottom.Attributes("class") = "errorMsg"
-    '            strlbl_bottom.Text = strSaveFailAlert
-    '        End If
-    '    Catch ex As Exception
-    '        MsgTop.Attributes("class") = "errorMsg"
-    '        strlbl_top.Text = strSysErrorAlert
-    '        MsgBottom.Attributes("class") = "errorMsg"
-    '        strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-    '    End Try
-
-    '    If Not Request.QueryString("edit") = "" Then
-    '        Dim Pagelabel As String = lblConfig.Text & "&q=" & lblQ.Text & "&lblTop=" & strlbl_top.Text & "&lblBottom=" & strlbl_top.Text
-    '        Response.Redirect("Konfigurasi.Pangkat.aspx?p=" & Pagelabel)
-    '    Else
-    '        strRet = BindData(datRespondent)
-    '    End If
-
-
-
-    'End Sub
-    '--REFRESH BUTTON--'
-    Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick
-        Dim Pagelabel As String = lblConfig.Text & "&q=" & lblQ.Text
-        Response.Redirect("Konfigurasi.Pangkat.aspx?p=" & Pagelabel)
-    End Sub
-
-    Private Sub requestPage()
-        lblConfig.Text = Request.QueryString("p")
-        lblQ.Text = Request.QueryString("q")
-        If Not Request.QueryString("lblBottom") = "" Then
-            strlbl_top.Text = Request.QueryString("lblTop")
-            strlbl_bottom.Text = Request.QueryString("lblBottom")
-        End If
-    End Sub
-
-
     '--DELETE FUNCTION--'
     Private Sub datRespondent_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles datRespondent.RowDeleting
 
-        Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("pangkat_id").ToString
+        Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("pangkalan_id").ToString
 
         'chk session to prevent postback
         If Not strCID = Session("strCID") Then
-            strSQL = "DELETE FROM spk_pangkat WHERE pangkat_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
+            ''strSQL = "DELETE FROM spk_pangkalan WHERE pangkalan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
             strRet = oCommon.ExecuteSQL(strSQL)
 
             Session("strCID") = ""
         End If
-        strRet = BindData(datRespondent)
+        ''strRet = BindData(datRespondent)
 
+    End Sub
+
+    Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
+        Try
+
+            If (e.CommandName = "ViewApllicant") Then
+                Dim strCID = e.CommandArgument.ToString
+
+                Response.Redirect("Proses.Penempatan.Tawaran.aspx?uid=" + strCID)
+            ElseIf (e.CommandName = "Process") Then
+                Dim strCID = e.CommandArgument.ToString
+
+                BindData(datRespondent)
+            ElseIf (e.CommandName = "Batal") Then
+                Dim strCID = e.CommandArgument.ToString
+
+                'chk session to prevent postback
+                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN ANDA DITOLAK' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
+                oCommon.ExecuteSQL(strSQL)
+
+                BindData(datRespondent)
+            End If
+            BindData(datRespondent)
+
+        Catch ex As Exception
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
+        End Try
     End Sub
 End Class

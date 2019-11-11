@@ -104,6 +104,69 @@ Partial Public Class index
     Protected WithEvents lbl10 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lbl5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl5 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lbl4 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl4 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lbl3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl3 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lvl2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lvl2 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lbl11 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl11 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lbl7 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl7 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lbl6 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl6 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''lblKonfigurasiUmum control.
     '''</summary>
     '''<remarks>

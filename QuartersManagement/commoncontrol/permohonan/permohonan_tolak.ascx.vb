@@ -92,12 +92,12 @@ Public Class permohonan_tolak
         ElseIf ddlSort.SelectedValue = "1" Then
             strOrder = " ORDER BY D.pangkat_idx ASC"
         ElseIf ddlSort.SelectedValue = "2" Then
-            strOrder = " ORDER BY B.permohonan_poinTerkumpul ASC"
+            strOrder = " ORDER BY B.permohonan_mata ASC"
         End If
 
         tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
                     ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
-                    , B.permohonan_id as permohonan_id ,((SELECT COUNT(anak_nama) FROM spk_anak where anak_umur <= 18) * 5) + pangkat_mata as total_poin
+                    , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin
                     FROM spk_permohonan as B
                     left join spk_pengguna A on B.pengguna_id = A.pengguna_id
 					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
