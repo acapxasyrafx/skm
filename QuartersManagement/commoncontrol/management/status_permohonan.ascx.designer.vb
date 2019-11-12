@@ -59,6 +59,24 @@ Partial Public Class status_permohonan1
     Protected WithEvents suratTawaran As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''mvStatusPermohonan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents mvStatusPermohonan As Global.System.Web.UI.WebControls.MultiView
+
+    '''<summary>
+    '''viewPemohonanDir control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents viewPemohonanDir As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
     '''lblBilAnak control.
     '''</summary>
     '''<remarks>
@@ -111,4 +129,76 @@ Partial Public Class status_permohonan1
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents tblMaklumatAnak As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''viewCadanganKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents viewCadanganKuarters As Global.System.Web.UI.WebControls.View
+
+    '''<summary>
+    '''MsgTop control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''strlbl_top control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''SaveFunction control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
+    '''Refresh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
+    '''tblCadanganKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tblCadanganKuarters As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''MsgBottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''strlbl_bottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
 End Class

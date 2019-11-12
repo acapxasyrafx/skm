@@ -35,7 +35,7 @@
     </tr>
     <tr>
         <td style="width:100px;">Nama</td>
-        <td>:</td>
+        <td style="width:5px;">:</td>
         <td>
             <h5 class="label" runat="server" id="lblNama"></h5>
             <asp:HiddenField runat="server" ID="pengguna_id" Value="" />
@@ -90,8 +90,8 @@
         <td colspan="3">Butiran Keluarga</td>
     </tr>
     <tr>
-        <td>Maklumat Anak</td>
-        <td>:</td>
+        <td style="width:100px;">Maklumat Anak</td>
+        <td style="width:5px;">:</td>
         <td>
             <p>Masukkan Maklumat Anak </p>
             <div>
