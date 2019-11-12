@@ -107,11 +107,13 @@
     <Content Include="commoncontrol\main\homepage.ascx" />
     <Content Include="commoncontrol\main\login_page.ascx" />
     <Content Include="commoncontrol\main\user_homepage.ascx" />
+    <Content Include="commoncontrol\management\maklumat_permohonan.ascx" />
     <Content Include="commoncontrol\management\pendaftaran_penjawat.ascx" />
     <Content Include="commoncontrol\management\permohonan_kuarters.ascx" />
     <Content Include="commoncontrol\management\senarai_pangkalan.ascx" />
     <Content Include="commoncontrol\management\senarai_penempatan_pemohon.ascx" />
     <Content Include="commoncontrol\management\senarai_penjawat.ascx" />
+    <Content Include="commoncontrol\management\senarai_permohonan.ascx" />
     <Content Include="commoncontrol\management\status_permohonan.ascx" />
     <Content Include="commoncontrol\menu\index.ascx" />
     <Content Include="commoncontrol\menu\navigation_menu.ascx" />
@@ -161,6 +163,8 @@
     <Content Include="Konfigurasi.Pangkat.aspx" />
     <Content Include="Konfigurasi.Sistem.aspx" />
     <Content Include="commoncontrol\configuration\konfigurasi_sistem.ascx" />
+    <Content Include="Maklumat.Permohonan.aspx" />
+    <Content Include="Maklumat.Permohonan.Pengguna.aspx" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
     <Content Include="Pendaftaran.Penjawat.Senarai.aspx" />
     <Content Include="Pengguna.Pendaftaran.Edit.aspx" />
@@ -170,6 +174,7 @@
     <Content Include="Senarai.Pangkalan.aspx" />
     <Content Include="Senarai.Penempatan.Pemohon.aspx" />
     <Content Include="Maklumat.Pemohon.Menunggu.aspx" />
+    <Content Include="Senarai.Permohonan.Pengguna.aspx" />
     <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
     <Content Include="Rekod.Penyelenggaraan.aspx" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -297,6 +302,13 @@
       <DependentUpon>user_homepage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\management\maklumat_permohonan.ascx.designer.vb">
+      <DependentUpon>maklumat_permohonan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\management\maklumat_permohonan.ascx.vb">
+      <DependentUpon>maklumat_permohonan.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\management\pendaftaran_penjawat.ascx.designer.vb">
       <DependentUpon>pendaftaran_penjawat.ascx</DependentUpon>
     </Compile>
@@ -330,6 +342,13 @@
     </Compile>
     <Compile Include="commoncontrol\management\senarai_penjawat.ascx.vb">
       <DependentUpon>senarai_penjawat.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\management\senarai_permohonan.ascx.designer.vb">
+      <DependentUpon>senarai_permohonan.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\management\senarai_permohonan.ascx.vb">
+      <DependentUpon>senarai_permohonan.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\management\status_permohonan.ascx.designer.vb">
@@ -517,6 +536,20 @@
       <DependentUpon>konfigurasi_sistem.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Maklumat.Permohonan.aspx.designer.vb">
+      <DependentUpon>Maklumat.Permohonan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maklumat.Permohonan.aspx.vb">
+      <DependentUpon>Maklumat.Permohonan.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Maklumat.Permohonan.Pengguna.aspx.designer.vb">
+      <DependentUpon>Maklumat.Permohonan.Pengguna.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maklumat.Permohonan.Pengguna.aspx.vb">
+      <DependentUpon>Maklumat.Permohonan.Pengguna.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -616,6 +649,13 @@
     <Compile Include="Senarai.Permohonan.Menunggu.aspx.vb">
       <DependentUpon>Senarai.Permohonan.Menunggu.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Pengguna.aspx.designer.vb">
+      <DependentUpon>Senarai.Permohonan.Pengguna.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Pengguna.aspx.vb">
+      <DependentUpon>Senarai.Permohonan.Pengguna.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Senarai.Permohonan.Tolak.aspx.designer.vb">
       <DependentUpon>Senarai.Permohonan.Tolak.aspx</DependentUpon>
