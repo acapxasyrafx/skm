@@ -24,11 +24,11 @@ Public Class permohonan_kuarters
             loadPangkalan()
             loadUser()
             readMaklumatAnak()
-            If countAnak > 0 Then
-                cbTiadaAnak.Enabled = False
-            Else
-                cbTiadaAnak.Enabled = True
-            End If
+            'If countAnak > 0 Then
+            '    cbTiadaAnak.Enabled = False
+            'Else
+            '    cbTiadaAnak.Enabled = True
+            'End If
         End If
         'HARI
         populateDay(ddlTarikhTinggalHariMula)
@@ -187,9 +187,9 @@ Public Class permohonan_kuarters
         strSQL += "INSERT INTO spk_permohonan (pengguna_id,unit_id,pemohonan_tarikh,permohonan_status) "
         strSQL += "VALUES (" & penggunaId & ", " & kuartersId & ", '" & Date.Now & "', 'PERMOHONAN BARU');"
 
-        If cbTiadaAnak.Checked = False Then
+        'If cbTiadaAnak.Checked = False Then
 
-        End If
+        'End If
 
         strSQL += "INSERT INTO spk_keluarga (pengguna_id, keluarga_anak, keluarga_tempat_tinggal, keluarga_tarikh_mula) "
         strSQL += "VALUES (" & penggunaId & "," & countAnak & ",'" & jenisRumahSebelum & "','" & mulaMenetap & "');"
@@ -238,15 +238,15 @@ Public Class permohonan_kuarters
         Response.Redirect("Permohonan.Kuarters.aspx")
     End Sub
 
-    Private Sub cbTiadaAnak_CheckedChanged(sender As Object, e As EventArgs) Handles cbTiadaAnak.CheckedChanged
-        If cbTiadaAnak.Checked Then
-            Debug.WriteLine("TiadaAnak Checked")
-            tblMaklumatAnak.Disabled = True
-        Else
-            Debug.WriteLine("TiadaAnak UnChecked")
-            tblMaklumatAnak.Disabled = False
-        End If
-    End Sub
+    'Private Sub cbTiadaAnak_CheckedChanged(sender As Object, e As EventArgs) Handles cbTiadaAnak.CheckedChanged
+    '    If cbTiadaAnak.Checked Then
+    '        Debug.WriteLine("TiadaAnak Checked")
+    '        tblMaklumatAnak.Disabled = True
+    '    Else
+    '        Debug.WriteLine("TiadaAnak UnChecked")
+    '        tblMaklumatAnak.Disabled = False
+    '    End If
+    'End Sub
 
     Private Sub btnTambahRow_Click(sender As Object, e As EventArgs) Handles btnTambahRow.Click
 

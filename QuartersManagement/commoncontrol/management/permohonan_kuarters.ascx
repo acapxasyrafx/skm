@@ -34,7 +34,7 @@
         <td colspan="3">Butiran Peribadi</td>
     </tr>
     <tr>
-        <td style="width:100px;">Nama</td>
+        <td style="width:150px;">Nama</td>
         <td style="width:5px;">:</td>
         <td>
             <h5 class="label" runat="server" id="lblNama"></h5>
@@ -42,35 +42,35 @@
         </td>
     </tr>
     <tr>
-        <td>Jantina</td>
+        <td style="width:150px;">Jantina</td>
         <td>:</td>
         <td>
             <h5 class="label" runat="server" id="lblJantina"></h5>
         </td>
     </tr>
     <tr>
-        <td>Tarikh Lahir</td>
+        <td style="width:150px;">Tarikh Lahir</td>
         <td>:</td>
         <td>
             <h5 class="label" runat="server" id="lblTarikhLahir"></h5>
         </td>
     </tr>
     <tr>
-        <td>Jawatan</td>
+        <td style="width:150px;">Jawatan</td>
         <td>:</td>
         <td>
             <h5 class="label" runat="server" id="lblJawatan"></h5>
         </td>
     </tr>
     <tr>
-        <td>No. Tentera</td>
+        <td style="width:150px;">No. Tentera</td>
         <td>:</td>
         <td>
             <h5 class="label" runat="server" id="lblNoTentera"></h5>
         </td>
     </tr>
     <tr>
-        <td>Tarikh Berkhidmat</td>
+        <td style="width:150px;">Tarikh Mula Berkhidmat</td>
         <td>:</td>
         <td>
             <h5 class="label" runat="server" id="lblTarikhMulaBerkhidmat">01/01/2010</h5>
@@ -90,12 +90,12 @@
         <td colspan="3">Butiran Keluarga</td>
     </tr>
     <tr>
-        <td style="width:100px;">Maklumat Anak</td>
+        <td style="width:150px;">Maklumat Anak</td>
         <td style="width:5px;">:</td>
         <td>
             <p>Masukkan Maklumat Anak </p>
             <div>
-                <table runat="server" id="tblMaklumatAnak">
+                <table runat="server" id="tblMaklumatAnak" style="width:100%;">
                     <tr>
                         <td style="width:20px;">Nama Anak</td>
                         <td>:</td>
@@ -110,7 +110,7 @@
                         <td><asp:Button Text="Tambah" runat="server" ID="btnTambahRow"/></td>
                     </tr>
                     <tr>
-                        <td colspan="3">
+                        <td colspan="10">
                             <asp:GridView 
                                 ID="datRespondent" 
                                 runat="server" 
@@ -129,7 +129,7 @@
                                         <ItemTemplate>
                                             <%# Container.DataItemIndex + 1 %>
                                         </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" WIdth="5%"/>
                                         <ItemStyle VerticalAlign="Middle" />
                                     </asp:TemplateField>
 
@@ -137,7 +137,7 @@
                                        <ItemTemplate>
                                            <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("anak_nama")%>'></asp:Label>
                                        </ItemTemplate>
-                                       <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
+                                       <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="30%" />
                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
 
@@ -145,7 +145,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("anak_ic")%>'></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="30%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
                         
@@ -163,7 +163,8 @@
                                                 <asp:ImageButton Width ="12" Height ="12" ID="btnDelete" CommandName ="Delete" CommandArgument ='<%#Eval("anak_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete"/>
                                             </span> 
                                         </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="right" VerticalAlign="Top"  /><ItemStyle VerticalAlign="Middle" />
+                                        <HeaderStyle HorizontalAlign="right" VerticalAlign="Top" width="5%" />
+                                        <ItemStyle VerticalAlign="Middle" />
                                     </asp:TemplateField> 
                                 </Columns>
                                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
@@ -178,7 +179,7 @@
                     </tr>
                 </table>
             </div>
-            <asp:CheckBox Text="Tiada Anak" runat="server" ID="cbTiadaAnak" AutoPostBack="true"/>
+<%--            <asp:CheckBox Text="Tiada Anak" runat="server" ID="cbTiadaAnak" AutoPostBack="true"/>--%>
         </td>
     </tr>
     <tr>
@@ -208,16 +209,16 @@
         <td colspan="4">Butiran Permohonan</td>
     </tr>
     <tr>
-        <td style="width:100px;">Pangkalan</td>
+        <td style="width:150px;">Pangkalan</td>
         <td>:</td>
         <td colspan="2">
-            <asp:DropDownList runat="server" ID="ddlSenaraiPangkalan" AutoPostBack="true"></asp:DropDownList></td>
+            <asp:DropDownList runat="server" CssClass="label"  ID="ddlSenaraiPangkalan" AutoPostBack="true"></asp:DropDownList></td>
     </tr>
     <tr>
-        <td style="width:100px;">Kuarters/Rumah</td>
+        <td style="width:150px;">Kuarters/Rumah</td>
         <td>:</td>
         <td colspan="2">
-            <asp:DropDownList runat="server" ID="ddlSenaraiKuarters" Enabled="false"></asp:DropDownList>
+            <asp:DropDownList runat="server" CssClass="label"  ID="ddlSenaraiKuarters" Enabled="false"></asp:DropDownList>
         </td>
     </tr>
     <tr>
