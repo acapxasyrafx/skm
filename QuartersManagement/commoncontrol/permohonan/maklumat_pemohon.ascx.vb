@@ -52,32 +52,36 @@ Public Class maklumat_pemohon
 
     Private Sub data_load()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT 
-	            A.pengguna_id,
-	            A.pengguna_nama,
-	            A.pengguna_mykad,
-	            A.pengguna_jantina,
-	            A.pengguna_tarikh_lahir,
-	            A.pengguna_kewarganegaraan,
-                A.pengguna_mula_perkhidmatan,
-                A.pengguna_tamat_perkhidmatan,
-                A.pengguna_no_tentera,
-	            B.pangkat_id,
-	            B.pangkat_nama,
-                
-				D.keluarga_anak,
-				D.keluarga_tempat_tinggal,
-				D.keluarga_tarikh_mula
-                (((SELECT COUNT(anak_nama) FROM spk_anak where anak_umur < 18) * 5) + pangkat_mata ) as jumlahPoin
+            Dim cmd As New SqlCommand("SELECT TOP 1
+	            A.pengguna_id , 
+	            A.permohonan_mata as jumlahPoin,
+	            C.pangkat_nama as pangkat_nama,
+	            D.pangkalan_nama as pangkalan_nama,
+	            B.pengguna_id,
+	            B.pengguna_nama as pengguna_nama,
+	            B.pengguna_mykad as pengguna_mykad,
+	            B.pengguna_jantina as pengguna_jantina,
+	            B.pengguna_tarikh_lahir as pengguna_tarikh_lahir,
+	            B.pengguna_kewarganegaraan as pengguna_kewarganegaraan,
+                B.pengguna_mula_perkhidmatan as pengguna_mula_perkhidmatan,
+                B.pengguna_tamat_perkhidmatan as pengguna_tamat_perkhidmatan,
+                B.pengguna_no_tentera as pengguna_no_tentera,
+	            E.keluarga_anak as keluarga_anak,
+	            E.keluarga_tempat_tinggal as keluarga_tempat_tinggal,
+	            E.keluarga_tarikh_mula as keluarga_tarikh_mula,
+                G.kuarters_nama as kuarters_nama
 
-            FROM 
-	            admin.spk_pengguna A
-	            JOIN admin.spk_pangkat B ON A.pangkat_id = B.pangkat_id
-	            JOIN dbo.spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id
-				JOIN admin.spk_keluarga D on A.pengguna_id = D.pengguna_id
-                left join spk_anak E on A.pengguna_id = E.pengguna_id
+            FROM
 
-            WHERE A.pengguna_id = '" & Request.QueryString("uid") & "'",
+	            spk_permohonan A
+                LEFT JOIN spk_pengguna B ON A.pengguna_id = B.pengguna_id
+                LEFT JOIN spk_pangkat C ON  B.pangkat_id = C.pangkat_id
+                LEFT JOIN spk_pangkalan D on B.pangkalan_id = D.pangkalan_id
+                LEFT JOIN spk_keluarga E on B.pengguna_id = E.pengguna_id
+                LEFT JOIN spk_anak F on B.pengguna_id = F.pengguna_id
+                LEFT JOIN spk_kuarters G on A.kuarters_id = G.kuarters_id
+
+            WHERE A.permohonan_id = '" & Request.QueryString("uid") & "'",
             conn)
             'D.keluarga_tarikh_akhir,
             'D.keluarga_tarikh_sewa_mula,
@@ -92,6 +96,8 @@ Public Class maklumat_pemohon
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     If reader.Read() Then
+
+                        lblSenaraiRumah.Text = reader("kuarters_nama")
                         lblNama.Text = reader("pengguna_nama")
                         lblLahirTahun.Text = reader("pengguna_tarikh_lahir")
                         lblJantina.Text = reader("pengguna_jantina")
@@ -99,14 +105,10 @@ Public Class maklumat_pemohon
                         lblJawatan.Text = reader("pangkat_nama")
                         lblNoTentera.Text = reader("pengguna_no_tentera")
                         lblTarikhMulaBerkhidmat.Text = reader("pengguna_mula_perkhidmatan")
-                        ''
                         lblBilAnak.Text = reader("keluarga_anak")
                         lblSewaMulaHari.Text = reader("keluarga_tarikh_sewa_mula")
-
                         lblWismaMulaHari.Text = reader("keluarga_tarikh_wisma_mula")
-
                         lblSeberangMulaHari.Text = reader("keluarga_tarikh_seberang_mula")
-
                         lblpoinDisplay.Text = reader("jumlahPoin")
 
                         'lblSenaraiRumah.Text = reader("pengguna_mula_perkhidmatan")

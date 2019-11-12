@@ -32,15 +32,6 @@ Partial Public Class permohonan_baru
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''SaveFunction control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
-    '''<summary>
     '''Refresh control.
     '''</summary>
     '''<remarks>
@@ -48,6 +39,33 @@ Partial Public Class permohonan_baru
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
+    '''lbl_nama control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl_nama As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''txt_nama control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txt_nama As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''ddlSort control.

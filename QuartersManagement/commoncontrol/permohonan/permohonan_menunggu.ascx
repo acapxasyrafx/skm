@@ -14,9 +14,8 @@
         <td><span id="MsgTop" runat="server">
             <asp:Label ID="strlbl_top" runat="server"></asp:Label></span></td>
         <td>
-            <span class="buttonMenu"><a href="#" runat="server" id="SaveFunction">
-                <img title="Save" style="vertical-align: middle;" src="icons/save.png" width="25" height="25" alt="::" /></a>
-                | <a href="#" id="Refresh" runat="server"><img title="Refresh" style="vertical-align: middle;" src="icons/refresh.png" width="22" height="22" alt="::" /></a>
+            <span class="buttonMenu">
+                <a href="#" id="Refresh" runat="server"><img title="Refresh" style="vertical-align: middle;" src="icons/refresh.png" width="22" height="22" alt="::" /></a>
                 | <a href="#" id="Help"><img title="Help" style="vertical-align: middle;" src="icons/help.png" width="22" height="22" alt="::" /></a>
 
             </span>
@@ -24,14 +23,31 @@
     </tr>
 </table>
 
-<table class="fbform" style="width: 100%">
+<table class="fbform" style="width: 30%">
+    <tr>
+        <td>
+            <asp:Label runat="server" id="lbl_nama">Nama</asp:Label>
+        </td>
+        <td>
+            :
+        </td>
+        <td>
+            <asp:TextBox runat ="server" id="txt_nama" CssClass ="width:60px" Width="189px"></asp:TextBox>
+        </td>
+        <td>
+            <asp:Button runat="server" ID="btnSearch" Text="Cari" Width="75px"/>
+        </td>
+        </tr>
+        
     <tr class="fbform_mheader">
         <td class="auto-style1">
             Aturan Mengikut
         </td>
         <td class="auto-style2">:</td>
-        <td>
-            <asp:DropDownList runat ="server" ID="ddlSort" AutoPostBack ="true" ></asp:DropDownList>
+        <td colspan="2">
+            <asp:DropDownList runat ="server" ID="ddlSort" AutoPostBack ="true" >
+                
+            </asp:DropDownList>
         </td>
     </tr>
 </table>
