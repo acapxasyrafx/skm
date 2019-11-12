@@ -334,7 +334,7 @@ Public Class permohonan_kuarters
         Dim markahAnak
         Dim totalMarkahAnak
         Dim markahPangkat
-        markahAnak = (oCommon.ExecuteSQL("select count(*) from (select count(*) from (select anak_umur from spk_anak where anak_umur <18 and pengguna_id = '" & penggunaID & "') A")) * 5
+        markahAnak = (oCommon.ExecuteSQL("select count(*) from (select anak_umur from spk_anak where anak_umur <18 and pengguna_id = '" & penggunaID & "') A")) * 5
         markahPangkat = oCommon.ExecuteSQL("select B.pangkat_mata from spk_pengguna A 
                                             left join spk_pangkat B on A.pangkat_id = B.pangkat_id
                                             where A.pengguna_id = '" & penggunaID & "'")
@@ -345,7 +345,7 @@ Public Class permohonan_kuarters
             totalMarkahAnak = markahAnak
             totalPoin = markahPangkat + totalMarkahAnak
 
-            strRet = oCommon.ExecuteSQL("insert into spk_permohonan (permohonan_mata) values ('" & totalPoin.ToString & "')  where pengguna_id = '" & penggunaID & "'")
+            strRet = oCommon.ExecuteSQL("insert into spk_permohonan (permohonan_mata) values ('" & totalPoin & "')  where pengguna_id = '" & penggunaID & "'")
             If strRet = 0 Then
 
                 Debug.WriteLine(0)
@@ -363,6 +363,7 @@ Public Class permohonan_kuarters
         Dim month = ic.Substring(2, 2)
         Dim day = ic.Substring(4, 2)
         Dim dob_string = day & "/" & month & "/" & year
+        Debug.WriteLine("icToAge: " & dob_string)
         Dim dob_date = Convert.ToDateTime(dob_string)
         Dim age = Date.Now().Year - dob_date.Year
         Return age
