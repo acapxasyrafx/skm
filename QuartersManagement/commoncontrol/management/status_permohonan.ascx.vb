@@ -21,7 +21,6 @@ Public Class status_permohonan1
     Dim pangkalanID As Integer = 0
     Dim permohonanID As Integer = 14
     Dim statusPermohon As String = ""
-    Dim idKuartersDipilih As Integer
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         permohonanBaharu.Attributes("class") = "progress-done"
@@ -35,7 +34,7 @@ Public Class status_permohonan1
     Private Sub Load_Page()
         maklumatUser()
         maklumatAnak()
-        statusPermohon = "LULUS TANPA KEKOSONGAN"
+        'statusPermohon = "LULUS TANPA KEKOSONGAN"
         If statusPermohon.Equals("PERMOHONAN BARU") Then
             mvStatusPermohonan.ActiveViewIndex = 0
         ElseIf statusPermohon.Equals("LULUS TANPA KEKOSONGAN") Then
@@ -163,8 +162,7 @@ Public Class status_permohonan1
         For Each row As GridViewRow In tblCadanganKuarters.Rows
             If row.RowIndex = tblCadanganKuarters.SelectedIndex Then
                 row.BackColor = ColorTranslator.FromHtml(" #e9f83c")
-                idKuartersDipilih = Integer.Parse(tblCadanganKuarters.DataKeys(row.RowIndex).Value)
-                Debug.WriteLine("Selected DataKeyValue: " & tblCadanganKuarters.DataKeys(row.RowIndex).Value)
+                Debug.WriteLine("Selected DataKeyValue: " & Integer.Parse(tblCadanganKuarters.DataKeys(row.RowIndex).Value))
                 Debug.WriteLine("Selected Index: " & row.RowIndex)
                 SaveFunction.Disabled = False
                 row.ToolTip = String.Empty
@@ -176,18 +174,25 @@ Public Class status_permohonan1
     End Sub
 
     Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
-        Debug.WriteLine("Selected Kuarters ID: " & idKuartersDipilih)
-        If idKuartersDipilih = 0 Then
+        Dim idKuartersDiplih As Integer
+        For Each row As GridViewRow In tblCadanganKuarters.Rows
+            If row.RowIndex = tblCadanganKuarters.SelectedIndex Then
+                idKuartersDiplih = Integer.Parse(tblCadanganKuarters.DataKeys(row.RowIndex).Value)
+            End If
+        Next
+
+        If idKuartersDiplih = Nothing Then
             MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = "Sila pilih SATU kuarters untuk meneruskan proses."
+            strlbl_top.Text = "Sila pilih SATU kuarters untuk meneruskan proses permohonan."
             MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = "Sila pilih SATU kuarters untuk meneruskan proses."
-        Else
-            Debug.WriteLine("ID Kuarters Dipilih:" & idKuartersDipilih)
+            strlbl_bottom.Text = "Sila pilih SATU kuarters untuk meneruskan proses permohonan."
+        ElseIf idKuartersDiplih > 0 Then
+            Debug.WriteLine("Post-Check ID Dipilih:" & idKuartersDiplih)
             MsgTop.Attributes("class") = "successMsg"
             strlbl_top.Text = "Pemilihan kuarters berjaya. Pemohonan anda diprosess"
             MsgBottom.Attributes("class") = "successMsg"
             strlbl_bottom.Text = "Pemilihan kuarters bejaya. Pemohonan anda diprosess"
+            SaveFunction.Disabled = True
         End If
     End Sub
 End Class
