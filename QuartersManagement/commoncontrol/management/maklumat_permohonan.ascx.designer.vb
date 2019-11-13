@@ -23,6 +23,15 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents permohonanBaharu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''lblTarikhBaharu control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhBaharu As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''permohonanMenunggu control.
     '''</summary>
     '''<remarks>
@@ -32,6 +41,15 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents permohonanMenunggu As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''lblTarikhMenuggu control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhMenuggu As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''permohonanKeputusan control.
     '''</summary>
     '''<remarks>
@@ -39,6 +57,15 @@ Partial Public Class maklumat_permohonan
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents permohonanKeputusan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''lblTarikhKeputusan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhKeputusan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''mvStatusPermohonan control.
@@ -165,6 +192,15 @@ Partial Public Class maklumat_permohonan
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents tblCadanganKuarters As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''viewPenerimaanUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents viewPenerimaanUnit As Global.System.Web.UI.WebControls.View
 
     '''<summary>
     '''viewPermohonanLulus control.
