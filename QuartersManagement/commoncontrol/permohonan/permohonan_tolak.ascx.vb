@@ -24,7 +24,6 @@ Public Class permohonan_tolak
         Try
 
             If Not IsPostBack Then
-                Sortdata()
 
                 If strlblMsgBottom = 0 Then
                     strlbl_bottom.Visible = True
@@ -43,6 +42,11 @@ Public Class permohonan_tolak
                 Else
                     ''requestPage()
                     strRet = BindData(datRespondent)
+                    loadPangkalan()
+                    loadKuarters()
+                    loadJawatan()
+                    loadMarkah()
+
                 End If
 
             End If
@@ -59,25 +63,85 @@ Public Class permohonan_tolak
         End Try
 
     End Sub
-    Private Sub Sortdata()
-        Dim listItem1 As ListItem
-        listItem1 = New ListItem("Default", "0")
-        listItem1.Selected = True
 
-        Dim listItem2 As ListItem
-        listItem2 = New ListItem("Pangkat", "1")
-        listItem2.Selected = False
 
-        Dim listItem3 As ListItem
-        listItem3 = New ListItem("Mata Poin", "2")
-        listItem3.Selected = False
+    Private Sub loadPangkalan()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim cmd As New SqlCommand("SELECT * FROM spk_pangkalan;", conn)
+            Dim ds As New DataSet
+            Try
+                conn.Open()
+                Dim da As New SqlDataAdapter(cmd)
+                da.Fill(ds)
+                ddlfilterPangkalan.DataSource = ds
+                ddlfilterPangkalan.DataTextField = "pangkalan_nama"
+                ddlfilterPangkalan.DataValueField = "pangkalan_id"
+                ddlfilterPangkalan.DataBind()
+                ddlfilterPangkalan.Items.Insert(0, New ListItem("Default", String.Empty))
+                ddlfilterPangkalan.SelectedIndex = 0
+            Catch ex As Exception
+                Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Sub
 
-        ddlSort.Items.Add(listItem1)
+    Private Sub loadKuarters()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters; ", conn)
+            Dim ds As New DataSet
 
-        ddlSort.Items.Add(listItem2)
+            Try
+                conn.Open()
+                Dim da As New SqlDataAdapter(cmd)
+                da.Fill(ds)
+                ddlfilterKuarters.DataSource = ds
+                ddlfilterKuarters.DataTextField = "kuarters_nama"
+                ddlfilterKuarters.DataValueField = "kuarters_id"
+                ddlfilterKuarters.DataBind()
+                ddlfilterKuarters.Items.Insert(0, New ListItem("Default", String.Empty))
+                ddlfilterKuarters.SelectedIndex = 0
+            Catch ex As Exception
+                Debug.Write("ERROR(loadKuarters): " & ex.Message)
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Sub
 
-        ddlSort.Items.Add(listItem3)
+    Protected Sub loadJawatan()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim cmd As New SqlCommand("SELECT * FROM spk_pangkat; ", conn)
+            Dim ds As New DataSet
 
+            Try
+                conn.Open()
+                Dim sda As New SqlDataAdapter(cmd)
+                sda.Fill(ds)
+                ddlfilterPangkat.DataSource = ds
+                ddlfilterPangkat.DataTextField = "pangkat_nama"
+                ddlfilterPangkat.DataValueField = "pangkat_id"
+                ddlfilterPangkat.DataBind()
+                ddlfilterKuarters.Items.Insert(0, New ListItem("Default", String.Empty))
+                ddlfilterKuarters.SelectedIndex = 0
+            Catch ex As Exception
+                Debug.Write("ERROR(loadJawatan): " & ex.Message)
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Sub
+
+    Protected Sub loadMarkah()
+        Try
+            ddlfilterKuarters.Items.Insert(0, New ListItem("Default", String.Empty))
+            ddlfilterKuarters.Items.Insert(1, New ListItem("TERTINGGI", String.Empty))
+            ddlfilterKuarters.Items.Insert(2, New ListItem("TERENDAH", String.Empty))
+            ddlfilterKuarters.SelectedIndex = 0
+        Catch ex As Exception
+            Debug.Write("ERROR(loadJawatan): " & ex.Message)
+        End Try
     End Sub
 
     '-- BIND DATA --'
@@ -87,13 +151,6 @@ Public Class permohonan_tolak
 
         Dim strOrder As String = ""
 
-        If ddlSort.SelectedValue = "0" Then
-            strOrder = " ORDER BY A.pengguna_id ASC"
-        ElseIf ddlSort.SelectedValue = "1" Then
-            strOrder = " ORDER BY D.pangkat_idx ASC"
-        ElseIf ddlSort.SelectedValue = "2" Then
-            strOrder = " ORDER BY B.permohonan_mata ASC"
-        End If
 
         tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
                     ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
@@ -106,6 +163,29 @@ Public Class permohonan_tolak
                     left join spk_unit F on B.unit_id = F.unit_id
 					"
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN ANDA DITOLAK'"
+
+        Try
+            If Not ddlfilterKuarters.SelectedValue = "" Then
+                strWhere += " AND B.kuarters_id = '" & ddlfilterKuarters.SelectedValue & "'"
+            End If
+            If Not ddlfilterPangkalan.SelectedValue = "" Then
+                strWhere += " AND A.pangkalan_id = '" & ddlfilterPangkalan.SelectedValue & "'"
+            End If
+            If Not ddlfilterPangkat.SelectedValue = "" Then
+                strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
+            End If
+
+            If ddlfilterMarkah.SelectedIndex = 1 Then
+                strOrder = " ORDER BY B.permohonan_mata ASC "
+            ElseIf ddlfilterMarkah.SelectedIndex = 2 Then
+                strOrder = " ORDER BY B.permohonan_mata DESC "
+            ElseIf ddlfilterMarkah.SelectedIndex = 0 Then
+                strOrder = ""
+            End If
+
+        Catch ex As Exception
+            MsgBottom.InnerText = ex.ToString
+        End Try
 
         If Not txt_nama.Text = "" Then
             strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "')"
@@ -228,6 +308,22 @@ Public Class permohonan_tolak
         End Try
     End Sub
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
+        strRet = BindData(datRespondent)
+    End Sub
+
+    Private Sub ddlfilterPangkat_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterPangkat.SelectedIndexChanged
+        strRet = BindData(datRespondent)
+    End Sub
+
+    Private Sub ddlfilterPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterPangkalan.SelectedIndexChanged
+        strRet = BindData(datRespondent)
+    End Sub
+
+    Private Sub ddlfilterMarkah_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterMarkah.SelectedIndexChanged
+        strRet = BindData(datRespondent)
+    End Sub
+
+    Private Sub ddlfilterKuarters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterKuarters.SelectedIndexChanged
         strRet = BindData(datRespondent)
     End Sub
 End Class

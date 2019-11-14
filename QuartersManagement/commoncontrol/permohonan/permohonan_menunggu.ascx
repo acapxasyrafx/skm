@@ -1,11 +1,14 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="permohonan_menunggu.ascx.vb" Inherits="QuartersManagement.permohonan_menunggu" %>
 
 <style type="text/css">
-    .auto-style1 {
-        width: 107px;
+    .auto-style3 {
+        width: 120px;
     }
-    .auto-style2 {
-        width: 13px;
+    .auto-style4 {
+        width: 17px;
+    }
+    .auto-style5 {
+        width: 265px;
     }
 </style>
 
@@ -23,34 +26,64 @@
     </tr>
 </table>
 
-<table class="fbform" style="width: 30%">
-    <tr>
-        <td>
-            <asp:Label runat="server" id="lbl_nama">Nama</asp:Label>
-        </td>
-        <td>
-            :
-        </td>
-        <td>
-            <asp:TextBox runat ="server" id="txt_nama" CssClass ="width:60px" Width="189px"></asp:TextBox>
-        </td>
-        <td>
-            <asp:Button runat="server" ID="btnSearch" Text="Cari" Width="75px"/>
-        </td>
-        </tr>
-        
+<table class="fbform" style="width: 100%">
     <tr class="fbform_mheader">
-        <td class="auto-style1">
-            Aturan Mengikut
+        <td colspan="4">
+            <a>Saringan</a>
         </td>
-        <td class="auto-style2">:</td>
+    </tr>
+    <tr>
+        <td class="auto-style3">Pangkat</td>
+        <td class="auto-style4">:</td>
         <td colspan="2">
-            <asp:DropDownList runat ="server" ID="ddlSort" AutoPostBack ="true" >
-                
+            <asp:DropDownList runat ="server" id="ddlfilterPangkat" AutoPostBack ="true"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td class="auto-style3">Pangkalan</td>
+        <td class="auto-style4">:</td>
+        <td colspan="2">
+            <asp:DropDownList runat ="server" id="ddlfilterPangkalan" AutoPostBack ="true"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td class="auto-style3">Kuarters Dipohon</td>
+        <td class="auto-style4">:</td>
+        <td colspan="2">
+            <asp:DropDownList runat ="server" id="ddlfilterKuarters" AutoPostBack ="true"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td class="auto-style3">Markah</td>
+        <td class="auto-style4">:</td>
+        <td colspan="2">
+            <asp:DropDownList runat ="server" id="ddlfilterMarkah" AutoPostBack ="true" >
+                <asp:ListItem Value ="1" Text ="Tertinggi"></asp:ListItem>
+                <asp:ListItem Value="2" Text ="Terendah"></asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>
+    <tr><td colspan ="4"></td></tr>
+    <tr class="fbform_mheader">
+        <td colspan="4"><a>Carian</a> </td>
+    </tr>
+    <tr>
+        <td class="auto-style3">
+            <asp:Label runat="server" ID="lbl_nama">Nama</asp:Label>
+        </td>
+        <td class="auto-style4">:
+        </td>
+        <td class="auto-style5" >
+            <asp:TextBox runat="server" ID="txt_nama" CssClass="width:60px" Width="247px"></asp:TextBox>
+        </td>
+        <td>
+            <asp:Button runat="server" ID="btnSearch" Text="Cari" Width="75px" />
+        </td>
+    </tr>
 </table>
+
+<br />
+
 
 <table class="fbform" style="width: 100%">
     <tr class="fbform_mheader">
@@ -68,6 +101,12 @@
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
                         <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField> 
+                    <asp:TemplateField HeaderText="No.Permohonan" >
+                        <ItemTemplate>
+                            <asp:Label ID="lbl_noPermohonan" runat="server"></asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                    </asp:templatefield>
                     <asp:TemplateField HeaderText="Tarikh Permohonan" >
                         <ItemTemplate>
                             <asp:Label ID="lbl_tarikhPermohonan" runat="server" Text='<%# Bind("tarikhMohon")%>' ></asp:Label>
@@ -81,9 +120,6 @@
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:templatefield>
                     <asp:TemplateField HeaderText="Pangkat" >
-                        <ItemTemplate>
-                            <asp:Label ID="lbl_pangkat" runat="server" Text='<%# Bind("pangkat")%>' ></asp:Label>
-                        </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>    
                     <asp:TemplateField HeaderText="Nama" >
@@ -110,12 +146,16 @@
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField> 
-                    <asp:TemplateField HeaderText="Action">
+                    <asp:TemplateField HeaderText="Status" >
+                        <ItemTemplate>
+                            <asp:Label ID="lbl_status" runat="server" > </asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                    </asp:TemplateField> 
+                    <asp:TemplateField HeaderText="Fungsi">
                         <ItemTemplate>
                             <span runat="server" style="float: right">
-                                <asp:ImageButton Width="12" Height="12" ID="btnView" CommandName ="ViewApllicant" CommandArgument ='<%#Eval("pengguna_id")%>' runat="server" ImageUrl="~/icons/form_process.png" ToolTip="View" />
-                                |
-                                <asp:ImageButton Width="12" Height="12" ID="btnDelete" CommandName="Batal" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete" />
+                                <asp:ImageButton Width="12" Height="12" ID="btnView" CommandName ="ViewApllicant" CommandArgument ='<%#Eval("permohonan_id")%>' runat="server" ImageUrl="~/icons/form_process.png" ToolTip="Lihat Profil" />
                             </span>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="right" VerticalAlign="Top" />
