@@ -37,9 +37,6 @@ Public Class maklumat_permohonan
         maklumatStatusPermohonan()
 
         If statusPermohon.Equals("PERMOHONAN BARU") Then
-            permohonanBaharu.Attributes("class") = "progress-done"
-            permohonanMenunggu.Attributes("class") = "progress-todo"
-            permohonanKeputusan.Attributes("class") = "progress-todo"
             mvStatusPermohonan.ActiveViewIndex = 0
         ElseIf statusPermohon.Equals("PERMOHONAN SEDANG DIPROSES") Then
             If subStatusPermohonan.Equals("LULUS TANPA KEKOSONGAN") Then
@@ -47,22 +44,13 @@ Public Class maklumat_permohonan
                 maklumatCadanganKuarters()
                 mvStatusPermohonan.ActiveViewIndex = 1
             ElseIf subStatusPermohonan.Equals("TUNGGU KELULUSAN") Then
-                Debug.WriteLine("User telah memilih kuarters, tunggu persetujuan admin")
-                mvStatusPermohonan.ActiveViewIndex = 2
+                Debug.WriteLine("User telah memilih kuarters, tunggu maklumbalas admin")
+                mvStatusPermohonan.ActiveViewIndex = 0
             End If
-            permohonanBaharu.Attributes("class") = "progress-done"
-            permohonanMenunggu.Attributes("class") = "progress-done"
-            permohonanKeputusan.Attributes("class") = "progress-todo"
         ElseIf statusPermohon.Equals("PERMOHONAN DITERIMA") Then
-            permohonanBaharu.Attributes("class") = "progress-done"
-            permohonanMenunggu.Attributes("class") = "progress-done"
-            permohonanKeputusan.Attributes("class") = "progress-done"
-            mvStatusPermohonan.ActiveViewIndex = 3
+            mvStatusPermohonan.ActiveViewIndex = 2
         ElseIf statusPermohon.Equals("PERMOHONAN DITOLAK") Then
-            permohonanBaharu.Attributes("class") = "progress-done"
-            permohonanMenunggu.Attributes("class") = "progress-done"
-            permohonanKeputusan.Attributes("class") = "progress-done"
-            mvStatusPermohonan.ActiveViewIndex = 4
+            mvStatusPermohonan.ActiveViewIndex = 3
         End If
     End Sub
 
@@ -129,15 +117,15 @@ Public Class maklumat_permohonan
                     Do While reader.Read()
                         Select Case reader("log_status")
                             Case "PERMOHONAN BARU"
-                                Debug.WriteLine(reader("log_status"))
+                                Debug.WriteLine("Permohonan Status: " & reader("log_status"))
                                 permohonanBaharu.Attributes("class") = "progress-done"
                                 lblTarikhBaharu.Text = reader("log_tarikh")
                             Case "PERMOHONAN SEDANG DIPROSES"
-                                Debug.WriteLine(reader("log_status"))
+                                Debug.WriteLine("Permohonan Status: " & reader("log_status"))
                                 permohonanMenunggu.Attributes("class") = "progress-done"
                                 lblTarikhMenuggu.Text = reader("log_tarikh")
                             Case "PERMOHONAN DITERIMA", "PERMOHONAN DITOLAK"
-                                Debug.WriteLine(reader("log_status"))
+                                Debug.WriteLine("Permohonan Status: " & reader("log_status"))
                                 permohonanKeputusan.Attributes("class") = "progress-done"
                                 lblTarikhKeputusan.Text = reader("log_tarikh")
                             Case Else
@@ -154,7 +142,15 @@ Public Class maklumat_permohonan
     Private Sub maklumatAnak()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim ds As New DataSet
-            Dim da As New SqlDataAdapter("SELECT * FROM spk_anak WHERE pengguna_id = " & penggunaID & "", conn)
+            Dim da As New SqlDataAdapter("
+                SELECT
+	                *
+                FROM
+	                spk_historyAnak A
+                WHERE
+	                A.permohonan_id = " & permohonanID & "
+                ;
+            ", conn)
             Try
                 conn.Open()
                 da.Fill(ds, "AnyTable")
@@ -209,7 +205,7 @@ Public Class maklumat_permohonan
     Private Sub tblCadanganKuarters_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles tblCadanganKuarters.RowDataBound
         If e.Row.RowType = DataControlRowType.DataRow Then
             e.Row.Attributes("onclick") = Page.ClientScript.GetPostBackClientHyperlink(tblCadanganKuarters, "Select$" & e.Row.RowIndex)
-            e.Row.ToolTip = "Clik row untuk pilih kuarters."
+            e.Row.ToolTip = "Klik row untuk pilih kuarters."
         End If
     End Sub
 

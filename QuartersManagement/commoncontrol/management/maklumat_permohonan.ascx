@@ -182,7 +182,7 @@
                                     <asp:GridView
                                         ID="tblMaklumatAnak"
                                         runat="server"
-                                        DataKeyNames="anak_id"
+                                        DataKeyNames="historyAnak_id"
                                         AutoGenerateColumns="False"
                                         AllowPaging="false"
                                         CellPadding="4"
@@ -203,7 +203,7 @@
 
                                             <asp:TemplateField HeaderText="Nama">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("anak_nama")%>'></asp:Label>
+                                                    <asp:Label ID="lblHistoryNamaAnak" runat="server" Text='<%# Bind("historyAnak_nama")%>'></asp:Label>
                                                 </ItemTemplate>
                                                 <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -211,7 +211,7 @@
 
                                             <asp:TemplateField HeaderText="KP">
                                                 <ItemTemplate>
-                                                    <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("anak_ic")%>'></asp:Label>
+                                                    <asp:Label ID="lblHistoryAnak" runat="server" Text='<%# Bind("historyAnak_ic")%>'></asp:Label>
                                                 </ItemTemplate>
                                                 <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
                                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
