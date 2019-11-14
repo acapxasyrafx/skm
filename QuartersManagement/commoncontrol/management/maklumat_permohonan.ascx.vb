@@ -32,7 +32,7 @@ Public Class maklumat_permohonan
     End Sub
 
     Private Sub Load_Page()
-        maklumatUser()
+        maklumatPermohonan()
         maklumatAnak()
         maklumatStatusPermohonan()
 
@@ -66,70 +66,42 @@ Public Class maklumat_permohonan
         End If
     End Sub
 
-    Private Sub maklumatUser()
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT TOP 1
-                A.pengguna_id,
-                A.pengguna_nama,
-                A.pengguna_status_perkahwinan,
-                E.keluarga_anak,
-                E.keluarga_tempat_tinggal,
-                E.keluarga_tarikh_mula,
-                A.pengguna_mula_perkhidmatan,
-                B.unit_id,
-                B.permohonan_status,
-                B.permohonan_sub_status,
-                D.kuarters_nama,
-	            F.pangkalan_id,
-	            F.pangkalan_nama,
-                B.pemohonan_tarikh
-            FROM 
-                admin.spk_pengguna A
-                JOIN admin.spk_permohonan B on B.pengguna_id = A.pengguna_id
-                JOIN admin.spk_keluarga E ON E.pengguna_id = A.pengguna_id
-                JOIN admin.spk_unit C ON C.unit_id = B.unit_id
-                JOIN admin.spk_kuarters D ON D.kuarters_id = C.kuarters_id
-	            JOIN dbo.spk_pangkalan F ON F.pangkalan_id = C.pangkalan_id
-            WHERE
-                A.pengguna_id = " & penggunaID & " AND B.permohonan_id = " & permohonanID & "
-            ORDER BY
-                B.pemohonan_tarikh DESC;",
-            conn)
-
-            Try
-                conn.Open()
-                Dim reader As SqlDataReader = cmd.ExecuteReader
-                If reader.HasRows Then
-                    Do While reader.Read = True
-                        lblJenisTempatTinggal.Text = reader("keluarga_tempat_tinggal")
-                        lblTarikhMulaMenetap.Text = reader("keluarga_tarikh_mula").ToString()
-                        lblKuarterDipohon.Text = reader("kuarters_nama")
-                        lblTarikhPermohonan.Text = reader("pemohonan_tarikh")
-                        statusPermohon = reader("permohonan_status")
-                        subStatusPermohonan = reader("permohonan_sub_status").ToString
-                        Debug.WriteLine("Success: maklumatUser")
-                    Loop
-                Else
-                    Debug.WriteLine("Error(maklumatUser): No Rows")
-                End If
-                reader.Close()
-            Catch ex As Exception
-                Debug.WriteLine("Error(maklumatUser): " & ex.Message)
-            Finally
-                conn.Close()
-            End Try
-        End Using
-    End Sub
-
     Private Sub maklumatPermohonan()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("", conn)
+            Dim cmd As New SqlCommand("
+                SELECT 
+	                  A.permohonan_id
+	                , A.pemohonan_tarikh
+	                , A.permohonan_status
+                    , A.permohonan_sub_status
+	                , B.pengguna_nama
+	                , C.pangkat_nama
+	                , D.kuarters_nama
+	                , E.historyKeluarga_tempat_tinggal
+	                , E.historyKeluarga_tarikh_mula
+	                , E.historyKeluarga_tempat_tinggal
+                FROM 
+	                spk_permohonan A
+	                JOIN spk_pengguna B ON B.pengguna_id = A.pengguna_id
+	                JOIN spk_pangkat C ON C.pangkat_id = B.pangkat_id
+	                JOIN spk_kuarters D ON D.kuarters_id = A.kuarters_id
+	                JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
+                WHERE 
+	                A.permohonan_id = " & permohonanID & "
+                ;
+            ", conn)
             Try
                 conn.Open()
                 Using reader As SqlDataReader = cmd.ExecuteReader
                     If reader.HasRows Then
                         Do While reader.Read()
-
+                            lblJenisTempatTinggal.Text = reader("historyKeluarga_tempat_tinggal")
+                            lblTarikhMulaMenetap.Text = reader("historyKeluarga_tarikh_mula").ToString()
+                            lblKuarterDipohon.Text = reader("kuarters_nama")
+                            lblTarikhPermohonan.Text = reader("pemohonan_tarikh")
+                            statusPermohon = reader("permohonan_status")
+                            subStatusPermohonan = reader("permohonan_sub_status").ToString
+                            Debug.WriteLine("Success: maklumatUser")
                         Loop
                     Else
                         Debug.WriteLine("Error(maklumatPermohonan): Reader has no row")
@@ -251,13 +223,15 @@ Public Class maklumat_permohonan
                 row.ToolTip = String.Empty
             Else
                 row.BackColor = ColorTranslator.FromHtml("#FFFFFF")
-                row.ToolTip = "Clik row untuk pilih kuarters."
+                row.ToolTip = "Klik row untuk pilih kuarters."
             End If
         Next
     End Sub
 
     Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
         Dim idKuartersDiplih As Integer
+        Dim setRef As String = ""
+        Dim query = "UPDATE spk_permohonan SET kuarters_id = {0}, permohonan_sub_status = 'TUNGGU KELULUSAN' WHERE permohonan_id = {1};"
         For Each row As GridViewRow In tblCadanganKuarters.Rows
             If row.RowIndex = tblCadanganKuarters.SelectedIndex Then
                 idKuartersDiplih = Integer.Parse(tblCadanganKuarters.DataKeys(row.RowIndex).Value)
@@ -270,12 +244,21 @@ Public Class maklumat_permohonan
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = "Sila pilih SATU kuarters untuk meneruskan proses permohonan."
         ElseIf idKuartersDiplih > 0 Then
-            Debug.WriteLine("Post-Check ID Dipilih:" & idKuartersDiplih)
-            MsgTop.Attributes("class") = "successMsg"
-            strlbl_top.Text = "Pemilihan kuarters berjaya. Pemohonan anda diprosess"
-            MsgBottom.Attributes("class") = "successMsg"
-            strlbl_bottom.Text = "Pemilihan kuarters bejaya. Pemohonan anda diprosess"
-            SaveFunction.Disabled = True
+            setRef = oCommon.ExecuteSQL(String.Format(query, idKuartersDiplih, permohonanID))
+            If setRef = "0" Then
+                MsgTop.Attributes("class") = "successMsg"
+                strlbl_top.Text = "Pemilihan kuarters berjaya. Pemohonan anda diprosess"
+                MsgBottom.Attributes("class") = "successMsg"
+                strlbl_bottom.Text = "Pemilihan kuarters bejaya. Pemohonan anda diprosess"
+                SaveFunction.Disabled = True
+                Load_Page()
+            Else
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = strSaveFailAlert
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = strSaveFailAlert
+                Debug.WriteLine("Error(SaveFunction_ServerClick):" & setRef)
+            End If
         End If
     End Sub
 

@@ -203,13 +203,22 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents viewPenerimaanUnit As Global.System.Web.UI.WebControls.View
 
     '''<summary>
-    '''viewPermohonanLulus control.
+    '''lblLulusKuarters control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents viewPermohonanLulus As Global.System.Web.UI.WebControls.View
+    Protected WithEvents lblLulusKuarters As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblLulusUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblLulusUnit As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''viewPermohonanGagal control.

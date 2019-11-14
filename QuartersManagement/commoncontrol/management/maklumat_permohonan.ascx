@@ -321,19 +321,48 @@
                     </table>
                 </asp:View>
                 <asp:View runat="server" ID="viewPenerimaanUnit">
-                    <div>
-                        Terima Unit yang ditawarkan
-                    </div>
-                </asp:View>
-                <asp:View runat="server" ID="viewPermohonanLulus">
-                    <div>
-                        Keputusan Kuarters(GAGAL/DIBATAL)
-                    </div>
+                    <table style="width: 100%;" class="fbform">
+                        <tr class="fbform_mheader">
+                            <td colspan="3">Keputusan Permohonan</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p>Permohonan Anda <b>Berjaya</b>.</p>
+                            </td>
+                        </tr>
+                        <tr  class="fbform_mheader">
+                            <td>
+                                Maklumat Kuarters Yang Diterima
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px;">Nama Kuarters</td>
+                            <td>:</td>
+                            <td><asp:Label Text="text" runat="server" ID="lblLulusKuarters"/></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 100px;">No. Unit</td>
+                            <td>:</td>
+                            <td><asp:Label Text="text" runat="server" ID="lblLulusUnit"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
                 </asp:View>
                 <asp:View runat="server" ID="viewPermohonanGagal">
-                    <div>
-                        Keputusan Kuarters(GAGAL/DIBATAL)
-                    </div>
+                    <table style="width: 100%;" class="fbform">
+                        <tr>
+                            <td colspan="3">Keputusan Permohonan</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p>Harap maaf, permohonan anda <b>TIDAK BERJAYA</b>.</p>
+                            </td>
+                        </tr>
+                    </table>
                 </asp:View>
             </asp:MultiView>
         </div>
