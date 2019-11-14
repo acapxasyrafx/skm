@@ -24,125 +24,58 @@ Public Class maklumat_pemohon_menunggu
 
 
         Try
-            data_load()
+            loadUser()
             ddlunit_load()
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub data_poinLoad()
-        Dim strSQL2 As String = ""
-        Dim strSQL3 As String = ""
-        Dim dataJumlah As Integer = ""
-        Dim dataPangkatPoin As Integer = ""
-        Dim dataUmurAnak As Integer = ""
-        Dim jumlah_anak As Integer = ""
-
-        strSQL = "select count(anak_nama) from spk_anak where anak_umur <= 18"
-        strSQL2 = "select B.pangkat_mata from spk_pengguna A left join spk_pangkat B on A.pangkat_id = B.pangkat_id"
-
-        Dim jumlah_anakUmur18 = oCommon.ExecuteSQL(strSQL)
-        Dim jumlah_poinPangkat = oCommon.ExecuteSQL(strSQL2)
-
-
-        Dim jumlah_mataTerkumpul = jumlah_poinPangkat + (jumlah_anakUmur18 * 5)
-
-        lblpoinDisplay.Text = jumlah_mataTerkumpul.ToString
-
-
-
-
-    End Sub
-
-    Private Sub data_load()
-        lblrumahpemohonDipohon.Text = oCommon.ExecuteSQL("select kuarters_nama from spk_kuarters ")
+    Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT 
+            Dim cmd As New SqlCommand("SELECT TOP 1
 	            A.pengguna_id,
 	            A.pengguna_nama,
 	            A.pengguna_mykad,
 	            A.pengguna_jantina,
 	            A.pengguna_tarikh_lahir,
-	            A.pengguna_kewarganegaraan,
                 A.pengguna_mula_perkhidmatan,
                 A.pengguna_tamat_perkhidmatan,
                 A.pengguna_no_tentera,
 	            B.pangkat_id,
 	            B.pangkat_nama,
-                
-				D.keluarga_anak,
-				D.keluarga_tempat_tinggal,
-				D.keluarga_tarikh_mula,
-                (((SELECT COUNT(anak_nama) FROM spk_anak where anak_umur < 18) * 5) + pangkat_mata ) as jumlahPoin
-
+                C.pangkalan_nama,
+                E.kuarters_nama
             FROM 
 	            admin.spk_pengguna A
 	            JOIN admin.spk_pangkat B ON A.pangkat_id = B.pangkat_id
 	            JOIN dbo.spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id
-				JOIN admin.spk_keluarga D on A.pengguna_id = D.pengguna_id
-                left join spk_anak E on A.pengguna_id = E.pengguna_id
-
-            WHERE A.pengguna_id = '" & Request.QueryString("uid") & "'",
+				JOIN spk_permohonan D on A.pengguna_id = D.pengguna_id 
+				JOIN spk_kuarters E on D.kuarters_id = E.kuarters_id
+            WHERE D.permohonan_id = '" & Request.QueryString("uid") & "' ",
             conn)
-            'D.keluarga_tarikh_akhir,
-            'D.keluarga_tarikh_sewa_mula,
-            'D.keluarga_tarikh_sewa_akhir,
-            'D.keluarga_tarikh_wisma_mula,
-            'D.keluarga_tarikh_wisma_akhir,
-            'D.keluarga_tarikh_seberang_mula,
-            'D.keluarga_tarikh_seberang_akhir
 
             Try
                 conn.Open()
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     If reader.Read() Then
-                        lblNama.Text = reader("pengguna_nama")
-                        lblLahirTahun.Text = reader("pengguna_tarikh_lahir")
-                        lblJantina.Text = reader("pengguna_jantina")
-                        lblKewarganegaraan.Text = reader("pengguna_kewarganegaraan")
-                        lblJawatan.Text = reader("pangkat_nama")
-                        lblNoTentera.Text = reader("pengguna_no_tentera")
-                        lblTarikhMulaBerkhidmat.Text = reader("pengguna_mula_perkhidmatan")
-                        ''
-                        lblBilAnak.Text = reader("keluarga_anak")
-                        lblSewaMulaHari.Text = reader("keluarga_tarikh_sewa_mula")
+                        pengguna_id.Value = reader("pengguna_id")
+                        lblNama.InnerText = reader("pengguna_nama")
+                        lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
+                        lblJantina.InnerText = reader("pengguna_jantina")
+                        lblJawatan.InnerText = reader("pangkat_nama")
+                        lblNoTentera.InnerText = reader("pengguna_no_tentera")
+                        lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
 
-                        lblWismaMulaHari.Text = reader("keluarga_tarikh_wisma_mula")
 
-                        lblSeberangMulaHari.Text = reader("keluarga_tarikh_seberang_mula")
-
-                        lblpoinDisplay.Text = reader("jumlahPoin")
-
-                        'lblSenaraiRumah.Text = reader("pengguna_mula_perkhidmatan")
-                        'lblDariPasukan.Text = reader("pengguna_mula_perkhidmatan")
-                        'lblKePasukan.Text = reader("pengguna_mula_perkhidmatan")
-                        'lblTarikhMulaHari.Text = reader("pengguna_mula_perkhidmatan")
-                        '''
+                        lblSenaraiPangkalan.InnerText = reader("pangkalan_nama")
+                        lblSenaraiKuarters.InnerText = reader("kuarters_nama")
                         '-------------------
-                        If IsDBNull(reader("pengguna_tamat_perkhidmatan")) Then
-                            lblTarikhAkhirBerkhidmat.Text = "Masih Berkhidmat"
+                        If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
+                            lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
                         Else
-                            lblTarikhAkhirBerkhidmat.Text = reader("pengguna_tamat_perkhidmatan")
-                        End If
-
-                        If IsDBNull(reader("keluarga_tarikh_akhir")) Then
-                            lblSewaAkhirHari.Text = "Masih Menetap"
-                        Else
-                            lblSewaAkhirHari.Text = reader("keluarga_tarikh_akhir")
-                        End If
-
-                        If IsDBNull(reader("keluarga_tarikh_wisma_akhir")) Then
-                            lblWismaAkhir.Text = "Masih Menetap"
-                        Else
-                            lblTarikhAkhirBerkhidmat.Text = reader("keluarga_tarikh_wisma_akhir")
-                        End If
-
-                        If IsDBNull(reader("keluarga_tarikh_seberang_akhir")) Then
-                            lblSeberangAkhirTahun.Text = "Masih Berkhidmat"
-                        Else
-                            lblSeberangAkhirTahun.Text = reader("keluarga_tarikh_seberang_akhir")
+                            lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
                         End If
                         '-------------------
                     Else
@@ -152,39 +85,17 @@ Public Class maklumat_pemohon_menunggu
                     Debug.Write("NO ROWS")
                 End If
             Catch ex As Exception
-                Debug.Write("ERROR: " & ex.Message)
+                Debug.WriteLine("ERROR(loadUser): " & ex.Message)
             Finally
                 conn.Close()
             End Try
         End Using
-
     End Sub
-    Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
-        Try
 
-            If (e.CommandName = "Approve") Then
-                Dim strCID = e.CommandArgument.ToString
-
-                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'Diluluskan' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
-                oCommon.ExecuteSQL(strSQL)
-            ElseIf (e.CommandName = "Reject") Then
-                Dim strCID = e.CommandArgument.ToString
-
-                'chk session to prevent postback
-                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN ANDA DITOLAK' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
-                oCommon.ExecuteSQL(strSQL)
-
-            End If
-
-        Catch ex As Exception
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-        End Try
-    End Sub
     Private Sub ddlunit_load()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("select b.kuarters_nama,a.unit_id as idUnit, concat (unit_blok,'-',unit_tingkat,'-',unit_nombor) as unit from spk_unit a 
-                                            left join spk_kuarters b on a.kuarters_id = b.kuarters_id", conn)
+            Dim cmd As New SqlCommand("select a.kuarters_id as kuarters_id ,a.kuarters_nama as kuarters_nama from spk_kuarters a 
+                                            ", conn)
             Dim ds As New DataSet
             Dim dt As New DataSet
             Dim dr As New DataSet
@@ -195,22 +106,22 @@ Public Class maklumat_pemohon_menunggu
                 Dim da As New SqlDataAdapter(cmd)
                 da.Fill(ds)
                 ddlcadanganUnit1.DataSource = ds
-                ddlcadanganUnit1.DataTextField = "unit"
-                ddlcadanganUnit1.DataValueField = "idUnit"
+                ddlcadanganUnit1.DataTextField = "kuarters_nama"
+                ddlcadanganUnit1.DataValueField = "kuarters_id"
                 ddlcadanganUnit1.DataBind()
 
                 Dim db As New SqlDataAdapter(cmd)
                 db.Fill(dt)
                 ddlcadanganUnit2.DataSource = dt
-                ddlcadanganUnit2.DataTextField = "unit"
-                ddlcadanganUnit2.DataValueField = "idUnit"
+                ddlcadanganUnit2.DataTextField = "kuarters_nama"
+                ddlcadanganUnit2.DataValueField = "kuarters_id"
                 ddlcadanganUnit2.DataBind()
 
                 Dim dc As New SqlDataAdapter(cmd)
                 dc.Fill(dr)
                 ddlcadanganUnit3.DataSource = dr
-                ddlcadanganUnit3.DataTextField = "unit"
-                ddlcadanganUnit3.DataValueField = "idUnit"
+                ddlcadanganUnit3.DataTextField = "kuarters_nama"
+                ddlcadanganUnit3.DataValueField = "kuarters_id"
                 ddlcadanganUnit3.DataBind()
             Catch ex As Exception
                 Debug.Write("ERROR: " & ex.Message)

@@ -11,29 +11,29 @@
                         <a href="#"><span class="">Rekod Senarai Penjawat</span></a>
                         <ul class="nav-flyout">
                             <li><p>Rekod Senarai Penjawat</p></li>
-                            <li>
+                            <%--<li>
                                 <a href="Pendaftaran.Penjawat.aspx?P=<%=lbl1.Text %>"><i></i><img src ="icons/bullet_red.png" />Pendaftaran Baharu</a>
-                            </li>
+                            </li>--%>
                             <li>
                                 <a href="Pendaftaran.Penjawat.Senarai.aspx?P=<%=lbl2.Text %>"><i></i><img src ="icons/bullet_red.png" /> Carian Senarai Penjawat</a>
                             </li>
                         </ul>
                     </li>
             
-                    <li>
+                    <%--<li>
                         <a href="#"><span class="">Rekod Lokasi Pangkalan TUDM</span></a>
                         <ul class="nav-flyout">
                             <li><p>Rekod Lokasi Pangkalan TUDM</p></li>
                             <li>
                                 <a href="Konfigurasi.Pangkalan.aspx?P=<%=lbl5.Text %>"><i></i><img src ="icons/bullet_red.png" /> Pendaftaran Baharu</a>
                             </li>
-                            <%--<li>
+                            <li>
                                 <a href="Senarai.Pangkalan.aspx?P=<%=lbl4.Text %>"><i></i><img src ="icons/bullet_red.png" /> Carian Senarai Pangkalan</a>
-                            </li>--%>
+                            </li>
                         </ul>
-                    </li>
+                    </li>--%>
                     
-                    <li>
+                    <%--<li>
                         <a href="#"><span class="">Rekod Kuarters</span></a>
                         <ul class="nav-flyout">
                             <li><p>Rekod Kuarters</p></li>
@@ -47,7 +47,7 @@
                                 <a href="Konfigurasi.Kuarters.aspx?P=<%=lbl11.Text %>"><i></i><img src ="icons/bullet_red.png" /> Penempatan Lokasi Kuaters</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>--%>
        
                     <li>
                         <a href="#"><span class="">Senarai Permohonan </span></a>
