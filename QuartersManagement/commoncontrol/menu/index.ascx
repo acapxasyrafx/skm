@@ -128,7 +128,7 @@
                 <a href="Permohonan.Kuarters.aspx">Permohonan Kuarters</a>
             </li>
             <li runat="server" id="linkStatusPermohonan">
-                <a href="Status.Permohonan.aspx">Status Permohonan</a>
+                <a href="Senarai.Permohonan.Pengguna.aspx">Senarai Permohonan</a>
             </li>    
           </ul>
         </nav>
