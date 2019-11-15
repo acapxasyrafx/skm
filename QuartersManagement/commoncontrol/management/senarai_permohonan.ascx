@@ -123,9 +123,9 @@
                             <ItemStyle VerticalAlign="Middle" />
                         </asp:TemplateField>
                                 
-                        <asp:TemplateField HeaderText="Tarikh Permohonan" >
+                        <asp:TemplateField HeaderText="Tarikh">
                             <ItemTemplate>
-                                <asp:Label ID="lblTarikhPermohonan" runat="server" Text='<%#Eval("pemohonan_tarikh", "{0:dd-MM-yyyy}")%>'></asp:Label>
+                                <asp:Label ID="lblTarikhPermohonan" runat="server" Text='<%# changeDate(Eval("pemohonan_tarikh")) %>' />
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -133,7 +133,7 @@
 
                         <asp:TemplateField HeaderText="Status" >
                             <ItemTemplate>
-                                <asp:Label ID="lblStatus" runat="server" Text='<%# Bind("permohonan_status")%>'></asp:Label>
+                                <asp:Label ID="lblStatus" runat="server" Text='<%# changeStatus(Eval("permohonan_status")) %>'></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -147,7 +147,7 @@
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="Nota" >
+                        <asp:TemplateField HeaderText="Keterangan" >
                             <ItemTemplate>
                                 <asp:Label ID="lblNota" runat="server" Text='<%# Bind("permohonan_nota")%>'></asp:Label>
                             </ItemTemplate>
@@ -157,20 +157,26 @@
 
                         <asp:TemplateField HeaderText="Tindakan" >
                             <ItemTemplate>
-                                <asp:Button 
-                                    Text="BUTIRAN" 
+                                <asp:ImageButton
+                                    Width="25px"
+                                    Height="25px"
                                     runat="server" 
                                     ID="btnView" 
                                     CommandName="View_Permohonan" 
                                     CommandArgument='<%#Eval("permohonan_id") %>'
+                                    ImageUrl="~/icons/test.svg"
+                                    ToolTip="Buka?"
                                 />
-                                <asp:Button 
-                                    Text="BATAL" 
+                                <asp:ImageButton
+                                    Width="25px"
+                                    Height="25px"
                                     runat="server" 
                                     ID="btnDelete" 
                                     CommandName="Delete_Permohonan" 
                                     CommandArgument='<%#Eval("permohonan_id") %>'
                                     Visible='<%# showButton(Eval("permohonan_id")) %>'
+                                    ImageUrl="~/icons/delete.png" 
+                                    ToolTip="Padam?"
                                 />
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" />

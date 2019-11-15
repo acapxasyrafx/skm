@@ -150,6 +150,7 @@
     <Content Include="icons\reject-text-paper.png" />
     <Content Include="icons\save.png" />
     <Content Include="icons\select.png" />
+    <Content Include="icons\test.svg" />
     <Content Include="icons\verified-text-paper.png" />
     <Content Include="img\backlog.jpg" />
     <Content Include="img\tudmlogo.png" />

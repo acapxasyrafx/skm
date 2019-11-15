@@ -125,10 +125,10 @@
         <nav class="sidebar-nav">
           <ul>
             <li>
-                <a href="Permohonan.Kuarters.aspx">Permohonan Kuarters</a>
+                <a href="Permohonan.Kuarters.aspx?p=<%= lblPermohonanKuarters.Text%>">Permohonan Kuarters</a>
             </li>
             <li runat="server" id="linkStatusPermohonan">
-                <a href="Senarai.Permohonan.Pengguna.aspx">Senarai Permohonan</a>
+                <a href="Senarai.Permohonan.Pengguna.aspx?p=<%= lblSenaraiKuarters.Text%>">Senarai Permohonan</a>
             </li>    
           </ul>
         </nav>
@@ -165,4 +165,8 @@
     <asp:Label ID="lblMaintenance1" runat="server" Visible="false">Penyelenggaraan Kuarters > Rekod Penyelenggaraan</asp:Label>
     <asp:Label ID="lblMaintenance2" runat="server" Visible="false">Penyelenggaraan Kuarters > Jadual Penyelenggaraan</asp:Label>
 
+    <asp:Label runat="server" ID="lblHomePageUser" Visible="false">Paparan Utama</asp:Label>
+    <asp:Label runat="server" ID="lblPermohonanKuarters" Visible="false">Permohonan Kuarters</asp:Label>
+    <asp:Label runat="server" ID="lblSenaraiKuarters" Visible="false">Senarai Kuarters</asp:Label>
+    <asp:Label runat="server" ID="lblMaklumatPermohonan" Visible="false">Senarai Kuarters > Maklumat Permohonan</asp:Label>
 </asp:Panel>

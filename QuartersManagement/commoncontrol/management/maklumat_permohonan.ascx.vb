@@ -158,7 +158,6 @@ Public Class maklumat_permohonan
                 conn.Open()
                 da.Fill(ds, "AnyTable")
                 If ds.Tables(0).Rows.Count > 0 Then
-                    lblBilAnak.Text = ds.Tables(0).Rows.Count
                     tblMaklumatAnak.DataSource = ds
                     tblMaklumatAnak.DataBind()
                     Debug.WriteLine("Success: maklumatAnak")
@@ -245,12 +244,20 @@ Public Class maklumat_permohonan
         ElseIf idKuartersDiplih > 0 Then
             setRef = oCommon.ExecuteSQL(String.Format(query, idKuartersDiplih, permohonanID))
             If setRef = "0" Then
-                MsgTop.Attributes("class") = "successMsg"
-                strlbl_top.Text = "Pemilihan kuarters berjaya. Pemohonan anda diprosess"
-                MsgBottom.Attributes("class") = "successMsg"
-                strlbl_bottom.Text = "Pemilihan kuarters bejaya. Pemohonan anda diprosess"
-                SaveFunction.Disabled = True
-                Load_Page()
+                If setRef = "0" Then
+                    MsgTop.Attributes("class") = "successMsg"
+                    strlbl_top.Text = "Pemilihan kuarters berjaya. Pemohonan anda diprosess"
+                    MsgBottom.Attributes("class") = "successMsg"
+                    strlbl_bottom.Text = "Pemilihan kuarters bejaya. Pemohonan anda diprosess"
+                    SaveFunction.Disabled = True
+                    Load_Page()
+                Else
+                    MsgTop.Attributes("class") = "errorMsg"
+                    strlbl_top.Text = strSaveFailAlert
+                    MsgBottom.Attributes("class") = "errorMsg"
+                    strlbl_bottom.Text = strSaveFailAlert
+                    Debug.WriteLine("Error(SaveFunction_ServerClick):" & setRef)
+                End If
             Else
                 MsgTop.Attributes("class") = "errorMsg"
                 strlbl_top.Text = strSaveFailAlert

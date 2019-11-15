@@ -64,7 +64,7 @@ Public Class senarai_permohonan
         hiddenPermohonanID.Value = e.CommandArgument
         If e.CommandName = "View_Permohonan" Then
             Debug.WriteLine("ViewPermohonan")
-            Response.Redirect("Maklumat.Permohonan.Pengguna.aspx?permohonan=" & e.CommandArgument)
+            Response.Redirect("Maklumat.Permohonan.Pengguna.aspx?p=Maklumat%20Permohonan&permohonan=" & e.CommandArgument)
         ElseIf e.CommandName = "Delete_Permohonan" Then
             Debug.WriteLine("DeletePermohonan")
             Debug.WriteLine("CommandgArgument:" & e.CommandArgument)
@@ -144,19 +144,16 @@ Public Class senarai_permohonan
                 Dim reader As SqlDataReader = cmd.ExecuteReader
                 If reader.HasRows Then
                     Do While reader.Read()
-                        Select Case reader("permohonan_status")
-                            Case "PERMOHONAN DITERIMA"
-                                Return False
-                            Case "PERMOHONAN DITOLAK"
-                                Return False
-                            Case "PERMOHONAN SEDANG DIPROSES"
-                                Return True
-                            Case "PERMOHONAN BARU"
-                                Return True
-                            Case Else
-                                Debug.WriteLine("Permohonan Status(showButton): " & reader("permohonan_status"))
-                                Return False
-                        End Select
+                        If reader("permohonan_status").Equals("PERMOHONAN DITERIMA") Or reader("permohonan_status").Equals("PERMOHONAN DITOLAK") Then
+                            Debug.WriteLine("Status(showButton): " & reader("permohonan_status"))
+                            Return False
+                        ElseIf reader("permohonan_status").Equals("PERMOHONAN SEDANG DIPROSES") Then
+                            Debug.WriteLine("Status(showButton): " & reader("permohonan_status"))
+                            Return True
+                        ElseIf reader("permohonan_status").Equals("PERMOHONAN BARU") Then
+                            Debug.WriteLine("Status(showButton): " & reader("permohonan_status"))
+                            Return True
+                        End If
                     Loop
                 Else
                     Debug.WriteLine("Error(showButton): No Rows")
@@ -169,5 +166,24 @@ Public Class senarai_permohonan
                 conn.Close()
             End Try
         End Using
+        Return False
+    End Function
+
+    Protected Function changeStatus(ByVal status As String) As String
+        Select Case status
+            Case "PERMOHONAN SEDANG DIPROSES"
+                Return "SEDANG DIPROSES"
+            Case "PERMOHONAN DITOLAK"
+                Return "DITOLAK"
+            Case "PERMOHONAN DITERIMA"
+                Return "DITERIMA"
+            Case Else
+                Return status
+        End Select
+    End Function
+
+    Protected Function changeDate(ByVal d As String) As String
+        Dim formatedDate As String = Convert.ToDateTime(d).ToString("dd/MM/yyyy")
+        Return formatedDate
     End Function
 End Class
