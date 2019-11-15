@@ -18,9 +18,12 @@ Public Class permohonan_kuarters
     Dim strSQL As String = ""
     Dim strRet As String = ""
     Dim countAnak As Integer = 0
-
+    Dim permohonanID As Integer
+    Dim pangkatMata As Integer
+    Dim dataAnak As New DataSet
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
+            ddlSenaraiKuarters.Enabled = False
             loadPangkalan()
             loadUser()
             readMaklumatAnak()
@@ -29,36 +32,38 @@ Public Class permohonan_kuarters
             'Else
             '    cbTiadaAnak.Enabled = True
             'End If
+            'HARI
+            populateDay(ddlTarikhTinggalHariMula)
+            populateDay(ddlTarikhTukarHari)
+            'BULAN
+            populateMonth(ddlTarikhTinggalBulanMula)
+            populateMonth(ddlTarikhTukarBulan)
+            'TAHUN
+            populateYear(ddlTarikhTinggalTahunMula)
+            populateYear(ddlTarikhTukarTahun)
+            loadPoints()
         End If
-        'HARI
-        populateDay(ddlTarikhTinggalHariMula)
-        populateDay(ddlTarikhTukarHari)
-        'BULAN
-        populateMonth(ddlTarikhTinggalBulanMula)
-        populateMonth(ddlTarikhTukarBulan)
-        'TAHUN
-        populateYear(ddlTarikhTinggalTahunMula)
-        populateYear(ddlTarikhTukarTahun)
     End Sub
 
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT 
-	            A.pengguna_id,
-	            A.pengguna_nama,
-	            A.pengguna_mykad,
-	            A.pengguna_jantina,
-	            A.pengguna_tarikh_lahir,
-                A.pengguna_mula_perkhidmatan,
-                A.pengguna_tamat_perkhidmatan,
-                A.pengguna_no_tentera,
-	            B.pangkat_id,
-	            B.pangkat_nama
-            FROM 
-	            admin.spk_pengguna A
-	            JOIN admin.spk_pangkat B ON A.pangkat_id = B.pangkat_id
-	            JOIN dbo.spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id
-            WHERE pengguna_id = 1",
+            Dim cmd As New SqlCommand("
+                SELECT 
+                    A.pengguna_id
+	                , A.pengguna_nama
+	                , A.pengguna_jantina
+	                , A.pengguna_tarikh_lahir
+	                , A.pengguna_mula_perkhidmatan
+	                , A.pengguna_tamat_perkhidmatan
+	                , A.pengguna_no_tentera
+	                , A.pangkat_id
+	                , B.pangkat_nama
+                    , B.pangkat_mata
+                FROM 
+	                spk_pengguna A
+	                JOIN spk_pangkat B ON B.pangkat_id = A.pangkat_id
+                WHERE
+	                A.pengguna_id = 1;",
             conn)
 
             Try
@@ -70,9 +75,10 @@ Public Class permohonan_kuarters
                         lblNama.InnerText = reader("pengguna_nama")
                         lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
                         lblJantina.InnerText = reader("pengguna_jantina")
-                        lblJawatan.InnerText = reader("pangkat_nama")
+                        lblPangkat.InnerText = reader("pangkat_nama")
                         lblNoTentera.InnerText = reader("pengguna_no_tentera")
                         lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
+                        pangkatMata = Integer.Parse(reader("pangkat_mata"))
                         '-------------------
                         If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
                             lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
@@ -108,8 +114,6 @@ Public Class permohonan_kuarters
                 ddlSenaraiPangkalan.DataBind()
                 ddlSenaraiPangkalan.Items.Insert(0, New ListItem("Senarai Pangkalan...", String.Empty))
                 ddlSenaraiPangkalan.SelectedIndex = 0
-                loadKuarters()
-                ddlSenaraiKuarters.Enabled = True
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
             Finally
@@ -120,7 +124,7 @@ Public Class permohonan_kuarters
 
     Private Sub loadKuarters()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters WHERE pangkalan_id = " & ddlSenaraiPangkalan.SelectedValue & "", conn)
+            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters WHERE pangkalan_id = " & ddlSenaraiPangkalan.SelectedValue & ";", conn)
             Dim ds As New DataSet
             Try
                 conn.Open()
@@ -169,7 +173,7 @@ Public Class permohonan_kuarters
     End Sub
 
     Private Sub populateYear(ByVal ddl As DropDownList)
-        Dim startYear As Integer = Date.Now().Year - 20
+        Dim startYear As Integer = Date.Now().Year - 30
         For i As Integer = 1 To 20
             Dim item As Integer = startYear + i
             Dim temp As New ListItem(item, item)
@@ -183,27 +187,76 @@ Public Class permohonan_kuarters
         Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
         Dim mulaMenetap = getDate(ddlTarikhTinggalHariMula.SelectedValue, ddlTarikhTinggalBulanMula.SelectedValue, ddlTarikhTinggalTahunMula.SelectedValue)
         Dim tarikhPindah = getDate(ddlTarikhTukarHari.SelectedValue, ddlTarikhTukarBulan.SelectedValue, ddlTarikhTukarTahun.SelectedValue)
+        Dim totalAnak = datRespondent.Rows.Count
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionSetting"))
+            Dim cmd As New SqlCommand("
+                INSERT INTO
+	                spk_permohonan(
+		                pengguna_id
+		                , permohonan_no_permohonan
+		                , kuarters_id
+		                , pemohonan_tarikh
+		                , permohonan_status
+	                )
+                VALUES (
+	                " & penggunaId & "
+	                , '" & genNoPermohonan(Date.Now.Year & Date.Now.Month & Date.Now.Date) & "'
+	                , " & kuartersId & "
+	                , '" & Date.Now() & "'
+	                , 'PERMOHONAN BARU'
+                )", conn)
+            Try
+                conn.Open()
+                permohonanID = cmd.ExecuteScalar()
+                If permohonanID = Nothing Then
+                    Debug.WriteLine("Error(Save->permohonanID): permohonanID is NULL")
+                Else
+                    cmd = New SqlCommand("
+                    INSERT INTO
+	                    spk_historyKeluarga(
+		                    permohonan_id
+		                    , pengguna_id
+		                    , historyKeluarga_tarikh
+		                    , historyKeluarga_anak
+		                    , historyKeluarga_tempat_tinggal
+		                    , historyKeluarga_tarikh_mula
+	                    )
+                    VALUES (
+	                    " & permohonanID & "
+	                    , " & penggunaId & "
+	                    , '" & Date.Now() & "'
+	                    , " & totalAnak & "
+	                    , '" & jenisRumahSebelum & "'
+	                    , '" & mulaMenetap & "'
+                    )", conn)
+                    Try
+                        conn.Open()
+                        cmd.ExecuteNonQuery()
+                        saveHistoryAnak()
+                    Catch ex As Exception
+                        Debug.WriteLine("Error(save -> keluarga")
+                        MsgTop.Attributes("class") = "errorMsg"
+                        strlbl_top.Text = strSysErrorAlert
+                        MsgBottom.Attributes("class") = "errorMsg"
+                        strlbl_bottom.Text = strSysErrorAlert & "<br>" & strRet
+                        Return False
+                    Finally
+                        conn.Close()
+                    End Try
+                End If
+            Catch ex As Exception
+                Debug.WriteLine("Error(Save -> permohonan): " & ex.Message)
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = strSysErrorAlert
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = strSysErrorAlert & "<br>" & strRet
+                Return False
+            Finally
+                conn.Close()
+            End Try
 
-        strSQL += "INSERT INTO spk_permohonan (pengguna_id,unit_id,pemohonan_tarikh,permohonan_status) "
-        strSQL += "VALUES (" & penggunaId & ", " & kuartersId & ", '" & Date.Now & "', 'PERMOHONAN BARU');"
-
-        'If cbTiadaAnak.Checked = False Then
-
-        'End If
-
-        strSQL += "INSERT INTO spk_keluarga (pengguna_id, keluarga_anak, keluarga_tempat_tinggal, keluarga_tarikh_mula) "
-        strSQL += "VALUES (" & penggunaId & "," & countAnak & ",'" & jenisRumahSebelum & "','" & mulaMenetap & "');"
-
-        strRet = oCommon.ExecuteSQL(strSQL)
-        If strRet = "0" Then
             Return True
-        Else
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strSysErrorAlert & "<br>" & strRet
-            Return False
-        End If
+        End Using
     End Function
 
     Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
@@ -237,16 +290,6 @@ Public Class permohonan_kuarters
     Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick
         Response.Redirect("Permohonan.Kuarters.aspx")
     End Sub
-
-    'Private Sub cbTiadaAnak_CheckedChanged(sender As Object, e As EventArgs) Handles cbTiadaAnak.CheckedChanged
-    '    If cbTiadaAnak.Checked Then
-    '        Debug.WriteLine("TiadaAnak Checked")
-    '        tblMaklumatAnak.Disabled = True
-    '    Else
-    '        Debug.WriteLine("TiadaAnak UnChecked")
-    '        tblMaklumatAnak.Disabled = False
-    '    End If
-    'End Sub
 
     Private Sub btnTambahRow_Click(sender As Object, e As EventArgs) Handles btnTambahRow.Click
 
@@ -284,7 +327,6 @@ Public Class permohonan_kuarters
         Dim penggunaID = pengguna_id.Value
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim table As DataTable = New DataTable
-            Dim ds As New DataSet
             Dim da As New SqlDataAdapter(
                     "SELECT 
                         anak_id,
@@ -293,16 +335,16 @@ Public Class permohonan_kuarters
                         anak_ic,
                         anak_umur
                         FROM spk_anak
-                        WHERE pengguna_id = " & penggunaID & "",
+                        WHERE pengguna_id = " & penggunaID & ";",
                     conn)
             Try
                 conn.Open()
-                da.Fill(ds, "AnyTable")
+                da.Fill(dataAnak, "AnyTable")
                 Dim nRows As Integer = 0
                 Dim nCount As Integer = 1
-                countAnak = ds.Tables(0).Rows.Count
-                If ds.Tables(0).Rows.Count > 0 Then
-                    datRespondent.DataSource = ds
+                countAnak = dataAnak.Tables(0).Rows.Count
+                If dataAnak.Tables(0).Rows.Count > 0 Then
+                    datRespondent.DataSource = dataAnak
                     datRespondent.DataBind()
                 End If
                 Return True
@@ -379,5 +421,59 @@ Public Class permohonan_kuarters
 
     Private Sub ddlSenaraiPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlSenaraiPangkalan.SelectedIndexChanged
         loadKuarters()
+        ddlSenaraiKuarters.Enabled = True
     End Sub
+
+    Private Function genNoPermohonan(ByVal datePermohonan As String) As String
+        Dim noPermohonan As String = ""
+        Dim s As String = "1234567890"
+        Dim r As New Random
+        Dim sb As New StringBuilder
+        For i As Integer = 1 To 4
+            Dim idx As Integer = r.Next(0, 9)
+            sb.Append(s.Substring(idx, 1))
+        Next
+        noPermohonan = datePermohonan & "_" & sb.ToString
+        Return noPermohonan
+    End Function
+
+    Private Sub saveHistoryAnak()
+        For i As Integer = 0 To dataAnak.Tables(0).Rows.Count - 1
+            Dim namaAnak = dataAnak.Tables(0).Rows(i)(2).ToString()
+            Dim kpAnak = dataAnak.Tables(0).Rows(i)(3).ToString()
+            Dim query As String
+            Dim strRet As String
+            query = String.Format("INSERT INTO spk_historyAnak(permohonan_id, historyAnak_nama, historyAnak, ic) VALUES({0},'{1}','{2}')", permohonanID, namaAnak, kpAnak)
+            strRet = oCommon.ExecuteSQL(query)
+            If strRet = "0" Then
+                Debug.WriteLine("OK:" & namaAnak)
+            Else
+                Debug.WriteLine("Error(saveHistoryAnak): Failed to save(" & namaAnak & ", idx:" & i & ")")
+            End If
+        Next
+    End Sub
+
+    Private Function loadPoints()
+        Dim totalPoint As Integer = 0
+        Dim totalAnakLayak As Integer = 0
+
+        For i As Integer = 0 To dataAnak.Tables(0).Rows.Count - 1
+            If icToAge(dataAnak.Tables(0).Rows(i)(3).ToString) < 18 Then
+                Continue For
+            Else
+                totalAnakLayak += 1
+            End If
+        Next
+
+        If totalAnakLayak > 5 Then
+            totalAnakLayak = 5
+        End If
+
+        totalPoint = pangkatMata + (totalAnakLayak * 5)
+        Debug.WriteLine("Total Anak Layak: " & totalAnakLayak)
+        Debug.WriteLine("Mata pangkat: " & pangkatMata)
+        Debug.WriteLine("Total Point: " & totalPoint)
+        Return totalPoint
+    End Function
+
 End Class
