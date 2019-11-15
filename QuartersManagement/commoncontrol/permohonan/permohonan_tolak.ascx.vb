@@ -77,7 +77,7 @@ Public Class permohonan_tolak
                 ddlfilterPangkalan.DataTextField = "pangkalan_nama"
                 ddlfilterPangkalan.DataValueField = "pangkalan_id"
                 ddlfilterPangkalan.DataBind()
-                ddlfilterPangkalan.Items.Insert(0, New ListItem("Default", String.Empty))
+                ddlfilterPangkalan.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
                 ddlfilterPangkalan.SelectedIndex = 0
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
@@ -100,7 +100,7 @@ Public Class permohonan_tolak
                 ddlfilterKuarters.DataTextField = "kuarters_nama"
                 ddlfilterKuarters.DataValueField = "kuarters_id"
                 ddlfilterKuarters.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Default", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadKuarters): " & ex.Message)
@@ -123,7 +123,7 @@ Public Class permohonan_tolak
                 ddlfilterPangkat.DataTextField = "pangkat_nama"
                 ddlfilterPangkat.DataValueField = "pangkat_id"
                 ddlfilterPangkat.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Default", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadJawatan): " & ex.Message)
@@ -135,7 +135,7 @@ Public Class permohonan_tolak
 
     Protected Sub loadMarkah()
         Try
-            ddlfilterKuarters.Items.Insert(0, New ListItem("Default", String.Empty))
+            ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
             ddlfilterKuarters.Items.Insert(1, New ListItem("TERTINGGI", String.Empty))
             ddlfilterKuarters.Items.Insert(2, New ListItem("TERENDAH", String.Empty))
             ddlfilterKuarters.SelectedIndex = 0
@@ -326,4 +326,5 @@ Public Class permohonan_tolak
     Private Sub ddlfilterKuarters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterKuarters.SelectedIndexChanged
         strRet = BindData(datRespondent)
     End Sub
+
 End Class

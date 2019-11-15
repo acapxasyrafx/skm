@@ -28,31 +28,31 @@ Public Class maklumat_pemohon
         End Try
     End Sub
 
-    Private Sub data_poinLoad()
-        Dim strSQL2 As String = ""
-        Dim strSQL3 As String = ""
-        Dim dataJumlah As Integer = ""
-        Dim dataPangkatPoin As Integer = ""
-        Dim dataUmurAnak As Integer = ""
-        Dim jumlah_anak As Integer = ""
+    'Private Sub data_poinLoad()
+    '    Dim strSQL2 As String = ""
+    '    Dim strSQL3 As String = ""
+    '    Dim dataJumlah As Integer = ""
+    '    Dim dataPangkatPoin As Integer = ""
+    '    Dim dataUmurAnak As Integer = ""
+    '    Dim jumlah_anak As Integer = ""
 
-        strSQL = "select count(anak_nama) from spk_anak where anak_umur <= 18"
-        strSQL2 = "select B.pangkat_mata from spk_pengguna A left join spk_pangkat B on A.pangkat_id = B.pangkat_id"
+    '    strSQL = "select count(anak_nama) from spk_anak where anak_umur <= 18"
+    '    strSQL2 = "select B.pangkat_mata from spk_pengguna A left join spk_pangkat B on A.pangkat_id = B.pangkat_id"
 
-        Dim jumlah_anakUmur18 = oCommon.ExecuteSQL(strSQL)
-        Dim jumlah_poinPangkat = oCommon.ExecuteSQL(strSQL2)
-
-
-        Dim jumlah_mataTerkumpul = jumlah_poinPangkat + (jumlah_anakUmur18 * 5)
-
-        lblpoinDisplay.Text = jumlah_mataTerkumpul.ToString
+    '    Dim jumlah_anakUmur18 = oCommon.ExecuteSQL(strSQL)
+    '    Dim jumlah_poinPangkat = oCommon.ExecuteSQL(strSQL2)
 
 
-    End Sub
+    '    Dim jumlah_mataTerkumpul = jumlah_poinPangkat + (jumlah_anakUmur18 * 5)
+
+    '    lblpoinDisplay.Text = jumlah_mataTerkumpul.ToString
+
+
+    'End Sub
 
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT 
+            Dim cmd As New SqlCommand("SELECT TOP 1
 	            A.pengguna_id as pengguna_id,
 	            A.pengguna_nama as pengguna_nama,
 	            A.pengguna_mykad as pengguna_mykad,
@@ -64,13 +64,20 @@ Public Class maklumat_pemohon
 	            B.pangkat_id as pangkat_id,
 	            B.pangkat_nama as pangkat_nama,
                 C.pangkalan_nama as pangkalan_nama,
-                E.kuarters_nama as kuarters_nama
+                E.kuarters_nama as kuarters_nama,
+				G.keluarga_tempat_tinggal as keluarga_tempat_tinggal,
+				G.keluarga_tarikh_mula as keluarga_tarikh_mula,
+				G.keluarga_anak as keluarga_anak,
+				D.permohonan_mata as permohonan_mata
             FROM 
 	            admin.spk_pengguna A
 	            JOIN admin.spk_pangkat B ON A.pangkat_id = B.pangkat_id
 	            JOIN dbo.spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id
 				JOIN spk_permohonan D on A.pengguna_id = D.pengguna_id 
 				JOIN spk_kuarters E on D.kuarters_id = E.kuarters_id
+				JOIN spk_keluarga G on A.pengguna_id = G.pengguna_id
+				JOIN spk_anak F on A.pengguna_id = F.pengguna_id	
+				
             WHERE D.permohonan_id = '" & Request.QueryString("uid") & "' ",
             conn)
 
@@ -86,15 +93,19 @@ Public Class maklumat_pemohon
                         lblJawatan.InnerText = reader("pangkat_nama")
                         lblNoTentera.InnerText = reader("pengguna_no_tentera")
                         lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
+                        lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
+                        lbl_senaraiKuarters.InnerText = reader("kuarters_nama")
+                        lblJenisPenempatan.Text = reader("keluarga_tempat_tinggal")
+                        lbltarikhPenempatan.Text = reader("keluarga_tarikh_mula")
+                        lbl_poinDisplay.InnerText = reader("permohonan_mata")
+                        lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
 
-                        lblSenaraiPangkalan.Text = reader("pangkalan_nama")
-                        lblSenaraiKuarters.Text = reader("kuarters_nama")
                         '-------------------
-                        If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
-                            lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
-                        Else
-                            lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
-                        End If
+                        'If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
+                        '    lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
+                        'Else
+                        '    lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
+                        'End If
                         '-------------------
 
                     Else

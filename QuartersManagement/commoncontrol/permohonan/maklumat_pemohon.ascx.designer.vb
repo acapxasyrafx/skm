@@ -149,22 +149,22 @@ Partial Public Class maklumat_pemohon
     Protected WithEvents lbltarikhPenempatan As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''lblSenaraiPangkalan control.
+    '''lbl_senaraiPangkalan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblSenaraiPangkalan As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lbl_senaraiPangkalan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lblSenaraiKuarters control.
+    '''lbl_senaraiKuarters control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblSenaraiKuarters As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lbl_senaraiKuarters As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''tblBertukar control.
@@ -176,13 +176,22 @@ Partial Public Class maklumat_pemohon
     Protected WithEvents tblBertukar As Global.System.Web.UI.HtmlControls.HtmlTable
     
     '''<summary>
-    '''lblPasukanLama control.
+    '''lbl_pasukanLama control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPasukanLama As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lbl_pasukanLama As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''lbl_pasukanBaru control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl_pasukanBaru As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''lblPasukanBaru control.
@@ -194,6 +203,15 @@ Partial Public Class maklumat_pemohon
     Protected WithEvents lblPasukanBaru As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''H1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents H1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''lbltarikhBertukar control.
     '''</summary>
     '''<remarks>
@@ -203,13 +221,13 @@ Partial Public Class maklumat_pemohon
     Protected WithEvents lbltarikhBertukar As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''lblpoinDisplay control.
+    '''lbl_poinDisplay control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblpoinDisplay As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lbl_poinDisplay As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''btnImg_lulus control.

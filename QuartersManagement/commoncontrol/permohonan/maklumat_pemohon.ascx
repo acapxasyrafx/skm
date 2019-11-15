@@ -194,13 +194,13 @@
         <td style="width:100px;">Pangkalan</td>
         <td>:</td>
         <td colspan="2">
-            <asp:label runat="server" ID="lblSenaraiPangkalan" ></asp:label></td>
+            <h5 class="label" runat="server" id="lbl_senaraiPangkalan"></h5>
     </tr>
     <tr>
         <td style="width:100px;">Kuarters/Rumah</td>
         <td>:</td>
         <td colspan="2">
-            <asp:label runat="server" ID="lblSenaraiKuarters"></asp:label>
+            <h5 class="label" runat="server" id="lbl_senaraiKuarters"></h5>
         </td>
     </tr>
     <tr>
@@ -211,18 +211,21 @@
                     <td>Dari Pasukan</td>
                     <td>:</td>
                     <td>
-                        <asp:Label CssClass="label" runat="server" ID="lblPasukanLama"></asp:Label>
+                        <h5 class="label" runat="server" id="lbl_pasukanLama"></h5>
                     </td>
                 </tr>
                 <tr>
                     <td>Ke Pasukan</td>
                     <td>:</td>
-                    <td><asp:Label CssClass="label" runat="server" ID="lblPasukanBaru"></asp:Label></td>
+                    <td>
+                        <h5 class="label" runat="server" id="lbl_pasukanBaru"></h5>
+                        <asp:Label CssClass="label" runat="server" ID="lblPasukanBaru"></asp:Label></td>
                 </tr>
                 <tr>
                     <td>Tarikh Bertukar</td>
                     <td>:</td>
-                    <td>
+                    <td>                        
+                        <h5 class="label" runat="server" id="H1"></h5>
                         <asp:Label runat ="server" CssClass ="label" ID="lbltarikhBertukar"></asp:Label>
                     </td>
                 </tr>
@@ -238,11 +241,12 @@
         </td>
         <td class="auto-style2">:</td>
         <td class="auto-style3">
-            <asp:Label runat="server" ID="lblpoinDisplay" Text =""></asp:Label>
+            <h5 class="label" runat="server" id="lbl_poinDisplay"></h5>
         </td>
         <td class="auto-style4">
-            <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName ="Approved" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/verified-text-paper.png" ToolTip="Approved" Height="39px"/>
-            <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="39px" CommandName ="Rejected" CommandArgument ='<%#Eval("permohonan_id")%>'   OnClientClick="javascript:return confirm('Adakah anda pasti mahu menolak permohonan ini? ')" ImageUrl="~/icons/reject-text-paper.png" ToolTip="Reject" />
+            <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName ="Approved" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/checkmark_approve.png" ToolTip="Diterima" Height="39px"/>
+            &nbsp&nbsp&nbsp&nbsp&nbsp
+            <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="39px" CommandName ="Rejected" CommandArgument ='<%#Eval("permohonan_id")%>'   OnClientClick="javascript:return confirm('Adakah anda pasti mahu menolak permohonan ini? ')" ImageUrl="~/icons/checkmark_declined.png" ToolTip="Ditolak" />
         </td>
     </tr>
 

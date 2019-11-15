@@ -79,13 +79,6 @@
             <h5 class="label" runat="server" id="lblTarikhMulaBerkhidmat">01/01/2010</h5>
         </td>
     </tr>
-    <tr>
-        <td>Tarikh Akhir Berkhidmat</td>
-        <td>:</td>
-        <td>
-            <h5 class="label" runat="server" id="lblTarikhAkhirBerkhidmat"></h5>
-        </td>
-    </tr>
 </table>
 
 <table class="fbform" style="width:100%;">
@@ -188,13 +181,14 @@
         <td style="width:100px;">Pangkalan</td>
         <td class="auto-style2">:</td>
         <td colspan="2">
-            <asp:label runat="server" ID="lblSenaraiPangkalan" ></asp:label></td>
+            <h5 class="label" runat="server" id="lbl_senaraiPangkalan"></h5>
+        </td>
     </tr>
     <tr>
         <td style="width:100px;">Kuarters/Rumah</td>
         <td class="auto-style2">:</td>
         <td colspan="2">
-            <asp:label runat="server" ID="lblSenaraiKuarters"></asp:label>
+            <h5 class="label" runat="server" id="lbl_senaraiKuarters"></h5>
         </td>
     </tr>
     <tr>
@@ -205,19 +199,22 @@
                     <td>Dari Pasukan</td>
                     <td>:</td>
                     <td>
-                        <asp:Label CssClass="label" runat="server" ID="lblPasukanLama"></asp:Label>
+                        <h5 class="label" runat="server" id="lbl_pasukanLama"></h5>
                     </td>
                 </tr>
                 <tr>
                     <td>Ke Pasukan</td>
                     <td>:</td>
-                    <td><asp:Label CssClass="label" runat="server" ID="lblPasukanBaru"></asp:Label></td>
+                    <td>
+                        <h5 class="label" runat="server" id="lbl_pasukanBaru"></h5>
+
+                    </td>
                 </tr>
                 <tr>
                     <td>Tarikh Bertukar</td>
                     <td>:</td>
                     <td>
-                        <asp:Label runat ="server" CssClass ="label" ID="lbltarikhBertukar"></asp:Label>
+                        <h5 class="label" runat="server" id="lbl_tarikhBertukar"></h5>
                     </td>
                 </tr>
             </table>

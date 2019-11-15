@@ -98,7 +98,7 @@
                         <ItemTemplate>
                             <%# Container.DataItemIndex + 1 %>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" width="3%"/>
                         <ItemStyle VerticalAlign="Middle" />
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="No.Permohonan" >
@@ -117,7 +117,7 @@
                         <ItemTemplate>
                             <asp:Label ID="lbl_noTentera" runat="server" Text='<%# Bind("no_tentera")%>' ></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="6%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:templatefield>
                     <asp:TemplateField HeaderText="Pangkat" >
                         <ItemTemplate>
@@ -129,13 +129,7 @@
                         <ItemTemplate>
                             <asp:Label ID="lbl_nama" runat="server" Text='<%# Bind("nama")%>' ></asp:Label>
                         </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>   
-                    <asp:TemplateField HeaderText="Pangkalan" >
-                        <ItemTemplate>
-                            <asp:Label ID="lbl_pangkalanTerknini" runat="server" Text='<%# Bind("pangkalan")%>'></asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
                     <asp:TemplateField HeaderText="Kuarters Dipohon" >
                         <ItemTemplate>

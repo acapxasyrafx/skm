@@ -104,15 +104,6 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lblTarikhMulaBerkhidmat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lblTarikhAkhirBerkhidmat control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblTarikhAkhirBerkhidmat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
     '''tblMaklumatAnak control.
     '''</summary>
     '''<remarks>
@@ -149,22 +140,22 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lbltarikhPenempatan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lblSenaraiPangkalan control.
+    '''lbl_senaraiPangkalan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblSenaraiPangkalan As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lbl_senaraiPangkalan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lblSenaraiKuarters control.
+    '''lbl_senaraiKuarters control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblSenaraiKuarters As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lbl_senaraiKuarters As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''tblBertukar control.
@@ -176,31 +167,31 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents tblBertukar As Global.System.Web.UI.HtmlControls.HtmlTable
     
     '''<summary>
-    '''lblPasukanLama control.
+    '''lbl_pasukanLama control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPasukanLama As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lbl_pasukanLama As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lblPasukanBaru control.
+    '''lbl_pasukanBaru control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblPasukanBaru As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lbl_pasukanBaru As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lbltarikhBertukar control.
+    '''lbl_tarikhBertukar control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbltarikhBertukar As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lbl_tarikhBertukar As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''ddlcadanganUnit1 control.
