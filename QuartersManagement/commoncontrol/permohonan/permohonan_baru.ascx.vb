@@ -129,7 +129,7 @@ Public Class permohonan_baru
                 ddlfilterPangkalan.DataTextField = "pangkalan_nama"
                 ddlfilterPangkalan.DataValueField = "pangkalan_id"
                 ddlfilterPangkalan.DataBind()
-                ddlfilterPangkalan.Items.Insert(0, New ListItem("Default", String.Empty))
+                ddlfilterPangkalan.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
                 ddlfilterPangkalan.SelectedIndex = 0
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
@@ -152,7 +152,7 @@ Public Class permohonan_baru
                 ddlfilterKuarters.DataTextField = "kuarters_nama"
                 ddlfilterKuarters.DataValueField = "kuarters_id"
                 ddlfilterKuarters.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Default", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadKuarters): " & ex.Message)
@@ -175,7 +175,7 @@ Public Class permohonan_baru
                 ddlfilterPangkat.DataTextField = "pangkat_nama"
                 ddlfilterPangkat.DataValueField = "pangkat_id"
                 ddlfilterPangkat.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Default", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadJawatan): " & ex.Message)
@@ -187,7 +187,7 @@ Public Class permohonan_baru
 
     Protected Sub loadMarkah()
         Try
-            ddlfilterKuarters.Items.Insert(0, New ListItem("Default", 0))
+            ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", 0))
             ddlfilterKuarters.Items.Insert(1, New ListItem("TERTINGGI", 1))
             ddlfilterKuarters.Items.Insert(2, New ListItem("TERENDAH", 2))
             ddlfilterKuarters.SelectedIndex = 0
