@@ -56,10 +56,10 @@
         </td>
     </tr>
     <tr>
-        <td style="width:150px;">Jawatan</td>
+        <td style="width:150px;">Pangkat</td>
         <td>:</td>
         <td>
-            <h5 class="label" runat="server" id="lblJawatan"></h5>
+            <h5 class="label" runat="server" id="lblPangkat"></h5>
         </td>
     </tr>
     <tr>
@@ -252,7 +252,7 @@
     <tr>
         <td colspan="4">
             <asp:CheckBox CssClass="label" runat="server" ID="cbPerakuanPemohon"/>
-            <p class="label">Saya dengan ini memohon sebuah Rumah Keluarga mengikut peraturan dan<u><a href="#" target="_blank">Undang-Undang PAT Jil III(3)</a></u> dan mengaku iaitu butiran-butiran yang dinyatakan seperti berikut adalah benar.</p>
+            <p class="label">Saya dengan ini memohon sebuah Rumah Keluarga mengikut <u><a href="#" target="_blank">Peraturan dan Undang-Undang PAT Jil III(3)</a></u> dan mengaku iaitu butiran-butiran yang dinyatakan seperti berikut adalah benar.</p>
             <asp:Label runat="server" ID="lblCheckBoxAlert" Visible=false/>
         </td>
     </tr>
