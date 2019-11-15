@@ -249,7 +249,7 @@
                         </tr>
                     </table>
                     <table class="fbform">
-                        <tr class="fbform_mheader">
+                        <tr class="fbform_header">
                             <td colspan="3">Pemilihan Kuarters</td>
                         </tr>
                         <tr>
@@ -322,7 +322,7 @@
                 </asp:View>
                 <asp:View runat="server" ID="viewPenerimaanUnit">
                     <table style="width: 100%;" class="fbform">
-                        <tr class="fbform_mheader">
+                        <tr class="fbform_header">
                             <td colspan="3">Keputusan Permohonan</td>
                         </tr>
                         <tr>
@@ -330,7 +330,7 @@
                                 <p>Permohonan Anda <b>Berjaya</b>.</p>
                             </td>
                         </tr>
-                        <tr  class="fbform_mheader">
+                        <tr  class="fbform_header">
                             <td>
                                 Maklumat Kuarters Yang Diterima
                             </td>

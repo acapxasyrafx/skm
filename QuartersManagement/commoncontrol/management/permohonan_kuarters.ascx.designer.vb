@@ -86,13 +86,13 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents lblTarikhLahir As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''lblJawatan control.
+    '''lblPangkat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblJawatan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents lblPangkat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''lblNoTentera control.

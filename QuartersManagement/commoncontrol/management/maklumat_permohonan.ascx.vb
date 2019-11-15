@@ -36,8 +36,10 @@ Public Class maklumat_permohonan
         maklumatAnak()
         maklumatStatusPermohonan()
 
-        If statusPermohon.Equals("PERMOHONAN BARU") Then
-            mvStatusPermohonan.ActiveViewIndex = 0
+        If statusPermohon.Equals("PERMOHONAN DITOLAK") Then
+            mvStatusPermohonan.ActiveViewIndex = 3
+        ElseIf statusPermohon.Equals("PERMOHONAN DITERIMA") Then
+            mvStatusPermohonan.ActiveViewIndex = 2
         ElseIf statusPermohon.Equals("PERMOHONAN SEDANG DIPROSES") Then
             If subStatusPermohonan.Equals("LULUS TANPA KEKOSONGAN") Then
                 Debug.WriteLine("User belum memilih kuarters dicadang")
@@ -47,11 +49,12 @@ Public Class maklumat_permohonan
                 Debug.WriteLine("User telah memilih kuarters, tunggu maklumbalas admin")
                 mvStatusPermohonan.ActiveViewIndex = 0
             End If
-        ElseIf statusPermohon.Equals("PERMOHONAN DITERIMA") Then
-            mvStatusPermohonan.ActiveViewIndex = 2
-        ElseIf statusPermohon.Equals("PERMOHONAN DITOLAK") Then
-            mvStatusPermohonan.ActiveViewIndex = 3
+        ElseIf statusPermohon.Equals("PERMOHONAN BARU") Then
+            mvStatusPermohonan.ActiveViewIndex = 0
+        Else
+            Debug.WriteLine("Error(Load_Page): Status Permohonan UKNOWN")
         End If
+
     End Sub
 
     Private Sub maklumatPermohonan()
