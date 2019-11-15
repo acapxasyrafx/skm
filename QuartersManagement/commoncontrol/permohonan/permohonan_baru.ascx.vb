@@ -73,7 +73,7 @@ Public Class permohonan_baru
         Dim strOrder As String = ""
 
         tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
-                    ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
+                    ,D.pangkat_singkatan as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,substring (B.pemohonan_tarikh,1,10) as tarikhMohon,B.permohonan_status as status
                     , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin
                     FROM spk_permohonan as B
                     left join spk_pengguna A on B.pengguna_id = A.pengguna_id
@@ -95,11 +95,11 @@ Public Class permohonan_baru
                 strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
             End If
 
-            If ddlfilterMarkah.SelectedIndex = 1 Then
+            If ddlfilterMarkah.SelectedIndex = 2 Then
                 strOrder = " ORDER BY B.permohonan_mata ASC "
-            ElseIf ddlfilterMarkah.SelectedIndex = 2 Then
+            ElseIf ddlfilterMarkah.SelectedIndex = 3 Then
                 strOrder = " ORDER BY B.permohonan_mata DESC "
-            ElseIf ddlfilterMarkah.SelectedIndex = 0 Then
+            ElseIf ddlfilterMarkah.SelectedIndex = 1 Then
                 strOrder = ""
             End If
 
@@ -108,7 +108,7 @@ Public Class permohonan_baru
         End Try
 
         If Not txt_nama.Text = "" Then
-            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "')"
+            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "' or A.pengguna_no_tentera = '" & txt_nama.Text & "' or A.pengguna_no_tentera LIKE '%" & txt_nama.Text & "%')"
         End If
 
         getSQL = tmpSQL & strWhere & strOrder
@@ -129,7 +129,7 @@ Public Class permohonan_baru
                 ddlfilterPangkalan.DataTextField = "pangkalan_nama"
                 ddlfilterPangkalan.DataValueField = "pangkalan_id"
                 ddlfilterPangkalan.DataBind()
-                ddlfilterPangkalan.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
+                ddlfilterPangkalan.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlfilterPangkalan.SelectedIndex = 0
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
@@ -152,7 +152,7 @@ Public Class permohonan_baru
                 ddlfilterKuarters.DataTextField = "kuarters_nama"
                 ddlfilterKuarters.DataValueField = "kuarters_id"
                 ddlfilterKuarters.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadKuarters): " & ex.Message)
@@ -175,7 +175,7 @@ Public Class permohonan_baru
                 ddlfilterPangkat.DataTextField = "pangkat_nama"
                 ddlfilterPangkat.DataValueField = "pangkat_id"
                 ddlfilterPangkat.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadJawatan): " & ex.Message)
@@ -185,16 +185,6 @@ Public Class permohonan_baru
         End Using
     End Sub
 
-    Protected Sub loadMarkah()
-        Try
-            ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", 0))
-            ddlfilterKuarters.Items.Insert(1, New ListItem("TERTINGGI", 1))
-            ddlfilterKuarters.Items.Insert(2, New ListItem("TERENDAH", 2))
-            ddlfilterKuarters.SelectedIndex = 0
-        Catch ex As Exception
-            Debug.Write("ERROR(loadJawatan): " & ex.Message)
-        End Try
-    End Sub
 
     Private Function GetData(ByVal cmd As SqlCommand) As DataTable
         Dim dt As New DataTable()

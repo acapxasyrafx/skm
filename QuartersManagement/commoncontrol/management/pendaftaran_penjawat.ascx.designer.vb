@@ -50,15 +50,6 @@ Partial Public Class pendaftaran_penjawat
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''ddlCawangan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlCawangan As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''txtNoPekerja control.
     '''</summary>
     '''<remarks>
@@ -68,13 +59,13 @@ Partial Public Class pendaftaran_penjawat
     Protected WithEvents txtNoPekerja As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtPrefix control.
+    '''ddlJawatan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtPrefix As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlJawatan As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''txtNamaPertama control.
@@ -86,22 +77,13 @@ Partial Public Class pendaftaran_penjawat
     Protected WithEvents txtNamaPertama As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtSuffix control.
+    '''ddlCawangan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtSuffix As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtNoKP control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtNoKP As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlCawangan As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''ddlJantina control.
@@ -122,15 +104,6 @@ Partial Public Class pendaftaran_penjawat
     Protected WithEvents txt_MyDate As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddlKewarganegaraan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlKewarganegaraan As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''txtEmail control.
     '''</summary>
     '''<remarks>
@@ -147,24 +120,6 @@ Partial Public Class pendaftaran_penjawat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtTelefon As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtNoKWSP control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtNoKWSP As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtNoPERKESO control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtNoPERKESO As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''txtAlamat1Daftar control.
@@ -219,40 +174,4 @@ Partial Public Class pendaftaran_penjawat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtPoskodDaftar As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''ddlNegaraDaftar control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlNegaraDaftar As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''ddlJawatan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlJawatan As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''ddlJabatan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlJabatan As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''ddlStatus control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlStatus As Global.System.Web.UI.WebControls.DropDownList
 End Class

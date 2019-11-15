@@ -41,6 +41,24 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
+    '''lblNoTentera control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNoTentera As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''lblJawatan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblJawatan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''lblNama control.
     '''</summary>
     '''<remarks>
@@ -77,24 +95,6 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lblTarikhLahir As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''lblJawatan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblJawatan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''lblNoTentera control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblNoTentera As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
     '''lblTarikhMulaBerkhidmat control.
     '''</summary>
     '''<remarks>
@@ -102,6 +102,15 @@ Partial Public Class maklumat_pemohon_menunggu
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTarikhMulaBerkhidmat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''lblTarikhAkhirBerkhidmat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhAkhirBerkhidmat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''tblMaklumatAnak control.

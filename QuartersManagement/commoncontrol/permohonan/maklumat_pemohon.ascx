@@ -24,6 +24,19 @@
         width: 133px;
     }
 </style>
+
+ <script>
+        function GetUserValue() {
+            var person = prompt("Please enter your name", "wmec");
+            if (person != null && person != "") {
+                document.getElementById("<%=hdnUserInput.ClientID%>").value = person;
+                return true;
+            }
+            else
+                return false;
+        }
+    </script>
+
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
         <td><span id="MsgTop" runat="server">
@@ -41,6 +54,21 @@
 <table class="fbform" style="width:100%;">
     <tr class="fbform_mheader">
         <td colspan="3">Butiran Peribadi</td>
+    </tr>
+    
+    <tr>
+        <td>Pangkat</td>
+        <td>:</td>
+        <td>
+            <h5 class="label" runat="server" id="lblJawatan"></h5>
+        </td>
+    </tr>
+    <tr>
+        <td>No. Tentera</td>
+        <td>:</td>
+        <td>
+            <h5 class="label" runat="server" id="lblNoTentera"></h5>
+        </td>
     </tr>
     <tr>
         <td style="width:100px;">Nama</td>
@@ -65,28 +93,14 @@
         </td>
     </tr>
     <tr>
-        <td>Jawatan</td>
-        <td>:</td>
-        <td>
-            <h5 class="label" runat="server" id="lblJawatan"></h5>
-        </td>
-    </tr>
-    <tr>
-        <td>No. Tentera</td>
-        <td>:</td>
-        <td>
-            <h5 class="label" runat="server" id="lblNoTentera"></h5>
-        </td>
-    </tr>
-    <tr>
-        <td>Tarikh Berkhidmat</td>
+        <td>Tarikh Mula Berkhidmat</td>
         <td>:</td>
         <td>
             <h5 class="label" runat="server" id="lblTarikhMulaBerkhidmat">01/01/2010</h5>
         </td>
     </tr>
     <tr>
-        <td>Tarikh Akhir Berkhidmat</td>
+        <td>Tarikh Tamat Perkhidmatan</td>
         <td>:</td>
         <td>
             <h5 class="label" runat="server" id="lblTarikhAkhirBerkhidmat"></h5>
@@ -234,7 +248,7 @@
     </tr>
     
 </table>
-<table class="fbform" style="width:100%">
+<table class="fbform" style="width:100%" cellpadding="0" cellspacing="0" border="0">
     <tr class="fbform_mheader">
         <td class="auto-style5">
             Total Poin Terkumpul
@@ -243,10 +257,11 @@
         <td class="auto-style3">
             <h5 class="label" runat="server" id="lbl_poinDisplay"></h5>
         </td>
-        <td class="auto-style4">
+        <td class="auto-style4" style ="text-align :right">
             <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName ="Approved" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/checkmark_approve.png" ToolTip="Diterima" Height="39px"/>
             &nbsp&nbsp&nbsp&nbsp&nbsp
-            <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="39px" CommandName ="Rejected" CommandArgument ='<%#Eval("permohonan_id")%>'   OnClientClick="javascript:return confirm('Adakah anda pasti mahu menolak permohonan ini? ')" ImageUrl="~/icons/checkmark_declined.png" ToolTip="Ditolak" />
+            <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="39px" CommandName ="Rejected" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return GetUserValue() && confirm('Adakah anda pasti mahu menolak permohonan ini? ')" ImageUrl="~/icons/checkmark_declined.png" ToolTip="Ditolak" />
+            <asp:HiddenField runat="server" ID="hdnUserInput" />
         </td>
     </tr>
 
