@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class index
-    
+
     '''<summary>
     '''PnlPengurusan control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PnlPengurusan As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''pnlKonfigurasi control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents pnlKonfigurasi As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''PnlPemohon control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PnlPemohon As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''linkStatusPermohonan control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents linkStatusPermohonan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''PnlIndicator control.
     '''</summary>
@@ -57,7 +57,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents PnlIndicator As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''lbl1 control.
     '''</summary>
@@ -66,7 +66,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl1 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl2 control.
     '''</summary>
@@ -75,7 +75,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl2 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl8 control.
     '''</summary>
@@ -84,7 +84,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl8 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl9 control.
     '''</summary>
@@ -93,7 +93,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl9 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl10 control.
     '''</summary>
@@ -102,7 +102,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl10 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl5 control.
     '''</summary>
@@ -111,7 +111,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl5 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl4 control.
     '''</summary>
@@ -120,7 +120,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl4 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl3 control.
     '''</summary>
@@ -129,7 +129,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl3 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lvl2 control.
     '''</summary>
@@ -138,7 +138,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lvl2 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl11 control.
     '''</summary>
@@ -147,7 +147,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl11 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl7 control.
     '''</summary>
@@ -156,7 +156,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl7 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl6 control.
     '''</summary>
@@ -165,7 +165,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lbl6 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblKonfigurasiUmum control.
     '''</summary>
@@ -174,7 +174,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblKonfigurasiUmum As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblKonfigurasiSistem control.
     '''</summary>
@@ -183,7 +183,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblKonfigurasiSistem As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblMaintenance1 control.
     '''</summary>
@@ -192,7 +192,7 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblMaintenance1 As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblMaintenance2 control.
     '''</summary>
@@ -201,4 +201,40 @@ Partial Public Class index
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblMaintenance2 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblHomePageUser control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblHomePageUser As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblPermohonanKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblPermohonanKuarters As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblSenaraiKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblSenaraiKuarters As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblMaklumatPermohonan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMaklumatPermohonan As Global.System.Web.UI.WebControls.Label
 End Class

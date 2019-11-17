@@ -86,13 +86,13 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents viewPemohonanDir As Global.System.Web.UI.WebControls.View
 
     '''<summary>
-    '''lblBilAnak control.
+    '''tblMaklumatAnak control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblBilAnak As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents tblMaklumatAnak As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
     '''lblJenisTempatTinggal control.
@@ -129,15 +129,6 @@ Partial Public Class maklumat_permohonan
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTarikhPermohonan As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
-    '''tblMaklumatAnak control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents tblMaklumatAnak As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
     '''viewCadanganKuarters control.
