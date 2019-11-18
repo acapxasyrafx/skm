@@ -107,6 +107,10 @@
         .hoverWrapper:hover #hoverShow {
             display: block;
         }
+
+        .table{
+            cursor: pointer;
+        }
 </style>
 
 <div class="status-permohonan" style="height: 85vh;">
@@ -250,7 +254,7 @@
                                 <div style="display:inline-flex;">
                                     <p>Kuarters yang dipohon pada waktu ini tiada sebarang <p style="color: red; margin:0;padding:0;">KEKOSONGAN</p>.</p><br />
                                 </div>
-                                <p>Sila pilih dari senarai kuarters yang dicadangkan dibawah jika Tuan/Puan masih berniat untuk meneruskan permohonan Tuan/Puan: </p>
+                                <p >Sila <b>PILIH</b> dari senarai kuarters yang dicadangkan dibawah jika Tuan/Puan masih berniat untuk meneruskan permohonan Tuan/Puan: </p>
                             </td>
                         </tr>
                         <tr>
@@ -267,7 +271,7 @@
                                         GridLines="None"
                                         Width="100%"
                                         PageSize="100"
-                                        CssClass="gridview_footer"
+                                        CssClass="table"
                                         Autopostback="true">
                                         <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                                         <Columns>

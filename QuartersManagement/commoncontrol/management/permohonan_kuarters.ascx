@@ -98,7 +98,7 @@
         </td>
     </tr>
     <tr>
-        <td>Tarikh Akhir Berkhidmat</td>
+        <td>Tarikh Tamat Perkhidmatan</td>
         <td>:</td>
         <td>
             <asp:Label runat="server" ID="lblTarikhAkhirBerkhidmat" />
@@ -216,6 +216,7 @@
                     <td>:</td>
                     <td>
                         <asp:DropDownList runat="server" CssClass="label" ID="ddlJenisPenempatan">
+                            <asp:ListItem Value="">Sila Pilih Jenis Rumah Akhir Menetap...</asp:ListItem>
                             <asp:ListItem Value="Rumah Sewa">Rumah Sewa</asp:ListItem>
                             <asp:ListItem Value="Wisma">Wisma (Keluarga Di Kampung)</asp:ListItem>
                             <asp:ListItem Value="Seberang">Bertugas Di Seberang (Keluarga Berada Di Rumah Sewa Di Malaysia Barat)</asp:ListItem>
@@ -263,13 +264,23 @@
                     <td style="width: 100px;">Dari Pasukan</td>
                     <td>:</td>
                     <td>
-                        <asp:DropDownList CssClass="label" runat="server" ID="ddlPasukanLama"></asp:DropDownList>
+                        <asp:DropDownList CssClass="label" runat="server" ID="ddlPasukanLama">
+                            <asp:ListItem Text="Sila Pilih Pasukan Terkini Anda..."/>
+                        <asp:ListItem Text="Pasukan A" Value="Pasukan A"/>
+                        <asp:ListItem Text="Pasukan B" Value="Pasukan B"/>
+                        <asp:ListItem Text="Pasukan C" Value="Pasukan C"/>
+                        </asp:DropDownList>
                     </td>
                 </tr>
                 <tr>
                     <td>Ke Pasukan</td>
                     <td>:</td>
-                    <td><asp:DropDownList CssClass="label" runat="server" ID="ddlPasukanBaru"></asp:DropDownList></td>
+                    <td><asp:DropDownList CssClass="label" runat="server" ID="ddlPasukanBaru">
+                        <asp:ListItem Text="Sila Pilih Pasukan Anda Akan Berpindah..."/>
+                        <asp:ListItem Text="Pasukan A" Value="Pasukan A"/>
+                        <asp:ListItem Text="Pasukan B" Value="Pasukan B"/>
+                        <asp:ListItem Text="Pasukan C" Value="Pasukan C"/>
+                        </asp:DropDownList></td>
                 </tr>
                 <tr>
                     <td>Tarikh Bertukar</td>
@@ -294,8 +305,31 @@
     </tr>
 </table>
 
+<table class="fbform" style="width: 100%">
+    <tr class="fbform_header">
+        <td><span id="Span1" runat="server">
+            <asp:Label ID="Label1" runat="server"></asp:Label></span></td>
+        <td>
+            <span class="buttonMenu">
+                <a href="#" runat="server" id="saveBottom">
+                    <img title="Save" style="vertical-align: middle;" src="icons/save.png" width="25" height="25" alt="::" />
+                </a>
+                | <a href="#" id="refreshBottom" runat="server">
+                    <img title="Refresh" style="vertical-align: middle;" src="icons/refresh.png" width="22" height="22" alt="::" /></a>
+                | <a href="#" id="helpBottom">
+                    <img title="Help" style="vertical-align: middle;" src="icons/help.png" width="22" height="22" alt="::" /></a>
+            </span>
+        </td>
+    </tr>
+</table>
+
 <table class ="fbform">
     <tr>
         <td><span id ="MsgBottom" runat ="server" ><asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label></span></td>
     </tr>
 </table>
+<script type="text/javascript">
+    function showAlert() {
+        alert('Testing alert')
+    }
+</script>
