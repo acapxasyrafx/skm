@@ -261,7 +261,11 @@
         <td class="auto-style3">
             <h5 class="label" runat="server" id="lbl_poinDisplay" text=""></h5>
         </td>
-        <td class="auto-style4" style ="text-align :right">
+    </tr>
+    <tr>
+        <td>Permohonan </td>
+        <td>:</td>
+        <td class="auto-style4" style ="text-align :left">
             <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName ="Approved" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/checkmark_approve.png" ToolTip="Diterima" Height="39px"/>
             &nbsp&nbsp&nbsp&nbsp&nbsp
             <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="39px" CommandName ="Rejected" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return GetUserValue() && confirm('Adakah anda pasti mahu menolak permohonan ini? ')" ImageUrl="~/icons/checkmark_declined.png" ToolTip="Ditolak" />

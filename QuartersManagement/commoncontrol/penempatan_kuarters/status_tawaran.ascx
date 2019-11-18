@@ -15,12 +15,25 @@
     </tr>
 </table>
 
-<form>
-    <div>
+<table>
+    <tr>
+        <td>
+            <asp:label runat ="server" ID="lbl_unit">
+            </asp:label>
+        </td>
+        <td>:</td>
+        <td>
+            <asp:DropDownList runat ="server" id="ddl_unit"></asp:DropDownList>
+
+        </td>
+        </tr>
+    <tr>
+        <td>
         <textboxio:Textboxio
             runat="server"
             ID="editorSurattawaran"
             ScriptSrc="textboxio/textboxio.js"
-            Content="<p>Hello from textbox.io!</p>" />
-    </div>
-</form>
+            Content="<p></p>" />
+            </td>
+    </tr>
+</table>

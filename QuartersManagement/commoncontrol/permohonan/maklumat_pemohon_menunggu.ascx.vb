@@ -20,16 +20,55 @@ Public Class maklumat_pemohon_menunggu
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
 
+
+    Dim dataAnak As New DataSet
+    Dim countAnak As Integer = 0
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
 
         Try
             loadUser()
             ddlunit_load()
+            readMaklumatAnak()
+
         Catch ex As Exception
 
         End Try
     End Sub
+    Private Function readMaklumatAnak() As Boolean
+        Dim penggunaID = pengguna_id.Value
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim table As DataTable = New DataTable
+            Dim da As New SqlDataAdapter(
+                    "SELECT 
+                        anak_id,
+                        pengguna_id,
+                        anak_nama,
+                        anak_ic,
+                        anak_umur
+                        FROM spk_anak
+                        WHERE pengguna_id = " & penggunaID & ";",
+                    conn)
+            Try
+                conn.Open()
+                da.Fill(dataAnak, "AnyTable")
+                Dim nRows As Integer = 0
+                Dim nCount As Integer = 1
+                countAnak = dataAnak.Tables(0).Rows.Count
+                If dataAnak.Tables(0).Rows.Count > 0 Then
+                    datRespondent.DataSource = dataAnak
+                    datRespondent.DataBind()
+                End If
+                Return True
+            Catch ex As Exception
+                Debug.WriteLine("ERROR(readMaklumatAnak): " & ex.Message)
+                Return False
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Function
 
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))

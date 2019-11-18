@@ -163,14 +163,6 @@ Public Class permohonan_tolak
                 strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
             End If
 
-            If ddlfilterMarkah.SelectedIndex = 2 Then
-                strOrder = " ORDER BY B.permohonan_mata ASC "
-            ElseIf ddlfilterMarkah.SelectedIndex = 3 Then
-                strOrder = " ORDER BY B.permohonan_mata DESC "
-            ElseIf ddlfilterMarkah.SelectedIndex = 1 Then
-                strOrder = ""
-            End If
-
         Catch ex As Exception
             MsgBottom.InnerText = ex.ToString
         End Try
@@ -304,10 +296,6 @@ Public Class permohonan_tolak
     End Sub
 
     Private Sub ddlfilterPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterPangkalan.SelectedIndexChanged
-        strRet = BindData(datRespondent)
-    End Sub
-
-    Private Sub ddlfilterMarkah_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterMarkah.SelectedIndexChanged
         strRet = BindData(datRespondent)
     End Sub
 
