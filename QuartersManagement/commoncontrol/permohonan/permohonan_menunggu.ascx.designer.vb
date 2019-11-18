@@ -41,6 +41,42 @@ Partial Public Class permohonan_menunggu
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
+    '''ddlfilterPangkat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlfilterPangkat As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlfilterPangkalan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlfilterPangkalan As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlfilterKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlfilterKuarters As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlfilterMarkah control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlfilterMarkah As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
     '''lbl_nama control.
     '''</summary>
     '''<remarks>
@@ -66,15 +102,6 @@ Partial Public Class permohonan_menunggu
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''ddlSort control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlSort As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''Panel control.

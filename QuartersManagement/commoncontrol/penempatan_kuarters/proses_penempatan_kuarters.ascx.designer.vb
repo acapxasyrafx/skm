@@ -32,15 +32,6 @@ Partial Public Class proses_penempatan_kuarters1
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''SaveFunction control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
-    '''<summary>
     '''Refresh control.
     '''</summary>
     '''<remarks>
@@ -50,13 +41,67 @@ Partial Public Class proses_penempatan_kuarters1
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''ddlSort control.
+    '''ddlfilterPangkat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlSort As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlfilterPangkat As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlfilterPangkalan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlfilterPangkalan As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlfilterKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlfilterKuarters As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''ddlfilterMarkah control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlfilterMarkah As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''lbl_nama control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl_nama As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''txt_nama control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txt_nama As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnSearch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''Panel control.

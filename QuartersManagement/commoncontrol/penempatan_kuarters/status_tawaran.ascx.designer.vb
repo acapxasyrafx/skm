@@ -32,15 +32,6 @@ Partial Public Class status_tawaran
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''SaveFunction control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
-    '''<summary>
     '''Refresh control.
     '''</summary>
     '''<remarks>
@@ -50,11 +41,11 @@ Partial Public Class status_tawaran
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''ddlSort control.
+    '''editorSurattawaran control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlSort As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents editorSurattawaran As Global.TextboxioControl.Textboxio
 End Class

@@ -47,13 +47,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\..\..\Downloads\TextboxioForAspDotNet\aspdotnetcontrol\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\..\TextboxioForAspDotNet\aspdotnetcontrol\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web.DynamicData" />
@@ -66,7 +69,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="TextboxioControl">
-      <HintPath>..\..\..\..\..\Downloads\TextboxioForAspDotNet\aspdotnetcontrol\TextboxioControl.dll</HintPath>
+      <HintPath>..\..\..\TextboxioForAspDotNet\aspdotnetcontrol\TextboxioControl.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +130,7 @@
     <Content Include="commoncontrol\penempatan_kuarters\status_tawaran.ascx" />
     <Content Include="commoncontrol\penjawat_senarai.ascx" />
     <Content Include="commoncontrol\permohonan\maklumat_pemohon.ascx" />
+    <Content Include="commoncontrol\permohonan\maklumat_pemohon_ditolak.ascx" />
     <Content Include="commoncontrol\permohonan\maklumat_pemohon_menunggu.ascx" />
     <Content Include="commoncontrol\permohonan\permohonan_baru.ascx" />
     <Content Include="commoncontrol\permohonan\permohonan_menunggu.ascx" />
@@ -144,6 +148,8 @@
     <Content Include="icons\bullet_blue.png" />
     <Content Include="icons\bullet_red.png" />
     <Content Include="icons\calendar.png" />
+    <Content Include="icons\checkmark_approve.png" />
+    <Content Include="icons\checkmark_declined.png" />
     <Content Include="icons\delete.png" />
     <Content Include="icons\deletedustbin.png" />
     <Content Include="icons\download.gif" />
@@ -156,7 +162,7 @@
     <Content Include="icons\reject-text-paper.png" />
     <Content Include="icons\save.png" />
     <Content Include="icons\select.png" />
-    <Content Include="icons\test.svg" />
+    <Content Include="icons\send.png" />
     <Content Include="icons\verified-text-paper.png" />
     <Content Include="img\backlog.jpg" />
     <Content Include="img\tudmlogo.png" />
@@ -181,6 +187,7 @@
     <Content Include="Senarai.Pangkalan.aspx" />
     <Content Include="Senarai.Penempatan.Pemohon.aspx" />
     <Content Include="Maklumat.Pemohon.Menunggu.aspx" />
+    <Content Include="Senarai.Permohonan.Ditolak.aspx" />
     <Content Include="Senarai.Permohonan.Pengguna.aspx" />
     <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
     <Content Include="Rekod.Penyelenggaraan.aspx" />
@@ -553,6 +560,13 @@
       <DependentUpon>maklumat_pemohon.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\permohonan\maklumat_pemohon_ditolak.ascx.designer.vb">
+      <DependentUpon>maklumat_pemohon_ditolak.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\maklumat_pemohon_ditolak.ascx.vb">
+      <DependentUpon>maklumat_pemohon_ditolak.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\permohonan\maklumat_pemohon_menunggu.ascx.designer.vb">
       <DependentUpon>maklumat_pemohon_menunggu.ascx</DependentUpon>
     </Compile>
@@ -795,6 +809,13 @@
     <Compile Include="Senarai.Permohonan.Baru.aspx.vb">
       <DependentUpon>Senarai.Permohonan.Baru.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Ditolak.aspx.designer.vb">
+      <DependentUpon>Senarai.Permohonan.Ditolak.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Ditolak.aspx.vb">
+      <DependentUpon>Senarai.Permohonan.Ditolak.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Senarai.Permohonan.Menunggu.aspx.designer.vb">
       <DependentUpon>Senarai.Permohonan.Menunggu.aspx</DependentUpon>

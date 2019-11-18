@@ -61,11 +61,11 @@
                     </asp:TemplateField>   
                 
                     
-                    <asp:TemplateField HeaderText="Action">
+                    <asp:TemplateField HeaderText="TINDAKAN">
                         <ItemTemplate>
                            <span runat="server" style="float:right">
                            <a href ="Pengguna.Pendaftaran.Edit.aspx?edit=<%#Eval("pengguna_id")%>&p=<%# lblConfig.Text  %>&z=<%# "Edit"  %>"><img title="Kemaskini"  src="icons/edit.png" width="13" height="13" alt="::"/></a>
-                           | 
+                           
 
                            </span> 
                         </ItemTemplate>

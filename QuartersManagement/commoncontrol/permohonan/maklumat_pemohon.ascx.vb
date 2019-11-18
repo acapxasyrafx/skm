@@ -22,125 +22,92 @@ Public Class maklumat_pemohon
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Try
-            data_load()
+            loadUser()
         Catch ex As Exception
 
         End Try
     End Sub
 
-    Private Sub data_poinLoad()
-        Dim strSQL2 As String = ""
-        Dim strSQL3 As String = ""
-        Dim dataJumlah As Integer = ""
-        Dim dataPangkatPoin As Integer = ""
-        Dim dataUmurAnak As Integer = ""
-        Dim jumlah_anak As Integer = ""
+    'Private Sub data_poinLoad()
+    '    Dim strSQL2 As String = ""
+    '    Dim strSQL3 As String = ""
+    '    Dim dataJumlah As Integer = ""
+    '    Dim dataPangkatPoin As Integer = ""
+    '    Dim dataUmurAnak As Integer = ""
+    '    Dim jumlah_anak As Integer = ""
 
-        strSQL = "select count(anak_nama) from spk_anak where anak_umur <= 18"
-        strSQL2 = "select B.pangkat_mata from spk_pengguna A left join spk_pangkat B on A.pangkat_id = B.pangkat_id"
+    '    strSQL = "select count(anak_nama) from spk_anak where anak_umur <= 18"
+    '    strSQL2 = "select B.pangkat_mata from spk_pengguna A left join spk_pangkat B on A.pangkat_id = B.pangkat_id"
 
-        Dim jumlah_anakUmur18 = oCommon.ExecuteSQL(strSQL)
-        Dim jumlah_poinPangkat = oCommon.ExecuteSQL(strSQL2)
-
-
-        Dim jumlah_mataTerkumpul = jumlah_poinPangkat + (jumlah_anakUmur18 * 5)
-
-        lblpoinDisplay.Text = jumlah_mataTerkumpul.ToString
+    '    Dim jumlah_anakUmur18 = oCommon.ExecuteSQL(strSQL)
+    '    Dim jumlah_poinPangkat = oCommon.ExecuteSQL(strSQL2)
 
 
-    End Sub
+    '    Dim jumlah_mataTerkumpul = jumlah_poinPangkat + (jumlah_anakUmur18 * 5)
 
-    Private Sub data_load()
+    '    lblpoinDisplay.Text = jumlah_mataTerkumpul.ToString
+
+
+    'End Sub
+
+    Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim cmd As New SqlCommand("SELECT TOP 1
-	            A.pengguna_id , 
-	            A.permohonan_mata as jumlahPoin,
-	            C.pangkat_nama as pangkat_nama,
-	            D.pangkalan_nama as pangkalan_nama,
-	            B.pengguna_id,
-	            B.pengguna_nama as pengguna_nama,
-	            B.pengguna_mykad as pengguna_mykad,
-	            B.pengguna_jantina as pengguna_jantina,
-	            B.pengguna_tarikh_lahir as pengguna_tarikh_lahir,
-	            B.pengguna_kewarganegaraan as pengguna_kewarganegaraan,
-                B.pengguna_mula_perkhidmatan as pengguna_mula_perkhidmatan,
-                B.pengguna_tamat_perkhidmatan as pengguna_tamat_perkhidmatan,
-                B.pengguna_no_tentera as pengguna_no_tentera,
-	            E.keluarga_anak as keluarga_anak,
-	            E.keluarga_tempat_tinggal as keluarga_tempat_tinggal,
-	            E.keluarga_tarikh_mula as keluarga_tarikh_mula,
-                G.kuarters_nama as kuarters_nama
-
-            FROM
-
-	            spk_permohonan A
-                LEFT JOIN spk_pengguna B ON A.pengguna_id = B.pengguna_id
-                LEFT JOIN spk_pangkat C ON  B.pangkat_id = C.pangkat_id
-                LEFT JOIN spk_pangkalan D on B.pangkalan_id = D.pangkalan_id
-                LEFT JOIN spk_keluarga E on B.pengguna_id = E.pengguna_id
-                LEFT JOIN spk_anak F on B.pengguna_id = F.pengguna_id
-                LEFT JOIN spk_kuarters G on A.kuarters_id = G.kuarters_id
-
-            WHERE A.permohonan_id = '" & Request.QueryString("uid") & "'",
+	            A.pengguna_id as pengguna_id,
+	            A.pengguna_nama as pengguna_nama,
+	            A.pengguna_mykad as pengguna_mykad,
+	            A.pengguna_jantina as pengguna_jantina,
+	            A.pengguna_tarikh_lahir as pengguna_tarikh_lahir,
+                A.pengguna_mula_perkhidmatan as pengguna_mula_perkhidmatan,
+                A.pengguna_tamat_perkhidmatan as pengguna_tamat_perkhidmatan,
+                A.pengguna_no_tentera as pengguna_no_tentera,
+	            B.pangkat_id as pangkat_id,
+	            B.pangkat_nama as pangkat_nama,
+                C.pangkalan_nama as pangkalan_nama,
+                E.kuarters_nama as kuarters_nama,
+				G.keluarga_tempat_tinggal as keluarga_tempat_tinggal,
+				G.keluarga_tarikh_mula as keluarga_tarikh_mula,
+				G.keluarga_anak as keluarga_anak,
+				D.permohonan_mata as permohonan_mata
+            FROM 
+	            admin.spk_pengguna A
+	            JOIN admin.spk_pangkat B ON A.pangkat_id = B.pangkat_id
+	            JOIN dbo.spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id
+				JOIN spk_permohonan D on A.pengguna_id = D.pengguna_id 
+				JOIN spk_kuarters E on D.kuarters_id = E.kuarters_id
+				JOIN spk_keluarga G on A.pengguna_id = G.pengguna_id
+				JOIN spk_anak F on A.pengguna_id = F.pengguna_id	
+				
+            WHERE D.permohonan_id = '" & Request.QueryString("uid") & "' ",
             conn)
-            'D.keluarga_tarikh_akhir,
-            'D.keluarga_tarikh_sewa_mula,
-            'D.keluarga_tarikh_sewa_akhir,
-            'D.keluarga_tarikh_wisma_mula,
-            'D.keluarga_tarikh_wisma_akhir,
-            'D.keluarga_tarikh_seberang_mula,
-            'D.keluarga_tarikh_seberang_akhir
 
             Try
                 conn.Open()
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     If reader.Read() Then
+                        pengguna_id.Value = reader("pengguna_id")
+                        lblNama.InnerText = reader("pengguna_nama")
+                        lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
+                        lblJantina.InnerText = reader("pengguna_jantina")
+                        lblJawatan.InnerText = reader("pangkat_nama")
+                        lblNoTentera.InnerText = reader("pengguna_no_tentera")
+                        lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
+                        lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
+                        lbl_senaraiKuarters.InnerText = reader("kuarters_nama")
+                        lblJenisPenempatan.Text = reader("keluarga_tempat_tinggal")
+                        lbltarikhPenempatan.Text = reader("keluarga_tarikh_mula")
+                        lbl_poinDisplay.InnerText = reader("permohonan_mata")
+                        lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
 
-                        lblSenaraiRumah.Text = reader("kuarters_nama")
-                        lblNama.Text = reader("pengguna_nama")
-                        lblLahirTahun.Text = reader("pengguna_tarikh_lahir")
-                        lblJantina.Text = reader("pengguna_jantina")
-                        lblKewarganegaraan.Text = reader("pengguna_kewarganegaraan")
-                        lblJawatan.Text = reader("pangkat_nama")
-                        lblNoTentera.Text = reader("pengguna_no_tentera")
-                        lblTarikhMulaBerkhidmat.Text = reader("pengguna_mula_perkhidmatan")
-                        lblBilAnak.Text = reader("keluarga_anak")
-                        lblSewaMulaHari.Text = reader("keluarga_tarikh_sewa_mula")
-                        lblWismaMulaHari.Text = reader("keluarga_tarikh_wisma_mula")
-                        lblSeberangMulaHari.Text = reader("keluarga_tarikh_seberang_mula")
-                        lblpoinDisplay.Text = reader("jumlahPoin")
-
-                        'lblSenaraiRumah.Text = reader("pengguna_mula_perkhidmatan")
-                        'lblDariPasukan.Text = reader("pengguna_mula_perkhidmatan")
-                        'lblKePasukan.Text = reader("pengguna_mula_perkhidmatan")
-                        'lblTarikhMulaHari.Text = reader("pengguna_mula_perkhidmatan")
-                        '''
                         '-------------------
-                        If IsDBNull(reader("pengguna_tamat_perkhidmatan")) Then
-                            lblTarikhAkhirBerkhidmat.Text = "Masih Berkhidmat"
-                        Else
-                            lblTarikhAkhirBerkhidmat.Text = reader("pengguna_tamat_perkhidmatan")
-                        End If
-
-                        If IsDBNull(reader("keluarga_tarikh_akhir")) Then
-                            lblSewaAkhirHari.Text = "Masih Menetap"
-                        Else
-                            lblSewaAkhirHari.Text = reader("keluarga_tarikh_akhir")
-                        End If
-
-                        If IsDBNull(reader("keluarga_tarikh_wisma_akhir")) Then
-                            lblWismaAkhir.Text = "Masih Menetap"
-                        Else
-                            lblTarikhAkhirBerkhidmat.Text = reader("keluarga_tarikh_wisma_akhir")
-                        End If
-
-                        If IsDBNull(reader("keluarga_tarikh_seberang_akhir")) Then
-                            lblSeberangAkhirTahun.Text = "Masih Berkhidmat"
-                        Else
-                            lblSeberangAkhirTahun.Text = reader("keluarga_tarikh_seberang_akhir")
-                        End If
+                        'If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
+                        '    lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
+                        'Else
+                        '    lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
+                        'End If
                         '-------------------
+
                     Else
                         Debug.Write("CANNOT READ")
                     End If
@@ -148,12 +115,11 @@ Public Class maklumat_pemohon
                     Debug.Write("NO ROWS")
                 End If
             Catch ex As Exception
-                Debug.Write("ERROR: " & ex.Message)
+                Debug.WriteLine("ERROR(loadUser): " & ex.Message)
             Finally
                 conn.Close()
             End Try
         End Using
-
     End Sub
     Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
         Try
@@ -161,7 +127,7 @@ Public Class maklumat_pemohon
             If (e.CommandName = "Approve") Then
                 Dim strCID = e.CommandArgument.ToString
 
-                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'Diluluskan' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
+                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN SEDANG DIPROSES' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
                 oCommon.ExecuteSQL(strSQL)
             ElseIf (e.CommandName = "Reject") Then
                 Dim strCID = e.CommandArgument.ToString
@@ -169,6 +135,8 @@ Public Class maklumat_pemohon
                 'chk session to prevent postback
                 strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN ANDA DITOLAK' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
                 oCommon.ExecuteSQL(strSQL)
+
+                oCommon.ExecuteSQL("UPDATE spk_permohonan SET permohonan_nota = '" & hdnUserInput.Value.ToString & "' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'")
 
             End If
 
