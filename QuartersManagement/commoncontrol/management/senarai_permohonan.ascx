@@ -133,7 +133,7 @@
 
                         <asp:TemplateField HeaderText="Status" >
                             <ItemTemplate>
-                                <asp:Label ID="lblStatus" runat="server" Text='<%# changeStatus(Eval("permohonan_status")) %>'></asp:Label>
+                                <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("permohonan_status") %>'></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />

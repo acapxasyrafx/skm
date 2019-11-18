@@ -26,6 +26,39 @@ Public Class login_page
             End If
         End If
     End Sub
+    Private Function getUserID(ByVal noTentera As String) As Boolean
+        Dim penggunaID As Integer
+        If noTentera.Equals(Nothing) Or noTentera.Equals("") Then
+            Return False
+        Else
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Dim cmd As New SqlCommand("SELECT pengguna_id FROM spk_pengguna WHERE pengguna_no_tentera = '" & noTentera & "'", conn)
+                Try
+                    conn.Open()
+                    Dim dr As SqlDataReader
+                    dr = cmd.ExecuteReader
+                    If dr.HasRows Then
+                        Do While dr.Read
+                            penggunaID = dr("pengguna_id")
+                            Debug.WriteLine("Debug(getUserID): pengguna_id => " & penggunaID & "")
+                            Session("penggunaID") = penggunaID
+                            Return True
+                        Loop
+                    Else
+                        Debug.WriteLine("Error(getUserID): Reader has no rows")
+                        Return False
+                    End If
+                Catch ex As Exception
+                    Debug.WriteLine("Error(getUserID): " & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+            Return False
+        End If
+    End Function
+
     Private Function isExistL(ByVal strSQL As String) As String
         If strSQL.Length = 0 Then
             Return False
@@ -70,7 +103,7 @@ Public Class login_page
                 where A.userID = '" & oCommon.FixSingleQuotes(txtLoginID.Text) & "' and A.userPass = '" & txtPwd.Text & "''"
 
         If oCommon.isExist(strSQL) = True Then
-            
+
             Select Case getUserProfile_UserType()
                 Case "Admin"
                     Response.Redirect("default.aspx")

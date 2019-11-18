@@ -284,6 +284,42 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents ddlTarikhTukarTahun As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''Span1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Span1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Label1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''saveBottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents saveBottom As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
+    '''refreshBottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents refreshBottom As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
     '''MsgBottom control.
     '''</summary>
     '''<remarks>

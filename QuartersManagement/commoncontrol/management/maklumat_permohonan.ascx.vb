@@ -39,6 +39,8 @@ Public Class maklumat_permohonan
         If statusPermohon.Equals("PERMOHONAN DITOLAK") Then
             mvStatusPermohonan.ActiveViewIndex = 3
         ElseIf statusPermohon.Equals("PERMOHONAN DITERIMA") Then
+            lblLulusKuarters.Text = "A"
+            lblLulusUnit.Text = "A-3-2"
             mvStatusPermohonan.ActiveViewIndex = 2
         ElseIf statusPermohon.Equals("PERMOHONAN SEDANG DIPROSES") Then
             If subStatusPermohonan.Equals("LULUS TANPA KEKOSONGAN") Then
