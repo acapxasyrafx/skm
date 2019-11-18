@@ -458,7 +458,6 @@ Public Class permohonan_kuarters
     End Sub
 
     Private Function loadPoints(ByVal dataAnak As DataSet)
-        Dim totalPoint As Integer = 0
         Dim totalAnakLayak As Integer = 0
 
         For i As Integer = 0 To dataAnak.Tables(0).Rows.Count - 1
@@ -478,55 +477,6 @@ Public Class permohonan_kuarters
         Debug.WriteLine("Mata pangkat: " & pangkatMata)
         Debug.WriteLine("Total Point: " & totalPoint)
         Return totalPoint
-    End Function
-    Public Sub showMessage(ByVal messageType As String, ByVal message As String)
-        Dim strlblMsgBottom As String = ConfigurationManager.AppSettings("lblMessage_bottom")
-        Dim strlblMsgTop As String = ConfigurationManager.AppSettings("lblMessage_top")
-        Dim strSucDelAlert As String = ConfigurationManager.AppSettings("deleteSuccessAlert")
-        Dim strFailDelAlert As String = ConfigurationManager.AppSettings("deleteFailAlert")
-        Dim strSaveSuccessAlert As String = ConfigurationManager.AppSettings("saveSuccessAlert")
-        Dim strSaveFailAlert As String = ConfigurationManager.AppSettings("saveFailAlert")
-        Dim strDataBindAlert As String = ConfigurationManager.AppSettings("dataBindAlert")
-        Dim strRecordBindAlert As String = ConfigurationManager.AppSettings("recordBindAlert")
-        Dim strSysErrorAlert As String = ConfigurationManager.AppSettings("systemErrorAlert")
-        Dim strDataValAlert As String = ConfigurationManager.AppSettings("dataValidationAlert")
-
-        If messageType.Equals("ALERT") Then
-            MsgTop.Attributes("class") = "errorMsg"
-            MsgBottom.Attributes("class") = "errorMsg"
-        ElseIf messageType.Equals("SUCCESS") Then
-            MsgTop.Attributes("class") = "successMsg"
-            MsgBottom.Attributes("class") = "successMsg"
-        End If
-        strlbl_top.Text = message
-        strlbl_bottom.Text = message
-    End Sub
-
-    Private Function insertLogPermohonan(ByVal permohonanID As Integer) As Boolean
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("
-                INSERT INTO spk_logPermohonan (
-                      pengguna_id
-                    , permohonan_id
-                    , log_tarikh 
-                    , log_status
-                ) VALUES (
-                    " & pengguna_id.Value & "
-                    , " & permohonanID & "
-                    , '" & Date.Now & "'
-                    , 'PERMOHONAN BARU'
-                )", conn)
-            Try
-                conn.Open()
-                cmd.ExecuteNonQuery()
-                Return True
-            Catch ex As Exception
-                Debug.WriteLine("Error(insertLogPermohonan): " & ex.Message)
-                Return False
-            Finally
-                conn.Close()
-            End Try
-        End Using
     End Function
 
     Public Sub showMessage(ByVal messageType As String, ByVal message As String)
