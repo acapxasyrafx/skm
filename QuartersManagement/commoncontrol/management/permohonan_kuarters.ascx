@@ -4,12 +4,27 @@
     .label{
         display: inline-block;
         margin:0;
+        padding:0;
         padding:5px;
         font-size: 100%;
     }
-    .left {
-        display:flex;
-        flex: initial;
+    .txtbox{
+        margin-right: 5px;
+        padding:0;
+        width: 250px;
+        height: 25px;
+    }
+    .btn{
+        border-radius: 5px;
+        background-color: grey;
+        color:white;
+        border: solid 1px white;;
+        height: 2.5em;
+    }
+    .btn:hover{
+        border: solid 1px black;
+        background-color:aliceblue;
+        color:black;
     }
 </style>
 <table class="fbform" style="width: 100%">
@@ -29,88 +44,89 @@
 </table>
 
 
-<table class="fbform" style="width:100%;">
+<table class="fbform" style="width: 100%;">
     <tr class="fbform_mheader">
         <td colspan="3">Butiran Peribadi</td>
     </tr>
+
     <tr>
-        <td style="width:150px;">Nama</td>
-        <td style="width:5px;">:</td>
+        <td style="width: 150px;">No. Tentera</td>
+        <td>:</td>
         <td>
-            <h5 class="label" runat="server" id="lblNama"></h5>
+            <asp:Label runat="server" ID="lblNoTentera" />
+        </td>
+    </tr>
+
+    <tr>
+        <td style="width: 150px;">Pangkat</td>
+        <td>:</td>
+        <td>
+            <asp:Label runat="server" ID="lblPangkat" />
+        </td>
+    </tr>
+
+    <tr>
+        <td style="width: 150px;">Nama</td>
+        <td style="width: 5px;">:</td>
+        <td>
+            <asp:Label runat="server" ID="lblNama"/>
             <asp:HiddenField runat="server" ID="pengguna_id" Value="" />
         </td>
     </tr>
+
     <tr>
-        <td style="width:150px;">Jantina</td>
+        <td style="width: 150px;">Jantina</td>
         <td>:</td>
         <td>
-            <h5 class="label" runat="server" id="lblJantina"></h5>
+            <asp:Label runat="server" ID="lblJantina"/>
         </td>
     </tr>
+
     <tr>
-        <td style="width:150px;">Tarikh Lahir</td>
+        <td style="width: 150px;">Tarikh Lahir</td>
         <td>:</td>
         <td>
-            <h5 class="label" runat="server" id="lblTarikhLahir"></h5>
+            <asp:Label runat="server" ID="lblTarikhLahir"/>
         </td>
     </tr>
+
     <tr>
-        <td style="width:150px;">Pangkat</td>
+        <td style="width: 150px;">Tarikh Mula Berkhidmat</td>
         <td>:</td>
         <td>
-            <h5 class="label" runat="server" id="lblPangkat"></h5>
-        </td>
-    </tr>
-    <tr>
-        <td style="width:150px;">No. Tentera</td>
-        <td>:</td>
-        <td>
-            <h5 class="label" runat="server" id="lblNoTentera"></h5>
-        </td>
-    </tr>
-    <tr>
-        <td style="width:150px;">Tarikh Mula Berkhidmat</td>
-        <td>:</td>
-        <td>
-            <h5 class="label" runat="server" id="lblTarikhMulaBerkhidmat">01/01/2010</h5>
+            <asp:Label runat="server" ID="lblTarikhMulaBerkhidmat" />
         </td>
     </tr>
     <tr>
         <td>Tarikh Akhir Berkhidmat</td>
         <td>:</td>
         <td>
-            <h5 class="label" runat="server" id="lblTarikhAkhirBerkhidmat"></h5>
+            <asp:Label runat="server" ID="lblTarikhAkhirBerkhidmat" />
         </td>
     </tr>
 </table>
 
 <table class="fbform">
     <tr class="fbform_mheader">
-        <td colspan="3">Butiran Keluarga</td>
+        <td colspan="3">Masukkan Maklumat Anak </td>
     </tr>
     <tr>
-        <td style="width:150px;">Maklumat Anak</td>
-        <td style="width:5px;">:</td>
         <td>
-            <p>Masukkan Maklumat Anak </p>
             <div>
                 <table runat="server" id="tblMaklumatAnak" style="width:100%;">
                     <tr>
-                        <td style="width:20px;">Nama Anak</td>
-                        <td>:</td>
-                        <td><asp:TextBox CssClass="label" runat="server" ID="txtNamaAnak"/></td>
+                        <td colspan="3">
+                            <div class="label">
+                                Nama Anak: <asp:TextBox runat="server" ID="txtNamaAnak" CssClass="txtbox" />
+                                KP Anak: <asp:TextBox runat="server" ID="txtICAnak" CssClass="txtbox" />
+                                <asp:Button Text="Tambah" runat="server" ID="btnTambahRow" CssClass="btn" />
+                            </div>
+                        </td>
                     </tr>
                     <tr>
-                        <td>IC Anak</td>
-                        <td>:</td>
-                        <td><asp:TextBox CssClass="label" runat="server" ID="txtICAnak"/></td>
                     </tr>
-                    <tr>
-                        <td><asp:Button Text="Tambah" runat="server" ID="btnTambahRow"/></td>
-                    </tr>
-                    <tr>
-                        <td colspan="10">
+                    <tr >
+                        <td colspan="3" style="width:100%;">
                             <asp:GridView 
                                 ID="datRespondent" 
                                 runat="server" 
@@ -141,7 +157,7 @@
                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="IC" >
+                                    <asp:TemplateField HeaderText="KP" >
                                         <ItemTemplate>
                                             <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("anak_ic")%>'></asp:Label>
                                         </ItemTemplate>
@@ -157,10 +173,20 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Action">
+                                    <asp:TemplateField HeaderText="Padam">
                                         <ItemTemplate>
                                             <span runat="server" style="float:right">
-                                                <asp:ImageButton Width ="12" Height ="12" ID="btnDelete" CommandName ="Delete" CommandArgument ='<%#Eval("anak_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" runat="server" ImageUrl="~/icons/delete.png" ToolTip="Delete"/>
+                                                <asp:ImageButton 
+                                                    Width ="12" 
+                                                    Height ="12" 
+                                                    ID="btnDelete" 
+                                                    CommandName ="Delete" 
+                                                    CommandArgument ='<%#Eval("anak_id")%>' 
+                                                    OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')" 
+                                                    runat="server" 
+                                                    ImageUrl="~/icons/delete.png" 
+                                                    ToolTip="Padam?"
+                                                />
                                             </span> 
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="right" VerticalAlign="Top" width="5%" />
@@ -183,23 +209,31 @@
         </td>
     </tr>
     <tr>
-        <td>Jenis Tempat Tinggal Akhir</td>
-        <td>:</td>
-        <td>
-            <asp:DropDownList runat="server" CssClass="label" ID="ddlJenisPenempatan">
-                <asp:ListItem Value="Rumah Sewa">Rumah Sewa</asp:ListItem>
-                <asp:ListItem Value="Wisma">Wisma (Keluarga Di Kampung)</asp:ListItem>
-                <asp:ListItem Value="Seberang">Bertugas Di Seberang (Keluarga Berada Di Rumah Sewa Di Malaysia Barat)</asp:ListItem>
-            </asp:DropDownList>
-        </td>
-    </tr>
-    <tr>
-        <td>Mula Menetap Dari</td>
-        <td>:</td>
-        <td>
-            <asp:DropDownList CssClass="label" ID="ddlTarikhTinggalHariMula" runat="server"></asp:DropDownList> / 
-            <asp:DropDownList CssClass="label"  ID="ddlTarikhTinggalBulanMula" runat="server"></asp:DropDownList> / 
-            <asp:DropDownList CssClass="label"  ID="ddlTarikhTinggalTahunMula" runat="server"></asp:DropDownList>
+        <td colspan="3">
+            <table>
+                <tr>
+                    <td>Jenis Tempat Tinggal Akhir</td>
+                    <td>:</td>
+                    <td>
+                        <asp:DropDownList runat="server" CssClass="label" ID="ddlJenisPenempatan">
+                            <asp:ListItem Value="Rumah Sewa">Rumah Sewa</asp:ListItem>
+                            <asp:ListItem Value="Wisma">Wisma (Keluarga Di Kampung)</asp:ListItem>
+                            <asp:ListItem Value="Seberang">Bertugas Di Seberang (Keluarga Berada Di Rumah Sewa Di Malaysia Barat)</asp:ListItem>
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mula Menetap Dari</td>
+                    <td>:</td>
+                    <td>
+                        <asp:DropDownList CssClass="label" ID="ddlTarikhTinggalHariMula" runat="server"></asp:DropDownList>
+                        / 
+                        <asp:DropDownList CssClass="label" ID="ddlTarikhTinggalBulanMula" runat="server"></asp:DropDownList>
+                        / 
+                        <asp:DropDownList CssClass="label" ID="ddlTarikhTinggalTahunMula" runat="server"></asp:DropDownList>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
 </table>
@@ -222,11 +256,11 @@
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td colspan="3">
             <asp:CheckBox Text="Tanda ini untuk yang bertukar pangkalan" runat="server" ID="cbBertukarPangkalan" AutoPostBack="true"/>
             <table runat="server" id="tblBertukar" visible="false">
                 <tr>
-                    <td>Dari Pasukan</td>
+                    <td style="width: 100px;">Dari Pasukan</td>
                     <td>:</td>
                     <td>
                         <asp:DropDownList CssClass="label" runat="server" ID="ddlPasukanLama"></asp:DropDownList>
@@ -251,9 +285,11 @@
     </tr>
     <tr>
         <td colspan="4">
-            <asp:CheckBox CssClass="label" runat="server" ID="cbPerakuanPemohon"/>
-            <p class="label">Saya dengan ini memohon sebuah Rumah Keluarga mengikut <u><a href="#" target="_blank">Peraturan dan Undang-Undang PAT Jil III(3)</a></u> dan mengaku iaitu butiran-butiran yang dinyatakan seperti berikut adalah benar.</p>
-            <asp:Label runat="server" ID="lblCheckBoxAlert" Visible=false/>
+            <p><b>Dengan mengklik butang Hantar, anda telah bersetuju bahawa: </b></p>
+            <ol>
+                <li>Akan patuh kepada <a href="#" target="_blank"><u>Peraturan dan Undang-Undang PAT Jil III</u></a></li>
+                <li>Maklumat yang diberi adalah <b>BENAR</b></li>
+            </ol>
         </td>
     </tr>
 </table>

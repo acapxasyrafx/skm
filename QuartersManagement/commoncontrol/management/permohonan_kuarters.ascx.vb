@@ -72,18 +72,18 @@ Public Class permohonan_kuarters
                 If reader.HasRows Then
                     If reader.Read() Then
                         pengguna_id.Value = reader("pengguna_id")
-                        lblNama.InnerText = reader("pengguna_nama")
-                        lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
-                        lblJantina.InnerText = reader("pengguna_jantina")
-                        lblPangkat.InnerText = reader("pangkat_nama")
-                        lblNoTentera.InnerText = reader("pengguna_no_tentera")
-                        lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
+                        lblNama.Text = reader("pengguna_nama")
+                        lblTarikhLahir.Text = reader("pengguna_tarikh_lahir")
+                        lblJantina.Text = reader("pengguna_jantina")
+                        lblPangkat.Text = reader("pangkat_nama")
+                        lblNoTentera.Text = reader("pengguna_no_tentera")
+                        lblTarikhMulaBerkhidmat.Text = reader("pengguna_mula_perkhidmatan")
                         pangkatMata = Integer.Parse(reader("pangkat_mata"))
                         '-------------------
                         If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
-                            lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
+                            lblTarikhAkhirBerkhidmat.Text = "Masih Berkhidmat"
                         Else
-                            lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
+                            lblTarikhAkhirBerkhidmat.Text = reader("pengguna_tamat_perkhidmatan")
                         End If
                         '-------------------
                     Else
@@ -260,31 +260,32 @@ Public Class permohonan_kuarters
     End Function
 
     Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
-        If cbPerakuanPemohon.Checked Then
-            Try
-                If Save() = True Then
-                    MsgTop.Attributes("class") = "successMsg"
-                    strlbl_top.Text = strSaveSuccessAlert
-                    MsgBottom.Attributes("class") = "successMsg"
-                    strlbl_bottom.Text = strSaveSuccessAlert
-                Else
-                    MsgTop.Attributes("class") = "errorMsg"
-                    strlbl_top.Text = strSaveFailAlert
-                    MsgBottom.Attributes("class") = "errorMsg"
-                    strlbl_bottom.Text = strSaveFailAlert
-                End If
-            Catch ex As Exception
+        'If cbPerakuanPemohon.Checked Then
+
+        'Else
+        '    lblCheckBoxAlert.Text = "Sila setuju dengan perkara berikut."
+        '    lblCheckBoxAlert.Attributes.CssStyle.Add("color", "red")
+        '    lblCheckBoxAlert.Visible = True
+        'End If
+        Try
+            If Save() = True Then
+                MsgTop.Attributes("class") = "successMsg"
+                strlbl_top.Text = strSaveSuccessAlert
+                MsgBottom.Attributes("class") = "successMsg"
+                strlbl_bottom.Text = strSaveSuccessAlert
+            Else
                 MsgTop.Attributes("class") = "errorMsg"
-                strlbl_top.Text = strSysErrorAlert
+                strlbl_top.Text = strSaveFailAlert
                 MsgBottom.Attributes("class") = "errorMsg"
-                strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-                Debug.WriteLine("ERROR: " & ex.Message)
-            End Try
-        Else
-            lblCheckBoxAlert.Text = "Sila setuju dengan perkara berikut."
-            lblCheckBoxAlert.Attributes.CssStyle.Add("color", "red")
-            lblCheckBoxAlert.Visible = True
-        End If
+                strlbl_bottom.Text = strSaveFailAlert
+            End If
+        Catch ex As Exception
+            MsgTop.Attributes("class") = "errorMsg"
+            strlbl_top.Text = strSysErrorAlert
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
+            Debug.WriteLine("ERROR: " & ex.Message)
+        End Try
     End Sub
 
     Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick

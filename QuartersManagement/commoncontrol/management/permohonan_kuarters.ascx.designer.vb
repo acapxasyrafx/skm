@@ -50,13 +50,31 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
+    '''lblNoTentera control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNoTentera As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblPangkat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblPangkat As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''lblNama control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblNama As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents lblNama As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''pengguna_id control.
@@ -74,7 +92,7 @@ Partial Public Class permohonan_kuarters
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblJantina As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents lblJantina As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblTarikhLahir control.
@@ -83,25 +101,7 @@ Partial Public Class permohonan_kuarters
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblTarikhLahir As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
-    '''<summary>
-    '''lblPangkat control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblPangkat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
-    '''<summary>
-    '''lblNoTentera control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblNoTentera As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents lblTarikhLahir As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblTarikhMulaBerkhidmat control.
@@ -110,7 +110,7 @@ Partial Public Class permohonan_kuarters
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblTarikhMulaBerkhidmat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents lblTarikhMulaBerkhidmat As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblTarikhAkhirBerkhidmat control.
@@ -119,7 +119,7 @@ Partial Public Class permohonan_kuarters
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblTarikhAkhirBerkhidmat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents lblTarikhAkhirBerkhidmat As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''tblMaklumatAnak control.
@@ -282,24 +282,6 @@ Partial Public Class permohonan_kuarters
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlTarikhTukarTahun As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''cbPerakuanPemohon control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cbPerakuanPemohon As Global.System.Web.UI.WebControls.CheckBox
-
-    '''<summary>
-    '''lblCheckBoxAlert control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblCheckBoxAlert As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''MsgBottom control.

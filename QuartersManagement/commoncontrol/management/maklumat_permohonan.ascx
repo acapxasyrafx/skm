@@ -117,61 +117,16 @@
                     Permohonan Baharu | <asp:Label runat="server" ID="lblTarikhBaharu" CssClass="progress-label"></asp:Label>
                 </li>
                 <li runat="server" id="permohonanMenunggu">
-                    Kelayakan Menunggu | <asp:Label runat="server" ID="lblTarikhMenuggu" Text="Dalam Process"></asp:Label>
+                    Kelayakan Menunggu | <asp:Label runat="server" ID="lblTarikhMenuggu" Text="Dalam Proses"></asp:Label>
                 </li>
                 <li runat="server" id="permohonanKeputusan">
-                    Keputusan Permohonan | <asp:Label runat="server" ID="lblTarikhKeputusan" Text="Dalam Process"></asp:Label>
+                    Keputusan Permohonan | <asp:Label runat="server" ID="lblTarikhKeputusan" Text="Dalam Proses"></asp:Label>
                 </li>
             </ul>
         </div>
         <div class="">
             <asp:MultiView ActiveViewIndex="0" runat="server" ID="mvStatusPermohonan">
                 <asp:View runat="server" ID="viewPemohonanDir">
-                    <table class="fbform" style="width: 100%;">
-                        <tr class="fbform_mheader">
-                            <td colspan="3">Maklumat Keluarga</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 100px;">Bilangan Anak</td>
-                            <td style="width: 5px;">:</td>
-                            <td>
-                                <asp:Label CssClass="label" runat="server" ID="lblBilAnak" Text="4"></asp:Label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Jenis Tempat Tinggal</td>
-                            <td>:</td>
-                            <td>
-                                <asp:Label Text="text" runat="server" ID="lblJenisTempatTinggal" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Tarikh Mula Menetap</td>
-                            <td>:</td>
-                            <td>
-                                <asp:Label Text="text" runat="server" ID="lblTarikhMulaMenetap" />
-                            </td>
-                        </tr>
-                    </table>
-                    <table class="fbform" style="width: 100%;">
-                        <tr class="fbform_mheader">
-                            <td colspan="3">Maklumat Kuarters Dimohon</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 100px;">Nama Kuarters</td>
-                            <td style="width: 5px;">:</td>
-                            <td>
-                                <asp:Label runat="server" ID="lblKuarterDipohon" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="width: 100px;">Tarikh Permohonan</td>
-                            <td style="width: 5px;">:</td>
-                            <td>
-                                <asp:Label runat="server" ID="lblTarikhPermohonan" />
-                            </td>
-                        </tr>
-                    </table>
                     <div class="">
                         <table class="fbform">
                             <tr class="fbform_mheader">
@@ -229,6 +184,44 @@
                             </tr>
                         </table>
                     </div>
+                    <table class="fbform" style="width: 100%;">
+                        <tr class="fbform_mheader">
+                            <td colspan="3">Maklumat Keluarga</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 150px;">Jenis Tempat Tinggal</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:Label Text="text" runat="server" ID="lblJenisTempatTinggal" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tarikh Mula Menetap</td>
+                            <td>:</td>
+                            <td>
+                                <asp:Label Text="text" runat="server" ID="lblTarikhMulaMenetap" />
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="fbform" style="width: 100%;">
+                        <tr class="fbform_mheader">
+                            <td colspan="3">Maklumat Kuarters Dimohon</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 150px;">Nama Kuarters</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:Label runat="server" ID="lblKuarterDipohon" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 150px;">Tarikh Permohonan</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:Label runat="server" ID="lblTarikhPermohonan" />
+                            </td>
+                        </tr>
+                    </table>
                 </asp:View>
                 <asp:View runat="server" ID="viewCadanganKuarters">
                     <table class="fbform" style="width: 100%">
@@ -254,7 +247,10 @@
                         </tr>
                         <tr>
                             <td colspan="3">
-                                <h4>Kuarters yang dipohon pada waktu ini tiada sebarang <p style="color: red;">KEKOSONGAN</p>. Sila pilih dari senarai kuarters yang dicadangkan dibawah jika Tuan/Puan masih berniat untuk meneruskan permohonan Tuan/Puan: </h4>
+                                <div style="display:inline-flex;">
+                                    <p>Kuarters yang dipohon pada waktu ini tiada sebarang <p style="color: red; margin:0;padding:0;">KEKOSONGAN</p>.</p><br />
+                                </div>
+                                <p>Sila pilih dari senarai kuarters yang dicadangkan dibawah jika Tuan/Puan masih berniat untuk meneruskan permohonan Tuan/Puan: </p>
                             </td>
                         </tr>
                         <tr>
