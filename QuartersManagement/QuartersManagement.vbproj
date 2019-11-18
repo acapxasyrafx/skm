@@ -130,6 +130,7 @@
     <Content Include="commoncontrol\penempatan_kuarters\status_tawaran.ascx" />
     <Content Include="commoncontrol\penjawat_senarai.ascx" />
     <Content Include="commoncontrol\permohonan\maklumat_pemohon.ascx" />
+    <Content Include="commoncontrol\permohonan\maklumat_pemohon_ditolak.ascx" />
     <Content Include="commoncontrol\permohonan\maklumat_pemohon_menunggu.ascx" />
     <Content Include="commoncontrol\permohonan\permohonan_baru.ascx" />
     <Content Include="commoncontrol\permohonan\permohonan_menunggu.ascx" />
@@ -161,6 +162,7 @@
     <Content Include="icons\reject-text-paper.png" />
     <Content Include="icons\save.png" />
     <Content Include="icons\select.png" />
+    <Content Include="icons\send.png" />
     <Content Include="icons\verified-text-paper.png" />
     <Content Include="img\backlog.jpg" />
     <Content Include="img\tudmlogo.png" />
@@ -185,6 +187,7 @@
     <Content Include="Senarai.Pangkalan.aspx" />
     <Content Include="Senarai.Penempatan.Pemohon.aspx" />
     <Content Include="Maklumat.Pemohon.Menunggu.aspx" />
+    <Content Include="Senarai.Permohonan.Ditolak.aspx" />
     <Content Include="Senarai.Permohonan.Pengguna.aspx" />
     <None Include="Scripts\jquery-3.4.1-vsdoc.js" />
     <Content Include="Rekod.Penyelenggaraan.aspx" />
@@ -557,6 +560,13 @@
       <DependentUpon>maklumat_pemohon.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\permohonan\maklumat_pemohon_ditolak.ascx.designer.vb">
+      <DependentUpon>maklumat_pemohon_ditolak.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\permohonan\maklumat_pemohon_ditolak.ascx.vb">
+      <DependentUpon>maklumat_pemohon_ditolak.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\permohonan\maklumat_pemohon_menunggu.ascx.designer.vb">
       <DependentUpon>maklumat_pemohon_menunggu.ascx</DependentUpon>
     </Compile>
@@ -799,6 +809,13 @@
     <Compile Include="Senarai.Permohonan.Baru.aspx.vb">
       <DependentUpon>Senarai.Permohonan.Baru.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Ditolak.aspx.designer.vb">
+      <DependentUpon>Senarai.Permohonan.Ditolak.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Senarai.Permohonan.Ditolak.aspx.vb">
+      <DependentUpon>Senarai.Permohonan.Ditolak.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Senarai.Permohonan.Menunggu.aspx.designer.vb">
       <DependentUpon>Senarai.Permohonan.Menunggu.aspx</DependentUpon>

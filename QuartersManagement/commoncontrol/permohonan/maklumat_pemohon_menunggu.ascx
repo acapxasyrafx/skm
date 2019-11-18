@@ -6,6 +6,7 @@
         margin:0;
         padding:5px;
         font-size: 100%;
+        font-weight:normal;
     }
     .left {
         display:flex;
@@ -260,7 +261,10 @@
             <asp:DropDownList ID="ddlcadanganUnit3" runat="server"></asp:DropDownList>
         </td>
     </tr>
-    <tr><td colspan="3" class="auto-style1"> <asp:Button runat ="server" ID ="btn_submitUnit" Text ="Hantar Unit Cadangan" /> </td></tr>
+    <tr><td colspan="3" class="auto-style1"> 
+        <asp:Button runat ="server" ID ="btn_submitUnit" Text ="" OnClientClick="javascript:return confirm('Adakah anda pasti mahu menghantar cadangan kuarters ini? ')" ImageUrl="~/icons/send.png" ToolTip="Diterima" Height="39px"/> 
+
+        </td></tr>
 
 </table>
 
