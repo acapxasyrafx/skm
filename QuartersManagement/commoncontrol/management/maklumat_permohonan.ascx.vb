@@ -70,7 +70,6 @@ Public Class maklumat_permohonan
 	                , D.kuarters_nama
 	                , E.historyKeluarga_tempat_tinggal
 	                , E.historyKeluarga_tarikh_mula
-	                , E.historyKeluarga_tempat_tinggal
                 FROM 
 	                spk_permohonan A
 	                JOIN spk_pengguna B ON B.pengguna_id = A.pengguna_id

@@ -18,7 +18,7 @@
         border-radius: 5px;
         background-color: grey;
         color:white;
-        border: solid 1px white;;
+        border: solid 1px white;
         height: 2.5em;
     }
     .btn:hover{
