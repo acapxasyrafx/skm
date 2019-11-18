@@ -19,19 +19,14 @@
         <td colspan="6">BAHAGIAN I : MAKLUMAT DEMOGRAFI</td>
     </tr>
     <tr>
-        <td>Pangkalan</td>
-        <td>:</td>
-        <td colspan="4"><asp:DropDownList ID="ddlCawangan" runat="server"></asp:DropDownList></td>
-    </tr>
-    <tr>
         <td>No.Tentera</td>
         <td>:</td>
         <td><asp:TextBox ID="txtNoPekerja" runat="server" Width="200px"></asp:TextBox></td>
     </tr>
     <tr>
-        <td>Prefix</td>
+        <td>Pangkat</td>
         <td>:</td>
-        <td colspan="4"><asp:TextBox ID="txtPrefix" runat="server" Width="150px"></asp:TextBox></td>
+        <td colspan="4"><asp:DropDownList ID="ddlJawatan" runat="server"></asp:DropDownList></td>
     </tr>
     <tr>
         <td>Nama </td>
@@ -39,15 +34,15 @@
         <td colspan="4"><asp:TextBox ID="txtNamaPertama" runat="server" Width="250px"></asp:TextBox>
     </tr>
     <tr>
-        <td>Suffix</td>
+        <td>Pangkalan</td>
         <td>:</td>
-        <td colspan="4"><asp:TextBox ID="txtSuffix" runat="server" Width="150px"></asp:TextBox></td>
+        <td colspan="4"><asp:DropDownList ID="ddlCawangan" runat="server"></asp:DropDownList></td>
     </tr>
-    <tr>
+    <%--<tr>
         <td>Mykad</td>
         <td>:</td>
         <td colspan="4"><asp:TextBox ID="txtNoKP" runat="server" Width="250px"></asp:TextBox></td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>Jantina</td>
         <td>:</td>
@@ -62,7 +57,7 @@
         <td>Tarikh Lahir</td>
         <td>:</td>
         <td><asp:TextBox runat="server" ID="txt_MyDate" MaxLength="10"/>
-        <td>Warganegara</td>
+        <%--<td>Warganegara</td>
         <td>:</td>
         <td>
             <asp:DropDownList ID="ddlKewarganegaraan" runat="server" AutoPostBack="true">
@@ -71,7 +66,7 @@
                 <asp:ListItem Value="BUKAN WARGANEGARA">BUKAN WARGANEGARA</asp:ListItem>
                 <asp:ListItem Value="PENDUDUK TETAP">PENDUDUK TETAP</asp:ListItem>
             </asp:DropDownList></td>
-    </tr>
+    </tr>--%>
     <tr>
         <td>Emel</td>
         <td>:</td>
@@ -79,14 +74,6 @@
         <td>No.Telefon</td>
         <td>:</td>
         <td><asp:TextBox ID="txtTelefon" runat="server" Width="200px"></asp:TextBox></td>
-    </tr>
-    <tr>
-        <td>NO.KWSP</td>
-        <td>:</td>
-        <td><asp:TextBox ID="txtNoKWSP" runat="server" Width="200px"></asp:TextBox></td>
-        <td>NO.PERKESO</td>
-        <td>:</td>
-        <td><asp:TextBox ID="txtNoPERKESO" runat="server" Width="200px"></asp:TextBox></td>
     </tr>
     <tr class="fbform_mheader">
         <td colspan="6">BAHAGIAN II : ALAMAT SURAT MENYURAT</td>
@@ -115,28 +102,4 @@
         <td>:</td>
         <td><asp:TextBox ID="txtPoskodDaftar" runat="server" Width="200px"></asp:TextBox></td>
     </tr>
-    <tr>
-        <td>Negara</td>
-        <td>:</td>
-        <td colspan="4"><asp:DropDownList ID="ddlNegaraDaftar" runat="server"></asp:DropDownList></td>
-    </tr>
-    <tr class="fbform_mheader">
-        <td colspan="6">BAHAGIAN III : MAKLUMAT PERKHIDMATAN</td>
-    </tr>
-    <tr>
-        <td>Jawatan</td>
-        <td>:</td>
-        <td colspan="4"><asp:DropDownList ID="ddlJawatan" runat="server"></asp:DropDownList></td>
-    </tr>
-    <tr>
-        <td>Jabatan</td>
-        <td>:</td>
-        <td colspan="4"><asp:DropDownList ID="ddlJabatan" runat="server"></asp:DropDownList></td>
-    </tr>
-    <tr>
-        <td>Status</td>
-        <td>:</td>
-        <td colspan="4"><asp:DropDownList ID="ddlStatus" runat="server"></asp:DropDownList></td>
-    </tr>
-
 </table>

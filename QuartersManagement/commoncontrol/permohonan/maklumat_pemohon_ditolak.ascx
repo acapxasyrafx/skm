@@ -1,46 +1,23 @@
-﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="maklumat_pemohon.ascx.vb" Inherits="QuartersManagement.maklumat_pemohon" %>
-
+﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="maklumat_pemohon_ditolak.ascx.vb" Inherits="QuartersManagement.maklumat_pemohon_ditolak" %>
 <style>
-    .h5{
-         font-weight:normal; 
-    }
     .label{
         display: inline-block;
         margin:0;
         padding:5px;
-        font-size: 100%;        
+        font-size: 100%;
         font-weight:normal;
     }
     .left {
         display:flex;
         flex: initial;
     }
+    .auto-style1 {
+        height: 30px;
+    }
     .auto-style2 {
-        width: 14px;
-    }
-    .auto-style3 {
-        width: 320px;
-    }
-    .auto-style4 {
-        width: 635px;
-    }
-    .auto-style5 {
-        width: 133px;
+        width: 18px;
     }
 </style>
-
- <script>
-        function GetUserValue() {
-            var person = prompt("Please enter your name", "wmec");
-            if (person != null && person != "") {
-                document.getElementById("<%=hdnUserInput.ClientID%>").value = person;
-                return true;
-            }
-            else
-                return false;
-        }
-    </script>
-
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
         <td><span id="MsgTop" runat="server">
@@ -59,19 +36,18 @@
     <tr class="fbform_mheader">
         <td colspan="3">Butiran Peribadi</td>
     </tr>
-    
-    <tr>
-        <td>Pangkat</td>
-        <td>:</td>
-        <td>
-            <h5 class="label" style="font-weight:normal ;" runat="server" id="lblJawatan" ></h5>
-        </td>
-    </tr>
     <tr>
         <td>No. Tentera</td>
         <td>:</td>
         <td>
-            <h5 class="label" style="font-weight:normal ;" runat="server" id="lblNoTentera"></h5>
+            <h5 class="label" runat="server" id="lblNoTentera"></h5>
+        </td>
+    </tr>
+    <tr>
+        <td>Jawatan</td>
+        <td>:</td>
+        <td>
+            <h5 class="label" runat="server" id="lblJawatan"></h5>
         </td>
     </tr>
     <tr>
@@ -86,33 +62,33 @@
         <td>Jantina</td>
         <td>:</td>
         <td>
-            <h5 class="label" style="font-weight:normal ;" runat="server" id="lblJantina"></h5>
+            <h5 class="label" runat="server" id="lblJantina"></h5>
         </td>
     </tr>
     <tr>
         <td>Tarikh Lahir</td>
         <td>:</td>
         <td>
-            <h5 class="label" style="font-weight:normal ;" runat="server" id="lblTarikhLahir"></h5>
+            <h5 class="label" runat="server" id="lblTarikhLahir"></h5>
         </td>
     </tr>
     <tr>
         <td>Tarikh Mula Berkhidmat</td>
         <td>:</td>
         <td>
-            <h5 class="label" style="font-weight:normal ;" runat="server" id="lblTarikhMulaBerkhidmat">01/01/2010</h5>
+            <h5 class="label" runat="server" id="lblTarikhMulaBerkhidmat">01/01/2010</h5>
         </td>
     </tr>
     <tr>
         <td>Tarikh Tamat Perkhidmatan</td>
         <td>:</td>
         <td>
-            <h5 class="label" style="font-weight:normal ;" runat="server" id="lblTarikhAkhirBerkhidmat"></h5>
+            <h5 class="label" runat="server" id="lblTarikhAkhirBerkhidmat"></h5>
         </td>
     </tr>
 </table>
 
-<table class="fbform">
+<table class="fbform" style="width:100%;">
     <tr class="fbform_mheader">
         <td colspan="3">Butiran Keluarga</td>
     </tr>
@@ -192,31 +168,32 @@
         <td>Jenis Tempat Tinggal Akhir</td>
         <td>:</td>
         <td>
-            <asp:Label runat="server" CssClass="label" ID="lblJenisPenempatan"></asp:Label>
+            <h5 class="label" runat="server" id="lblJenisPenempatan"></h5>
         </td>
     </tr>
     <tr>
         <td>Mula Menetap Dari</td>
         <td>:</td>
         <td>
-            <asp:Label runat ="server" ID ="lbltarikhPenempatan" cssclass="label"> </asp:Label>
+            <h5 class="label" runat="server" id="lbltarikhPenempatan"></h5>
         </td>
     </tr>
 </table>
 
-<table class="fbform">
+<table class="fbform" style="width:100%;">
     <tr class="fbform_mheader">
         <td colspan="4">Butiran Permohonan</td>
     </tr>
     <tr>
         <td style="width:100px;">Pangkalan</td>
-        <td>:</td>
+        <td class="auto-style2">:</td>
         <td colspan="2">
             <h5 class="label" runat="server" id="lbl_senaraiPangkalan"></h5>
+        </td>
     </tr>
     <tr>
         <td style="width:100px;">Kuarters/Rumah</td>
-        <td>:</td>
+        <td class="auto-style2">:</td>
         <td colspan="2">
             <h5 class="label" runat="server" id="lbl_senaraiKuarters"></h5>
         </td>
@@ -229,7 +206,7 @@
                     <td>Dari Pasukan</td>
                     <td>:</td>
                     <td>
-                        <h5 class="label" style="font-weight:normal ;" runat="server" id="lbl_pasukanLama"></h5>
+                        <h5 class="label" runat="server" id="lbl_pasukanLama"></h5>
                     </td>
                 </tr>
                 <tr>
@@ -237,38 +214,30 @@
                     <td>:</td>
                     <td>
                         <h5 class="label" runat="server" id="lbl_pasukanBaru"></h5>
-                        <asp:Label CssClass="label" runat="server" ID="lblPasukanBaru"></asp:Label></td>
+
+                    </td>
                 </tr>
                 <tr>
                     <td>Tarikh Bertukar</td>
                     <td>:</td>
-                    <td>                        
-                        <h5 class="label" runat="server" id="H1"></h5>
-                        <asp:Label runat ="server" CssClass ="label" ID="lbltarikhBertukar"></asp:Label>
+                    <td>
+                        <h5 class="label" runat="server" id="lbl_tarikhBertukar"></h5>
                     </td>
                 </tr>
             </table>
         </td>
     </tr>
-    
-</table>
-<table class="fbform" style="width:100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td colspan="3"></td>
+    </tr>
     <tr class="fbform_mheader">
-        <td class="auto-style5">
-            Total Poin Terkumpul
-        </td>
-        <td class="auto-style2">:</td>
-        <td class="auto-style3">
-            <h5 class="label" runat="server" id="lbl_poinDisplay" text=""></h5>
-        </td>
-        <td class="auto-style4" style ="text-align :right">
-            <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName ="Approved" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/checkmark_approve.png" ToolTip="Diterima" Height="39px"/>
-            &nbsp&nbsp&nbsp&nbsp&nbsp
-            <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="39px" CommandName ="Rejected" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return GetUserValue() && confirm('Adakah anda pasti mahu menolak permohonan ini? ')" ImageUrl="~/icons/checkmark_declined.png" ToolTip="Ditolak" />
-            <asp:HiddenField runat="server" ID="hdnUserInput" />
+        <td colspan="3">Sebab Ditolak Permohonan</td>
+    </tr>
+    <tr>
+        <td class="auto-style38">
+            <asp:Label runat ="server" ID="lblsebabTolak" Text =""></asp:Label>
         </td>
     </tr>
-
 </table>
 
 
@@ -278,10 +247,9 @@
         <td colspan="3"></td>
     </tr>
 </table>
-<table class="fbform">
+<table class ="fbform">
     <tr>
-        <td><span id="MsgBottom" runat="server">
-            <asp:Label ID="strlbl_bottom" runat="server"></asp:Label></span></td>
+        <td><span id ="MsgBottom" runat ="server" ><asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label></span></td>
     </tr>
 
 </table>

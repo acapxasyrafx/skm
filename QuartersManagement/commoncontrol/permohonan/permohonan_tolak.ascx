@@ -58,8 +58,9 @@
         <td class="auto-style4">:</td>
         <td colspan="2">
             <asp:DropDownList runat ="server" id="ddlfilterMarkah" AutoPostBack ="true" >
-                <asp:ListItem Value ="1" Text ="Tertinggi"></asp:ListItem>
-                <asp:ListItem Value="2" Text ="Terendah"></asp:ListItem>
+                <asp:ListItem Value="1" Text ="-- SILA PILIH -- "></asp:ListItem>
+                <asp:ListItem Value ="2" Text ="Tertinggi"></asp:ListItem>
+                <asp:ListItem Value="3" Text ="Terendah"></asp:ListItem>
             </asp:DropDownList>
         </td>
     </tr>
@@ -69,7 +70,7 @@
     </tr>
     <tr>
         <td class="auto-style3">
-            <asp:Label runat="server" ID="lbl_nama">Nama</asp:Label>
+            <asp:Label runat="server" ID="lbl_nama">Nama / No. Tentera</asp:Label>
         </td>
         <td class="auto-style4">:
         </td>
@@ -131,19 +132,13 @@
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
-                    <asp:TemplateField HeaderText="Kuarters Dipohon" >
+                    <asp:TemplateField HeaderText="Sebab Ditolak" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_kuartersDipohon" runat="server" Text='<%# Bind("unit")%>'> </asp:Label>
-                        </ItemTemplate>
-                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Markah" >
-                        <ItemTemplate>
-                            <asp:Label ID="lbl_markahPoin" runat="server" Text='<%# Bind("total_poin")%>'> </asp:Label>
+                            <asp:Label ID="lbl_markahPoin" runat="server" Text='<%# Bind("nota")%>'> </asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
-                    <asp:TemplateField HeaderText="Fungsi">
+                    <asp:TemplateField HeaderText="Tindakan">
                         <ItemTemplate>
                             <span runat="server" style="float: right">
                                  <asp:ImageButton Width="12" Height="12" ID="btnView" CommandName ="ViewApllicant" CommandArgument ='<%#Eval("permohonan_id")%>' runat="server" ImageUrl="~/icons/form_process.png" ToolTip="Lihat Profil" />

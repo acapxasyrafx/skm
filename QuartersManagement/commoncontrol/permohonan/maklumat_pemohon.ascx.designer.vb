@@ -41,6 +41,24 @@ Partial Public Class maklumat_pemohon
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
+    '''lblJawatan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblJawatan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''lblNoTentera control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNoTentera As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''lblNama control.
     '''</summary>
     '''<remarks>
@@ -75,24 +93,6 @@ Partial Public Class maklumat_pemohon
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTarikhLahir As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''lblJawatan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblJawatan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''lblNoTentera control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblNoTentera As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''lblTarikhMulaBerkhidmat control.
@@ -246,6 +246,15 @@ Partial Public Class maklumat_pemohon
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnImg_ditolak As Global.System.Web.UI.WebControls.ImageButton
+    
+    '''<summary>
+    '''hdnUserInput control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hdnUserInput As Global.System.Web.UI.WebControls.HiddenField
     
     '''<summary>
     '''MsgBottom control.

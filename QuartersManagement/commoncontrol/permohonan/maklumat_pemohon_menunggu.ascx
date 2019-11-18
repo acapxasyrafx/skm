@@ -6,6 +6,7 @@
         margin:0;
         padding:5px;
         font-size: 100%;
+        font-weight:normal;
     }
     .left {
         display:flex;
@@ -37,6 +38,20 @@
         <td colspan="3">Butiran Peribadi</td>
     </tr>
     <tr>
+        <td>No. Tentera</td>
+        <td>:</td>
+        <td>
+            <h5 class="label" runat="server" id="lblNoTentera"></h5>
+        </td>
+    </tr>
+    <tr>
+        <td>Jawatan</td>
+        <td>:</td>
+        <td>
+            <h5 class="label" runat="server" id="lblJawatan"></h5>
+        </td>
+    </tr>
+    <tr>
         <td style="width:100px;">Nama</td>
         <td style="width:5px;">:</td>
         <td>
@@ -59,24 +74,17 @@
         </td>
     </tr>
     <tr>
-        <td>Jawatan</td>
-        <td>:</td>
-        <td>
-            <h5 class="label" runat="server" id="lblJawatan"></h5>
-        </td>
-    </tr>
-    <tr>
-        <td>No. Tentera</td>
-        <td>:</td>
-        <td>
-            <h5 class="label" runat="server" id="lblNoTentera"></h5>
-        </td>
-    </tr>
-    <tr>
-        <td>Tarikh Berkhidmat</td>
+        <td>Tarikh Mula Berkhidmat</td>
         <td>:</td>
         <td>
             <h5 class="label" runat="server" id="lblTarikhMulaBerkhidmat">01/01/2010</h5>
+        </td>
+    </tr>
+    <tr>
+        <td>Tarikh Tamat Perkhidmatan</td>
+        <td>:</td>
+        <td>
+            <h5 class="label" runat="server" id="lblTarikhAkhirBerkhidmat"></h5>
         </td>
     </tr>
 </table>
@@ -253,7 +261,10 @@
             <asp:DropDownList ID="ddlcadanganUnit3" runat="server"></asp:DropDownList>
         </td>
     </tr>
-    <tr><td colspan="3" class="auto-style1"> <asp:Button runat ="server" ID ="btn_submitUnit" Text ="Hantar Unit Cadangan" /> </td></tr>
+    <tr><td colspan="3" class="auto-style1"> 
+        <asp:Button runat ="server" ID ="btn_submitUnit" Text ="" OnClientClick="javascript:return confirm('Adakah anda pasti mahu menghantar cadangan kuarters ini? ')" ImageUrl="~/icons/send.png" ToolTip="Diterima" Height="39px"/> 
+
+        </td></tr>
 
 </table>
 

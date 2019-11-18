@@ -45,7 +45,6 @@ Public Class permohonan_tolak
                     loadPangkalan()
                     loadKuarters()
                     loadJawatan()
-                    loadMarkah()
 
                 End If
 
@@ -73,12 +72,12 @@ Public Class permohonan_tolak
                 conn.Open()
                 Dim da As New SqlDataAdapter(cmd)
                 da.Fill(ds)
+                ddlfilterPangkalan.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                ddlfilterPangkalan.SelectedIndex = 0
                 ddlfilterPangkalan.DataSource = ds
                 ddlfilterPangkalan.DataTextField = "pangkalan_nama"
                 ddlfilterPangkalan.DataValueField = "pangkalan_id"
                 ddlfilterPangkalan.DataBind()
-                ddlfilterPangkalan.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
-                ddlfilterPangkalan.SelectedIndex = 0
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
             Finally
@@ -100,7 +99,7 @@ Public Class permohonan_tolak
                 ddlfilterKuarters.DataTextField = "kuarters_nama"
                 ddlfilterKuarters.DataValueField = "kuarters_id"
                 ddlfilterKuarters.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadKuarters): " & ex.Message)
@@ -123,7 +122,7 @@ Public Class permohonan_tolak
                 ddlfilterPangkat.DataTextField = "pangkat_nama"
                 ddlfilterPangkat.DataValueField = "pangkat_id"
                 ddlfilterPangkat.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadJawatan): " & ex.Message)
@@ -131,17 +130,6 @@ Public Class permohonan_tolak
                 conn.Close()
             End Try
         End Using
-    End Sub
-
-    Protected Sub loadMarkah()
-        Try
-            ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
-            ddlfilterKuarters.Items.Insert(1, New ListItem("TERTINGGI", String.Empty))
-            ddlfilterKuarters.Items.Insert(2, New ListItem("TERENDAH", String.Empty))
-            ddlfilterKuarters.SelectedIndex = 0
-        Catch ex As Exception
-            Debug.Write("ERROR(loadJawatan): " & ex.Message)
-        End Try
     End Sub
 
     '-- BIND DATA --'
@@ -153,8 +141,8 @@ Public Class permohonan_tolak
 
 
         tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
-                    ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
-                    , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin
+                    ,D.pangkat_singkatan as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,substring (B.pemohonan_tarikh,1,10) as tarikhMohon,B.permohonan_status as status
+                    , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin, B.permohonan_nota as nota
                     FROM spk_permohonan as B
                     left join spk_pengguna A on B.pengguna_id = A.pengguna_id
 					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
@@ -162,7 +150,7 @@ Public Class permohonan_tolak
                     left join spk_kuarters E on B.kuarters_id = E.kuarters_id
                     left join spk_unit F on B.unit_id = F.unit_id
 					"
-        strWhere += " WHERE B.permohonan_status = 'PERMOHONAN ANDA DITOLAK'"
+        strWhere += " WHERE B.permohonan_status = 'PERMOHONAN ANDA DITOLAK' or B.permohonan_status = 'PERMOHONAN DITOLAK'"
 
         Try
             If Not ddlfilterKuarters.SelectedValue = "" Then
@@ -175,11 +163,11 @@ Public Class permohonan_tolak
                 strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
             End If
 
-            If ddlfilterMarkah.SelectedIndex = 1 Then
+            If ddlfilterMarkah.SelectedIndex = 2 Then
                 strOrder = " ORDER BY B.permohonan_mata ASC "
-            ElseIf ddlfilterMarkah.SelectedIndex = 2 Then
+            ElseIf ddlfilterMarkah.SelectedIndex = 3 Then
                 strOrder = " ORDER BY B.permohonan_mata DESC "
-            ElseIf ddlfilterMarkah.SelectedIndex = 0 Then
+            ElseIf ddlfilterMarkah.SelectedIndex = 1 Then
                 strOrder = ""
             End If
 
@@ -188,7 +176,7 @@ Public Class permohonan_tolak
         End Try
 
         If Not txt_nama.Text = "" Then
-            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "')"
+            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "' or A.pengguna_no_tentera = '" & txt_nama.Text & "' or A.pengguna_no_tentera LIKE '%" & txt_nama.Text & "%')"
         End If
 
         getSQL = tmpSQL & strWhere & strOrder
@@ -272,7 +260,7 @@ Public Class permohonan_tolak
             If (e.CommandName = "ViewApllicant") Then
                 Dim strCID = e.CommandArgument.ToString
 
-                Response.Redirect("Senarai.Pemohon.Maklumat.Pemohon.aspx?uid=" + strCID)
+                Response.Redirect("Senarai.Permohonan.Ditolak.aspx?uid=" + strCID)
             ElseIf (e.CommandName = "Process") Then
                 Dim strCID = e.CommandArgument.ToString
 

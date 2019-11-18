@@ -46,7 +46,7 @@ Public Class permohonan_menunggu
                     loadJawatan()
                     loadKuarters()
                     loadPangkalan()
-                    loadMarkah()
+
 
                 End If
 
@@ -77,7 +77,7 @@ Public Class permohonan_menunggu
                 ddlfilterPangkalan.DataTextField = "pangkalan_nama"
                 ddlfilterPangkalan.DataValueField = "pangkalan_id"
                 ddlfilterPangkalan.DataBind()
-                ddlfilterPangkalan.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
+                ddlfilterPangkalan.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlfilterPangkalan.SelectedIndex = 0
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
@@ -100,7 +100,7 @@ Public Class permohonan_menunggu
                 ddlfilterKuarters.DataTextField = "kuarters_nama"
                 ddlfilterKuarters.DataValueField = "kuarters_id"
                 ddlfilterKuarters.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadKuarters): " & ex.Message)
@@ -123,7 +123,7 @@ Public Class permohonan_menunggu
                 ddlfilterPangkat.DataTextField = "pangkat_nama"
                 ddlfilterPangkat.DataValueField = "pangkat_id"
                 ddlfilterPangkat.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadJawatan): " & ex.Message)
@@ -133,16 +133,6 @@ Public Class permohonan_menunggu
         End Using
     End Sub
 
-    Protected Sub loadMarkah()
-        Try
-            ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
-            ddlfilterKuarters.Items.Insert(1, New ListItem("TERTINGGI", String.Empty))
-            ddlfilterKuarters.Items.Insert(2, New ListItem("TERENDAH", String.Empty))
-            ddlfilterKuarters.SelectedIndex = 0
-        Catch ex As Exception
-            Debug.Write("ERROR(loadJawatan): " & ex.Message)
-        End Try
-    End Sub
 
     '-- BIND DATA --'
     Private Function getSQL() As String
@@ -154,8 +144,8 @@ Public Class permohonan_menunggu
 
 
         tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan
-                    ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,B.pemohonan_tarikh as tarikhMohon,B.permohonan_status as status
-                    , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin
+                    ,D.pangkat_singkatan as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,substring (B.pemohonan_tarikh,1,10) as tarikhMohon,B.permohonan_status as status
+                    , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin 
                     FROM spk_permohonan as B
                     left join spk_pengguna A on B.pengguna_id = A.pengguna_id
 					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
@@ -176,11 +166,11 @@ Public Class permohonan_menunggu
                 strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
             End If
 
-            If ddlfilterMarkah.SelectedIndex = 1 Then
+            If ddlfilterMarkah.SelectedIndex = 2 Then
                 strOrder = " ORDER BY B.permohonan_mata ASC "
-            ElseIf ddlfilterMarkah.SelectedIndex = 2 Then
+            ElseIf ddlfilterMarkah.SelectedIndex = 3 Then
                 strOrder = " ORDER BY B.permohonan_mata DESC "
-            ElseIf ddlfilterMarkah.SelectedIndex = 0 Then
+            ElseIf ddlfilterMarkah.SelectedIndex = 1 Then
                 strOrder = ""
             End If
 
@@ -189,7 +179,7 @@ Public Class permohonan_menunggu
         End Try
 
         If Not txt_nama.Text = "" Then
-            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "')"
+            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "' or A.pengguna_no_tentera = '" & txt_nama.Text & "' or A.pengguna_no_tentera LIKE '%" & txt_nama.Text & "%')"
         End If
 
         getSQL = tmpSQL & strWhere & strOrder
