@@ -164,12 +164,12 @@ Public Class maklumat_pemohon
     Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
         Try
 
-            If (e.CommandName = "Approve") Then
+            If (e.CommandName = "Approved") Then
                 Dim strCID = e.CommandArgument.ToString
 
                 strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN SEDANG DIPROSES' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
                 oCommon.ExecuteSQL(strSQL)
-            ElseIf (e.CommandName = "Reject") Then
+            ElseIf (e.CommandName = "Rejected") Then
                 Dim strCID = e.CommandArgument.ToString
 
                 'chk session to prevent postback

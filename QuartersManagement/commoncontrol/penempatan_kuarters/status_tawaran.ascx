@@ -37,3 +37,5 @@
             </td>
     </tr>
 </table>
+
+<asp:Label runat ="server">Disclaimer : Fungsi surat tawaran ini masih lagi dalam pembinaan tetapi fungsi ini akan membuat surat tawaran berserta unit yang dipilih oleh admin.</asp:Label>

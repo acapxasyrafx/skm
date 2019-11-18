@@ -164,7 +164,7 @@ Public Class proses_penempatan_kuarters1
                     left join spk_kuarters E on B.kuarters_id = E.kuarters_id
                     left join spk_unit F on B.unit_id = F.unit_id
 					"
-        strWhere += " WHERE B.permohonan_status = 'PERMOHONAN SEDANG DIPROSES'"
+        strWhere += " WHERE B.permohonan_status = 'PERMOHONAN DITERIMA' and B.kuarters_id is not null"
 
         Try
             If Not ddlfilterKuarters.SelectedValue = "" Then
@@ -177,13 +177,7 @@ Public Class proses_penempatan_kuarters1
                 strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
             End If
 
-            If ddlfilterMarkah.SelectedIndex = 1 Then
-                strOrder = " ORDER BY B.permohonan_mata ASC "
-            ElseIf ddlfilterMarkah.SelectedIndex = 2 Then
-                strOrder = " ORDER BY B.permohonan_mata DESC "
-            ElseIf ddlfilterMarkah.SelectedIndex = 0 Then
-                strOrder = ""
-            End If
+
 
         Catch ex As Exception
             MsgBottom.InnerText = ex.ToString
@@ -283,10 +277,6 @@ Public Class proses_penempatan_kuarters1
     End Sub
 
     Private Sub ddlfilterPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterPangkalan.SelectedIndexChanged
-        strRet = BindData(datRespondent)
-    End Sub
-
-    Private Sub ddlfilterMarkah_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterMarkah.SelectedIndexChanged
         strRet = BindData(datRespondent)
     End Sub
 

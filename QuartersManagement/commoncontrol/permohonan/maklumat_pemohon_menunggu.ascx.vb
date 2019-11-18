@@ -186,7 +186,7 @@ Public Class maklumat_pemohon_menunggu
                     strSQL = "INSERT INTO spk_cadanganUnit (permohonan_id,unit_id1,unit_id2,unit_id3) VALUES ('" & Getid & "','" & ddlcadanganUnit1.SelectedValue.ToString & "','" & ddlcadanganUnit2.SelectedValue.ToString & "','" & ddlcadanganUnit3.SelectedIndex.ToString & "')"
                     strRet = oCommon.ExecuteSQL(strSQL)
                     If strRet = "0" Then
-                        strlbl_bottom.Text = "Cadangan Unit Sudah Dimasukkan"
+                        strlbl_bottom.Text = "Cadangan Kuarters Sudah Dimasukkan"
 
                     End If
                 Catch ex As Exception
@@ -205,4 +205,13 @@ Public Class maklumat_pemohon_menunggu
         End Try
     End Sub
 
+    Private Sub TerimaPermohonanKuarters_Click(sender As Object, e As EventArgs) Handles TerimaPermohonanKuarters.Click
+        Dim Getid = oCommon.ExecuteSQL("select permohonan_id from spk_permohonan where pengguna_id = '" & Request.QueryString("uid") & "'")
+        strSQL = "UPDATE spk_permohonan SET permohonan_sub_status = 'PERMOHONAN KUARTERS DITERIMA, MENANTI PEMBERIAN UNIT' WHERE permohonan_id = '" & Getid & "' "
+        strRet = oCommon.ExecuteSQL(strSQL)
+        If strRet = "0" Then
+            strlbl_bottom.Text = "Cadangan Kuarters Sudah Dimasukkan"
+
+        End If
+    End Sub
 End Class
