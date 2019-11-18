@@ -68,15 +68,6 @@ Partial Public Class permohonan_baru
     Protected WithEvents ddlfilterKuarters As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''ddlfilterMarkah control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlfilterMarkah As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''lbl_nama control.
     '''</summary>
     '''<remarks>

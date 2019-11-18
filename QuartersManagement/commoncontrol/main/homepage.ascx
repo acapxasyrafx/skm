@@ -1,6 +1,9 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="homepage.ascx.vb" Inherits="QuartersManagement.homepage" %>
-<table class="fbform" runat ="server" border ="1">
-    <tr class ="fbform_header">
+    <span style=" align-items :center  ">
+    <h1><asp:Label runat="server" ID="lblWelcome" >Selamat Datang ADMIN</asp:Label></h1>
+       </span>
+
+    <%--<tr class ="fbform_header">
         <td>SENARAI SEMAK FUNGSI PROTOTAIP</td>
         <td style ="text-align :center ">STATUS FUNGSI</td>
     </tr>
@@ -31,6 +34,5 @@
     <tr>
         <td>7. Pelaporan</td>
         <td>&nbsp</td>
-    </tr>
+    </tr>--%>
     
-</table>

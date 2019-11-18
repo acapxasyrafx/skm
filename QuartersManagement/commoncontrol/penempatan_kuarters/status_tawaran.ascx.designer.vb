@@ -41,6 +41,24 @@ Partial Public Class status_tawaran
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
+    '''lbl_unit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl_unit As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''ddl_unit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddl_unit As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
     '''editorSurattawaran control.
     '''</summary>
     '''<remarks>

@@ -53,16 +53,7 @@
             <asp:DropDownList runat ="server" id="ddlfilterKuarters" AutoPostBack ="true"></asp:DropDownList>
         </td>
     </tr>
-    <tr>
-        <td class="auto-style3">Markah</td>
-        <td class="auto-style4">:</td>
-        <td colspan="2">
-            <asp:DropDownList runat ="server" id="ddlfilterMarkah" AutoPostBack ="true" >
-                <asp:ListItem Value ="1" Text ="Tertinggi"></asp:ListItem>
-                <asp:ListItem Value="2" Text ="Terendah"></asp:ListItem>
-            </asp:DropDownList>
-        </td>
-    </tr>
+   
     <tr><td colspan ="4"></td></tr>
     <tr class="fbform_mheader">
         <td colspan="4"><a>Carian</a> </td>

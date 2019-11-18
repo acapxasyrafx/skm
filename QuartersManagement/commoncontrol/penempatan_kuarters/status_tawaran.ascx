@@ -15,12 +15,27 @@
     </tr>
 </table>
 
-<form>
-    <div>
+<table>
+    <tr>
+        <td>
+            <asp:label runat ="server" ID="lbl_unit">
+            </asp:label>
+        </td>
+        <td>:</td>
+        <td>
+            <asp:DropDownList runat ="server" id="ddl_unit"></asp:DropDownList>
+
+        </td>
+        </tr>
+    <tr>
+        <td>
         <textboxio:Textboxio
             runat="server"
             ID="editorSurattawaran"
             ScriptSrc="textboxio/textboxio.js"
-            Content="<p>Hello from textbox.io!</p>" />
-    </div>
-</form>
+            Content="<p></p>" />
+            </td>
+    </tr>
+</table>
+
+<asp:Label runat ="server">Disclaimer : Fungsi surat tawaran ini masih lagi dalam pembinaan tetapi fungsi ini akan membuat surat tawaran berserta unit yang dipilih oleh admin.</asp:Label>

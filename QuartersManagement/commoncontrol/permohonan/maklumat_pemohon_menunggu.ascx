@@ -197,6 +197,7 @@
         <td class="auto-style2">:</td>
         <td colspan="2">
             <h5 class="label" runat="server" id="lbl_senaraiKuarters"></h5>
+            <asp:label runat ="server" >Kekosongan unit : </asp:label>
         </td>
     </tr>
     <tr>
@@ -225,6 +226,11 @@
                         <h5 class="label" runat="server" id="lbl_tarikhBertukar"></h5>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <asp:Button runat ="server" ID="TerimaPermohonanKuarters" text="Terima Permohonan Kuarters"/>
+                    </td>
+                </tr>
             </table>
         </td>
     </tr>
@@ -241,6 +247,7 @@
         <td class="auto-style2">:</td>
         <td>
             <asp:DropDownList ID="ddlcadanganUnit1" runat="server"></asp:DropDownList>
+            <asp:label runat ="server" >Kekosongan unit : </asp:label>
         </td>
     </tr>
     <tr>
@@ -250,6 +257,7 @@
         <td class="auto-style2">:</td>
         <td>
             <asp:DropDownList ID="ddlcadanganUnit2" runat="server"></asp:DropDownList>
+            <asp:label runat ="server" >Kekosongan unit : </asp:label>
         </td>
     </tr>
     <tr>
@@ -259,11 +267,12 @@
         <td class="auto-style2">:</td>
         <td>
             <asp:DropDownList ID="ddlcadanganUnit3" runat="server"></asp:DropDownList>
+            <asp:label runat ="server" >Kekosongan unit : </asp:label>
         </td>
     </tr>
     <tr><td colspan="3" class="auto-style1"> 
-        <asp:Button runat ="server" ID ="btn_submitUnit" Text ="" OnClientClick="javascript:return confirm('Adakah anda pasti mahu menghantar cadangan kuarters ini? ')" ImageUrl="~/icons/send.png" ToolTip="Diterima" Height="39px"/> 
-
+        <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="39px" CommandName ="Cadangan" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu menghantar cadangan kuarters ini?')" ImageUrl="~/icons/send.png" ToolTip="Diterima" />
+        <asp:Label runat="server" >Hantar Cadangan Kuarters</asp:Label>
         </td></tr>
 
 </table>

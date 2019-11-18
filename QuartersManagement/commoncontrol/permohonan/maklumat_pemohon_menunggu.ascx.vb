@@ -20,16 +20,55 @@ Public Class maklumat_pemohon_menunggu
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
 
+
+    Dim dataAnak As New DataSet
+    Dim countAnak As Integer = 0
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
 
         Try
             loadUser()
             ddlunit_load()
+            readMaklumatAnak()
+
         Catch ex As Exception
 
         End Try
     End Sub
+    Private Function readMaklumatAnak() As Boolean
+        Dim penggunaID = pengguna_id.Value
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim table As DataTable = New DataTable
+            Dim da As New SqlDataAdapter(
+                    "SELECT 
+                        anak_id,
+                        pengguna_id,
+                        anak_nama,
+                        anak_ic,
+                        anak_umur
+                        FROM spk_anak
+                        WHERE pengguna_id = " & penggunaID & ";",
+                    conn)
+            Try
+                conn.Open()
+                da.Fill(dataAnak, "AnyTable")
+                Dim nRows As Integer = 0
+                Dim nCount As Integer = 1
+                countAnak = dataAnak.Tables(0).Rows.Count
+                If dataAnak.Tables(0).Rows.Count > 0 Then
+                    datRespondent.DataSource = dataAnak
+                    datRespondent.DataBind()
+                End If
+                Return True
+            Catch ex As Exception
+                Debug.WriteLine("ERROR(readMaklumatAnak): " & ex.Message)
+                Return False
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Function
 
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
@@ -136,22 +175,43 @@ Public Class maklumat_pemohon_menunggu
         End Using
     End Sub
 
-    Private Sub btn_submitUnit_Click(sender As Object, e As EventArgs) Handles btn_submitUnit.Click
+    Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
         Try
-            Dim Getid = oCommon.ExecuteSQL("select permohonan_id from spk_permohonan where pengguna_id = '" & Request.QueryString("uid") & "'")
-            strSQL = "INSERT INTO spk_cadanganUnit (permohonan_id,unit_id1,unit_id2,unit_id3) VALUES ('" & Getid & "','" & ddlcadanganUnit1.SelectedValue.ToString & "','" & ddlcadanganUnit2.SelectedValue.ToString & "','" & ddlcadanganUnit3.SelectedIndex.ToString & "')"
-            strRet = oCommon.ExecuteSQL(strSQL)
-            If strRet = "0" Then
-                strlbl_bottom.Text = "Cadangan Unit Sudah Dimasukkan"
+
+            If (e.CommandName = "Cadangan") Then
+                Dim strCID = e.CommandArgument.ToString
+
+                Try
+                    Dim Getid = oCommon.ExecuteSQL("select permohonan_id from spk_permohonan where pengguna_id = '" & Request.QueryString("uid") & "'")
+                    strSQL = "INSERT INTO spk_cadanganUnit (permohonan_id,unit_id1,unit_id2,unit_id3) VALUES ('" & Getid & "','" & ddlcadanganUnit1.SelectedValue.ToString & "','" & ddlcadanganUnit2.SelectedValue.ToString & "','" & ddlcadanganUnit3.SelectedIndex.ToString & "')"
+                    strRet = oCommon.ExecuteSQL(strSQL)
+                    If strRet = "0" Then
+                        strlbl_bottom.Text = "Cadangan Kuarters Sudah Dimasukkan"
+
+                    End If
+                Catch ex As Exception
+                    MsgTop.Attributes("class") = "errorMsg"
+                    strlbl_top.Text = strSysErrorAlert
+                    MsgBottom.Attributes("class") = "errorMsg"
+                    strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
+
+                End Try
 
             End If
+
         Catch ex As Exception
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-
         End Try
+    End Sub
 
+    Private Sub TerimaPermohonanKuarters_Click(sender As Object, e As EventArgs) Handles TerimaPermohonanKuarters.Click
+        Dim Getid = oCommon.ExecuteSQL("select permohonan_id from spk_permohonan where pengguna_id = '" & Request.QueryString("uid") & "'")
+        strSQL = "UPDATE spk_permohonan SET permohonan_sub_status = 'PERMOHONAN KUARTERS DITERIMA, MENANTI PEMBERIAN UNIT' WHERE permohonan_id = '" & Getid & "' "
+        strRet = oCommon.ExecuteSQL(strSQL)
+        If strRet = "0" Then
+            strlbl_bottom.Text = "Cadangan Kuarters Sudah Dimasukkan"
+
+        End If
     End Sub
 End Class
