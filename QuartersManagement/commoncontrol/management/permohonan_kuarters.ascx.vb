@@ -248,7 +248,6 @@ Public Class permohonan_kuarters
                 strlbl_top.Text = strSaveSuccessAlert
                 MsgBottom.Attributes("class") = "successMsg"
                 strlbl_bottom.Text = strSaveSuccessAlert
-                Response.Redirect("Senarai.Permohonan.Pengguna.aspx?p=Senarai%20Kuarters")
             Else
                 MsgTop.Attributes("class") = "errorMsg"
                 strlbl_top.Text = strSaveFailAlert
