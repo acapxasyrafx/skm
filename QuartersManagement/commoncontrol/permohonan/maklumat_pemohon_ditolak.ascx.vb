@@ -146,6 +146,7 @@ Public Class maklumat_pemohon_ditolak
         End Using
     End Sub
 
+
     'Private Sub loadUser()
     '    Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
     '        Dim cmd As New SqlCommand("SELECT TOP 1

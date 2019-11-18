@@ -262,8 +262,8 @@
         </td>
     </tr>
     <tr><td colspan="3" class="auto-style1"> 
-        <asp:Button runat ="server" ID ="btn_submitUnit" Text ="" OnClientClick="javascript:return confirm('Adakah anda pasti mahu menghantar cadangan kuarters ini? ')" ImageUrl="~/icons/send.png" ToolTip="Diterima" Height="39px"/> 
-
+        <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="39px" CommandName ="Cadangan" CommandArgument ='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu menghantar cadangan kuarters ini?')" ImageUrl="~/icons/send.png" ToolTip="Diterima" />
+            
         </td></tr>
 
 </table>

@@ -136,22 +136,34 @@ Public Class maklumat_pemohon_menunggu
         End Using
     End Sub
 
-    Private Sub btn_submitUnit_Click(sender As Object, e As EventArgs) Handles btn_submitUnit.Click
+    Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
         Try
-            Dim Getid = oCommon.ExecuteSQL("select permohonan_id from spk_permohonan where pengguna_id = '" & Request.QueryString("uid") & "'")
-            strSQL = "INSERT INTO spk_cadanganUnit (permohonan_id,unit_id1,unit_id2,unit_id3) VALUES ('" & Getid & "','" & ddlcadanganUnit1.SelectedValue.ToString & "','" & ddlcadanganUnit2.SelectedValue.ToString & "','" & ddlcadanganUnit3.SelectedIndex.ToString & "')"
-            strRet = oCommon.ExecuteSQL(strSQL)
-            If strRet = "0" Then
-                strlbl_bottom.Text = "Cadangan Unit Sudah Dimasukkan"
+
+            If (e.CommandName = "Cadangan") Then
+                Dim strCID = e.CommandArgument.ToString
+
+                Try
+                    Dim Getid = oCommon.ExecuteSQL("select permohonan_id from spk_permohonan where pengguna_id = '" & Request.QueryString("uid") & "'")
+                    strSQL = "INSERT INTO spk_cadanganUnit (permohonan_id,unit_id1,unit_id2,unit_id3) VALUES ('" & Getid & "','" & ddlcadanganUnit1.SelectedValue.ToString & "','" & ddlcadanganUnit2.SelectedValue.ToString & "','" & ddlcadanganUnit3.SelectedIndex.ToString & "')"
+                    strRet = oCommon.ExecuteSQL(strSQL)
+                    If strRet = "0" Then
+                        strlbl_bottom.Text = "Cadangan Unit Sudah Dimasukkan"
+
+                    End If
+                Catch ex As Exception
+                    MsgTop.Attributes("class") = "errorMsg"
+                    strlbl_top.Text = strSysErrorAlert
+                    MsgBottom.Attributes("class") = "errorMsg"
+                    strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
+
+                End Try
 
             End If
+
         Catch ex As Exception
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-
         End Try
-
     End Sub
+
 End Class
