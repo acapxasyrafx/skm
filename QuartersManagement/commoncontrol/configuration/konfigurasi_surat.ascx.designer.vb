@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class status_tawaran
+Partial Public Class konfigurasi_surat
     
     '''<summary>
     '''MsgTop control.
@@ -32,6 +32,15 @@ Partial Public Class status_tawaran
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''SaveFunction control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    
+    '''<summary>
     '''Refresh control.
     '''</summary>
     '''<remarks>
@@ -41,92 +50,74 @@ Partial Public Class status_tawaran
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
     
     '''<summary>
-    '''lblNama control.
+    '''txtIsiSurat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblNama As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txtIsiSurat As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''lbloutname control.
+    '''txtJenissurat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbloutname As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents txtJenissurat As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''lblDateMasuk control.
+    '''lblConfig control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblDateMasuk As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblConfig As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''datepicker control.
+    '''lblQ control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents datepicker As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents lblQ As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''lblKuarters control.
+    '''Panel control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblKuarters As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents Panel As Global.System.Web.UI.WebControls.Panel
     
     '''<summary>
-    '''lblOutKuarters control.
+    '''datRespondent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblOutKuarters As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
     
     '''<summary>
-    '''lbl_unit control.
+    '''MsgBottom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lbl_unit As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
-    '''ddl_unit control.
+    '''strlbl_bottom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddl_unit As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''editorSurattawaran control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents editorSurattawaran As Global.TextboxioControl.Textboxio
-    
-    '''<summary>
-    '''btnSimpan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnSimpan As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
 End Class

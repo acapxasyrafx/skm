@@ -112,6 +112,7 @@
     <Content Include="commoncontrol\configuration\konfigurasi_negara.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_pangkat.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_surat.ascx" />
     <Content Include="commoncontrol\maintenance\rekod_penyelenggaraan.ascx" />
     <Content Include="commoncontrol\main\homepage.ascx" />
     <Content Include="commoncontrol\main\login_page.ascx" />
@@ -176,6 +177,7 @@
     <Content Include="Konfigurasi.Pangkat.aspx" />
     <Content Include="Konfigurasi.Sistem.aspx" />
     <Content Include="commoncontrol\configuration\konfigurasi_sistem.ascx" />
+    <Content Include="Konfigurasi.Surat.Tawaran.aspx" />
     <Content Include="Maklumat.Permohonan.aspx" />
     <Content Include="Maklumat.Permohonan.Pengguna.aspx" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
@@ -432,6 +434,13 @@
     </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_pangkat.ascx.vb">
       <DependentUpon>konfigurasi_pangkat.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_surat.ascx.designer.vb">
+      <DependentUpon>konfigurasi_surat.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_surat.ascx.vb">
+      <DependentUpon>konfigurasi_surat.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\maintenance\rekod_penyelenggaraan.ascx.designer.vb">
@@ -702,6 +711,13 @@
     <Compile Include="commoncontrol\configuration\konfigurasi_sistem.ascx.vb">
       <DependentUpon>konfigurasi_sistem.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Surat.Tawaran.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Surat.Tawaran.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Surat.Tawaran.aspx.vb">
+      <DependentUpon>Konfigurasi.Surat.Tawaran.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Maklumat.Permohonan.aspx.designer.vb">
       <DependentUpon>Maklumat.Permohonan.aspx</DependentUpon>
