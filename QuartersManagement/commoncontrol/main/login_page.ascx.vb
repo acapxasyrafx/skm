@@ -16,48 +16,42 @@ Public Class login_page
 
     End Sub
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        If txtLoginID IsNot "" And txtPwd.Text IsNot "" Then
-            If txtLoginID.Text.Equals("admin") And txtPwd.Text.Equals("admin") Then
-                Session("user_type") = "Admin"
+        'If txtLoginID IsNot "" And txtPwd.Text IsNot "" Then
+        '    If txtLoginID.Text.Equals("admin") And txtPwd.Text.Equals("admin") Then
+        '        Session("user_type") = "Admin"
+        '        Response.Redirect("Admin.Homepage.aspx")
+        '    ElseIf txtLoginID.Text.Equals("user") And txtPwd.Text.Equals("user") Then
+        '        Session("user_type") = "User"
+        '        Response.Redirect("User.Homepage.aspx")
+        '    End If
+        'End If
+        UserLogin()
+    End Sub
+    Private Sub UserLogin()
+        Try
+            Dim query As String = "
+            SELECT 
+                pengguna_id, 
+                pengguna_jenis 
+            FROM 
+                spk_pengguna 
+            WHERE 
+                pengguna_no_tentera = '" & txtLoginID.Text & "' AND 
+                pengguna_pwd = '" & txtPwd.Text & "';"
+            strRet = oCommon.getFieldValueEx(query)
+            Dim result As Array
+            result = strRet.Split("|")
+            Session("pengguna_id") = result(0)
+            Session("pengguna_jenis") = result(1)
+            If result(1).Equals("ADMIN") Then
                 Response.Redirect("Admin.Homepage.aspx")
-            ElseIf txtLoginID.Text.Equals("user") And txtPwd.Text.Equals("user") Then
-                Session("user_type") = "User"
+            ElseIf result(1).Equals("PENGGUNA") Then
                 Response.Redirect("User.Homepage.aspx")
             End If
-        End If
+        Catch ex As Exception
+            Debug.WriteLine("Error(UserLogin): " & ex.Message)
+        End Try
     End Sub
-    Private Function getUserID(ByVal noTentera As String) As Boolean
-        Dim penggunaID As Integer
-        If noTentera.Equals(Nothing) Or noTentera.Equals("") Then
-            Return False
-        Else
-            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-                Dim cmd As New SqlCommand("SELECT pengguna_id FROM spk_pengguna WHERE pengguna_no_tentera = '" & noTentera & "'", conn)
-                Try
-                    conn.Open()
-                    Dim dr As SqlDataReader
-                    dr = cmd.ExecuteReader
-                    If dr.HasRows Then
-                        Do While dr.Read
-                            penggunaID = dr("pengguna_id")
-                            Debug.WriteLine("Debug(getUserID): pengguna_id => " & penggunaID & "")
-                            Session("penggunaID") = penggunaID
-                            Return True
-                        Loop
-                    Else
-                        Debug.WriteLine("Error(getUserID): Reader has no rows")
-                        Return False
-                    End If
-                Catch ex As Exception
-                    Debug.WriteLine("Error(getUserID): " & ex.Message)
-                    Return False
-                Finally
-                    conn.Close()
-                End Try
-            End Using
-            Return False
-        End If
-    End Function
 
     Private Function isExistL(ByVal strSQL As String) As String
         If strSQL.Length = 0 Then
