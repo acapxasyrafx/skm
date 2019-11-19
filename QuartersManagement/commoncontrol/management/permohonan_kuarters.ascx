@@ -167,7 +167,7 @@
                         
                                     <asp:TemplateField HeaderText="UMUR" >
                                         <ItemTemplate>
-                                            <asp:Label ID="lblUmurAnak" runat="server" Text='<%# Bind("anak_umur")%>'></asp:Label>
+                                            <asp:Label ID="lblUmurAnak" runat="server" Text='<%# icToAge(Eval("anak_ic")) %>'></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
