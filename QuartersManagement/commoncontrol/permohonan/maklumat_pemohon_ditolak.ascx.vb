@@ -125,27 +125,8 @@ Public Class maklumat_pemohon_ditolak
 
 
     Private Sub loadSebabDitolak()
-        lblsebabTolak.Text = oCommon.ExecuteSQL("SELECT permohonan_nota FROM spk_permohonan where permohonan_id='" & Request.QueryString("uid") & "'")
-        Dim cmd As New SqlCommand("SELECT permohonan_nota FROM spk_permohonan where permohonan_id='" & Request.QueryString("uid") & "'")
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Try
-                conn.Open()
-                Dim reader As SqlDataReader = cmd.ExecuteReader()
-                If reader.HasRows Then
-                    If reader.Read() Then
-                        lblsebabTolak.Text = reader("permohonan_nota")
-                    Else
-                        Debug.Write("CANNOT READ")
-                    End If
-                Else
-                Debug.Write("NO ROWS")
-                End If
-            Catch ex As Exception
-                Debug.WriteLine("ERROR(loadUser): " & ex.Message)
-            Finally
-                conn.Close()
-            End Try
-        End Using
+        lblsebabTolak.Text = oCommon.getFieldValue("SELECT permohonan_nota FROM spk_permohonan where permohonan_id='" & Request.QueryString("uid") & "'")
+
     End Sub
 
 End Class

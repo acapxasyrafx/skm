@@ -47,7 +47,6 @@ Public Class proses_penempatan_kuarters1
                     loadJawatan()
                     loadKuarters()
                     loadPangkalan()
-                    loadMarkah()
 
                 End If
 
@@ -132,17 +131,6 @@ Public Class proses_penempatan_kuarters1
                 conn.Close()
             End Try
         End Using
-    End Sub
-
-    Protected Sub loadMarkah()
-        Try
-            ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
-            ddlfilterKuarters.Items.Insert(1, New ListItem("TERTINGGI", String.Empty))
-            ddlfilterKuarters.Items.Insert(2, New ListItem("TERENDAH", String.Empty))
-            ddlfilterKuarters.SelectedIndex = 0
-        Catch ex As Exception
-            Debug.Write("ERROR(loadJawatan): " & ex.Message)
-        End Try
     End Sub
 
     '-- BIND DATA --'

@@ -33,5 +33,11 @@
             <img src="icons/bullet_red.png" /><a href="Konfigurasi.Mata.aspx?q=MATA&p=Konfigurasi Mata" class="link">Konfigurasi Mata</a></td>
     </tr>
 
+    <tr>
+        <td>
+            <img src="icons/bullet_red.png" /><a href="Konfigurasi.Surat.Tawaran.aspx?q=SURAT&p=Konfigurasi Surat Tawaran" class="link">Konfigurasi Surat Tawaran</a></td>
+    </tr>
+
+
 </table>
 
