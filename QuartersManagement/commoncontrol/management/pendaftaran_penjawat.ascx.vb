@@ -387,6 +387,4 @@ Public Class pendaftaran_penjawat
         txtTelefon.Text = ""
         txt_MyDate.Text = ""
     End Sub
-
-
 End Class

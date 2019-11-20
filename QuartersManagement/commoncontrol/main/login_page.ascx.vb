@@ -25,9 +25,18 @@ Public Class login_page
                 Response.Redirect("User.Homepage.aspx")
             End If
         End If
-        'UserLogin()
+        'Dim jenisPengguna As String = ""
+        'jenisPengguna = UserLogin()
+        'Select Case jenisPengguna
+        '    Case "ADMIN"
+        '        Response.Redirect("Admin.Homepage.aspx")
+        '    Case "PENGGUNA"
+        '        Response.Redirect("User.Homepage.aspx")
+        '    Case Else
+        '        Response.Write("<script>alert('Tiada pengguna dengan ID " & txtLoginID.Text & " berikut');</script>")
+        'End Select
     End Sub
-    Private Sub UserLogin()
+    Private Function UserLogin() As String
         Try
             Dim query As String = "
             SELECT 
@@ -43,15 +52,12 @@ Public Class login_page
             result = strRet.Split("|")
             Session("pengguna_id") = result(0)
             Session("pengguna_jenis") = result(1)
-            If result(1).Equals("ADMIN") Then
-                Response.Redirect("Admin.Homepage.aspx")
-            ElseIf result(1).Equals("PENGGUNA") Then
-                Response.Redirect("User.Homepage.aspx")
-            End If
+            Return result(1)
         Catch ex As Exception
             Debug.WriteLine("Error(UserLogin): " & ex.Message)
+            Return ""
         End Try
-    End Sub
+    End Function
 
     Private Function isExistL(ByVal strSQL As String) As String
         If strSQL.Length = 0 Then
