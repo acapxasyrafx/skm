@@ -23,9 +23,7 @@ Public Class permohonan_baru
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
         Try
-
             If Not IsPostBack Then
-
                 strRet = BindData(datRespondent)
                 If strlblMsgBottom = 0 Then
                     strlbl_bottom.Visible = True
@@ -40,20 +38,15 @@ Public Class permohonan_baru
 
                 If Not Request.QueryString("edit") = "" Then
                     '' lblConfig.Text = Request.QueryString("p")
-                    ''Load_page()
+                    '' Load_page()
                 Else
-                    ''requestPage()
                     strRet = BindData(datRespondent)
-                    loadJawatan()
+                    loadPangkat()
                     loadKuarters()
                     loadPangkalan()
-
                 End If
-
             End If
-
         Catch ex As Exception
-
             MsgTop.Attributes("class") = "errorMsg"
             strlbl_top.Text = strSysErrorAlert
             MsgBottom.Attributes("class") = "errorMsg"
@@ -72,46 +65,48 @@ Public Class permohonan_baru
 
         Dim strOrder As String = ""
 
-        tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
-                    ,D.pangkat_singkatan as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,substring (B.pemohonan_tarikh,1,10) as tarikhMohon,B.permohonan_status as status
-                    , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin
-                    FROM spk_permohonan as B
-                    left join spk_pengguna A on B.pengguna_id = A.pengguna_id
-					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
-					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
-                    left join spk_kuarters E on B.kuarters_id = E.kuarters_id
-                    left join spk_unit F on B.unit_id = F.unit_id
-					"
+        tmpSQL = "SELECT 
+		        A.pengguna_id as pengguna_id 
+	        ,	A.pengguna_no_tentera as no_tentera 
+	        ,	A.pengguna_nama as nama 
+	        ,	C.pangkalan_nama as pangkalan 
+	        ,	D.pangkat_singkatan as pangkat
+	        ,	B.pengguna_id as pengguna_idx
+	        ,	E.kuarters_nama as unit
+	        ,	substring (B.pemohonan_tarikh,1,10) as tarikhMohon
+	        ,	B.permohonan_status as status
+	        ,	B.permohonan_id as permohonan_id
+	        ,	B.permohonan_mata as total_poin
+        FROM spk_permohonan AS B
+	        LEFT JOIN spk_pengguna A on B.pengguna_id = A.pengguna_id
+	        LEFT JOIN spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
+	        LEFT JOIN spk_pangkat D on A.pangkat_id = D.pangkat_id
+	        LEFT JOIN spk_kuarters E on B.kuarters_id = E.kuarters_id
+	        LEFT JOIN spk_unit F on B.unit_id = F.unit_id"
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN BARU'"
 
-        Try
-            If Not ddlfilterKuarters.SelectedValue = "" Then
-                strWhere += " AND B.kuarters_id = '" & ddlfilterKuarters.SelectedValue & "'"
-            End If
-            If Not ddlfilterPangkalan.SelectedValue = "" Then
-                strWhere += " AND A.pangkalan_id = '" & ddlfilterPangkalan.SelectedValue & "'"
-            End If
-            If Not ddlfilterPangkat.SelectedValue = "" Then
-                strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
-            End If
-
-        Catch ex As Exception
-            MsgBottom.InnerText = ex.ToString
-        End Try
-
-        If Not txt_nama.Text = "" Then
-            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "' or A.pengguna_no_tentera = '" & txt_nama.Text & "' or A.pengguna_no_tentera LIKE '%" & txt_nama.Text & "%')"
+        If ddlfilterKuarters.SelectedIndex > 0 Then
+            strWhere += " AND B.kuarters_id = '" & ddlfilterKuarters.SelectedValue & "'"
         End If
 
+        If ddlfilterPangkalan.SelectedIndex > 0 Then
+            strWhere += " AND A.pangkalan_id = '" & ddlfilterPangkalan.SelectedValue & "'"
+        End If
+
+        If ddlfilterPangkat.SelectedIndex > 0 Then
+            strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
+        End If
+
+        If txt_nama.Text.Length > 0 Then
+            strWhere += " AND ( A.pengguna_nama LIKE '%" & txt_nama.Text & "%' OR A.pengguna_no_tentera LIKE '%" & txt_nama.Text & "%')"
+        End If
         getSQL = tmpSQL & strWhere & strOrder
-
         Return getSQL
-
     End Function
 
     Private Sub loadPangkalan()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_pangkalan;", conn)
+            Dim cmd As New SqlCommand("SELECT pangkalan_id, pangkalan_nama FROM spk_pangkalan;", conn)
             Dim ds As New DataSet
             Try
                 conn.Open()
@@ -133,7 +128,7 @@ Public Class permohonan_baru
 
     Private Sub loadKuarters()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters; ", conn)
+            Dim cmd As New SqlCommand("SELECT kuarters_id, kuarters_nama FROM spk_kuarters; ", conn)
             Dim ds As New DataSet
 
             Try
@@ -154,9 +149,9 @@ Public Class permohonan_baru
         End Using
     End Sub
 
-    Protected Sub loadJawatan()
+    Protected Sub loadPangkat()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_pangkat; ", conn)
+            Dim cmd As New SqlCommand("SELECT pangkat_id, pangkat_nama FROM spk_pangkat; ", conn)
             Dim ds As New DataSet
 
             Try
@@ -167,10 +162,10 @@ Public Class permohonan_baru
                 ddlfilterPangkat.DataTextField = "pangkat_nama"
                 ddlfilterPangkat.DataValueField = "pangkat_id"
                 ddlfilterPangkat.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
-                ddlfilterKuarters.SelectedIndex = 0
+                ddlfilterPangkat.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                ddlfilterPangkat.SelectedIndex = 0
             Catch ex As Exception
-                Debug.Write("ERROR(loadJawatan): " & ex.Message)
+                Debug.Write("ERROR(loadPangkat): " & ex.Message)
             Finally
                 conn.Close()
             End Try
