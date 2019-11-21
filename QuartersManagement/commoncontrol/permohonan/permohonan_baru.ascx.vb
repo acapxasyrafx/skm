@@ -237,7 +237,7 @@ Public Class permohonan_baru
             If (e.CommandName = "ViewApllicant") Then
                 Dim strCID = e.CommandArgument.ToString
 
-                Response.Redirect("Senarai.Pemohon.Maklumat.Pemohon.aspx?uid=" + strCID)
+                Response.Redirect("Senarai.Pemohon.Maklumat.Pemohon.aspx?p=Senarai%20Permohonan%20Baru%20>%20Maklumat%20Permohonan%20Baru&uid=" + strCID)
             ElseIf (e.CommandName = "Process") Then
                 Dim strCID = e.CommandArgument.ToString
 

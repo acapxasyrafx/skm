@@ -1,4 +1,6 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data
+Imports System.Drawing
+Imports System.Data.SqlClient
 Public Class maklumat_pemohon
     Inherits System.Web.UI.UserControl
     Dim oCommon As New Commonfunction
@@ -23,74 +25,52 @@ Public Class maklumat_pemohon
     Dim dataAnak As New DataSet
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        Try
+        If Not IsPostBack Then
             loadUser()
             readMaklumatAnak()
-
-        Catch ex As Exception
-
-        End Try
+            loadPengiraanMata()
+        End If
     End Sub
-
-    'Private Sub data_poinLoad()
-    '    Dim strSQL2 As String = ""
-    '    Dim strSQL3 As String = ""
-    '    Dim dataJumlah As Integer = ""
-    '    Dim dataPangkatPoin As Integer = ""
-    '    Dim dataUmurAnak As Integer = ""
-    '    Dim jumlah_anak As Integer = ""
-
-    '    strSQL = "select count(anak_nama) from spk_anak where anak_umur <= 18"
-    '    strSQL2 = "select B.pangkat_mata from spk_pengguna A left join spk_pangkat B on A.pangkat_id = B.pangkat_id"
-
-    '    Dim jumlah_anakUmur18 = oCommon.ExecuteSQL(strSQL)
-    '    Dim jumlah_poinPangkat = oCommon.ExecuteSQL(strSQL2)
-
-
-    '    Dim jumlah_mataTerkumpul = jumlah_poinPangkat + (jumlah_anakUmur18 * 5)
-
-    '    lblpoinDisplay.Text = jumlah_mataTerkumpul.ToString
-
-
-    'End Sub
 
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT TOP 1
-	            A.pengguna_id as pengguna_id,
-	            A.pengguna_nama as pengguna_nama,
-	            A.pengguna_mykad as pengguna_mykad,
-	            A.pengguna_jantina as pengguna_jantina,
-	            A.pengguna_tarikh_lahir as pengguna_tarikh_lahir,
-                A.pengguna_mula_perkhidmatan as pengguna_mula_perkhidmatan,
-                A.pengguna_tamat_perkhidmatan as pengguna_tamat_perkhidmatan,
-                A.pengguna_no_tentera as pengguna_no_tentera,
-	            B.pangkat_id as pangkat_id,
-	            B.pangkat_nama as pangkat_nama,
-                C.pangkalan_nama as pangkalan_nama,
-                E.kuarters_nama as kuarters_nama,
-				G.keluarga_tempat_tinggal as keluarga_tempat_tinggal,
-				G.keluarga_tarikh_mula as keluarga_tarikh_mula,
-				G.keluarga_anak as keluarga_anak,
-				D.permohonan_mata as permohonan_mata
+            Dim cmd As New SqlCommand("SELECT
+	            A.permohonan_id
+                , D.pengguna_id
+	            , D.pengguna_nama
+	            , D.pengguna_jantina
+	            , D.pengguna_tarikh_lahir
+	            , F.pangkat_nama
+	            , D.pengguna_no_tentera
+	            , D.pengguna_mula_perkhidmatan
+	            , D.pengguna_tamat_perkhidmatan
+	            , A.permohonan_no_permohonan
+	            , A.kuarters_id
+	            , B.kuarters_nama
+	            , C.pangkalan_nama
+	            , A.permohonan_tarikh
+	            , A.permohonan_status
+	            , A.permohonan_sub_status
+	            , A.permohonan_mata
+				, E.historyKeluarga_tempat_tinggal
+				, E.historyKeluarga_tarikh_mula
+				, E.historyKeluarga_tarikh_akhir
             FROM 
-	            admin.spk_pengguna A
-	            JOIN admin.spk_pangkat B ON A.pangkat_id = B.pangkat_id
-	            JOIN dbo.spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id
-				JOIN spk_permohonan D on A.pengguna_id = D.pengguna_id 
-				JOIN spk_kuarters E on D.kuarters_id = E.kuarters_id
-				JOIN spk_keluarga G on A.pengguna_id = G.pengguna_id
-				JOIN spk_anak F on A.pengguna_id = F.pengguna_id	
-				
-            WHERE D.permohonan_id = '" & Request.QueryString("uid") & "' ",
+	            spk_permohonan A
+	            JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
+	            JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
+	            JOIN spk_pengguna D ON D.pengguna_id = A.pengguna_id
+	            JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
+	            JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id
+            WHERE
+                A.permohonan_id = " & Request.QueryString("uid") & ";",
             conn)
 
             Try
                 conn.Open()
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
-                    If reader.Read() Then
+                    Do While reader.Read()
                         pengguna_id.Value = reader("pengguna_id")
                         lblNama.InnerText = reader("pengguna_nama")
                         lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
@@ -100,22 +80,12 @@ Public Class maklumat_pemohon
                         lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
                         lbl_senaraiKuarters.InnerText = reader("kuarters_nama")
-                        lblJenisPenempatan.Text = reader("keluarga_tempat_tinggal")
-                        lbltarikhPenempatan.Text = reader("keluarga_tarikh_mula")
-                        lbl_poinDisplay.InnerText = reader("permohonan_mata")
+                        lblJenisPenempatan.Text = reader("historyKeluarga_tempat_tinggal")
+                        lbltarikhPenempatan.Text = reader("historyKeluarga_tarikh_mula")
+                        'lbl_poinDisplay.InnerText = reader("permohonan_mata")
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
-
-                        '-------------------
-                        'If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
-                        '    lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
-                        'Else
-                        '    lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
-                        'End If
-                        '-------------------
-
-                    Else
-                        Debug.Write("CANNOT READ")
-                    End If
+                        lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
+                    Loop
                 Else
                     Debug.Write("NO ROWS")
                 End If
@@ -130,15 +100,12 @@ Public Class maklumat_pemohon
         Dim penggunaID = pengguna_id.Value
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim table As DataTable = New DataTable
-            Dim da As New SqlDataAdapter(
-                    "SELECT 
-                        anak_id,
-                        pengguna_id,
-                        anak_nama,
-                        anak_ic,
-                        anak_umur
-                        FROM spk_anak
-                        WHERE pengguna_id = " & penggunaID & ";",
+            Dim da As New SqlDataAdapter("
+                    SELECT 
+                        * 
+                    FROM 
+                        spk_historyAnak 
+                    WHERE permohonan_id = " & Request.QueryString("uid") & ";",
                     conn)
             Try
                 conn.Open()
@@ -185,7 +152,32 @@ Public Class maklumat_pemohon
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
         End Try
     End Sub
+
+    Protected Function icToAge(ByVal ic As String) As Integer
+        Dim year = ic.Substring(0, 2)
+        Dim month = ic.Substring(2, 2)
+        Dim day = ic.Substring(4, 2)
+        Dim dob_string = day & "/" & month & "/" & year
+        Dim dob_date = Convert.ToDateTime(dob_string)
+        Dim age = Date.Now().Year - dob_date.Year
+        Debug.WriteLine("icToAge: " & dob_string & "|Age: " & age & "")
+        Return age
+    End Function
+
     Private Sub poin_load()
+
+    End Sub
+
+    Private Sub loadPengiraanMata()
+        Dim dt As New DataTable()
+        dt.Columns.AddRange(New DataColumn(3) {New DataColumn("itemColumn"), New DataColumn("ItemPoint"), New DataColumn("itemCount"), New DataColumn("itemTotal")})
+        dt.Rows.Add("Pangkat", "11", "-", "11")
+        dt.Rows.Add("Anak Bawah 18 tahun", "5", "1", "5")
+        tblPengiraanMata.DataSource = dt
+        tblPengiraanMata.DataBind()
+    End Sub
+
+    Private Sub tblPengiraanMata_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles tblPengiraanMata.RowDataBound
 
     End Sub
 End Class
