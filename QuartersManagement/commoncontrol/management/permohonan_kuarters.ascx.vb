@@ -195,7 +195,7 @@ Public Class permohonan_kuarters
 		            pengguna_id
 		            , permohonan_no_permohonan
 		            , kuarters_id
-		            , pemohonan_tarikh
+		            , permohonan_tarikh
 		            , permohonan_status
                     , permohonan_mata
 	            )

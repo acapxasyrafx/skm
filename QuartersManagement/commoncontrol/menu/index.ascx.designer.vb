@@ -95,6 +95,15 @@ Partial Public Class index
     Protected WithEvents lbl9 As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''lbl12 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbl12 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''lbl10 control.
     '''</summary>
     '''<remarks>

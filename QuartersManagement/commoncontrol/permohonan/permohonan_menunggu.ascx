@@ -153,7 +153,7 @@
                     <asp:TemplateField HeaderText="Tindakan">
                         <ItemTemplate>
                             <span runat="server" style="float: right">
-                                <asp:ImageButton Width="12" Height="12" ID="btnView" CommandName ="ViewApllicant" CommandArgument ='<%#Eval("permohonan_id")%>' runat="server" ImageUrl="~/icons/form_process.png" ToolTip="Lihat Profil" />
+                                <asp:ImageButton runat="server" Width="12" Height="12" ID="btnView" CommandName ="ViewApllicant" CommandArgument ='<%#Eval("permohonan_id")%>' runat="server" ImageUrl="~/icons/form_process.png" ToolTip="Lihat Profil" />
                             </span>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="right" VerticalAlign="Top" />

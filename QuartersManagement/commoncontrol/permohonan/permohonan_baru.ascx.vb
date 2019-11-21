@@ -73,7 +73,7 @@ Public Class permohonan_baru
         Dim strOrder As String = ""
 
         tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
-                    ,D.pangkat_singkatan as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,substring (B.pemohonan_tarikh,1,10) as tarikhMohon,B.permohonan_status as status
+                    ,D.pangkat_singkatan as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,substring (B.permohonan_tarikh,1,10) as tarikhMohon,B.permohonan_status as status
                     , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin
                     FROM spk_permohonan as B
                     left join spk_pengguna A on B.pengguna_id = A.pengguna_id

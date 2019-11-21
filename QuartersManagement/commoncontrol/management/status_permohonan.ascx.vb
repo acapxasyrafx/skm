@@ -58,7 +58,7 @@ Public Class status_permohonan1
                 D.kuarters_nama,
 	            F.pangkalan_id,
 	            F.pangkalan_nama,
-                B.pemohonan_tarikh
+                B.permohonan_tarikh
             FROM 
                 admin.spk_pengguna A
                 JOIN admin.spk_permohonan B on B.pengguna_id = A.pengguna_id
@@ -69,7 +69,7 @@ Public Class status_permohonan1
             WHERE
                 A.pengguna_id = 1
             ORDER BY
-                B.pemohonan_tarikh DESC;",
+                B.permohonan_tarikh DESC;",
             conn)
 
             Try
@@ -80,7 +80,7 @@ Public Class status_permohonan1
                         lblJenisTempatTinggal.Text = reader("keluarga_tempat_tinggal")
                         lblTarikhMulaMenetap.Text = reader("keluarga_tarikh_mula").ToString()
                         lblKuarterDipohon.Text = reader("kuarters_nama")
-                        lblTarikhPermohonan.Text = reader("pemohonan_tarikh")
+                        lblTarikhPermohonan.Text = reader("permohonan_tarikh")
                         statusPermohon = reader("permohonan_status")
                         Debug.WriteLine("Success: maklumatUser")
                     Loop
