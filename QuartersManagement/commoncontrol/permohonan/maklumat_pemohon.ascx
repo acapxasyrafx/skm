@@ -37,6 +37,7 @@
 
     .left_content{
         width: 70%;
+        overflow:auto;
     }
 
     .right_content{
@@ -264,41 +265,77 @@
         </table>
     </div>
     <div class="rigth_content">
-        <table class="fbform" style="width: 100%;" border="0">
-            <tr class="fbform_mheader">
-                <td>Pengiraan Mata Kelulusan</td>
-            </tr>
-            <tr>
-                <td style="width:100%;">
-                    <asp:GridView 
-                        runat="server" 
-                        width="100%"
-                        ID="tblPengiraanMata"
-                        HeaderStyle-BackColor="Yellow"
-                        headerstyle-forecolor="Black"
-                        AutoGenerateColumns="false"
-                        OnRowDataBound="tblPengiraanMata_RowDataBound"
-                        >
-                        <Columns>
-                            <asp:BoundField DataField="itemColumn" HeaderText="Kategory" />
-                            <asp:BoundField DataField="itemPoint" HeaderText="Mata"/>
-                            <asp:BoundField DataField="itemCount" HeaderText="Bilangan"/>
-                            <asp:BoundField DataField="itemTotal" HeaderText="Jumlah"/>
-                        </Columns>
-                    </asp:GridView>
-                </td>
-            </tr>
-            <tr>
-                <td>Permohonan </td>
-                <td>:</td>
-                <td class="auto-style4" style="text-align: left">
-                    <asp:ImageButton runat="server" ID="btnImg_lulus" CommandName="Approved" CommandArgument='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" ImageUrl="~/icons/checkmark_approve.png" ToolTip="Diterima" Height="39px" />
-                    &nbsp&nbsp&nbsp&nbsp&nbsp
-            <asp:ImageButton runat="server" ID="btnImg_ditolak" Height="39px" CommandName="Rejected" CommandArgument='<%#Eval("permohonan_id")%>' OnClientClick="javascript:return GetUserValue() && confirm('Adakah anda pasti mahu menolak permohonan ini? ')" ImageUrl="~/icons/checkmark_declined.png" ToolTip="Ditolak" />
-                    <asp:HiddenField runat="server" ID="hdnUserInput" />
-                </td>
-            </tr>
-        </table>
+        <div class="fbform">
+            <table style="width: 100%; margin:0;padding:0;">
+                <tr class="fbform_mheader">
+                    <td>Pengiraan Mata Kelulusan</td>
+                </tr>
+                <tr>
+                    <td>
+                        <table style="width: 100%; border: 1px solid black;">
+                            <tr>
+                                <td>Kategori</td>
+                                <td>Mata</td>
+                                <td>Bilangan</td>
+                                <td>Jumlah</td>
+                            </tr>
+                            <tr>
+                                <td>Pangkat</td>
+                                <td><asp:Label Text="text" runat="server" ID="lblMataPangkat"/></td>
+                                <td>-</td>
+                                <td><asp:Label Text="text" runat="server" ID="lblJumlahMatapangkat"/></td>
+                            </tr>
+                            <tr>
+                                <td>Bilangan Anak(Umur bawah 18 tahun)</td>
+                                <td><asp:Label Text="text" runat="server" ID="lblMataAnak"/></td>
+                                <td><asp:Label Text="text" runat="server" ID="lblJumlahAnakLayak"/></td>
+                                <td><asp:Label Text="text" runat="server" ID="lblJumlahMataAnak"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Jumlah Mata</td>
+                                <td><b><asp:Label Text="text" runat="server" ID="lblJumlahMata"/></b></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table  style="width: 100%;">
+                <tr>
+                    <td style="width: 25em;">Status Permohonan(Mengikut Sistem) ?</td>
+                    <td style="width: 5em;">:</td>
+                    <td>
+                        <asp:Label Text="text" runat="server" ID="lblStatusKelayakan"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Luluskan Permohonan ?</td>
+                    <td>:</td>
+                    <td class="auto-style4" style="text-align: left">
+                        <asp:ImageButton 
+                            runat="server" 
+                            ID="btnImg_lulus" 
+                            CommandName="Approved" 
+                            CommandArgument='<%#Eval("permohonan_id")%>' 
+                            OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" 
+                            ImageUrl="~/icons/checkmark_approve.png" 
+                            ToolTip="Diterima" Height="39px" 
+                        />
+                        &nbsp&nbsp&nbsp&nbsp&nbsp
+                        <asp:ImageButton 
+                            runat="server" 
+                            ID="btnImg_ditolak" 
+                            Height="39px" 
+                            CommandName="Rejected" 
+                            CommandArgument='<%#Eval("permohonan_id")%>' 
+                            OnClientClick="javascript:return GetUserValue() && confirm('Adakah anda pasti mahu menolak permohonan ini? ')" 
+                            ImageUrl="~/icons/checkmark_declined.png" 
+                            ToolTip="Ditolak" 
+                        />
+                        <asp:HiddenField runat="server" ID="hdnUserInput" />
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 

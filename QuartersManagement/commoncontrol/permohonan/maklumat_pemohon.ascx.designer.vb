@@ -221,13 +221,67 @@ Partial Public Class maklumat_pemohon
     Protected WithEvents lbltarikhBertukar As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''tblPengiraanMata control.
+    '''lblMataPangkat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents tblPengiraanMata As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents lblMataPangkat As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblJumlahMatapangkat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblJumlahMatapangkat As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblMataAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMataAnak As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblJumlahAnakLayak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblJumlahAnakLayak As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblJumlahMataAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblJumlahMataAnak As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblJumlahMata control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblJumlahMata As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblStatusKelayakan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblStatusKelayakan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''btnImg_lulus control.
