@@ -24,6 +24,7 @@ Public Class senarai_penjawat
         Try
 
             BindData(datRespondent)
+            loadDDLCarianPangkat()
         Catch ex As Exception
 
             MsgTop.Attributes("class") = "errorMsg"
@@ -44,11 +45,27 @@ Public Class senarai_penjawat
 
         Dim strOrder As String = " ORDER BY Pangkat_idx ASC"
 
-        tmpSQL = "select A.pengguna_id as pengguna_id , A.pengguna_no_tentera as no_tentera ,B.pangkat_nama as pangkat , A.pengguna_nama as nama from spk_pengguna A
-                    left join spk_pangkat B on A.pangkat_id = B.pangkat_id"
-
+        tmpSQL = "SELECT
+	        A.pengguna_id as pengguna_id 
+	        , B.pangkat_nama as pangkat 
+	        , A.pengguna_no_tentera as no_tentera 
+	        , A.pengguna_nama as nama 
+        FROM 
+	        spk_pengguna A
+	        LEFT JOIN spk_pangkat B ON B.pangkat_id = A.pangkat_id"
         strWhere += " WHERE A.pengguna_id IS NOT NULL"
 
+        If txtCarianNama.Text.Length > 0 Then
+            strWhere += String.Format(" AND A.pengguna_nama LIKE '%{0}%'", txtCarianNama.Text)
+        End If
+
+        If txtCarianNoTentera.Text.Length > 0 Then
+            strWhere += String.Format(" AND A.pengguna_no_tentera LIKE '%{0}%'", txtCarianNoTentera.Text)
+        End If
+
+        If ddlCarianPangkat.SelectedIndex > 0 Then
+            strWhere += " AND B.pangkat_nama = '" & ddlCarianPangkat.SelectedValue & "'"
+        End If
         getSQL = tmpSQL & strWhere & strOrder
 
         Return getSQL
@@ -146,7 +163,33 @@ Public Class senarai_penjawat
             Session("strCID") = ""
         End If
         strRet = BindData(datRespondent)
-
     End Sub
 
+    Private Sub loadDDLCarianPangkat()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Try
+                conn.Open()
+                Dim ds As New DataSet
+                Dim da As New SqlDataAdapter("SELECT pangkat_nama FROM spk_pangkat", conn)
+                da.Fill(ds, "AnyTable")
+                ddlCarianPangkat.DataSource = ds
+                ddlCarianPangkat.DataTextField = "pangkat_nama"
+                ddlCarianPangkat.DataValueField = "pangkat_nama"
+                ddlCarianPangkat.DataBind()
+                ddlCarianPangkat.Items.Insert(0, New ListItem("Pilih Pangkat...", ""))
+            Catch ex As Exception
+                Debug.WriteLine("Error(loadDDDLCarianPangkat): " & ex.Message)
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Sub
+
+    Private Sub btnCarian_Click(sender As Object, e As EventArgs) Handles btnCarian.Click
+        BindData(datRespondent)
+    End Sub
+
+    Private Sub ddlCarianPangkat_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlCarianPangkat.SelectedIndexChanged
+        BindData(datRespondent)
+    End Sub
 End Class
