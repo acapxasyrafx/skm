@@ -178,14 +178,14 @@
             </tr>
             <tr>
                 <td style="width: 150px;">Jenis Tempat Tinggal Akhir</td>
-                <td>:</td>
+                <td style="width: 5px;">:</td>
                 <td>
                     <h5 class="label" runat="server" id="lblJenisPenempatan"></h5>
                 </td>
             </tr>
             <tr>
-                <td>Mula Menetap Dari</td>
-                <td>:</td>
+                <td style="width: 150px;">Mula Menetap Dari</td>
+                <td style="width: 5px;">:</td>
                 <td>
                     <h5 class="label" runat="server" id="lbltarikhPenempatan"></h5>
                 </td>
@@ -193,7 +193,7 @@
         </table>
         <%--  --%>
 
-        <%-- Butoran Permohonan --%>
+        <%-- Butiran Permohonan --%>
         <table class="fbform" style="width: 100%;">
             <tr class="fbform_mheader">
                 <td colspan="4">Butiran Permohonan</td>
@@ -280,6 +280,9 @@
                     <td>
                         <asp:DropDownList runat="server" ID="ddlCadanganKuarters"></asp:DropDownList>
                     </td>
+                </tr>
+                <tr>
+                    <td><asp:Button Text="Simpan" runat="server" ID="btnSimpanCadanganKuarters"/></td>
                 </tr>
             </table>
         </asp:Panel>

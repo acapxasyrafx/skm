@@ -248,6 +248,15 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents ddlCadanganKuarters As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''btnSimpanCadanganKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSimpanCadanganKuarters As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''pnlPemilihanUnit control.
     '''</summary>
     '''<remarks>

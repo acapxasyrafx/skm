@@ -285,4 +285,22 @@ Public Class maklumat_pemohon_menunggu
         Debug.WriteLine("icToAge: " & dob_string & "|Age: " & age & "")
         Return age
     End Function
+
+    Private Sub btnSimpanTawaranUnit_Click(sender As Object, e As EventArgs) Handles btnSimpanTawaranUnit.Click
+        If ddlUnitKuarters.SelectedIndex > 0 Then
+            Dim query As String = "
+            UPDATE spk_permohonan
+            SET 
+                permohonan_status = 'PERMOHONAN DITERIMA',
+                unit_id = " & ddlUnitKuarters.SelectedValue & "
+            WHERE permohonan_id = " & Request.QueryString("uid") & ";"
+            strRet = oCommon.ExecuteSQL(query)
+            If strRet = "0" Then
+                Response.Redirect("Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Menunggu")
+            End If
+        Else
+            Debug.WriteLine("Error(btnSimpanTawaranUnit): UNIT TAK DIPILIH")
+        End If
+
+    End Sub
 End Class
