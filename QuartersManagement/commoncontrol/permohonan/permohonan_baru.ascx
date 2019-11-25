@@ -106,7 +106,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="No.Permohonan" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_noPermohonan" runat="server"></asp:Label>
+                            <asp:Label ID="lbl_noPermohonan" runat="server" Text='<%# Bind("permohonan_no_permohonan") %>'></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:templatefield>

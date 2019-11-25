@@ -173,7 +173,7 @@ Public Class maklumat_pemohon
         Dim statusLayak As String
 
         mataAnak = Integer.Parse(oCommon.getFieldValue("SELECT config_parameter FROM general_config WHERE config_type = 'MATAANAK'"))
-        mataPangkat = Integer.Parse(oCommon.getFieldValue("SELECT C.pangkat_mata FROM spk_permohonan A LEFT JOIN spk_pengguna B ON B.pengguna_id = A.pengguna_id LEFT JOIN spk_pangkat C ON C.pangkat_id = B.pangkat_id WHERE A.permohonan_id = 11"))
+        mataPangkat = Integer.Parse(oCommon.getFieldValue("SELECT C.pangkat_mata FROM spk_permohonan A LEFT JOIN spk_pengguna B ON B.pengguna_id = A.pengguna_id LEFT JOIN spk_pangkat C ON C.pangkat_id = B.pangkat_id WHERE A.permohonan_id = " & Request.QueryString("uid")))
         mataLayak = Integer.Parse(oCommon.getFieldValue("SELECT config_parameter FROM general_config WHERE config_type = 'MATALULUS'"))
 
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))

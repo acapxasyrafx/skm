@@ -1,10 +1,10 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="senarai_penjawat.ascx.vb" Inherits="QuartersManagement.senarai_penjawat" %>
 
 <style>
-    .wrapper{
-        display:flex;
-        align-items:center;
-        justify-content:center;
+    .wrapper {
+        display: flex;
+        /*align-items: center;
+        justify-content: center;*/
     }
      .btn{
         border-radius: 5px;

@@ -176,7 +176,7 @@ Public Class senarai_penjawat
                 ddlCarianPangkat.DataTextField = "pangkat_nama"
                 ddlCarianPangkat.DataValueField = "pangkat_nama"
                 ddlCarianPangkat.DataBind()
-                ddlCarianPangkat.Items.Insert(0, New ListItem("Pilih Pangkat...", ""))
+                ddlCarianPangkat.Items.Insert(0, New ListItem("-- SILA PILIH --", ""))
             Catch ex As Exception
                 Debug.WriteLine("Error(loadDDDLCarianPangkat): " & ex.Message)
             Finally
