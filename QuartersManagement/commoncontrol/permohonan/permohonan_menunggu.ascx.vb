@@ -141,25 +141,16 @@ Public Class permohonan_menunggu
 
         Dim strOrder As String = ""
 
-        tmpSQL = "SELECT 
-                        A.pengguna_id AS pengguna_id 
-                    ,   A.pengguna_no_tentera AS no_tentera 
-                    ,   A.pengguna_nama AS nama 
-                    ,   C.pangkalan_nama AS pangkalan
-                    ,   D.pangkat_singkatan AS pangkat 
-                    ,   B.pengguna_id AS pengguna_idx
-                    ,   E.kuarters_nama AS unit
-                    ,   substring (B.pemohonan_tarikh,1,10) AS tarikhMohon
-                    ,   B.permohonan_status AS status
-                    ,   B.permohonan_id AS permohonan_id 
-                    ,   B.permohonan_mata AS total_poin 
-                FROM spk_permohonan AS B
-                    LEFT JOIN spk_pengguna A ON B.pengguna_id = A.pengguna_id
-					LEFT JOIN spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id 
-					LEFT JOIN spk_pangkat D ON A.pangkat_id = D.pangkat_id
-                    LEFT JOIN spk_kuarters E ON B.kuarters_id = E.kuarters_id
-                    LEFT JOIN spk_unit F ON B.unit_id = F.unit_id"
-
+        tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan
+                    ,D.pangkat_singkatan as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,substring (B.permohonan_tarikh,1,10) as tarikhMohon,B.permohonan_status as status
+                    , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin 
+                    FROM spk_permohonan as B
+                    left join spk_pengguna A on B.pengguna_id = A.pengguna_id
+					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
+					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
+                    left join spk_kuarters E on B.kuarters_id = E.kuarters_id
+                    left join spk_unit F on B.unit_id = F.unit_id
+					"
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN SEDANG DIPROSES'"
 
         Try

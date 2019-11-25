@@ -1,4 +1,6 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data
+Imports System.Drawing
+Imports System.Data.SqlClient
 Public Class maklumat_pemohon
     Inherits System.Web.UI.UserControl
     Dim oCommon As New Commonfunction
@@ -23,74 +25,52 @@ Public Class maklumat_pemohon
     Dim dataAnak As New DataSet
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        Try
+        If Not IsPostBack Then
             loadUser()
             readMaklumatAnak()
-
-        Catch ex As Exception
-
-        End Try
+            loadMaklumatMata()
+        End If
     End Sub
-
-    'Private Sub data_poinLoad()
-    '    Dim strSQL2 As String = ""
-    '    Dim strSQL3 As String = ""
-    '    Dim dataJumlah As Integer = ""
-    '    Dim dataPangkatPoin As Integer = ""
-    '    Dim dataUmurAnak As Integer = ""
-    '    Dim jumlah_anak As Integer = ""
-
-    '    strSQL = "select count(anak_nama) from spk_anak where anak_umur <= 18"
-    '    strSQL2 = "select B.pangkat_mata from spk_pengguna A left join spk_pangkat B on A.pangkat_id = B.pangkat_id"
-
-    '    Dim jumlah_anakUmur18 = oCommon.ExecuteSQL(strSQL)
-    '    Dim jumlah_poinPangkat = oCommon.ExecuteSQL(strSQL2)
-
-
-    '    Dim jumlah_mataTerkumpul = jumlah_poinPangkat + (jumlah_anakUmur18 * 5)
-
-    '    lblpoinDisplay.Text = jumlah_mataTerkumpul.ToString
-
-
-    'End Sub
 
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT TOP 1
-	            A.pengguna_id as pengguna_id,
-	            A.pengguna_nama as pengguna_nama,
-	            A.pengguna_mykad as pengguna_mykad,
-	            A.pengguna_jantina as pengguna_jantina,
-	            A.pengguna_tarikh_lahir as pengguna_tarikh_lahir,
-                A.pengguna_mula_perkhidmatan as pengguna_mula_perkhidmatan,
-                A.pengguna_tamat_perkhidmatan as pengguna_tamat_perkhidmatan,
-                A.pengguna_no_tentera as pengguna_no_tentera,
-	            B.pangkat_id as pangkat_id,
-	            B.pangkat_nama as pangkat_nama,
-                C.pangkalan_nama as pangkalan_nama,
-                E.kuarters_nama as kuarters_nama,
-				G.keluarga_tempat_tinggal as keluarga_tempat_tinggal,
-				G.keluarga_tarikh_mula as keluarga_tarikh_mula,
-				G.keluarga_anak as keluarga_anak,
-				D.permohonan_mata as permohonan_mata
+            Dim cmd As New SqlCommand("SELECT
+	            A.permohonan_id
+                , D.pengguna_id
+	            , D.pengguna_nama
+	            , D.pengguna_jantina
+	            , D.pengguna_tarikh_lahir
+	            , F.pangkat_nama
+	            , D.pengguna_no_tentera
+	            , D.pengguna_mula_perkhidmatan
+	            , D.pengguna_tamat_perkhidmatan
+	            , A.permohonan_no_permohonan
+	            , A.kuarters_id
+	            , B.kuarters_nama
+	            , C.pangkalan_nama
+	            , A.permohonan_tarikh
+	            , A.permohonan_status
+	            , A.permohonan_sub_status
+	            , A.permohonan_mata
+				, E.historyKeluarga_tempat_tinggal
+				, E.historyKeluarga_tarikh_mula
+				, E.historyKeluarga_tarikh_akhir
             FROM 
-	            admin.spk_pengguna A
-	            JOIN admin.spk_pangkat B ON A.pangkat_id = B.pangkat_id
-	            JOIN dbo.spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id
-				JOIN spk_permohonan D on A.pengguna_id = D.pengguna_id 
-				JOIN spk_kuarters E on D.kuarters_id = E.kuarters_id
-				JOIN spk_keluarga G on A.pengguna_id = G.pengguna_id
-				JOIN spk_anak F on A.pengguna_id = F.pengguna_id	
-				
-            WHERE D.permohonan_id = '" & Request.QueryString("uid") & "' ",
+	            spk_permohonan A
+	            JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
+	            JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
+	            JOIN spk_pengguna D ON D.pengguna_id = A.pengguna_id
+	            JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
+	            JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id
+            WHERE
+                A.permohonan_id = " & Request.QueryString("uid") & ";",
             conn)
 
             Try
                 conn.Open()
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
-                    If reader.Read() Then
+                    Do While reader.Read()
                         pengguna_id.Value = reader("pengguna_id")
                         lblNama.InnerText = reader("pengguna_nama")
                         lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
@@ -100,24 +80,14 @@ Public Class maklumat_pemohon
                         lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
                         lbl_senaraiKuarters.InnerText = reader("kuarters_nama")
-                        lblJenisPenempatan.Text = reader("keluarga_tempat_tinggal")
-                        lbltarikhPenempatan.Text = reader("keluarga_tarikh_mula")
-                        lbl_poinDisplay.InnerText = reader("permohonan_mata")
+                        lblJenisPenempatan.Text = reader("historyKeluarga_tempat_tinggal")
+                        lbltarikhPenempatan.Text = reader("historyKeluarga_tarikh_mula")
+                        'lbl_poinDisplay.InnerText = reader("permohonan_mata")
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
-
-                        '-------------------
-                        'If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
-                        '    lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
-                        'Else
-                        '    lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
-                        'End If
-                        '-------------------
-
-                    Else
-                        Debug.Write("CANNOT READ")
-                    End If
+                        lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
+                    Loop
                 Else
-                    Debug.Write("NO ROWS")
+                    Debug.WriteLine("Error(loadUser): NO ROWS")
                 End If
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadUser): " & ex.Message)
@@ -130,15 +100,12 @@ Public Class maklumat_pemohon
         Dim penggunaID = pengguna_id.Value
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim table As DataTable = New DataTable
-            Dim da As New SqlDataAdapter(
-                    "SELECT 
-                        anak_id,
-                        pengguna_id,
-                        anak_nama,
-                        anak_ic,
-                        anak_umur
-                        FROM spk_anak
-                        WHERE pengguna_id = " & penggunaID & ";",
+            Dim da As New SqlDataAdapter("
+                    SELECT 
+                        * 
+                    FROM 
+                        spk_historyAnak 
+                    WHERE permohonan_id = " & Request.QueryString("uid") & ";",
                     conn)
             Try
                 conn.Open()
@@ -162,13 +129,13 @@ Public Class maklumat_pemohon
 
 
     Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
+        Dim query As String = ""
         Try
-
+            query += String.Format("UPDATE spk_permohonan SET permohonan_tarikh = '{0}',permohonan_status 'PERMOHONAN SEDANG DIPROSES' WHERE permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid"))
+            query += String.Format("INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES({0},{1},{2},{3},'PERMOHONAN SEDANG DIPROSES');", Integer.Parse(pengguna_id.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
             If (e.CommandName = "Approved") Then
                 Dim strCID = e.CommandArgument.ToString
-
-                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN SEDANG DIPROSES' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
-                oCommon.ExecuteSQL(strSQL)
+                oCommon.ExecuteSQL(query)
             ElseIf (e.CommandName = "Rejected") Then
                 Dim strCID = e.CommandArgument.ToString
 
@@ -185,7 +152,130 @@ Public Class maklumat_pemohon
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
         End Try
     End Sub
-    Private Sub poin_load()
 
+    Protected Function icToAge(ByVal ic As String) As Integer
+        Dim year = ic.Substring(0, 2)
+        Dim month = ic.Substring(2, 2)
+        Dim day = ic.Substring(4, 2)
+        Dim dob_string = day & "/" & month & "/" & year
+        Dim dob_date = Convert.ToDateTime(dob_string)
+        Dim age = Date.Now().Year - dob_date.Year
+        Debug.WriteLine("icToAge: " & dob_string & "|Age: " & age & "")
+        Return age
+    End Function
+
+    Protected Sub loadMaklumatMata()
+        Dim jumlahPoint As Integer = 0
+        Dim jumlahAnakLayak As Integer = 0
+        Dim mataPangkat As Integer = 0
+        Dim mataAnak As Integer = 0
+        Dim mataLayak As Integer = 0
+        Dim statusLayak As String
+
+        mataAnak = Integer.Parse(oCommon.getFieldValue("SELECT config_parameter FROM general_config WHERE config_type = 'MATAANAK'"))
+        mataPangkat = Integer.Parse(oCommon.getFieldValue("SELECT C.pangkat_mata FROM spk_permohonan A LEFT JOIN spk_pengguna B ON B.pengguna_id = A.pengguna_id LEFT JOIN spk_pangkat C ON C.pangkat_id = B.pangkat_id WHERE A.permohonan_id = 11"))
+        mataLayak = Integer.Parse(oCommon.getFieldValue("SELECT config_parameter FROM general_config WHERE config_type = 'MATALULUS'"))
+
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT historyAnak_ic FROM spk_historyAnak WHERE permohonan_id = @permohonanID")
+                Try
+                    conn.Open()
+                    cmd.Connection = conn
+                    cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                    Dim dr As SqlDataReader
+                    dr = cmd.ExecuteReader
+                    If dr.HasRows Then
+                        While dr.Read
+                            If icToAge(dr("historyAnak_ic")) > 18 Then
+                                jumlahAnakLayak += 1
+                            Else
+                                Continue While
+                            End If
+                        End While
+                    Else
+                        jumlahAnakLayak = 0
+                    End If
+                Catch ex As Exception
+                    Debug.WriteLine("Error(loadMakluamtMata): " & ex.Message)
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+
+        If jumlahAnakLayak > 4 Then
+            jumlahAnakLayak = 4
+        End If
+        If jumlahPoint >= 30 Then
+            statusLayak = "LAYAK"
+        Else
+            statusLayak = "TIDAK LAYAK"
+        End If
+        jumlahPoint = mataPangkat + (jumlahAnakLayak * mataAnak)
+
+        lblMataPangkat.Text = mataPangkat
+        lblJumlahMatapangkat.Text = mataPangkat
+        lblMataAnak.Text = mataAnak
+        lblJumlahAnakLayak.Text = jumlahAnakLayak
+        lblJumlahMataAnak.Text = mataAnak * jumlahAnakLayak
+        lblJumlahMata.Text = jumlahPoint
+        lblStatusKelayakan.Text = statusLayak
+    End Sub
+
+    Private Sub btnImg_lulus_Click(sender As Object, e As ImageClickEventArgs) Handles btnImg_lulus.Click
+        Dim updatePermohonan As String = String.Format("
+            UPDATE 
+                spk_permohonan 
+            SET 
+                permohonan_tarikh = '{0}'
+                , permohonan_status = 'PERMOHONAN SEDANG DIPROSES' 
+            WHERE 
+                permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid")
+            )
+        Dim insertLogPermohonan As String = String.Format("
+            INSERT INTO 
+                spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
+            VALUES({0},{1},{2},'PERMOHONAN SEDANG DIPROSES');", Integer.Parse(pengguna_id.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
+        Try
+            oCommon.ExecuteSQL(updatePermohonan)
+            oCommon.ExecuteSQL(insertLogPermohonan)
+        Catch ex As Exception
+            Debug.WriteLine("Error(btnImg_lulus_Click): " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnImg_ditolak_Click(sender As Object, e As ImageClickEventArgs) Handles btnImg_ditolak.Click
+        dialogModal.Style.Add("display", "block")
+    End Sub
+
+    Private Sub btnTutupModal_Click(sender As Object, e As EventArgs) Handles btnTutupModal.Click
+        dialogModal.Style.Add("display", "none")
+    End Sub
+
+    Private Sub closeBtn_ServerClick(sender As Object, e As EventArgs) Handles closeBtn.ServerClick
+        dialogModal.Style.Add("display", "none")
+    End Sub
+
+    Private Sub btnTolakPermohonan_Click(sender As Object, e As EventArgs) Handles btnTolakPermohonan.Click
+        'Dim updatePermohonan As String = String.Format("
+        '    UPDATE 
+        '        spk_permohonan 
+        '    SET 
+        '        permohonan_tarikh = '{0}'
+        '        , permohonan_status = 'PERMOHONAN DITOLAK' 
+        '    WHERE 
+        '        permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid")
+        '    )
+        'Dim insertLogPermohonan As String = String.Format("
+        '    INSERT INTO 
+        '        spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
+        '    VALUES({0},{1},{2},'PERMOHONAN DITOLAK');", Integer.Parse(pengguna_id.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
+        'Try
+        '    oCommon.ExecuteSQL(updatePermohonan)
+        '    oCommon.ExecuteSQL(insertLogPermohonan)
+        'Catch ex As Exception
+        '    Debug.WriteLine("Error(btnImg_ditolak_Click): " & ex.Message)
+        'End Try
+        Debug.WriteLine("Nota: " & txtNota.Text)
     End Sub
 End Class

@@ -64,7 +64,7 @@ Public Class maklumat_permohonan
             Dim cmd As New SqlCommand("
                 SELECT 
 	                  A.permohonan_id
-	                , A.pemohonan_tarikh
+	                , A.permohonan_tarikh
 	                , A.permohonan_status
                     , A.permohonan_sub_status
 	                , B.pengguna_nama
@@ -90,7 +90,7 @@ Public Class maklumat_permohonan
                             lblJenisTempatTinggal.Text = reader("historyKeluarga_tempat_tinggal")
                             lblTarikhMulaMenetap.Text = reader("historyKeluarga_tarikh_mula").ToString()
                             lblKuarterDipohon.Text = reader("kuarters_nama")
-                            lblTarikhPermohonan.Text = reader("pemohonan_tarikh")
+                            lblTarikhPermohonan.Text = reader("permohonan_tarikh")
                             statusPermohon = reader("permohonan_status")
                             subStatusPermohonan = reader("permohonan_sub_status").ToString
                             Debug.WriteLine("Success: maklumatUser")

@@ -37,7 +37,7 @@ Public Class senarai_permohonan
             Dim ds As New DataSet
             Dim da As New SqlDataAdapter("SELECT 
 	            A.permohonan_id,
-	            A.pemohonan_tarikh,
+	            A.permohonan_tarikh,
 	            B.kuarters_nama,
 	            A.permohonan_status,
                 A.permohonan_nota
@@ -45,7 +45,7 @@ Public Class senarai_permohonan
 	            spk_permohonan A
 	            JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
             WHERE A.pengguna_id = " & penggunaID & "
-            ORDER BY A.pemohonan_tarikh DESC", conn)
+            ORDER BY A.permohonan_tarikh DESC", conn)
             Try
                 conn.Open()
                 da.Fill(ds, "AnyTable")

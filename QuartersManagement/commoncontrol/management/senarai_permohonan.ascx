@@ -125,7 +125,7 @@
                                 
                         <asp:TemplateField HeaderText="Tarikh">
                             <ItemTemplate>
-                                <asp:Label ID="lblTarikhPermohonan" runat="server" Text='<%# changeDate(Eval("pemohonan_tarikh")) %>' />
+                                <asp:Label ID="lblTarikhPermohonan" runat="server" Text='<%# changeDate(Eval("permohonan_tarikh")) %>' />
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />

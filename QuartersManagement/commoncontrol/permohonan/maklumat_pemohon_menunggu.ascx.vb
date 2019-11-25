@@ -72,32 +72,32 @@ Public Class maklumat_pemohon_menunggu
 
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT TOP 1
-	            A.pengguna_id,
-	            A.pengguna_nama,
-	            A.pengguna_mykad,
-	            A.pengguna_jantina,
-	            A.pengguna_tarikh_lahir,
-                A.pengguna_mula_perkhidmatan,
-                A.pengguna_tamat_perkhidmatan,
-                A.pengguna_no_tentera,
-	            B.pangkat_id,
-	            B.pangkat_nama,
-                C.pangkalan_nama,
-                E.kuarters_nama,
-				G.keluarga_tempat_tinggal ,
-				G.keluarga_tarikh_mula,
-				G.keluarga_anak,
-				D.permohonan_mata
+            Dim cmd As New SqlCommand("
+            SELECT
+                A.permohonan_id
+                , D.pengguna_nama
+                , D.pengguna_jantina
+	            , D.pengguna_tarikh_lahir
+                , F.pangkat_nama
+                , D.pengguna_no_tentera
+                , D.pengguna_mula_perkhidmatan
+                , D.pengguna_tamat_perkhidmatan
+                , A.permohonan_no_permohonan
+                , A.kuarters_id
+                , B.kuarters_nama
+                , C.pangkalan_nama
+                , A.permohonan_tarikh
+                , A.permohonan_status
+                , A.permohonan_sub_status
+                , A.permohonan_mata
             FROM 
-	            admin.spk_pengguna A
-	            JOIN admin.spk_pangkat B ON A.pangkat_id = B.pangkat_id
-	            JOIN dbo.spk_pangkalan C ON A.pangkalan_id = C.pangkalan_id
-				JOIN spk_permohonan D on A.pengguna_id = D.pengguna_id 
-				JOIN spk_kuarters E on D.kuarters_id = E.kuarters_id
-				JOIN spk_keluarga G on A.pengguna_id = G.pengguna_id
-				JOIN spk_anak F on A.pengguna_id = F.pengguna_id	
-            WHERE D.permohonan_id = '" & Request.QueryString("uid") & "' ",
+                spk_permohonan A
+                JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
+                JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
+                JOIN spk_pengguna D ON D.pengguna_id = A.pengguna_id
+                JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
+                JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id	
+            WHERE A.permohonan_id = '" & Request.QueryString("uid") & "';",
             conn)
 
             Try
@@ -114,14 +114,7 @@ Public Class maklumat_pemohon_menunggu
                         lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
                         lbl_senaraiKuarters.InnerText = reader("kuarters_nama")
-
-                        '-------------------
-                        'If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
-                        '    lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
-                        'Else
-                        '    lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
-                        'End If
-                        '-------------------
+                        lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
                     Else
                         Debug.Write("CANNOT READ")
                     End If

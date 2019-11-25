@@ -145,6 +145,7 @@
 
     <asp:Label ID="lbl8" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Baru</asp:Label>
     <asp:Label ID="lbl9" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Menunggu</asp:Label>
+    <asp:Label ID="lbl12" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Maklumat Permohonan Menunggu</asp:Label>
     <asp:Label ID="lbl10" runat="server" Visible="false">Pengurusan Pentadbiran > Senarai Permohonan > Senarai Permohonan Tolak</asp:Label>
 
     
