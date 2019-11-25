@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class senarai_penjawat
-    
+
     '''<summary>
     '''MsgTop control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class senarai_penjawat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''strlbl_top control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class senarai_penjawat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''Refresh control.
     '''</summary>
@@ -39,7 +39,43 @@ Partial Public Class senarai_penjawat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
+
+    '''<summary>
+    '''txtCarianNama control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCarianNama As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''txtCarianNoTentera control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCarianNoTentera As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''ddlCarianPangkat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCarianPangkat As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''btnCarian control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCarian As Global.System.Web.UI.WebControls.Button
+
     '''<summary>
     '''lblConfig control.
     '''</summary>
@@ -48,7 +84,7 @@ Partial Public Class senarai_penjawat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblConfig As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblQ control.
     '''</summary>
@@ -57,7 +93,7 @@ Partial Public Class senarai_penjawat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblQ As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''Panel control.
     '''</summary>
@@ -66,7 +102,7 @@ Partial Public Class senarai_penjawat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Panel As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''datRespondent control.
     '''</summary>
@@ -75,7 +111,7 @@ Partial Public Class senarai_penjawat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
-    
+
     '''<summary>
     '''MsgBottom control.
     '''</summary>
@@ -84,7 +120,7 @@ Partial Public Class senarai_penjawat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''strlbl_bottom control.
     '''</summary>

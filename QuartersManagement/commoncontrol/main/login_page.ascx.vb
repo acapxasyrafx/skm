@@ -25,38 +25,38 @@ Public Class login_page
                 Response.Redirect("User.Homepage.aspx")
             End If
         End If
+        'Dim jenisPengguna As String = ""
+        'jenisPengguna = UserLogin()
+        'Select Case jenisPengguna
+        '    Case "ADMIN"
+        '        Response.Redirect("Admin.Homepage.aspx")
+        '    Case "PENGGUNA"
+        '        Response.Redirect("User.Homepage.aspx")
+        '    Case Else
+        '        Response.Write("<script>alert('Tiada pengguna dengan ID " & txtLoginID.Text & " berikut');</script>")
+        'End Select
     End Sub
-    Private Function getUserID(ByVal noTentera As String) As Boolean
-        Dim penggunaID As Integer
-        If noTentera.Equals(Nothing) Or noTentera.Equals("") Then
-            Return False
-        Else
-            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-                Dim cmd As New SqlCommand("SELECT pengguna_id FROM spk_pengguna WHERE pengguna_no_tentera = '" & noTentera & "'", conn)
-                Try
-                    conn.Open()
-                    Dim dr As SqlDataReader
-                    dr = cmd.ExecuteReader
-                    If dr.HasRows Then
-                        Do While dr.Read
-                            penggunaID = dr("pengguna_id")
-                            Debug.WriteLine("Debug(getUserID): pengguna_id => " & penggunaID & "")
-                            Session("penggunaID") = penggunaID
-                            Return True
-                        Loop
-                    Else
-                        Debug.WriteLine("Error(getUserID): Reader has no rows")
-                        Return False
-                    End If
-                Catch ex As Exception
-                    Debug.WriteLine("Error(getUserID): " & ex.Message)
-                    Return False
-                Finally
-                    conn.Close()
-                End Try
-            End Using
-            Return False
-        End If
+    Private Function UserLogin() As String
+        Try
+            Dim query As String = "
+            SELECT 
+                pengguna_id, 
+                pengguna_jenis 
+            FROM 
+                spk_pengguna 
+            WHERE 
+                pengguna_no_tentera = '" & txtLoginID.Text & "' AND 
+                pengguna_pwd = '" & txtPwd.Text & "';"
+            strRet = oCommon.getFieldValueEx(query)
+            Dim result As Array
+            result = strRet.Split("|")
+            Session("pengguna_id") = result(0)
+            Session("pengguna_jenis") = result(1)
+            Return result(1)
+        Catch ex As Exception
+            Debug.WriteLine("Error(UserLogin): " & ex.Message)
+            Return ""
+        End Try
     End Function
 
     Private Function isExistL(ByVal strSQL As String) As String

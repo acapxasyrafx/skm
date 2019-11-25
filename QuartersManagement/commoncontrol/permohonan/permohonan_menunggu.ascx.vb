@@ -123,8 +123,8 @@ Public Class permohonan_menunggu
                 ddlfilterPangkat.DataTextField = "pangkat_nama"
                 ddlfilterPangkat.DataValueField = "pangkat_id"
                 ddlfilterPangkat.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
-                ddlfilterKuarters.SelectedIndex = 0
+                ddlfilterPangkat.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                ddlfilterPangkat.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadJawatan): " & ex.Message)
             Finally
@@ -140,8 +140,6 @@ Public Class permohonan_menunggu
         Dim strWhere As String = ""
 
         Dim strOrder As String = ""
-
-
 
         tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan
                     ,D.pangkat_singkatan as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,substring (B.permohonan_tarikh,1,10) as tarikhMohon,B.permohonan_status as status
@@ -166,14 +164,17 @@ Public Class permohonan_menunggu
                 strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
             End If
 
+            If Not txt_nama.Text = "" Then
+                strWhere += " AND (
+                    A.pengguna_nama LIKE '%" & txt_nama.Text & "%' OR 
+                    A.pengguna_no_tentera LIKE '%" & txt_nama.Text & "%'
+                    )"
+            End If
 
         Catch ex As Exception
             MsgBottom.InnerText = ex.ToString
         End Try
 
-        If Not txt_nama.Text = "" Then
-            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "' or A.pengguna_no_tentera = '" & txt_nama.Text & "' or A.pengguna_no_tentera LIKE '%" & txt_nama.Text & "%')"
-        End If
 
         getSQL = tmpSQL & strWhere & strOrder
 

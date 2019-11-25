@@ -71,6 +71,8 @@
         <td>Emel</td>
         <td>:</td>
         <td><asp:TextBox ID="txtEmail" runat="server" Width="200px"></asp:TextBox></td>
+    </tr>
+    <tr>
         <td>No.Telefon</td>
         <td>:</td>
         <td><asp:TextBox ID="txtTelefon" runat="server" Width="200px"></asp:TextBox></td>
@@ -90,6 +92,11 @@
         <td colspan="4"><asp:TextBox ID="txtAlamat3Daftar" runat="server" Width="350px"></asp:TextBox></td>
     </tr>
     <tr>
+        <td>Poskod</td>
+        <td>:</td>
+        <td><asp:TextBox ID="txtPoskodDaftar" runat="server" Width="200px"></asp:TextBox></td>
+    </tr>
+    <tr>
         <td>Bandar</td>
         <td>:</td>
         <td colspan="4"><asp:TextBox ID="txtBandarDaftar" runat="server" Width="200px"></asp:TextBox></td>
@@ -98,8 +105,5 @@
         <td>Negeri</td>
         <td>:</td>
         <td><asp:DropDownList ID="ddlNegeriDaftar" runat="server"></asp:DropDownList></td>
-        <td>Poskod</td>
-        <td>:</td>
-        <td><asp:TextBox ID="txtPoskodDaftar" runat="server" Width="200px"></asp:TextBox></td>
     </tr>
 </table>
