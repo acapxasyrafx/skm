@@ -31,23 +31,119 @@
     .wrapper{
         display:flex;
         justify-content: space-evenly;
-        margin:0;
-        padding:0;
+        height: 100%;
     }
 
     .left_content{
-        width: 70%;
-        overflow:auto;
+        width: 50%;
     }
 
     .right_content{
-        width: 30%;
+        width: 50%;
     }
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 50%;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Modal Header */
+    .modal-header {
+        padding: 2px 16px;
+        background-color: #FFEB3B;
+        color: white;
+    }
+
+    /* Modal Body */
+    .modal-body {
+        padding: 2px 10px;
+    }
+
+    /* Modal Footer */
+    .modal-footer {
+        padding: 2px 16px;
+        background-color: #FFEB3B;
+        /*color: white;*/
+    }
+
+    /* Add Animation */
+    @keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+
+    .button {
+        border: 1px solid black;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    .save{
+        background-color: #9E9E9E; /* Green */
+    }
+
+    .cancel{
+        background-color: #FFB300; /* AMBER 600 */
+    }
+
 </style>
 
  <script>
         function GetUserValue() {
-            var person = prompt("Please enter your name", "wmec");
+            var person = prompt("Sebab menolak permohonan ini:", "");
             if (person != null && person != "") {
                 document.getElementById("<%=hdnUserInput.ClientID%>").value = person;
                 return true;
@@ -327,14 +423,13 @@
                             Height="39px" 
                             CommandName="Rejected" 
                             CommandArgument='<%#Eval("permohonan_id")%>' 
-                            OnClientClick="javascript:return GetUserValue() && confirm('Adakah anda pasti mahu menolak permohonan ini? ')" 
                             ImageUrl="~/icons/checkmark_declined.png" 
                             ToolTip="Ditolak" 
                         />
                         <asp:HiddenField runat="server" ID="hdnUserInput" />
                     </td>
                 </tr>
-            </table>
+            </table> 
         </div>
     </div>
 </div>
@@ -353,3 +448,27 @@
         </td>
     </tr>
 </table>
+
+<div runat="server" class="modal" id="dialogModal">
+    <table class="fbform modal-content">
+        <tr class="modal-header">
+            <td class="fbform_mheader" colspan="2">
+                <h3 style="">Menolak Permohonan<button runat="server" class="close" id="closeBtn">&times;</button></h3>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Sila nyatakan sebab untuk permohonan ditolak?</td>
+        </tr>
+        <tr class="modal-body">
+            <td colspan="3" style="width: 100px;">
+                <asp:TextBox ID="txtNota" TextMode="multiline" Columns="100" Rows="5" runat="server" Text="Permohonan Tidak Layak/Tidak Diterima" />
+            </td>
+        </tr>
+        <tr class="modal-footer">
+            <td>
+                <asp:Button CssClass="button save" Text="Tolak" runat="server" ID="btnTolakPermohonan" />
+                <asp:Button CssClass="button cancel" Text="Tutup" runat="server" ID="btnTutupModal" />
+            </td>
+        </tr>
+    </table>
+</div>

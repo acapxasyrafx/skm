@@ -87,7 +87,7 @@ Public Class maklumat_pemohon
                         lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
                     Loop
                 Else
-                    Debug.Write("NO ROWS")
+                    Debug.WriteLine("Error(loadUser): NO ROWS")
                 End If
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadUser): " & ex.Message)
@@ -245,24 +245,37 @@ Public Class maklumat_pemohon
     End Sub
 
     Private Sub btnImg_ditolak_Click(sender As Object, e As ImageClickEventArgs) Handles btnImg_ditolak.Click
-        Dim updatePermohonan As String = String.Format("
-            UPDATE 
-                spk_permohonan 
-            SET 
-                permohonan_tarikh = '{0}'
-                , permohonan_status = 'PERMOHONAN DITOLAK' 
-            WHERE 
-                permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid")
-            )
-        Dim insertLogPermohonan As String = String.Format("
-            INSERT INTO 
-                spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
-            VALUES({0},{1},{2},'PERMOHONAN DITOLAK');", Integer.Parse(pengguna_id.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
-        Try
-            oCommon.ExecuteSQL(updatePermohonan)
-            oCommon.ExecuteSQL(insertLogPermohonan)
-        Catch ex As Exception
-            Debug.WriteLine("Error(btnImg_ditolak_Click): " & ex.Message)
-        End Try
+        dialogModal.Style.Add("display", "block")
+    End Sub
+
+    Private Sub btnTutupModal_Click(sender As Object, e As EventArgs) Handles btnTutupModal.Click
+        dialogModal.Style.Add("display", "none")
+    End Sub
+
+    Private Sub closeBtn_ServerClick(sender As Object, e As EventArgs) Handles closeBtn.ServerClick
+        dialogModal.Style.Add("display", "none")
+    End Sub
+
+    Private Sub btnTolakPermohonan_Click(sender As Object, e As EventArgs) Handles btnTolakPermohonan.Click
+        'Dim updatePermohonan As String = String.Format("
+        '    UPDATE 
+        '        spk_permohonan 
+        '    SET 
+        '        permohonan_tarikh = '{0}'
+        '        , permohonan_status = 'PERMOHONAN DITOLAK' 
+        '    WHERE 
+        '        permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid")
+        '    )
+        'Dim insertLogPermohonan As String = String.Format("
+        '    INSERT INTO 
+        '        spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
+        '    VALUES({0},{1},{2},'PERMOHONAN DITOLAK');", Integer.Parse(pengguna_id.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
+        'Try
+        '    oCommon.ExecuteSQL(updatePermohonan)
+        '    oCommon.ExecuteSQL(insertLogPermohonan)
+        'Catch ex As Exception
+        '    Debug.WriteLine("Error(btnImg_ditolak_Click): " & ex.Message)
+        'End Try
+        Debug.WriteLine("Nota: " & txtNota.Text)
     End Sub
 End Class
