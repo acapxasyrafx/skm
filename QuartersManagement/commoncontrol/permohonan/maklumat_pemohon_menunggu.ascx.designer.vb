@@ -158,6 +158,15 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lbl_senaraiKuarters As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''lblKekosonganUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblKekosonganUnit As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''tblBertukar control.
     '''</summary>
     '''<remarks>
@@ -203,40 +212,67 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents TerimaPermohonanKuarters As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''ddlcadanganUnit1 control.
+    '''lblKuartersDipohon control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlcadanganUnit1 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents lblKuartersDipohon As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''ddlcadanganUnit2 control.
+    '''lblStatusKuarter control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlcadanganUnit2 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents lblStatusKuarter As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''ddlcadanganUnit3 control.
+    '''pnlCadanganKuarters control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlcadanganUnit3 As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents pnlCadanganKuarters As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''btnImg_ditolak control.
+    '''ddlCadanganKuarters control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnImg_ditolak As Global.System.Web.UI.WebControls.ImageButton
+    Protected WithEvents ddlCadanganKuarters As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''pnlPemilihanUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pnlPemilihanUnit As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''ddlUnitKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlUnitKuarters As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''btnSimpanTawaranUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSimpanTawaranUnit As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''MsgBottom control.

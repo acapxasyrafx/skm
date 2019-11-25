@@ -23,13 +23,12 @@ Public Class maklumat_pemohon_menunggu
 
     Dim dataAnak As New DataSet
     Dim countAnak As Integer = 0
-
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
 
         Try
             loadUser()
-            ddlunit_load()
+            'ddlunit_load()
             readMaklumatAnak()
 
         Catch ex As Exception
@@ -42,13 +41,11 @@ Public Class maklumat_pemohon_menunggu
             Dim table As DataTable = New DataTable
             Dim da As New SqlDataAdapter(
                     "SELECT 
-                        anak_id,
-                        pengguna_id,
-                        anak_nama,
-                        anak_ic,
-                        anak_umur
-                        FROM spk_anak
-                        WHERE pengguna_id = " & penggunaID & ";",
+	                    * 
+                    FROM 
+	                    spk_historyAnak
+                    WHERE
+	                    permohonan_id = " & Request.QueryString("uid") & ";",
                     conn)
             Try
                 conn.Open()
@@ -75,21 +72,24 @@ Public Class maklumat_pemohon_menunggu
             Dim cmd As New SqlCommand("
             SELECT
                 A.permohonan_id
-                , D.pengguna_nama
-                , D.pengguna_jantina
-	            , D.pengguna_tarikh_lahir
-                , F.pangkat_nama
-                , D.pengguna_no_tentera
-                , D.pengguna_mula_perkhidmatan
-                , D.pengguna_tamat_perkhidmatan
-                , A.permohonan_no_permohonan
-                , A.kuarters_id
-                , B.kuarters_nama
-                , C.pangkalan_nama
-                , A.permohonan_tarikh
-                , A.permohonan_status
-                , A.permohonan_sub_status
-                , A.permohonan_mata
+                ,   D.pengguna_id
+                ,   D.pengguna_nama
+                ,   D.pengguna_jantina
+	            ,   D.pengguna_tarikh_lahir
+                ,   F.pangkat_nama
+                ,   D.pengguna_no_tentera
+                ,   D.pengguna_mula_perkhidmatan
+                ,   D.pengguna_tamat_perkhidmatan
+                ,   A.permohonan_no_permohonan
+                ,   A.kuarters_id
+                ,   B.kuarters_nama
+                ,   C.pangkalan_nama
+                ,   A.permohonan_tarikh
+                ,   A.permohonan_status
+                ,   A.permohonan_sub_status
+                ,   A.permohonan_mata
+	            ,	E.historyKeluarga_tempat_tinggal
+	            ,	E.historyKeluarga_tarikh_mula
             FROM 
                 spk_permohonan A
                 JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
@@ -114,12 +114,22 @@ Public Class maklumat_pemohon_menunggu
                         lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
                         lbl_senaraiKuarters.InnerText = reader("kuarters_nama")
+                        lblKuartersDipohon.Text = reader("kuarters_nama")
                         lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
+                        lblJenisPenempatan.InnerText = reader("historyKeluarga_tempat_tinggal")
+                        lbltarikhPenempatan.InnerText = reader("historyKeluarga_tarikh_mula")
+                        If checkKekosongan(Integer.Parse(reader("kuarters_id"))) Then
+                            lblStatusKuarter.Text = "ADA KEKOSONGAN"
+                            pnlPemilihanUnit.Visible = True
+                        Else
+                            lblStatusKuarter.Text = "TIADA KEKOSONGAN"
+                            pnlCadanganKuarters.Visible = True
+                        End If
                     Else
-                        Debug.Write("CANNOT READ")
+                        Debug.Write("Error(loadUser): CANNOT READ")
                     End If
                 Else
-                    Debug.Write("NO ROWS")
+                    Debug.Write("Error(loadUser): NO ROWS")
                 End If
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadUser): " & ex.Message)
@@ -129,74 +139,74 @@ Public Class maklumat_pemohon_menunggu
         End Using
     End Sub
 
-    Private Sub ddlunit_load()
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("select a.kuarters_id as kuarters_id ,a.kuarters_nama as kuarters_nama from spk_kuarters a 
-                                            ", conn)
-            Dim ds As New DataSet
-            Dim dt As New DataSet
-            Dim dr As New DataSet
+    'Private Sub ddlunit_load()
+    '    Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+    '        Dim cmd As New SqlCommand("select a.kuarters_id as kuarters_id ,a.kuarters_nama as kuarters_nama from spk_kuarters a 
+    '                                        ", conn)
+    '        Dim ds As New DataSet
+    '        Dim dt As New DataSet
+    '        Dim dr As New DataSet
 
-            Try
-                conn.Open()
+    '        Try
+    '            conn.Open()
 
-                Dim da As New SqlDataAdapter(cmd)
-                da.Fill(ds)
-                ddlcadanganUnit1.DataSource = ds
-                ddlcadanganUnit1.DataTextField = "kuarters_nama"
-                ddlcadanganUnit1.DataValueField = "kuarters_id"
-                ddlcadanganUnit1.DataBind()
+    '            Dim da As New SqlDataAdapter(cmd)
+    '            da.Fill(ds)
+    '            ddlcadanganUnit1.DataSource = ds
+    '            ddlcadanganUnit1.DataTextField = "kuarters_nama"
+    '            ddlcadanganUnit1.DataValueField = "kuarters_id"
+    '            ddlcadanganUnit1.DataBind()
 
-                Dim db As New SqlDataAdapter(cmd)
-                db.Fill(dt)
-                ddlcadanganUnit2.DataSource = dt
-                ddlcadanganUnit2.DataTextField = "kuarters_nama"
-                ddlcadanganUnit2.DataValueField = "kuarters_id"
-                ddlcadanganUnit2.DataBind()
+    '            Dim db As New SqlDataAdapter(cmd)
+    '            db.Fill(dt)
+    '            ddlcadanganUnit2.DataSource = dt
+    '            ddlcadanganUnit2.DataTextField = "kuarters_nama"
+    '            ddlcadanganUnit2.DataValueField = "kuarters_id"
+    '            ddlcadanganUnit2.DataBind()
 
-                Dim dc As New SqlDataAdapter(cmd)
-                dc.Fill(dr)
-                ddlcadanganUnit3.DataSource = dr
-                ddlcadanganUnit3.DataTextField = "kuarters_nama"
-                ddlcadanganUnit3.DataValueField = "kuarters_id"
-                ddlcadanganUnit3.DataBind()
-            Catch ex As Exception
-                Debug.Write("ERROR: " & ex.Message)
-            Finally
-                conn.Close()
-            End Try
-        End Using
-    End Sub
+    '            Dim dc As New SqlDataAdapter(cmd)
+    '            dc.Fill(dr)
+    '            ddlcadanganUnit3.DataSource = dr
+    '            ddlcadanganUnit3.DataTextField = "kuarters_nama"
+    '            ddlcadanganUnit3.DataValueField = "kuarters_id"
+    '            ddlcadanganUnit3.DataBind()
+    '        Catch ex As Exception
+    '            Debug.Write("ERROR: " & ex.Message)
+    '        Finally
+    '            conn.Close()
+    '        End Try
+    '    End Using
+    'End Sub
 
-    Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
-        Try
+    'Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
+    '    Try
 
-            If (e.CommandName = "Cadangan") Then
-                Dim strCID = e.CommandArgument.ToString
+    '        If (e.CommandName = "Cadangan") Then
+    '            Dim strCID = e.CommandArgument.ToString
 
-                Try
-                    Dim Getid = oCommon.ExecuteSQL("select permohonan_id from spk_permohonan where pengguna_id = '" & Request.QueryString("uid") & "'")
-                    strSQL = "INSERT INTO spk_cadanganUnit (permohonan_id,unit_id1,unit_id2,unit_id3) VALUES ('" & Getid & "','" & ddlcadanganUnit1.SelectedValue.ToString & "','" & ddlcadanganUnit2.SelectedValue.ToString & "','" & ddlcadanganUnit3.SelectedIndex.ToString & "')"
-                    strRet = oCommon.ExecuteSQL(strSQL)
-                    If strRet = "0" Then
-                        strlbl_bottom.Text = "Cadangan Kuarters Sudah Dimasukkan"
+    '            Try
+    '                Dim Getid = oCommon.ExecuteSQL("select permohonan_id from spk_permohonan where pengguna_id = '" & Request.QueryString("uid") & "'")
+    '                strSQL = "INSERT INTO spk_cadanganUnit (permohonan_id,unit_id1,unit_id2,unit_id3) VALUES ('" & Getid & "','" & ddlcadanganUnit1.SelectedValue.ToString & "','" & ddlcadanganUnit2.SelectedValue.ToString & "','" & ddlcadanganUnit3.SelectedIndex.ToString & "')"
+    '                strRet = oCommon.ExecuteSQL(strSQL)
+    '                If strRet = "0" Then
+    '                    strlbl_bottom.Text = "Cadangan Kuarters Sudah Dimasukkan"
 
-                    End If
-                Catch ex As Exception
-                    MsgTop.Attributes("class") = "errorMsg"
-                    strlbl_top.Text = strSysErrorAlert
-                    MsgBottom.Attributes("class") = "errorMsg"
-                    strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
+    '                End If
+    '            Catch ex As Exception
+    '                MsgTop.Attributes("class") = "errorMsg"
+    '                strlbl_top.Text = strSysErrorAlert
+    '                MsgBottom.Attributes("class") = "errorMsg"
+    '                strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
 
-                End Try
+    '            End Try
 
-            End If
+    '        End If
 
-        Catch ex As Exception
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-        End Try
-    End Sub
+    '    Catch ex As Exception
+    '        MsgBottom.Attributes("class") = "errorMsg"
+    '        strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
+    '    End Try
+    'End Sub
 
     Private Sub TerimaPermohonanKuarters_Click(sender As Object, e As EventArgs) Handles TerimaPermohonanKuarters.Click
         Dim Getid = oCommon.ExecuteSQL("select permohonan_id from spk_permohonan where pengguna_id = '" & Request.QueryString("uid") & "'")
@@ -207,4 +217,72 @@ Public Class maklumat_pemohon_menunggu
 
         End If
     End Sub
+
+    Private Function checkKekosongan(ByVal kuartersID As Integer) As Boolean
+        Dim jumlahKekosongan As Integer = 0
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT COUNT(*) jumlah_kekosongan FROM spk_unit WHERE unit_status = 'Available' AND kuarters_id = @kuartersID;")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@kuartersID", SqlDbType.Int).Value = kuartersID
+                Try
+                    conn.Open()
+                    jumlahKekosongan = cmd.ExecuteScalar
+                Catch ex As Exception
+                    Debug.WriteLine("Error(checkKekosongan): " & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+        lblKekosonganUnit.Text = jumlahKekosongan
+        If jumlahKekosongan > 0 Then
+            Debug.WriteLine("checkKekosongan: " & jumlahKekosongan)
+            loadUnitAvailable(kuartersID)
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Private Sub loadUnitAvailable(ByVal kuartersID As Integer)
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT 
+                    unit_id, 
+                    (unit_blok + '-' + unit_tingkat + '-' + unit_nombor) AS nama_unit 
+                FROM 
+                    spk_unit 
+                WHERE 
+                    kuarters_id = @kuartersID AND unit_status = 'Available';")
+                Dim ds As New DataSet
+                cmd.Connection = conn
+                cmd.Parameters.Add("@kuartersID", SqlDbType.Int).Value = kuartersID
+                Try
+                    conn.Open()
+                    Dim da As New SqlDataAdapter(cmd)
+                    da.Fill(ds, "AnyTable")
+                    ddlUnitKuarters.DataSource = ds
+                    ddlUnitKuarters.DataValueField = "unit_id"
+                    ddlUnitKuarters.DataTextField = "nama_unit"
+                    ddlUnitKuarters.DataBind()
+                    ddlUnitKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                Catch ex As Exception
+                    Debug.WriteLine("Error(loadUnitAvailable): " & ex.Message)
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Protected Function icToAge(ByVal ic As String) As Integer
+        Dim year = ic.Substring(0, 2)
+        Dim month = ic.Substring(2, 2)
+        Dim day = ic.Substring(4, 2)
+        Dim dob_string = day & "/" & month & "/" & year
+        Dim dob_date = Convert.ToDateTime(dob_string)
+        Dim age = Date.Now().Year - dob_date.Year
+        Debug.WriteLine("icToAge: " & dob_string & "|Age: " & age & "")
+        Return age
+    End Function
 End Class
