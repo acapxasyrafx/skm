@@ -300,6 +300,10 @@ Public Class maklumat_pemohon_menunggu
             End If
         Else
             Debug.WriteLine("Error(btnSimpanTawaranUnit): UNIT TAK DIPILIH")
+            MsgTop.Attributes("class") = "errorMsg"
+            strlbl_top.Text = "Unit kuarters perlu dipilih"
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = "Unit kuarters perlu dipilih"
         End If
 
     End Sub
