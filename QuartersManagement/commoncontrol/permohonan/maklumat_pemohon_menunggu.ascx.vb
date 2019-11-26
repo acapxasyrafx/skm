@@ -355,7 +355,6 @@ Public Class maklumat_pemohon_menunggu
                     conn.Open()
                     Dim da As New SqlDataAdapter(cmd)
                     da.Fill(ds, "AnyTable")
-                    Debug.WriteLine("Rows: " & ds.Tables(0).Rows.Count)
                     If ds.Tables(0).Rows.Count = 3 Then
                         btnTambahCadangan.Visible = False
                     End If

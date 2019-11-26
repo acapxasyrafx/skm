@@ -35,6 +35,18 @@
         width: 50%;
         padding: 1px;
     }
+     .btn{
+        border-radius: 5px;
+        background-color: grey;
+        color:white;
+        border: solid 1px white;
+        height: 2.5em;
+    }
+    .btn:hover{
+        border: solid 1px black;
+        background-color:aliceblue;
+        color:black;
+    }
 </style>
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
@@ -244,7 +256,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:Button runat="server" ID="TerimaPermohonanKuarters" Text="Terima Permohonan Kuarters" />
+                                <asp:Button runat="server" CssClass="btn" ID="TerimaPermohonanKuarters" Text="Terima Permohonan Kuarters" />
                             </td>
                         </tr>
                     </table>
@@ -286,7 +298,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><asp:Button Text="Simpan" runat="server" ID="btnSimpanTawaranUnit" /></td>
+                    <td><asp:Button CssClass="btn" Text="Simpan" runat="server" ID="btnSimpanTawaranUnit" /></td>
                 </tr>
                 <tr>
                     <asp:CheckBox Text="Cadang Kuarters Lain?" runat="server" ID="cbCadangKuartersLain"/>
@@ -303,7 +315,7 @@
                     <td style="width: 5px;">:</td>
                     <td>
                         <asp:DropDownList runat="server" ID="ddlCadanganKuarters" Width="50%"></asp:DropDownList>
-                        <asp:Button Text="Tambah" runat="server" ID="btnTambahCadangan"/>
+                        <asp:Button CssClass="btn" Text="Tambah" runat="server" ID="btnTambahCadangan"/>
                     </td>
                 </tr>
                 <tr>
@@ -375,7 +387,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><asp:Button Text="Simpan" runat="server" ID="btnSimpanCadanganKuarters" /></td>
+                    <td><asp:Button CssClass="btn" Text="Simpan" runat="server" ID="btnSimpanCadanganKuarters" /></td>
                 </tr>
             </table>
         </asp:Panel>

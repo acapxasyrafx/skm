@@ -89,7 +89,7 @@
     /* Modal Header */
     .modal-header {
         padding: 2px 16px;
-        background-color: #FFEB3B;
+        background-color: #f9a825;
         color: white;
     }
 
@@ -101,7 +101,7 @@
     /* Modal Footer */
     .modal-footer {
         padding: 2px 16px;
-        background-color: #FFEB3B;
+        background-color: #f9a825;
         /*color: white;*/
     }
 
@@ -121,7 +121,7 @@
     .button {
         border: 1px solid black;
         color: white;
-        padding: 20px;
+        padding: 10px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
@@ -136,7 +136,7 @@
     }
 
     .cancel{
-        background-color: #FFB300; /* AMBER 600 */
+        background-color: #ff8a65; /* AMBER 600 */
     }
 
 </style>
@@ -466,7 +466,7 @@
         </tr>
         <tr class="modal-footer">
             <td>
-                <asp:Button CssClass="button save" Text="Tolak" runat="server" ID="btnTolakPermohonan" />
+                <asp:Button CssClass="button save" Text="Simpan" runat="server" ID="btnTolakPermohonan" />
                 <asp:Button CssClass="button cancel" Text="Tutup" runat="server" ID="btnTutupModal" />
             </td>
         </tr>
