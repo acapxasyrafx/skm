@@ -117,6 +117,7 @@ Public Class maklumat_pemohon_menunggu
                         lbltarikhPenempatan.InnerText = reader("historyKeluarga_tarikh_mula")
                         If reader("permohonan_sub_status").Equals("CADANGKAN KUARTERS LAIN") Then
                             ddlCadanganKuarters.Visible = False
+                            btnSimpanCadanganKuarters.Visible = False
                         End If
                         If checkKekosongan(Integer.Parse(reader("kuarters_id"))) Then
                             lblStatusKuarter.Text = "ADA KEKOSONGAN"
@@ -421,4 +422,6 @@ Public Class maklumat_pemohon_menunggu
             strlbl_bottom.Text = "Sila pilih kuarters untuk dicadang."
         End If
     End Sub
+
+
 End Class
