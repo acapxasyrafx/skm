@@ -257,25 +257,33 @@ Public Class maklumat_pemohon
     End Sub
 
     Private Sub btnTolakPermohonan_Click(sender As Object, e As EventArgs) Handles btnTolakPermohonan.Click
-        'Dim updatePermohonan As String = String.Format("
-        '    UPDATE 
-        '        spk_permohonan 
-        '    SET 
-        '        permohonan_tarikh = '{0}'
-        '        , permohonan_status = 'PERMOHONAN DITOLAK' 
-        '    WHERE 
-        '        permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid")
-        '    )
-        'Dim insertLogPermohonan As String = String.Format("
-        '    INSERT INTO 
-        '        spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
-        '    VALUES({0},{1},{2},'PERMOHONAN DITOLAK');", Integer.Parse(pengguna_id.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
-        'Try
-        '    oCommon.ExecuteSQL(updatePermohonan)
-        '    oCommon.ExecuteSQL(insertLogPermohonan)
-        'Catch ex As Exception
-        '    Debug.WriteLine("Error(btnImg_ditolak_Click): " & ex.Message)
-        'End Try
-        Debug.WriteLine("Nota: " & txtNota.Text)
+        Dim updatePermohonan As String = String.Format("
+            UPDATE 
+                spk_permohonan 
+            SET 
+                permohonan_tarikh = '{0}'
+                , permohonan_status = 'PERMOHONAN DITOLAK'
+                , permohonan_nota = '{2}'
+            WHERE 
+                permohonan_id = {1};",
+                Date.Now().ToString("dd/MM/yyyy"),
+                Request.QueryString("uid"),
+                txtNota.Text
+            )
+        Dim insertLogPermohonan As String = String.Format("
+            INSERT INTO 
+                spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
+            VALUES({0},{1},'{2}','PERMOHONAN DITOLAK');",
+            Integer.Parse(pengguna_id.Value),
+            Request.QueryString("uid"),
+            Date.Now().ToString("dd/MM/yyyy")
+            )
+        Try
+            oCommon.ExecuteSQL(updatePermohonan)
+            oCommon.ExecuteSQL(insertLogPermohonan)
+            dialogModal.Style.Add("display", "none")
+        Catch ex As Exception
+            Debug.WriteLine("Error(btnImg_ditolak_Click): " & ex.Message)
+        End Try
     End Sub
 End Class
