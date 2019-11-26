@@ -22,14 +22,18 @@
         display: flex;
         justify-content: space-evenly;
         height: 100%;
+        margin:0;
+        padding:0;
     }
     .left{
         display: block;
         width: 50%;
+        padding: 1px;
     }
     .right{
         display: block;
-        width:50%;
+        width: 50%;
+        padding: 1px;
     }
 </style>
 <table class="fbform" style="width: 100%">
@@ -45,7 +49,7 @@
     </tr>
 </table>
 
-<div class="wrapper">
+<div class="wrapper fbform">
     <div class="left">
         <%-- Butiran Peribadi --%>
         <table class="fbform" style="width: 100%;">
@@ -71,7 +75,7 @@
                 <td style="width: 5px;">:</td>
                 <td>
                     <h5 class="label" runat="server" id="lblNama"></h5>
-                    <asp:HiddenField runat="server" ID="pengguna_id" Value="" />
+                    <asp:HiddenField runat="server" ID="pID" Value="" />
                 </td>
             </tr>
             <tr>
@@ -210,7 +214,7 @@
                 <td class="auto-style2">:</td>
                 <td colspan="2">
                     <h5 class="label" runat="server" id="lbl_senaraiKuarters"></h5>
-                    <asp:Label runat="server" ID="lblKekosonganUnit">Kekosongan unit : </asp:Label>
+                    (Kekosongan unit : <asp:Label runat="server" ID="lblKekosonganUnit"></asp:Label>)
                 </td>
             </tr>
             <tr>
@@ -269,23 +273,6 @@
         <%--  --%>
 
         <%-- Actions --%>
-        <asp:Panel runat="server" ID="pnlCadanganKuarters" Visible="false">
-            <table class="fbform" style="width: 100%;">
-                <tr class="fbform_mheader">
-                    <td colspan="3">Cadangan Kuarters</td>
-                </tr>
-                <tr>
-                    <td style="width: 150px;">Cadangan Kuarters Lain</td>
-                    <td style="width: 5px;">:</td>
-                    <td>
-                        <asp:DropDownList runat="server" ID="ddlCadanganKuarters"></asp:DropDownList>
-                    </td>
-                </tr>
-                <tr>
-                    <td><asp:Button Text="Simpan" runat="server" ID="btnSimpanCadanganKuarters"/></td>
-                </tr>
-            </table>
-        </asp:Panel>
         <asp:Panel runat="server" ID="pnlPemilihanUnit" Visible="false">
             <table class="fbform">
                 <tr class="fbform_mheader">
@@ -299,7 +286,96 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><asp:Button Text="Simpan" runat="server" ID="btnSimpanTawaranUnit"/></td>
+                    <td><asp:Button Text="Simpan" runat="server" ID="btnSimpanTawaranUnit" /></td>
+                </tr>
+                <tr>
+                    <asp:CheckBox Text="Cadang Kuarters Lain?" runat="server" ID="cbCadangKuartersLain"/>
+                </tr>
+            </table>
+        </asp:Panel>
+        <asp:Panel runat="server" ID="pnlCadanganKuarters" Visible="false">
+            <table class="fbform" style="width: 100%;">
+                <tr class="fbform_mheader">
+                    <td colspan="3">Cadangan Kuarters</td>
+                </tr>
+                <tr>
+                    <td style="width: 150px;">Cadangan Kuarters Lain</td>
+                    <td style="width: 5px;">:</td>
+                    <td>
+                        <asp:DropDownList runat="server" ID="ddlCadanganKuarters" Width="50%"></asp:DropDownList>
+                        <asp:Button Text="Tambah" runat="server" ID="btnTambahCadangan"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td runat="server" id="divTableCadangan" colspan="3">
+                        <asp:GridView
+                            ID="gvCadanganKuarters"
+                            runat="server"
+                            DataKeyNames="cadanganKuarters_id"
+                            AutoGenerateColumns="False"
+                            AllowPaging="false"
+                            CellPadding="4"
+                            ForeColor="#333333"
+                            GridLines="None"
+                            Width="100%"
+                            PageSize="100"
+                            CssClass="gridview_footer">
+                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                            <Columns>
+                                <asp:TemplateField HeaderText="#">
+                                    <ItemTemplate>
+                                        <%# Container.DataItemIndex + 1 %>
+                                    </ItemTemplate>
+                                    <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="5%" />
+                                    <ItemStyle VerticalAlign="Middle" />
+                                </asp:TemplateField>
+
+                                <asp:TemplateField HeaderText="Nama Pangkalan">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("pangkalan_nama")%>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="30%" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                </asp:TemplateField>
+
+                                <asp:TemplateField HeaderText="Nama Kuarters">
+                                    <ItemTemplate>
+                                        <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("kuarters_nama")%>'></asp:Label>
+                                    </ItemTemplate>
+                                    <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="30%" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                </asp:TemplateField>
+
+                                <asp:TemplateField HeaderText="Padam">
+                                    <ItemTemplate>
+                                        <span runat="server" style="float: right">
+                                            <asp:ImageButton
+                                                Width="12"
+                                                Height="12"
+                                                ID="btnDelete"
+                                                CommandName="Delete"
+                                                CommandArgument='<%#Eval("cadanganKuarters_id")%>'
+                                                runat="server"
+                                                ImageUrl="~/icons/delete.png"
+                                                ToolTip="Padam?" />
+                                        </span>
+                                    </ItemTemplate>
+                                    <HeaderStyle HorizontalAlign="right" VerticalAlign="Top" Width="5%" />
+                                    <ItemStyle VerticalAlign="Middle" />
+                                </asp:TemplateField>
+                            </Columns>
+                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
+                            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
+                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle"
+                                HorizontalAlign="Center" />
+                            <EditRowStyle BackColor="#999999" />
+                            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                        </asp:GridView>
+                    </td>
+                </tr>
+                <tr>
+                    <td><asp:Button Text="Simpan" runat="server" ID="btnSimpanCadanganKuarters" /></td>
                 </tr>
             </table>
         </asp:Panel>
