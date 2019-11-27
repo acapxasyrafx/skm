@@ -143,6 +143,7 @@ Public Class permohonan_menunggu
 
         tmpSQL = "SELECT 
 		        A.pengguna_id as pengguna_id 
+            ,   B.permohonan_no_permohonan
 	        ,	A.pengguna_no_tentera as no_tentera 
 	        ,	A.pengguna_nama as nama 
 	        ,	C.pangkalan_nama as pangkalan
@@ -151,6 +152,7 @@ Public Class permohonan_menunggu
 	        ,	E.kuarters_nama as unit
 	        ,	substring (B.permohonan_tarikh,1,10) as tarikhMohon
 	        ,	B.permohonan_status as status
+            ,   B.permohonan_sub_status
 	        ,	B.permohonan_id as permohonan_id 
 	        ,	B.permohonan_mata as total_poin 
         FROM spk_permohonan as B
