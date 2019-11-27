@@ -3,8 +3,7 @@
 <style>
     .wrapper {
         display: flex;
-        /*align-items: center;
-        justify-content: center;*/
+        align-items: center;
     }
      .btn{
         border-radius: 5px;
@@ -12,6 +11,7 @@
         color:white;
         border: solid 1px white;
         height: 2.5em;
+        margin-left: 15em;
     }
     .btn:hover{
         border: solid 1px black;
@@ -36,7 +36,7 @@
 <%-- SEARCH FIELD --%>
 <div class="fbform">
 <table>
-    <tr class="fbform_header">
+    <tr class="fbform_mheader">
         <td>Carian Pegawai</td>
     </tr>
     <tr>
