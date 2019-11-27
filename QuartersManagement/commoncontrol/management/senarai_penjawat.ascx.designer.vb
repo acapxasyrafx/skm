@@ -41,22 +41,13 @@ Partial Public Class senarai_penjawat
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
-    '''txtCarianNama control.
+    '''txtCarian control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtCarianNama As Global.System.Web.UI.WebControls.TextBox
-
-    '''<summary>
-    '''txtCarianNoTentera control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtCarianNoTentera As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtCarian As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''ddlCarianPangkat control.

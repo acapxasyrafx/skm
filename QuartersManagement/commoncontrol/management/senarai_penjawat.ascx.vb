@@ -21,20 +21,22 @@ Public Class senarai_penjawat
     Dim objConn As SqlConnection = New SqlConnection(strConn)
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Try
+        If Not IsPostBack Then
+            Try
+                BindData(datRespondent)
+                loadDDLCarianPangkat()
+            Catch ex As Exception
 
-            BindData(datRespondent)
-            loadDDLCarianPangkat()
-        Catch ex As Exception
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = strSysErrorAlert
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
 
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
+            Finally
 
-        Finally
+            End Try
+        End If
 
-        End Try
 
     End Sub
 
@@ -55,16 +57,12 @@ Public Class senarai_penjawat
 	        LEFT JOIN spk_pangkat B ON B.pangkat_id = A.pangkat_id"
         strWhere += " WHERE A.pengguna_id IS NOT NULL"
 
-        If txtCarianNama.Text.Length > 0 Then
-            strWhere += String.Format(" AND A.pengguna_nama LIKE '%{0}%'", txtCarianNama.Text)
-        End If
-
-        If txtCarianNoTentera.Text.Length > 0 Then
-            strWhere += String.Format(" AND A.pengguna_no_tentera LIKE '%{0}%'", txtCarianNoTentera.Text)
+        If txtCarian.Text.Length > 0 Then
+            strWhere += String.Format(" AND A.pengguna_nama LIKE '%{0}%' OR A.pengguna_no_tentera LIKE '%{0}%'", txtCarian.Text)
         End If
 
         If ddlCarianPangkat.SelectedIndex > 0 Then
-            strWhere += " AND B.pangkat_nama = '" & ddlCarianPangkat.SelectedValue & "'"
+            strWhere += " AND B.pangkat_id = " & ddlCarianPangkat.SelectedValue & ""
         End If
         getSQL = tmpSQL & strWhere & strOrder
 
@@ -170,11 +168,11 @@ Public Class senarai_penjawat
             Try
                 conn.Open()
                 Dim ds As New DataSet
-                Dim da As New SqlDataAdapter("SELECT pangkat_nama FROM spk_pangkat", conn)
+                Dim da As New SqlDataAdapter("SELECT pangkat_id,pangkat_nama FROM spk_pangkat", conn)
                 da.Fill(ds, "AnyTable")
                 ddlCarianPangkat.DataSource = ds
                 ddlCarianPangkat.DataTextField = "pangkat_nama"
-                ddlCarianPangkat.DataValueField = "pangkat_nama"
+                ddlCarianPangkat.DataValueField = "pangkat_id"
                 ddlCarianPangkat.DataBind()
                 ddlCarianPangkat.Items.Insert(0, New ListItem("-- SILA PILIH --", ""))
             Catch ex As Exception
