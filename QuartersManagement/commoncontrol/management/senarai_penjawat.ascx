@@ -5,10 +5,10 @@
         display: flex;
         align-items: center;
     }
-     .btn{
+    .btn {
         border-radius: 5px;
         background-color: grey;
-        color:white;
+        color: white;
         border: solid 1px white;
         height: 2.5em;
         margin-left: 15em;

@@ -365,11 +365,47 @@ Partial Public Class maklumat_pemohon
     Protected WithEvents btnTolakPermohonan As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''btnTutupModal control.
+    '''btnTutupModal1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnTutupModal As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnTutupModal1 As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''confirmModal control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents confirmModal As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Button1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button1 As Global.System.Web.UI.HtmlControls.HtmlButton
+
+    '''<summary>
+    '''btnTerimaTawaran control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnTerimaTawaran As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnTutupModal2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnTutupModal2 As Global.System.Web.UI.WebControls.Button
 End Class
