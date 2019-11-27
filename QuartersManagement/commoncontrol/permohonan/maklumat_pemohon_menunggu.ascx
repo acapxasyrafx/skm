@@ -226,7 +226,6 @@
                 <td class="auto-style2">:</td>
                 <td colspan="2">
                     <h5 class="label" runat="server" id="lbl_senaraiKuarters"></h5>
-                    (Kekosongan unit : <asp:Label runat="server" ID="lblKekosonganUnit"></asp:Label>)
                 </td>
             </tr>
             <tr>
@@ -276,10 +275,15 @@
                 <td style="width: 5px;">:</td>
                 <td><asp:Label Text="text" runat="server" ID="lblKuartersDipohon"/></td>
             </tr>
-            <tr>
+            <tr runat="server" visible="true" id="trStatusKuarters">
                 <td style="width: 150px;">Status Kuarters</td>
                 <td style="width: 5px;">:</td>
                 <td><asp:Label Text="text" runat="server" ID="lblStatusKuarter" /></td>
+            </tr>
+            <tr runat="server" id="trUnitDitawarkan" visible="false">
+                <td style="width: 150px;">Unit Yang Dicadangkan</td>
+                <td style="width: 5px;">:</td>
+                <td><b><asp:Label Text="text" runat="server" ID="lblUnitDitawarkan"/></b></td>
             </tr>
         </table>
         <%--  --%>
@@ -301,7 +305,9 @@
                     <td><asp:Button CssClass="btn" Text="Simpan" runat="server" ID="btnSimpanTawaranUnit" /></td>
                 </tr>
                 <tr>
-                    <asp:CheckBox Text="Cadang Kuarters Lain?" runat="server" ID="cbCadangKuartersLain"/>
+                    <td>
+                        <asp:CheckBox Text="Cadang Kuarters Lain?" runat="server" ID="cbCadangKuartersLain"/>
+                    </td>
                 </tr>
             </table>
         </asp:Panel>

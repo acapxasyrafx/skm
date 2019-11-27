@@ -87,13 +87,15 @@ Public Class maklumat_pemohon_menunggu
                 ,   A.permohonan_mata
 	            ,	E.historyKeluarga_tempat_tinggal
 	            ,	E.historyKeluarga_tarikh_mula
+				,	(G.unit_blok + '-' + g.unit_tingkat + '-' + g.unit_nombor) as unit_nama
             FROM 
                 spk_permohonan A
                 JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
                 JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
                 JOIN spk_pengguna D ON D.pengguna_id = A.pengguna_id
                 JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
-                JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id	
+                JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id 
+                LEFT JOIN spk_unit G ON G.unit_id = A.unit_id
             WHERE A.permohonan_id = '" & Request.QueryString("uid") & "';",
             conn)
 
@@ -115,18 +117,25 @@ Public Class maklumat_pemohon_menunggu
                         lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
                         lblJenisPenempatan.InnerText = reader("historyKeluarga_tempat_tinggal")
                         lbltarikhPenempatan.InnerText = reader("historyKeluarga_tarikh_mula")
-                        If reader("permohonan_sub_status").Equals("CADANGKAN KUARTERS LAIN") Then
-                            ddlCadanganKuarters.Visible = False
-                            btnSimpanCadanganKuarters.Visible = False
-                        End If
-                        If checkKekosongan(Integer.Parse(reader("kuarters_id"))) Then
-                            lblStatusKuarter.Text = "ADA KEKOSONGAN"
-                            loadUnitAvailable(Integer.Parse(reader("kuarters_id")))
-                            pnlPemilihanUnit.Visible = True
+
+                        If reader("permohonan_sub_status").Equals("TAWARAN UNIT") Then
+                            lblUnitDitawarkan.Text = reader("unit_nama")
+                            trUnitDitawarkan.Visible = True
+                            trStatusKuarters.Visible = False
                         Else
-                            lblStatusKuarter.Text = "TIADA KEKOSONGAN"
-                            loadCadanganKuarters(Integer.Parse(reader("pangkalan_id")))
-                            pnlCadanganKuarters.Visible = True
+                            If checkKekosongan(Integer.Parse(reader("kuarters_id"))) Then
+                                lblStatusKuarter.Text = "ADA KEKOSONGAN"
+                                loadUnitAvailable(Integer.Parse(reader("kuarters_id")))
+                                pnlPemilihanUnit.Visible = True
+                            Else
+                                lblStatusKuarter.Text = "TIADA KEKOSONGAN"
+                                loadCadanganKuarters(Integer.Parse(reader("pangkalan_id")))
+                                If reader("permohonan_sub_status").Equals("CADANGKAN KUARTERS LAIN") Then
+                                    ddlCadanganKuarters.Visible = False
+                                    btnSimpanCadanganKuarters.Visible = False
+                                End If
+                                pnlCadanganKuarters.Visible = True
+                            End If
                         End If
                     Else
                         Debug.Write("Error(loadUser): CANNOT READ")
@@ -169,9 +178,7 @@ Public Class maklumat_pemohon_menunggu
                 End Try
             End Using
         End Using
-        lblKekosonganUnit.Text = jumlahKekosongan
         If jumlahKekosongan > 0 Then
-            Debug.WriteLine("checkKekosongan: " & jumlahKekosongan)
             Return True
         Else
             Return False
@@ -180,13 +187,15 @@ Public Class maklumat_pemohon_menunggu
 
     Private Sub loadUnitAvailable(ByVal kuartersID As Integer)
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("SELECT 
+            Using cmd As New SqlCommand("
+                SELECT 
                     unit_id, 
                     (unit_blok + '-' + unit_tingkat + '-' + unit_nombor) AS nama_unit 
                 FROM 
                     spk_unit 
                 WHERE 
-                    kuarters_id = @kuartersID AND unit_status = 'Available';")
+                    kuarters_id = @kuartersID AND unit_status = 'Available';"
+                )
                 Dim ds As New DataSet
                 cmd.Connection = conn
                 cmd.Parameters.Add("@kuartersID", SqlDbType.Int).Value = kuartersID
@@ -215,7 +224,6 @@ Public Class maklumat_pemohon_menunggu
         Dim dob_string = day & "/" & month & "/" & year
         Dim dob_date = Convert.ToDateTime(dob_string)
         Dim age = Date.Now().Year - dob_date.Year
-        Debug.WriteLine("icToAge: " & dob_string & "|Age: " & age & "")
         Return age
     End Function
 
@@ -227,7 +235,7 @@ Public Class maklumat_pemohon_menunggu
             SET 
                 permohonan_sub_status = 'TAWARAN UNIT',
                 unit_id = " & ddlUnitKuarters.SelectedValue & ",
-                permohonan_tarikh = " & Date.Now().ToString("dd/MM/yyyy") & "
+                permohonan_tarikh = '" & Date.Now().ToString("dd/MM/yyyy") & "'
             WHERE permohonan_id = " & Request.QueryString("uid") & ";"
             strRet = oCommon.ExecuteSQL(query)
             If strRet = "0" Then
@@ -244,7 +252,6 @@ Public Class maklumat_pemohon_menunggu
     End Sub
 
     Private Sub loadCadanganKuarters(ByVal pangkalanID As Integer)
-        Debug.WriteLine("pangkalanID:" & pangkalanID)
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Using cmd As New SqlCommand("SELECT DISTINCT
 	                A.kuarters_id 
