@@ -116,7 +116,21 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Tarikh Permohonan">
                             <ItemTemplate>
-                                <asp:Label ID="lbl_tarikhPermohonan" runat="server" Text='<%# Bind("tarikhMohon")%>'></asp:Label>
+                                <asp:Label ID="lbl_tarikhPermohonan" runat="server" Text='<%# Bind("tarikhMohon") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Status Terbaru">
+                            <ItemTemplate>
+                                <asp:Label ID="lbl_status" runat="server" Text='<%# Bind("permohonan_sub_status") %>'></asp:Label>
+                            </ItemTemplate>
+                            <HeaderStyle HorizontalAlign="left" VerticalAlign="Top" Width="15%" />
+                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Tarikh Akhir Kemas Kini">
+                            <ItemTemplate>
+                                <asp:Label ID="lbl_tarikhPermohonan" runat="server" Text='<%# Bind("tarikhUpdate")%>'></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -139,7 +153,7 @@
                             <ItemTemplate>
                                 <asp:Label ID="lbl_nama" runat="server" Text='<%# Bind("nama")%>'></asp:Label>
                             </ItemTemplate>
-                            <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="30%" />
+                            <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="20%" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Kuarters Dipohon">
@@ -154,13 +168,6 @@
                                 <asp:Label ID="lbl_matapoin" runat="server" Text='<%# Bind("total_poin")%>'> </asp:Label>
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
-                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Status">
-                            <ItemTemplate>
-                                <asp:Label ID="lbl_status" runat="server" Text='<%# Bind("permohonan_sub_status") %>'></asp:Label>
-                            </ItemTemplate>
-                            <HeaderStyle HorizontalAlign="left" VerticalAlign="Top" Width="25%" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Tindakan">
