@@ -28,7 +28,6 @@ Public Class maklumat_pemohon_ditolak
 
         Try
             loadUser()
-            loadSebabDitolak()
             readMaklumatAnak()
         Catch ex As Exception
 
@@ -38,22 +37,37 @@ Public Class maklumat_pemohon_ditolak
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim cmd As New SqlCommand("
-                SELECT 
-                    A.pengguna_id
-	                , A.pengguna_nama
-	                , A.pengguna_jantina
-	                , A.pengguna_tarikh_lahir
-	                , A.pengguna_mula_perkhidmatan
-	                , A.pengguna_tamat_perkhidmatan
-	                , A.pengguna_no_tentera
-	                , A.pangkat_id
-	                , B.pangkat_nama
-                    , B.pangkat_mata
-                FROM 
-	                spk_pengguna A
-	                JOIN spk_pangkat B ON B.pangkat_id = A.pangkat_id
-                WHERE
-	                A.pengguna_id = 1;",
+            SELECT
+                A.permohonan_id
+                , D.pengguna_id
+	            , D.pengguna_nama
+	            , D.pengguna_jantina
+	            , D.pengguna_tarikh_lahir
+	            , F.pangkat_nama
+	            , D.pengguna_no_tentera
+	            , D.pengguna_mula_perkhidmatan
+	            , D.pengguna_tamat_perkhidmatan
+	            , A.permohonan_no_permohonan
+	            , A.kuarters_id
+	            , B.kuarters_nama
+	            , C.pangkalan_nama
+	            , A.permohonan_tarikh
+	            , A.permohonan_status
+	            , A.permohonan_sub_status
+                , A.permohonan_nota
+	            , A.permohonan_mata
+				, E.historyKeluarga_tempat_tinggal
+				, E.historyKeluarga_tarikh_mula
+				, E.historyKeluarga_tarikh_akhir
+            FROM 
+	            spk_permohonan A
+	            JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
+	            JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
+	            JOIN spk_pengguna D ON D.pengguna_id = A.pengguna_id
+	            JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
+	            JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id
+            WHERE
+                A.permohonan_id = " & Request.QueryString("uid") & ";",
             conn)
 
             Try
@@ -61,20 +75,19 @@ Public Class maklumat_pemohon_ditolak
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     If reader.Read() Then
-                        pengguna_id.Value = reader("pengguna_id")
+                        pID.Value = reader("pengguna_id")
                         lblNama.InnerText = reader("pengguna_nama")
                         lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
                         lblJantina.InnerText = reader("pengguna_jantina")
                         lblJawatan.InnerText = reader("pangkat_nama")
                         lblNoTentera.InnerText = reader("pengguna_no_tentera")
                         lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
-                        '-------------------
-                        If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
-                            lblTarikhAkhirBerkhidmat.InnerText = "Masih Berkhidmat"
-                        Else
-                            lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
-                        End If
-                        '-------------------
+                        lblsebabTolak.Text = reader("permohonan_nota")
+                        lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
+                        lblKuartersDimohon.InnerText = reader("kuarters_nama")
+                        lblPangkalanDimohon.InnerText = reader("pangkalan_nama")
+                        lblJenisPenempatan.InnerHtml = reader("historyKeluarga_tempat_tinggal")
+                        lbltarikhPenempatan.InnerHtml = reader("historyKeluarga_tarikh_mula")
                     Else
                         Debug.Write("CANNOT READ")
                     End If
@@ -89,18 +102,16 @@ Public Class maklumat_pemohon_ditolak
         End Using
     End Sub
     Private Function readMaklumatAnak() As Boolean
-        Dim penggunaID = pengguna_id.Value
+        Dim penggunaID = pID.Value
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim table As DataTable = New DataTable
             Dim da As New SqlDataAdapter(
-                    "SELECT 
-                        anak_id,
-                        pengguna_id,
-                        anak_nama,
-                        anak_ic,
-                        anak_umur
-                        FROM spk_anak
-                        WHERE pengguna_id = " & penggunaID & ";",
+                    "SELECT
+                        * 
+                    FROM
+                        spk_historyAnak
+                    WHERE
+                        permohonan_id = " & Request.QueryString("uid") & ";",
                     conn)
             Try
                 conn.Open()
@@ -121,12 +132,5 @@ Public Class maklumat_pemohon_ditolak
             End Try
         End Using
     End Function
-
-
-
-    Private Sub loadSebabDitolak()
-        lblsebabTolak.Text = oCommon.getFieldValue("SELECT permohonan_nota FROM spk_permohonan where permohonan_id='" & Request.QueryString("uid") & "'")
-
-    End Sub
 
 End Class

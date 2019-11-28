@@ -46,8 +46,6 @@ Public Class permohonan_menunggu
                     loadJawatan()
                     loadKuarters()
                     loadPangkalan()
-
-
                 End If
 
             End If
@@ -143,22 +141,34 @@ Public Class permohonan_menunggu
 
         tmpSQL = "SELECT 
 		        A.pengguna_id as pengguna_id 
+            ,   B.permohonan_no_permohonan
 	        ,	A.pengguna_no_tentera as no_tentera 
 	        ,	A.pengguna_nama as nama 
 	        ,	C.pangkalan_nama as pangkalan
 	        ,	D.pangkat_singkatan as pangkat 
 	        ,	B.pengguna_id as pengguna_idx
 	        ,	E.kuarters_nama as unit
-	        ,	substring (B.permohonan_tarikh,1,10) as tarikhMohon
+	        ,	substring (B.permohonan_tarikh,1,10) as tarikhUpdate
 	        ,	B.permohonan_status as status
+            ,   B.permohonan_sub_status
 	        ,	B.permohonan_id as permohonan_id 
-	        ,	B.permohonan_mata as total_poin 
+	        ,	B.permohonan_mata as total_poin
+			,	substring (G.log_tarikh,1,10) as tarikhMohon
         FROM spk_permohonan as B
             LEFT JOIN spk_pengguna A on B.pengguna_id = A.pengguna_id
 	        LEFT JOIN spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
 	        LEFT JOIN spk_pangkat D on A.pangkat_id = D.pangkat_id
             LEFT JOIN spk_kuarters E on B.kuarters_id = E.kuarters_id
-            LEFT JOIN spk_unit F on B.unit_id = F.unit_id"
+            LEFT JOIN spk_unit F on B.unit_id = F.unit_id
+			LEFT JOIN (
+				SELECT
+					A.permohonan_id
+					,	A.log_tarikh 
+				FROM 
+					spk_logPermohonan A 
+				WHERE
+					A.log_status = 'PERMOHONAN BARU'
+			) G ON G.permohonan_id = B.permohonan_id"
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN SEDANG DIPROSES'"
 
         Try

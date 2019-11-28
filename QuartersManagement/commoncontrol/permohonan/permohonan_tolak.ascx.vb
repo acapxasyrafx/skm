@@ -78,6 +78,8 @@ Public Class permohonan_tolak
                 ddlfilterPangkalan.DataTextField = "pangkalan_nama"
                 ddlfilterPangkalan.DataValueField = "pangkalan_id"
                 ddlfilterPangkalan.DataBind()
+                ddlfilterPangkalan.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                ddlfilterPangkalan.SelectedIndex = 0
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
             Finally
@@ -122,8 +124,8 @@ Public Class permohonan_tolak
                 ddlfilterPangkat.DataTextField = "pangkat_nama"
                 ddlfilterPangkat.DataValueField = "pangkat_id"
                 ddlfilterPangkat.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
-                ddlfilterKuarters.SelectedIndex = 0
+                ddlfilterPangkat.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                ddlfilterPangkat.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadJawatan): " & ex.Message)
             Finally
@@ -140,15 +142,36 @@ Public Class permohonan_tolak
         Dim strOrder As String = ""
 
 
-        tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan 
-                    ,D.pangkat_singkatan as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,substring (B.permohonan_tarikh,1,10) as tarikhMohon,B.permohonan_status as status
-                    , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin, B.permohonan_nota as nota
-                    FROM spk_permohonan as B
-                    left join spk_pengguna A on B.pengguna_id = A.pengguna_id
-					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
-					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
-                    left join spk_kuarters E on B.kuarters_id = E.kuarters_id
-                    left join spk_unit F on B.unit_id = F.unit_id
+        tmpSQL = "SELECT 
+                    A.pengguna_id as pengguna_id 
+                    ,   A.pengguna_no_tentera as no_tentera 
+                    ,   A.pengguna_nama as nama 
+                    ,   B.permohonan_no_permohonan   
+                    ,   C.pangkalan_nama as pangkalan 
+                    ,   D.pangkat_singkatan as pangkat 
+                    ,   B.pengguna_id as pengguna_idx
+                    ,   E.kuarters_nama as unit
+                    ,   B.permohonan_status as status
+                    ,   B.permohonan_id as permohonan_id 
+                    ,   B.permohonan_mata as total_poin
+                    ,   B.permohonan_nota as nota
+                    ,   substring (B.permohonan_tarikh,1,10) as tarikhMohon
+                    ,   substring (G.log_tarikh,1,10) as tarikhUpdate
+                FROM spk_permohonan as B
+                    LEFT JOIN spk_pengguna A on B.pengguna_id = A.pengguna_id
+					LEFT JOIN spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
+					LEFT JOIN spk_pangkat D on A.pangkat_id = D.pangkat_id
+                    LEFT JOIN spk_kuarters E on B.kuarters_id = E.kuarters_id
+                    LEFT JOIN spk_unit F on B.unit_id = F.unit_id
+                    LEFT JOIN (
+                        SELECT
+                            A.permohonan_id
+                            ,	A.log_tarikh 
+				        FROM 
+                            spk_logPermohonan A 
+                        WHERE
+                            A.log_status = 'PERMOHONAN DITOLAK'
+                    )   G ON G.permohonan_id = B.permohonan_id
 					"
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN ANDA DITOLAK' or B.permohonan_status = 'PERMOHONAN DITOLAK'"
 
