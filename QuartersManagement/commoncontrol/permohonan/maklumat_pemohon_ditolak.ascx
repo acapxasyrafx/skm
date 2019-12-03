@@ -25,6 +25,19 @@
     .tblColon{
         width: 5px;
     }
+    .wrapper{
+        display: flex;
+        height: 100%;
+        justify-content:space-evenly;
+    }
+    .right{
+        width: 50%;
+        display: block;
+    }
+    .left{
+        width: 50%;
+        display: block;
+    }
 </style>
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">

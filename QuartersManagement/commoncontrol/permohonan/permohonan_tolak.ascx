@@ -10,6 +10,19 @@
     .auto-style5 {
         width: 265px;
     }
+    .btn {
+        border-radius: 5px;
+        background-color: grey;
+        color: white;
+        border: solid 1px white;
+        height: 2.5em;
+    }
+
+    .btn:hover {
+        border: solid 1px black;
+        background-color: aliceblue;
+        color: black;
+    }
 </style>
 
 <table class="fbform" style="width: 100%">
@@ -78,7 +91,7 @@
             <asp:TextBox runat="server" ID="txt_nama" CssClass="width:60px" Width="247px"></asp:TextBox>
         </td>
         <td>
-            <asp:Button runat="server" ID="btnSearch" Text="Cari" Width="75px" />
+            <asp:Button runat="server" ID="btnSearch" Text="Cari" Width="75px" CssClass="btn" />
         </td>
     </tr>
 </table>

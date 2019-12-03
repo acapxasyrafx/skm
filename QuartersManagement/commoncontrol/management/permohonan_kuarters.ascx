@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="permohonan_kuarters.ascx.vb" Inherits="QuartersManagement.permohonan_kuarters" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 
 <style>
     .label{
@@ -62,6 +63,7 @@
         <td>:</td>
         <td>
             <asp:Label runat="server" ID="lblPangkat" />
+            <asp:HiddenField ID="pangkatID" runat="server" />
         </td>
     </tr>
 
@@ -70,7 +72,7 @@
         <td style="width: 5px;">:</td>
         <td>
             <asp:Label runat="server" ID="lblNama"/>
-            <asp:HiddenField runat="server" ID="pengguna_id" Value="" />
+            <asp:HiddenField runat="server" ID="penggunaID"/>
         </td>
     </tr>
 
@@ -87,6 +89,14 @@
         <td>:</td>
         <td>
             <asp:Label runat="server" ID="lblTarikhLahir"/>
+        </td>
+    </tr>
+    
+    <tr>
+        <td style="width: 150px;">Status Perkahwinan</td>
+        <td>:</td>
+        <td>
+            <asp:Label runat="server" ID="lblStatusPerkahwinan"/>
         </td>
     </tr>
 
@@ -216,7 +226,7 @@
                     <td>:</td>
                     <td>
                         <asp:DropDownList runat="server" CssClass="label" ID="ddlJenisPenempatan">
-                            <asp:ListItem Value="">Sila Pilih Jenis Rumah Akhir Menetap...</asp:ListItem>
+                            <asp:ListItem Value="">-- SILA PILIH --</asp:ListItem>
                             <asp:ListItem Value="Rumah Sewa">Rumah Sewa</asp:ListItem>
                             <asp:ListItem Value="Wisma">Wisma (Keluarga Di Kampung)</asp:ListItem>
                             <asp:ListItem Value="Seberang">Bertugas Di Seberang (Keluarga Berada Di Rumah Sewa Di Malaysia Barat)</asp:ListItem>
