@@ -68,6 +68,15 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents lblPangkat As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''pangkatID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pangkatID As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''lblNama control.
     '''</summary>
     '''<remarks>
@@ -77,13 +86,13 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents lblNama As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''pengguna_id control.
+    '''penggunaID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents pengguna_id As Global.System.Web.UI.WebControls.HiddenField
+    Protected WithEvents penggunaID As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''lblJantina control.
@@ -102,6 +111,15 @@ Partial Public Class permohonan_kuarters
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTarikhLahir As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblStatusPerkahwinan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblStatusPerkahwinan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblTarikhMulaBerkhidmat control.

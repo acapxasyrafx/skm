@@ -19,7 +19,7 @@ Public Class permohonan_kuarters
     Dim strSQL As String = ""
     Dim strRet As String = ""
     Dim countAnak As Integer = 0
-    Dim penggunaID As Integer = 1
+    Dim tempID As Integer = 1
     Dim permohonanID As Integer
     Dim pangkatMata As Integer
     Dim jumlahPoint As Integer
@@ -59,11 +59,12 @@ Public Class permohonan_kuarters
 	                , A.pangkat_id
 	                , B.pangkat_nama
                     , B.pangkat_mata
+                    , A.pengguna_status_perkahwinan
                 FROM 
 	                spk_pengguna A
 	                JOIN spk_pangkat B ON B.pangkat_id = A.pangkat_id
                 WHERE
-	                A.pengguna_id = " & penggunaID & ";",
+	                A.pengguna_id = " & tempID & ";",
             conn)
 
             Try
@@ -71,26 +72,22 @@ Public Class permohonan_kuarters
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     If reader.Read() Then
-                        pengguna_id.Value = reader("pengguna_id")
+                        penggunaID.Value = reader("pengguna_id")
                         lblNama.Text = reader("pengguna_nama")
                         lblTarikhLahir.Text = reader("pengguna_tarikh_lahir")
                         lblJantina.Text = reader("pengguna_jantina")
+                        pangkatID.Value = reader("pangkat_id")
                         lblPangkat.Text = reader("pangkat_nama")
                         lblNoTentera.Text = reader("pengguna_no_tentera")
                         lblTarikhMulaBerkhidmat.Text = reader("pengguna_mula_perkhidmatan")
+                        lblTarikhAkhirBerkhidmat.Text = reader("pengguna_tamat_perkhidmatan")
+                        lblStatusPerkahwinan.Text = reader("pengguna_status_perkahwinan")
                         pangkatMata = Integer.Parse(reader("pangkat_mata"))
-                        '-------------------
-                        If reader.IsDBNull("pengguna_tamat_perkhidmatan") Then
-                            lblTarikhAkhirBerkhidmat.Text = "Masih Berkhidmat"
-                        Else
-                            lblTarikhAkhirBerkhidmat.Text = reader("pengguna_tamat_perkhidmatan")
-                        End If
-                        '-------------------
                     Else
-                        Debug.Write("CANNOT READ")
+                        Debug.Write("ERROR(loadUser): CANNOT READ")
                     End If
                 Else
-                    Debug.Write("NO ROWS")
+                    Debug.Write("ERROR(loadUser): NO ROWS")
                 End If
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadUser): " & ex.Message)
@@ -183,7 +180,6 @@ Public Class permohonan_kuarters
 
     Private Function Save() As Boolean
         Dim kuartersId = ddlSenaraiKuarters.SelectedValue
-        Dim penggunaId = pengguna_id.Value
         Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
         Dim mulaMenetap = getDate(ddlTarikhTinggalHariMula.SelectedValue, ddlTarikhTinggalBulanMula.SelectedValue, ddlTarikhTinggalTahunMula.SelectedValue)
         Dim tarikhPindah = getDate(ddlTarikhTukarHari.SelectedValue, ddlTarikhTukarBulan.SelectedValue, ddlTarikhTukarTahun.SelectedValue)
@@ -201,7 +197,7 @@ Public Class permohonan_kuarters
                     , permohonan_mata
 	            )
             VALUES (
-	            " & pengguna_id.Value & "
+	            " & penggunaID.Value & "
 	            , '" & genNoPermohonan(Date.Now.Year & Date.Now.Month & Date.Now.Day) & "'
 	            , " & kuartersId & "
 	            , '" & Date.Now().ToString("dd'/'MM'/'yyyy") & "'
@@ -215,15 +211,19 @@ Public Class permohonan_kuarters
                     Debug.WriteLine("ERROR(Save->permohonan): PermohonanID is nothing")
                 Else
                     If insertHistroyKeluarga(permohonanID, totalAnak, jenisRumahSebelum, mulaMenetap) Then
-                        If insertLogPermohonan(permohonanID) Then
-                            Debug.WriteLine("")
-                            Return True
+                        If insertHistoryPengguna(permohonanID) Then
+                            If insertLogPermohonan(permohonanID) Then
+                                Return True
+                            Else
+                                Debug.WriteLine("Error(Save -> insertLogPermohonan")
+                                Return False
+                            End If
                         Else
-                            Debug.WriteLine("ERROR(Save->insertLogPermohonan)")
+                            Debug.WriteLine("Error(Save -> insertHistoryPengguna")
                             Return False
                         End If
                     Else
-                        Debug.WriteLine("ERROR(Save->insertHistoryAnak)")
+                        Debug.WriteLine("Error(Save -> insertHistroyKeluarga")
                         Return False
                     End If
                 End If
@@ -238,22 +238,22 @@ Public Class permohonan_kuarters
                 conn.Close()
             End Try
         End Using
-
-
     End Function
 
     Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
         Try
-            If Save() = True Then
-                MsgTop.Attributes("class") = "successMsg"
-                strlbl_top.Text = strSaveSuccessAlert
-                MsgBottom.Attributes("class") = "successMsg"
-                strlbl_bottom.Text = strSaveSuccessAlert
-            Else
-                MsgTop.Attributes("class") = "errorMsg"
-                strlbl_top.Text = strSaveFailAlert
-                MsgBottom.Attributes("class") = "errorMsg"
-                strlbl_bottom.Text = strSaveFailAlert
+            If validateSave() = True Then
+                If Save() = True Then
+                    MsgTop.Attributes("class") = "successMsg"
+                    strlbl_top.Text = strSaveSuccessAlert
+                    MsgBottom.Attributes("class") = "successMsg"
+                    strlbl_bottom.Text = strSaveSuccessAlert
+                Else
+                    MsgTop.Attributes("class") = "errorMsg"
+                    strlbl_top.Text = strSaveFailAlert
+                    MsgBottom.Attributes("class") = "errorMsg"
+                    strlbl_bottom.Text = strSaveFailAlert
+                End If
             End If
         Catch ex As Exception
             MsgTop.Attributes("class") = "errorMsg"
@@ -265,21 +265,27 @@ Public Class permohonan_kuarters
     End Sub
 
     Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick
-        Response.Redirect("Permohonan.Kuarters.aspx")
+        Response.Redirect("Permohonan.Kuarters.aspx?p=Permohonan+Kuarters")
     End Sub
 
     Private Function validateSave() As Boolean
         If ddlJenisPenempatan.SelectedValue = Nothing Then
+            showMessage("ALERT", "Sila pilih jenis penempatan sebelum.")
             Return False
         ElseIf ddlTarikhTinggalHariMula.SelectedValue = Nothing Then
+            showMessage("ALERT", "Sila pilih hari yang betul untuk tarikh mula menetak.")
             Return False
         ElseIf ddlTarikhTinggalBulanMula.SelectedValue = Nothing Then
+            showMessage("ALERT", "Sila pilih bulan yang betul untuk tarikh mula menetak.")
             Return False
         ElseIf ddlTarikhTinggalTahunMula.SelectedValue = Nothing Then
+            showMessage("ALERT", "Sila pilih TAHUN yang betul untuk tarikh mula menetak.")
             Return False
         ElseIf ddlSenaraiPangkalan.SelectedValue = Nothing Then
+            showMessage("ALERT", "Bahagian Pangkalan adalah perlu.")
             Return False
         ElseIf ddlSenaraiKuarters.SelectedValue = Nothing Then
+            showMessage("ALERT", "Bahagian Kuarters/Rumah adalah perlu.")
             Return False
         Else
             Return True
@@ -287,14 +293,15 @@ Public Class permohonan_kuarters
     End Function
 
     Private Function validateAnak() As Boolean
-        If icToAge(txtICAnak.Text) = Nothing Then
+        If txtNamaAnak.Text = Nothing Then
             Return False
-        ElseIf txtNamaAnak.Text = Nothing Then
+        ElseIf icToAge(txtICAnak.Text) = Nothing Then
             Return False
         Else
             Return True
         End If
     End Function
+
     Private Sub btnTambahRow_Click(sender As Object, e As EventArgs) Handles btnTambahRow.Click
 
         If insertMaklumatAnak() Then
@@ -315,10 +322,21 @@ Public Class permohonan_kuarters
         Dim namaAnak = txtNamaAnak.Text
         Dim icAnak = txtICAnak.Text
         Dim umurAnak = icToAge(icAnak)
-        Dim penggunaID = pengguna_id.Value
         Dim strRet As String
 
-        strRet = oCommon.ExecuteSQL("INSERT INTO spk_anak(pengguna_id,anak_nama,anak_ic,anak_umur) VALUES(" & penggunaID & ",'" & namaAnak & "','" & icAnak & "','" & umurAnak & "')")
+        strRet = oCommon.ExecuteSQL("INSERT INTO 
+                spk_anak(
+                    pengguna_id
+                    ,   anak_nama
+                    ,   anak_ic
+                    ,   anak_umur
+                ) 
+                VALUES(
+                    " & penggunaID.Value & "
+                    ,   '" & namaAnak & "'
+                    ,   '" & icAnak & "'
+                    ,   '" & umurAnak & "'
+                )")
         If strRet = "0" Then
             Return True
         Else
@@ -328,7 +346,6 @@ Public Class permohonan_kuarters
     End Function
 
     Private Function readMaklumatAnak() As Boolean
-        Dim penggunaID = pengguna_id.Value
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim table As DataTable = New DataTable
             Dim da As New SqlDataAdapter(
@@ -339,7 +356,7 @@ Public Class permohonan_kuarters
                         anak_ic,
                         anak_umur
                         FROM spk_anak
-                        WHERE pengguna_id = " & penggunaID & ";",
+                        WHERE pengguna_id = " & penggunaID.Value & ";",
                     conn)
             Try
                 conn.Open()
@@ -410,21 +427,6 @@ Public Class permohonan_kuarters
         noPermohonan = datePermohonan & "_" & sb.ToString
         Return noPermohonan
     End Function
-    Private Sub insertHistoryAnak(ByVal dataAnak As DataSet)
-        For i As Integer = 0 To dataAnak.Tables(0).Rows.Count - 1
-            Dim namaAnak = dataAnak.Tables(0).Rows(i)(2).ToString() 'Nama anak
-            Dim kpAnak = dataAnak.Tables(0).Rows(i)(3).ToString() 'IC Anak
-            Dim query As String
-            Dim strRet As String
-            query = String.Format("INSERT INTO spk_historyAnak(permohonan_id, historyAnak_nama, historyAnak, ic) VALUES({0},'{1}','{2}')", permohonanID, namaAnak, kpAnak)
-            strRet = oCommon.ExecuteSQL(query)
-            If strRet = "0" Then
-                Debug.WriteLine("OK:" & namaAnak)
-            Else
-                Debug.WriteLine("Error(saveHistoryAnak): Failed to save(" & namaAnak & ", idx:" & i & ")")
-            End If
-        Next
-    End Sub
 
     Private Function loadPoints(ByVal dataAnak As DataSet)
         Dim totalAnakLayak As Integer = 0
@@ -448,27 +450,34 @@ Public Class permohonan_kuarters
         Return totalPoint
     End Function
 
-    Public Sub showMessage(ByVal messageType As String, ByVal message As String)
-        Dim strlblMsgBottom As String = ConfigurationManager.AppSettings("lblMessage_bottom")
-        Dim strlblMsgTop As String = ConfigurationManager.AppSettings("lblMessage_top")
-        Dim strSucDelAlert As String = ConfigurationManager.AppSettings("deleteSuccessAlert")
-        Dim strFailDelAlert As String = ConfigurationManager.AppSettings("deleteFailAlert")
-        Dim strSaveSuccessAlert As String = ConfigurationManager.AppSettings("saveSuccessAlert")
-        Dim strSaveFailAlert As String = ConfigurationManager.AppSettings("saveFailAlert")
-        Dim strDataBindAlert As String = ConfigurationManager.AppSettings("dataBindAlert")
-        Dim strRecordBindAlert As String = ConfigurationManager.AppSettings("recordBindAlert")
-        Dim strSysErrorAlert As String = ConfigurationManager.AppSettings("systemErrorAlert")
-        Dim strDataValAlert As String = ConfigurationManager.AppSettings("dataValidationAlert")
-
-        If messageType.Equals("ALERT") Then
-            MsgTop.Attributes("class") = "errorMsg"
-            MsgBottom.Attributes("class") = "errorMsg"
-        ElseIf messageType.Equals("SUCCESS") Then
-            MsgTop.Attributes("class") = "successMsg"
-            MsgBottom.Attributes("class") = "successMsg"
-        End If
-        strlbl_top.Text = message
-        strlbl_bottom.Text = message
+    Private Sub insertHistoryAnak(ByVal dataAnak As DataSet, ByVal permohonanID As Integer)
+        Try
+            For i As Integer = 0 To dataAnak.Tables(0).Rows.Count - 1
+                Dim namaAnak = dataAnak.Tables(0).Rows(i)(2).ToString() 'Nama anak
+                Dim kpAnak = dataAnak.Tables(0).Rows(i)(3).ToString() 'IC Anak
+                Dim query As String
+                Dim strRet As String
+                query = String.Format("INSERT INTO 
+                spk_historyAnak(
+                    permohonan_id
+                    ,   historyAnak_nama
+                    ,   historyAnak_ic
+                ) 
+                VALUES(
+                {0}
+                ,   '{1}'
+                ,   '{2}'
+                );", permohonanID, namaAnak, kpAnak)
+                strRet = oCommon.ExecuteSQL(query)
+                If strRet = "0" Then
+                    Debug.WriteLine("OK:" & namaAnak)
+                Else
+                    Debug.WriteLine("Error(saveHistoryAnak): Failed to save(" & namaAnak & ", idx:" & i & ")")
+                End If
+            Next
+        Catch ex As Exception
+            Debug.WriteLine("Error(insertHistoryAnak): " & ex.Message)
+        End Try
     End Sub
 
     Private Function insertLogPermohonan(ByVal permohonanID As Integer) As Boolean
@@ -480,7 +489,7 @@ Public Class permohonan_kuarters
                     , log_tarikh 
                     , log_status
                 ) VALUES (
-                    " & pengguna_id.Value & "
+                    " & penggunaID.Value & "
                     , " & permohonanID & "
                     , '" & Date.Now & "'
                     , 'PERMOHONAN BARU'
@@ -511,7 +520,7 @@ Public Class permohonan_kuarters
 	                    )
                     VALUES (
 	                    " & permohoananID & "
-	                    , " & pengguna_id.Value & "
+	                    , " & penggunaID.Value & "
 	                    , '" & Date.Now().ToString("dd'/'MM'/'yyyy") & "'
 	                    , " & totalAnak & "
 	                    , '" & jenisRumahSebelum & "'
@@ -527,6 +536,44 @@ Public Class permohonan_kuarters
             Finally
                 conn.Close()
             End Try
+        End Using
+    End Function
+
+    Private Function insertHistoryPengguna(ByVal permohonanID As Integer) As Boolean
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("
+                INSERT INTO 
+                    spk_historyPengguna(
+                        permohonan_id
+                        , pangkat_id
+                        , historyPengguna_statusPerkahwinan
+                        , historyPengguna_penggunaNoTentera
+                )
+                VALUES
+                (
+                    @permohonanID
+                    ,   @pangkatId
+                    ,   @statusPerkahwinan
+                    ,   @penggunaNoTentera
+                )
+            ")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = permohonanID
+                cmd.Parameters.Add("@pangkatID", SqlDbType.Int).Value = Integer.Parse(pangkatID.Value)
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = Integer.Parse(penggunaID.Value)
+                cmd.Parameters.Add("@statusPerkahwinan", SqlDbType.NVarChar, 50).Value = lblStatusPerkahwinan.Text
+                cmd.Parameters.Add("@penggunaNoTentera", SqlDbType.NVarChar, 50).Value = lblNoTentera.Text
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                    Return True
+                Catch ex As Exception
+                    Debug.WriteLine("Error(insertHistoryPengguna): " & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
+            End Using
         End Using
     End Function
 
@@ -551,5 +598,28 @@ Public Class permohonan_kuarters
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
             Debug.WriteLine("ERROR(saveFunction): " & ex.Message)
         End Try
+    End Sub
+
+    Public Sub showMessage(ByVal messageType As String, ByVal message As String)
+        Dim strlblMsgBottom As String = ConfigurationManager.AppSettings("lblMessage_bottom")
+        Dim strlblMsgTop As String = ConfigurationManager.AppSettings("lblMessage_top")
+        Dim strSucDelAlert As String = ConfigurationManager.AppSettings("deleteSuccessAlert")
+        Dim strFailDelAlert As String = ConfigurationManager.AppSettings("deleteFailAlert")
+        Dim strSaveSuccessAlert As String = ConfigurationManager.AppSettings("saveSuccessAlert")
+        Dim strSaveFailAlert As String = ConfigurationManager.AppSettings("saveFailAlert")
+        Dim strDataBindAlert As String = ConfigurationManager.AppSettings("dataBindAlert")
+        Dim strRecordBindAlert As String = ConfigurationManager.AppSettings("recordBindAlert")
+        Dim strSysErrorAlert As String = ConfigurationManager.AppSettings("systemErrorAlert")
+        Dim strDataValAlert As String = ConfigurationManager.AppSettings("dataValidationAlert")
+
+        If messageType.Equals("ALERT") Then
+            MsgTop.Attributes("class") = "errorMsg"
+            MsgBottom.Attributes("class") = "errorMsg"
+        ElseIf messageType.Equals("SUCCESS") Then
+            MsgTop.Attributes("class") = "successMsg"
+            MsgBottom.Attributes("class") = "successMsg"
+        End If
+        strlbl_top.Text = message
+        strlbl_bottom.Text = message
     End Sub
 End Class
