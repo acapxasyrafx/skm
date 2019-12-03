@@ -213,17 +213,22 @@ Public Class permohonan_kuarters
                     If insertHistroyKeluarga(permohonanID, totalAnak, jenisRumahSebelum, mulaMenetap) Then
                         If insertHistoryPengguna(permohonanID) Then
                             If insertLogPermohonan(permohonanID) Then
-                                Return True
+                                If insertHistoryAnak(permohonanID) Then
+                                    Return True
+                                Else
+                                    Debug.WriteLine("Error(Save -> insertHistoryAnak)")
+                                    Return False
+                                End If
                             Else
-                                Debug.WriteLine("Error(Save -> insertLogPermohonan")
+                                Debug.WriteLine("Error(Save -> insertLogPermohonan)")
                                 Return False
                             End If
                         Else
-                            Debug.WriteLine("Error(Save -> insertHistoryPengguna")
+                            Debug.WriteLine("Error(Save -> insertHistoryPengguna)")
                             Return False
                         End If
                     Else
-                        Debug.WriteLine("Error(Save -> insertHistroyKeluarga")
+                        Debug.WriteLine("Error(Save -> insertHistroyKeluarga)")
                         Return False
                     End If
                 End If
@@ -450,35 +455,38 @@ Public Class permohonan_kuarters
         Return totalPoint
     End Function
 
-    Private Sub insertHistoryAnak(ByVal dataAnak As DataSet, ByVal permohonanID As Integer)
+    Private Function insertHistoryAnak(ByVal permohonanID As Integer) As Boolean
         Try
-            For i As Integer = 0 To dataAnak.Tables(0).Rows.Count - 1
-                Dim namaAnak = dataAnak.Tables(0).Rows(i)(2).ToString() 'Nama anak
-                Dim kpAnak = dataAnak.Tables(0).Rows(i)(3).ToString() 'IC Anak
+            For i As Integer = 0 To datRespondent.Rows.Count - 1
+                Dim namaAnak = CType(datRespondent.Rows(i).FindControl("lblNamaAnak"), Label).Text 'Nama anak
+                Dim kpAnak = CType(datRespondent.Rows(i).FindControl("lblICAnak"), Label).Text 'IC Anak
                 Dim query As String
                 Dim strRet As String
-                query = String.Format("INSERT INTO 
-                spk_historyAnak(
-                    permohonan_id
-                    ,   historyAnak_nama
-                    ,   historyAnak_ic
-                ) 
+                query = String.Format("
+                INSERT INTO 
+                    spk_historyAnak(
+                        permohonan_id
+                        ,   historyAnak_nama
+                        ,   historyAnak_ic
+                    ) 
                 VALUES(
-                {0}
-                ,   '{1}'
-                ,   '{2}'
+                    {0}
+                    ,   '{1}'
+                    ,   '{2}'
                 );", permohonanID, namaAnak, kpAnak)
                 strRet = oCommon.ExecuteSQL(query)
                 If strRet = "0" Then
-                    Debug.WriteLine("OK:" & namaAnak)
+                    Continue For
                 Else
                     Debug.WriteLine("Error(saveHistoryAnak): Failed to save(" & namaAnak & ", idx:" & i & ")")
                 End If
             Next
+            Return True
         Catch ex As Exception
             Debug.WriteLine("Error(insertHistoryAnak): " & ex.Message)
+            Return False
         End Try
-    End Sub
+    End Function
 
     Private Function insertLogPermohonan(ByVal permohonanID As Integer) As Boolean
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
