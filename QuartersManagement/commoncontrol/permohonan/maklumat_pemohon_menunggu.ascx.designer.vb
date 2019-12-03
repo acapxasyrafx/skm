@@ -158,15 +158,6 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lbl_senaraiKuarters As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''lblKekosonganUnit control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblKekosonganUnit As Global.System.Web.UI.WebControls.Label
-
-    '''<summary>
     '''tblBertukar control.
     '''</summary>
     '''<remarks>
@@ -221,6 +212,15 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lblKuartersDipohon As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''trStatusKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents trStatusKuarters As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
     '''lblStatusKuarter control.
     '''</summary>
     '''<remarks>
@@ -228,6 +228,24 @@ Partial Public Class maklumat_pemohon_menunggu
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblStatusKuarter As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''trUnitDitawarkan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents trUnitDitawarkan As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''lblUnitDitawarkan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblUnitDitawarkan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''pnlPemilihanUnit control.

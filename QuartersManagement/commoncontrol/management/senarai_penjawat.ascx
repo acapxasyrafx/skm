@@ -3,15 +3,15 @@
 <style>
     .wrapper {
         display: flex;
-        /*align-items: center;
-        justify-content: center;*/
+        align-items: center;
     }
-     .btn{
+    .btn {
         border-radius: 5px;
         background-color: grey;
-        color:white;
+        color: white;
         border: solid 1px white;
         height: 2.5em;
+        margin-left: 15em;
     }
     .btn:hover{
         border: solid 1px black;
@@ -36,21 +36,14 @@
 <%-- SEARCH FIELD --%>
 <div class="fbform">
 <table>
-    <tr class="fbform_header">
+    <tr class="fbform_mheader">
         <td>Carian Pegawai</td>
     </tr>
     <tr>
-        <td style="width: 150px;">Nama Pegawai</td>
+        <td style="width: 150px;">Nama Pegawai/No. Tentera</td>
         <td>:</td>
         <td>
-            <asp:TextBox runat="server" Text="" ID="txtCarianNama" />
-        </td>
-    </tr>
-    <tr>
-        <td style="width: 150px;">No. Tentera</td>
-        <td>:</td>
-        <td>
-            <asp:TextBox runat="server" Text="" ID="txtCarianNoTentera" />
+            <asp:TextBox runat="server" Text="" ID="txtCarian" />
         </td>
     </tr>
     <tr>
@@ -73,7 +66,6 @@
 <table class="fbform">
     <tr class="fbform_header">
         <td> 
-            Senarai Pangkalan 
             <asp:Label ID="lblConfig" runat="server" Visible ="false"></asp:Label>
             <asp:Label ID="lblQ" runat="server" Visible ="false"></asp:Label>
         </td>

@@ -186,7 +186,7 @@ Public Class maklumat_pemohon
                     dr = cmd.ExecuteReader
                     If dr.HasRows Then
                         While dr.Read
-                            If icToAge(dr("historyAnak_ic")) > 18 Then
+                            If icToAge(dr("historyAnak_ic")) < 18 Then
                                 jumlahAnakLayak += 1
                             Else
                                 Continue While
@@ -223,33 +223,19 @@ Public Class maklumat_pemohon
     End Sub
 
     Private Sub btnImg_lulus_Click(sender As Object, e As ImageClickEventArgs) Handles btnImg_lulus.Click
-        Dim updatePermohonan As String = String.Format("
-            UPDATE 
-                spk_permohonan 
-            SET 
-                permohonan_tarikh = '{0}'
-                , permohonan_status = 'PERMOHONAN SEDANG DIPROSES' 
-            WHERE 
-                permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid")
-            )
-        Dim insertLogPermohonan As String = String.Format("
-            INSERT INTO 
-                spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
-            VALUES({0},{1},{2},'PERMOHONAN SEDANG DIPROSES');", Integer.Parse(pengguna_id.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
-        Try
-            oCommon.ExecuteSQL(updatePermohonan)
-            oCommon.ExecuteSQL(insertLogPermohonan)
-        Catch ex As Exception
-            Debug.WriteLine("Error(btnImg_lulus_Click): " & ex.Message)
-        End Try
+        confirmModal.Style.Add("display", "block")
     End Sub
 
     Private Sub btnImg_ditolak_Click(sender As Object, e As ImageClickEventArgs) Handles btnImg_ditolak.Click
         dialogModal.Style.Add("display", "block")
     End Sub
 
-    Private Sub btnTutupModal_Click(sender As Object, e As EventArgs) Handles btnTutupModal.Click
+    Private Sub btnTutupModal_Click(sender As Object, e As EventArgs) Handles btnTutupModal1.Click
         dialogModal.Style.Add("display", "none")
+    End Sub
+
+    Private Sub btnTutupModal2_Click(sender As Object, e As EventArgs) Handles btnTutupModal2.Click
+        confirmModal.Style.Add("display", "none")
     End Sub
 
     Private Sub closeBtn_ServerClick(sender As Object, e As EventArgs) Handles closeBtn.ServerClick
@@ -285,5 +271,36 @@ Public Class maklumat_pemohon
         Catch ex As Exception
             Debug.WriteLine("Error(btnImg_ditolak_Click): " & ex.Message)
         End Try
+    End Sub
+
+    Private Sub btnTerimaTawaran_Click(sender As Object, e As EventArgs) Handles btnTerimaTawaran.Click
+        Dim updatePermohonan As String = String.Format("
+            UPDATE 
+                spk_permohonan 
+            SET 
+                permohonan_tarikh = '{0}'
+                , permohonan_status = 'PERMOHONAN SEDANG DIPROSES' 
+            WHERE 
+                permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid")
+           )
+        Dim insertLogPermohonan As String = String.Format("
+            INSERT INTO 
+                spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
+            VALUES({0},{1},'{2}','PERMOHONAN SEDANG DIPROSES');",
+            Integer.Parse(pengguna_id.Value),
+            Request.QueryString("uid"),
+            Date.Now().ToString("dd/MM/yyyy")
+            )
+        Try
+            oCommon.ExecuteSQL(updatePermohonan)
+            oCommon.ExecuteSQL(insertLogPermohonan)
+            Response.Redirect("Senarai.Permohonan.Baru.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Baru")
+        Catch ex As Exception
+            Debug.WriteLine("Error(btnImg_lulus_Click): " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub Button1_ServerClick(sender As Object, e As EventArgs) Handles Button1.ServerClick
+        confirmModal.Style.Add("display", "none")
     End Sub
 End Class

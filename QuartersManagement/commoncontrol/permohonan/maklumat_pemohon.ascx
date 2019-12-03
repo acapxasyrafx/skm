@@ -27,11 +27,12 @@
     .auto-style5 {
         width: 133px;
     }
-
     .wrapper{
         display:flex;
-        justify-content: space-evenly;
         height: 100%;
+        width: 100%;
+        margin:0;
+        padding:0;
     }
 
     .left_content{
@@ -89,8 +90,16 @@
     /* Modal Header */
     .modal-header {
         padding: 2px 16px;
-        background-color: #f9a825;
+        /*background-color: #f9a825;*/
         color: white;
+    }
+
+    .confirm{
+        background-color:#71a95a;
+    }
+
+    .reject{
+        background-color:#f9a825;
     }
 
     /* Modal Body */
@@ -101,7 +110,7 @@
     /* Modal Footer */
     .modal-footer {
         padding: 2px 16px;
-        background-color: #f9a825;
+        /*background-color: #f9a825;*/
         /*color: white;*/
     }
 
@@ -138,7 +147,9 @@
     .cancel{
         background-color: #ff8a65; /* AMBER 600 */
     }
-
+    .rowJumlahMata{
+        border-top-style: solid;
+    }
 </style>
 
  <script>
@@ -360,7 +371,7 @@
             </tr>
         </table>
     </div>
-    <div class="rigth_content">
+    <div class="right_content">
         <div class="fbform">
             <table style="width: 100%; margin:0;padding:0;">
                 <tr class="fbform_mheader">
@@ -388,15 +399,15 @@
                                 <td><asp:Label Text="text" runat="server" ID="lblJumlahMataAnak"/></td>
                             </tr>
                             <tr>
-                                <td colspan="3">Jumlah Mata</td>
-                                <td><b><asp:Label Text="text" runat="server" ID="lblJumlahMata"/></b></td>
+                                <td colspan="3" style="border-top-style: solid;">Jumlah Mata</td>
+                                <td style="border-top-style: solid;"><b><asp:Label Text="text" runat="server" ID="lblJumlahMata"/></b></td>
                             </tr>
                         </table>
                     </td>
                 </tr>
             </table>
             <table  style="width: 100%;">
-                <tr>
+                <tr runat="server" visible="false">
                     <td style="width: 25em;">Status Permohonan(Mengikut Sistem) ?</td>
                     <td style="width: 5em;">:</td>
                     <td>
@@ -404,15 +415,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Luluskan Permohonan ?</td>
-                    <td>:</td>
-                    <td class="auto-style4" style="text-align: left">
+                    <td style="width: 150px;">Luluskan Permohonan ?</td>
+                    <td style="width: 5px;">:</td>
+                    <td style="text-align: left">
                         <asp:ImageButton 
                             runat="server" 
                             ID="btnImg_lulus" 
                             CommandName="Approved" 
                             CommandArgument='<%#Eval("permohonan_id")%>' 
-                            OnClientClick="javascript:return confirm('Adakah anda pasti mahu meluluskan permohonan ini? ')" 
                             ImageUrl="~/icons/checkmark_approve.png" 
                             ToolTip="Diterima" Height="39px" 
                         />
@@ -451,7 +461,7 @@
 
 <div runat="server" class="modal" id="dialogModal">
     <table class="fbform modal-content">
-        <tr class="modal-header">
+        <tr class="modal-header reject">
             <td class="fbform_mheader" colspan="2">
                 <h3 style="">Menolak Permohonan<button runat="server" class="close" id="closeBtn">&times;</button></h3>
             </td>
@@ -464,10 +474,31 @@
                 <asp:TextBox ID="txtNota" TextMode="multiline" Columns="100" Rows="5" runat="server" Text="Permohonan Tidak Layak/Tidak Diterima" />
             </td>
         </tr>
-        <tr class="modal-footer">
+        <tr class="modal-footer reject">
             <td>
                 <asp:Button CssClass="button save" Text="Simpan" runat="server" ID="btnTolakPermohonan" />
-                <asp:Button CssClass="button cancel" Text="Tutup" runat="server" ID="btnTutupModal" />
+                <asp:Button CssClass="button cancel" Text="Tutup" runat="server" ID="btnTutupModal1" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div runat="server" class="modal" id="confirmModal">
+    <table class="modal-content">
+        <tr class="modal-header confirm">
+            <td class="fbform_mheader" colspan="3">
+                <h3 class="">Anda Pasti?<button runat="server" class="close" id="Button1">&times;</button></h3>
+            </td>
+        </tr>
+        <tr class="modal-body">
+            <td colspan="3" style="height: 5em; display: flex; justify-content: center;">
+                Adakah anda pasti untuk MELULUSKAN permohonan ini?
+            </td>
+        </tr>
+        <tr class="modal-footer confirm">
+            <td>
+                <asp:Button CssClass="button save" Text="Simpan" runat="server" ID="btnTerimaTawaran" />
+                <asp:Button CssClass="button cancel" Text="Tutup" runat="server" ID="btnTutupModal2" />
             </td>
         </tr>
     </table>

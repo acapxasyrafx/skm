@@ -108,7 +108,7 @@ Public Class permohonan_baru
 
     Private Sub loadPangkalan()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT pangkalan_id, pangkalan_nama FROM spk_pangkalan;", conn)
+            Dim cmd As New SqlCommand("SELECT pangkalan_id, pangkalan_nama FROM spk_pangkalan ORDER BY pangkalan_nama ASC;", conn)
             Dim ds As New DataSet
             Try
                 conn.Open()
@@ -130,7 +130,7 @@ Public Class permohonan_baru
 
     Private Sub loadKuarters()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT kuarters_id, kuarters_nama FROM spk_kuarters; ", conn)
+            Dim cmd As New SqlCommand("SELECT kuarters_id, kuarters_nama FROM spk_kuarters ORDER BY kuarters_nama ASC; ", conn)
             Dim ds As New DataSet
 
             Try
@@ -153,7 +153,7 @@ Public Class permohonan_baru
 
     Protected Sub loadPangkat()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT pangkat_id, pangkat_nama FROM spk_pangkat; ", conn)
+            Dim cmd As New SqlCommand("SELECT pangkat_id, pangkat_nama FROM spk_pangkat ORDER BY pangkat_idx ASC;; ", conn)
             Dim ds As New DataSet
 
             Try

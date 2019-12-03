@@ -7,17 +7,20 @@
         <header>> BAHAGIAN PENTADBIRAN</header>
             <nav class="sidebar-nav">
                 <ul>
-                    <li>
+                    <%--<li>
                         <a href="#"><span class="">Rekod Senarai Penjawat</span></a>
                         <ul class="nav-flyout">
                             <li><p>Rekod Senarai Penjawat</p></li>
-                            <%--<li>
+                            <li>
                                 <a href="Pendaftaran.Penjawat.aspx?P=<%=lbl1.Text %>"><i></i><img src ="icons/bullet_red.png" />Pendaftaran Baharu</a>
-                            </li>--%>
+                            </li>
                             <li>
                                 <a href="Pendaftaran.Penjawat.Senarai.aspx?P=<%=lbl2.Text %>"><i></i><img src ="icons/bullet_red.png" /> Carian Senarai Penjawat</a>
                             </li>
                         </ul>
+                    </li>--%>
+                    <li>
+                        <span><a href="Pendaftaran.Penjawat.Senarai.aspx?P=<%=lbl2.Text %>">Carian Senarai Penjawat</a></span>
                     </li>
             
                     <%--<li>
