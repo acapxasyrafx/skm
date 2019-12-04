@@ -57,7 +57,6 @@ Public Class proses_penempatan_kuarters1
             strlbl_top.Text = strSysErrorAlert
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-
         Finally
 
         End Try
@@ -77,7 +76,7 @@ Public Class proses_penempatan_kuarters1
                 ddlfilterPangkalan.DataTextField = "pangkalan_nama"
                 ddlfilterPangkalan.DataValueField = "pangkalan_id"
                 ddlfilterPangkalan.DataBind()
-                ddlfilterPangkalan.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
+                ddlfilterPangkalan.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlfilterPangkalan.SelectedIndex = 0
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
@@ -89,7 +88,7 @@ Public Class proses_penempatan_kuarters1
 
     Private Sub loadKuarters()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters; ", conn)
+            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters;", conn)
             Dim ds As New DataSet
 
             Try
@@ -100,7 +99,7 @@ Public Class proses_penempatan_kuarters1
                 ddlfilterKuarters.DataTextField = "kuarters_nama"
                 ddlfilterKuarters.DataValueField = "kuarters_id"
                 ddlfilterKuarters.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
+                ddlfilterKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlfilterKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadKuarters): " & ex.Message)
@@ -123,8 +122,8 @@ Public Class proses_penempatan_kuarters1
                 ddlfilterPangkat.DataTextField = "pangkat_nama"
                 ddlfilterPangkat.DataValueField = "pangkat_id"
                 ddlfilterPangkat.DataBind()
-                ddlfilterKuarters.Items.Insert(0, New ListItem("Sila Pilih", String.Empty))
-                ddlfilterKuarters.SelectedIndex = 0
+                ddlfilterPangkat.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                ddlfilterPangkat.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadJawatan): " & ex.Message)
             Finally
@@ -138,41 +137,49 @@ Public Class proses_penempatan_kuarters1
         Dim tmpSQL As String
         Dim strWhere As String = ""
 
-        Dim strOrder As String = ""
+        Dim strOrder As String = "ORDER BY A.permohonan_tarikh DESC"
 
-
-
-        tmpSQL = "SELECT A.pengguna_id as pengguna_id ,A.pengguna_no_tentera as no_tentera ,A.pengguna_nama as nama ,C.pangkalan_nama as pangkalan
-                    ,D.pangkat_nama as pangkat ,B.pengguna_id as pengguna_idx,E.kuarters_nama as unit,B.permohonan_tarikh as tarikhMohon,B.permohonan_status as status
-                    , B.permohonan_id as permohonan_id ,B.permohonan_mata as total_poin
-                    FROM spk_permohonan as B
-                    left join spk_pengguna A on B.pengguna_id = A.pengguna_id
-					left join spk_pangkalan C on A.pangkalan_id = C.pangkalan_id 
-					left join spk_pangkat D on A.pangkat_id = D.pangkat_id
-                    left join spk_kuarters E on B.kuarters_id = E.kuarters_id
-                    left join spk_unit F on B.unit_id = F.unit_id
-					"
-        strWhere += " WHERE B.permohonan_status = 'PERMOHONAN DITERIMA' and B.kuarters_id is not null"
+        tmpSQL = "SELECT 
+	        A.permohonan_id
+            ,   A.permohonan_no_permohonan
+	        ,	SUBSTRING(G.log_tarikh,1,10) 'permohonan_tarikh'
+	        ,	A.permohonan_mata
+	        ,	B.pengguna_no_tentera
+	        ,	B.pengguna_nama
+            ,   C.pangkat_nama
+	        ,	D.pangkalan_nama
+	        ,	E.kuarters_nama
+	        ,	(F.unit_blok + '-' + F.unit_tingkat + '-' + F.unit_nombor) 'unit_nama'
+        FROM 
+	        spk_permohonan A
+	        LEFT JOIN spk_pengguna B ON B.pengguna_id = A.pengguna_id
+	        LEFT JOIN spk_pangkat C ON C.pangkat_id = B.pangkat_id
+	        LEFT JOIN spk_pangkalan D ON D.pangkalan_id = B.pangkalan_id
+	        LEFT JOIN spk_kuarters E ON E.kuarters_id = A.kuarters_id
+	        LEFT JOIN spk_unit F ON F.unit_id = A.unit_id
+	        LEFT JOIN (SELECT * FROM spk_logPermohonan WHERE log_status = 'PERMOHONAN BARU') G ON G.permohonan_id = A.permohonan_id"
+        strWhere += " WHERE 
+	        A.permohonan_status = 'PERMOHONAN SEDANG DIPROSES'
+	        AND A.permohonan_sub_status = 'TERIMA TAWARAN UNIT'"
 
         Try
             If Not ddlfilterKuarters.SelectedValue = "" Then
-                strWhere += " AND B.kuarters_id = '" & ddlfilterKuarters.SelectedValue & "'"
+                strWhere += " AND E.kuarters_id = '" & ddlfilterKuarters.SelectedValue & "'"
             End If
             If Not ddlfilterPangkalan.SelectedValue = "" Then
-                strWhere += " AND A.pangkalan_id = '" & ddlfilterPangkalan.SelectedValue & "'"
+                strWhere += " AND D.pangkalan_id = '" & ddlfilterPangkalan.SelectedValue & "'"
             End If
             If Not ddlfilterPangkat.SelectedValue = "" Then
-                strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
+                strWhere += " AND B.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
             End If
-
-
 
         Catch ex As Exception
             MsgBottom.InnerText = ex.ToString
         End Try
 
         If Not txt_nama.Text = "" Then
-            strWhere += " AND (A.pengguna_nama LIKE '%" & txt_nama.Text & "%' or  A.pengguna_nama = '" & txt_nama.Text & "')"
+            strWhere += " AND (
+                B.pengguna_nama LIKE '%" & txt_nama.Text & "%' OR  B.pengguna_no_tentera LIKE '%" & txt_nama.Text & "%')"
         End If
 
         getSQL = tmpSQL & strWhere & strOrder
@@ -224,7 +231,6 @@ Public Class proses_penempatan_kuarters1
             gvTable.DataBind()
             objConn.Close()
         Catch ex As Exception
-
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
             Return False
