@@ -36,7 +36,17 @@ Public Class status_tawaran
     Private Sub loadDDLSuratTawaran()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectioNString"))
             Using cmd As New SqlCommand("SELECT * FROM spk_suratTawaranConfig")
-
+                cmd.Connection = conn
+                Try
+                    conn.Open()
+                    ddlJenisSuratTawaran.DataSource = cmd.ExecuteReader
+                    ddlJenisSuratTawaran.DataValueField = "suratTawaranConfig_parameter"
+                    ddlJenisSuratTawaran.DataTextField = "suratTawaranConfig_type"
+                    ddlJenisSuratTawaran.DataBind()
+                    ddlJenisSuratTawaran.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                Catch ex As Exception
+                    Debug.WriteLine("Error(loadDDLSuratTawaran): " & ex.Message)
+                End Try
             End Using
         End Using
     End Sub
@@ -46,11 +56,13 @@ Public Class status_tawaran
             Using cmd As New SqlCommand("
                 SELECT 
 	                A.permohonan_id
+                    ,   A.permohonan_no_permohonan
 	                ,	SUBSTRING(G.log_tarikh,1,10) 'permohonan_tarikh'
 	                ,	B.pengguna_nama
 	                ,	B.pengguna_no_tentera
 	                ,	C.pangkat_nama
 	                ,	B.pengguna_jantina
+                    ,   F.pangkalan_nama
 	                ,	E.kuarters_nama
 	                ,	CONCAT(D.unit_blok,'-',D.unit_tingkat,'-',D.unit_nombor) 'unit_nama'
                 FROM 
@@ -59,6 +71,7 @@ Public Class status_tawaran
 	                JOIN spk_pangkat C ON C.pangkat_id = B.pangkat_id
 	                JOIN spk_unit D ON D.unit_id = A.unit_id
 	                JOIN spk_kuarters E ON E.kuarters_id = A.kuarters_id
+                    JOIN spk_pangkalan F ON F.pangkalan_id = E.pangkalan_id
 	                JOIN (SELECT * FROM spk_logPermohonan WHERE log_status = 'PERMOHONAN BARU') G ON G.permohonan_id = A.permohonan_id
                 WHERE 
 	                A.permohonan_id = @permohonanID")
@@ -75,6 +88,8 @@ Public Class status_tawaran
                             lblPangkat.Text = reader("pangkat_nama")
                             lblKuarters.Text = reader("kuarters_nama")
                             lblUnit.Text = reader("unit_nama")
+                            lblNoPermohonan.Text = reader("permohonan_no_permohonan")
+                            lblPangkalan.Text = reader("pangkalan_nama")
                         End While
                     Else
                         Debug.WriteLine("Error(loadPermohonan): No Rows")
@@ -252,6 +267,27 @@ Public Class status_tawaran
             End If
 
         End If
+
+    End Sub
+
+    Private Sub ddlJenisSuratTawaran_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlJenisSuratTawaran.SelectedIndexChanged
+        Dim content As String
+        Dim jenisSurat As String
+        Try
+            If datepicker.Text.Count > 0 Then
+                content = Server.HtmlDecode(ddlJenisSuratTawaran.SelectedValue)
+                content = content.Replace("{Nama}", lblNama.Text)
+                content = content.Replace("{NoPermohonan}", lblNoPermohonan.Text)
+                content = content.Replace("{NoTentera}", lblNoTentera.Text)
+                content = content.Replace("{Kuarters}", lblKuarters.Text)
+                content = content.Replace("{Unit}", lblUnit.Text)
+                content = content.Replace("{Pangkalan}", lblPangkalan.Text)
+                content = content.Replace("{TarikhKemasukan}", datepicker.Text)
+                editorSurattawaran.Content = content
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error(ddlJenisSUratTawawaran): " & ex.Message)
+        End Try
 
     End Sub
 End Class

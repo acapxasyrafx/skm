@@ -41,6 +41,15 @@ Partial Public Class status_tawaran
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
+    '''lblNoPermohonan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNoPermohonan As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''lblNama control.
     '''</summary>
     '''<remarks>
@@ -66,6 +75,15 @@ Partial Public Class status_tawaran
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblPangkat As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblPangkalan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblPangkalan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblKuarters control.

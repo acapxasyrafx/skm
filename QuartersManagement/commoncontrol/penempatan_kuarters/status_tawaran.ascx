@@ -91,6 +91,11 @@
                 <td colspan="3">Maklumat Permohonan</td>
             </tr>
             <tr>
+                <td style="width:150px;">No. Permohonan</td>
+                <td>:</td>
+                <td><asp:Label Text="text" runat="server" ID="lblNoPermohonan"/></td>
+            </tr>
+            <tr>
                 <td style="width: 150px;">Nama</td>
                 <td>:</td>
                 <td>
@@ -110,6 +115,11 @@
                 <td>
                     <asp:Label Text="text" runat="server" ID="lblPangkat"/>
                 </td>
+            </tr>
+            <tr>
+                <td style="width: 150px;">Pangkalan Kuarters</td>
+                <td>:</td>
+                <td><asp:Label Text="text" runat="server" ID="lblPangkalan"/></td>
             </tr>
             <tr>
                 <td style="width:150px;">Kuarters Diterima</td>
@@ -146,7 +156,7 @@
                 <td style="width: 150px;">Jenis Surat Tawaran</td>
                 <td>:</td>
                 <td>
-                    <asp:DropDownList runat="server" ID="ddlJenisSuratTawaran"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="ddlJenisSuratTawaran" AutoPostBack="true"></asp:DropDownList>
                 </td>
             </tr>
         </table>
