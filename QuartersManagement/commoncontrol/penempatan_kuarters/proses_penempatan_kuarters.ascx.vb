@@ -246,7 +246,7 @@ Public Class proses_penempatan_kuarters1
             If (e.CommandName = "ViewApllicant") Then
                 Dim strCID = e.CommandArgument.ToString
 
-                Response.Redirect("Proses.Penempatan.Tawaran.aspx?uid=" + strCID)
+                Response.Redirect("Proses.Penempatan.Tawaran.aspx?p=Pengurusan%20Pentadbiran%20>%20Kuarters%20>%20Proses%20Penempatan%20Kuarters%20>%20Surat%20Tawaran&uid=" + strCID)
             ElseIf (e.CommandName = "Batal") Then
                 Dim strCID = e.CommandArgument.ToString
 
