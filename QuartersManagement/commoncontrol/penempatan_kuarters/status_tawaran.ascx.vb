@@ -105,17 +105,18 @@ Public Class status_tawaran
 
     Private Sub btnSimpan_Click(sender As Object, e As EventArgs) Handles btnSimpan.Click
         Dim uid As String = Request.QueryString("uid")
+        Dim content = Server.HtmlEncode(editorSurattawaran.Content)
         Try
             If validate() Then
-                strSQL = "INSERT INTO 
+            strSQL = "INSERT INTO 
                         spk_suratTawaran(suratTawaran_content,permohonan_id,suratTawaran_tarikh_dibuat) 
                      VALUES 
                         (
-                            '" & Server.HtmlEncode(editorSurattawaran.Content) & "'
+                            '" & content & "'
                            ,'" & uid & "'
                             ,'" & Date.Now() & "'
                         )"
-                strRet = oCommon.ExecuteSQL(strSQL)
+            strRet = oCommon.ExecuteSQL(strSQL)
 
                 If strRet = "0" Then
                     strSQL = "UPDATE 
@@ -127,6 +128,7 @@ Public Class status_tawaran
                             permohonan_id = " & uid & ";"
                     strRet = oCommon.ExecuteSQL(strSQL)
                 End If
+                Response.Redirect("Proses.Penempatan.Kuarters.aspx?P=Pengurusan%20Pentadbiran%20>%20Kuarters%20>%20Proses%20Penempatan%20Kuarters")
             End If
         Catch ex As Exception
             Debug.WriteLine("Error(btnSimpan): " & ex.Message)
@@ -166,7 +168,7 @@ Public Class status_tawaran
                 editorSurattawaran.Content = content
             End If
         Catch ex As Exception
-            Debug.WriteLine("Error(ddlJenisSUratTawawaran): " & ex.Message)
+            Debug.WriteLine("Error(ddlJenisSuratTawaran): " & ex.Message)
         End Try
 
     End Sub

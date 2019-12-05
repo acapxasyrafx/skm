@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/admin.Master" CodeBehind="Proses.Penempatan.Tawaran.aspx.vb" Inherits="QuartersManagement.Proses_Penempatan_Tawaran" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/admin.Master" CodeBehind="Proses.Penempatan.Tawaran.aspx.vb" Inherits="QuartersManagement.Proses_Penempatan_Tawaran" validateRequest="false" %>
 
 <%@ Register Src="~/commoncontrol/penempatan_kuarters/status_tawaran.ascx" TagPrefix="uc1" TagName="status_tawaran" %>
 <%@ Register Src="~/commoncontrol/menu/navigation_menu.ascx" TagPrefix="uc1" TagName="navigation_menu" %>
