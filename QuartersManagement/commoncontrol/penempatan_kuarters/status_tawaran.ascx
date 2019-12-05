@@ -20,9 +20,6 @@
     .ddl {
         border-radius: 25px;
     }
-    #editorSurartTawaran{
-        z-index: -1;
-    }
     .CalendarCssClass {
         background-color: #990000;
         font-family: Century;
