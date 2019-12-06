@@ -120,14 +120,14 @@
             </tr>
             <tr>
                 <td style="width:150px;">Kuarters Diterima</td>
-                <td></td>
+                <td>:</td>
                 <td>
                     <asp:Label Text="text" runat="server" ID="lblKuarters"/>
                 </td>
             </tr>
             <tr>
                 <td style="width:150px;">Unit Diterima</td>
-                <td></td>
+                <td>:</td>
                 <td>
                     <asp:Label Text="text" runat="server" ID="lblUnit"/>
                 </td>
