@@ -77,6 +77,8 @@ Public Class maklumat_pemohon_menunggu
                 ,   D.pengguna_mula_perkhidmatan
                 ,   D.pengguna_tamat_perkhidmatan
                 ,   A.permohonan_no_permohonan
+                ,   A.permohonan_jenis_permohonan
+                ,   A.permohonan_tarikh_kemasukan
                 ,   A.kuarters_id
                 ,   B.kuarters_nama
                 ,   B.pangkalan_id
@@ -111,6 +113,7 @@ Public Class maklumat_pemohon_menunggu
                         lblJawatan.InnerText = reader("pangkat_nama")
                         lblNoTentera.InnerText = reader("pengguna_no_tentera")
                         lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
+                        hfPangkalanID.Value = reader("pangkalan_id")
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
                         lbl_senaraiKuarters.InnerText = reader("kuarters_nama")
                         lblKuartersDipohon.Text = reader("kuarters_nama")
@@ -120,6 +123,7 @@ Public Class maklumat_pemohon_menunggu
 
                         If reader("permohonan_sub_status").Equals("TAWARAN UNIT") Then
                             lblUnitDitawarkan.Text = reader("unit_nama")
+                            lblTarikhKemasukan.Text = reader("permohonan_tarikh_kemasukan")
                             trUnitDitawarkan.Visible = True
                             trStatusKuarters.Visible = False
                         Else
@@ -157,7 +161,6 @@ Public Class maklumat_pemohon_menunggu
         strRet = oCommon.ExecuteSQL(strSQL)
         If strRet = "0" Then
             strlbl_bottom.Text = "Cadangan Kuarters Sudah Dimasukkan"
-
         End If
     End Sub
 
@@ -229,26 +232,20 @@ Public Class maklumat_pemohon_menunggu
 
     Private Sub btnSimpanTawaranUnit_Click(sender As Object, e As EventArgs) Handles btnSimpanTawaranUnit.Click
 
-        If Not ddlUnitKuarters.SelectedValue = "" Then
+        If validateUnitSubmit() Then
             Dim query As String = "
             UPDATE spk_permohonan
             SET 
                 permohonan_sub_status = 'TAWARAN UNIT',
                 unit_id = " & ddlUnitKuarters.SelectedValue & ",
                 permohonan_tarikh = '" & Date.Now().ToString("dd/MM/yyyy") & "'
+                permohonan_tarikh_kemasukan = '" & datepicker.Text & "'
             WHERE permohonan_id = " & Request.QueryString("uid") & ";"
             strRet = oCommon.ExecuteSQL(query)
             If strRet = "0" Then
                 Response.Redirect("Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Menunggu")
             End If
-        Else
-            Debug.WriteLine("Error(btnSimpanTawaranUnit): UNIT TAK DIPILIH")
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = "Unit kuarters perlu dipilih"
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = "Unit kuarters perlu dipilih"
         End If
-
     End Sub
 
     Private Sub loadCadanganKuarters(ByVal pangkalanID As Integer)
@@ -284,7 +281,6 @@ Public Class maklumat_pemohon_menunggu
             End Using
         End Using
     End Sub
-
 
     Private Sub btnTambahCadangan_Click(sender As Object, e As EventArgs) Handles btnTambahCadangan.Click
         If ddlCadanganKuarters.SelectedIndex > 0 Then
@@ -391,7 +387,7 @@ Public Class maklumat_pemohon_menunggu
     End Sub
 
     Private Sub btnSimpanCadanganKuarters_Click(sender As Object, e As EventArgs) Handles btnSimpanCadanganKuarters.Click
-        If gvCadanganKuarters.Rows.Count > 0 And gvCadanganKuarters.Rows.Count < 4 Then
+        If validateKuartersSubmit() Then
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand("UPDATE 
                 spk_permohonan 
@@ -429,5 +425,65 @@ Public Class maklumat_pemohon_menunggu
         End If
     End Sub
 
+    Private Function validateUnitSubmit()
+        If ddlUnitKuarters.SelectedIndex > 0 Then
+            If datepicker.Text.Count > 0 Then
+                If IsDate(datepicker) Then
+                    Return True
+                Else
+                    Debug.WriteLine("Error(validateUnitSubmit): Tarikh Kemasukan tak berformat betul")
+                    MsgTop.Attributes("class") = "errorMsg"
+                    strlbl_top.Text = "SILA MASUKKAN TARIKH KEMASUKAN YANG BETUL"
+                    MsgBottom.Attributes("class") = "errorMsg"
+                    strlbl_bottom.Text = "SILA MASUKKAN TARIKH KEMASUKAN YANG BETUL"
+                    Return False
+                End If
+            Else
+                Debug.WriteLine("Error(validateUnitSubmit): TARIKH KEMASUKAN PERLU DIISI")
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = "TARIKH KEMASUKAN PERLU DIISI"
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = "TARIKH KEMASUKAN PERLU DIISI"
+                Return False
+            End If
+        Else
+            Debug.WriteLine("Error(validateUnitSubmit): UNIT TAK DIPILIH")
+            MsgTop.Attributes("class") = "errorMsg"
+            strlbl_top.Text = "UNIT KUARTERS PERLU DIPILIH"
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = "UNIT KUARTERS PERLU DIPILIH"
+            Return False
+        End If
+    End Function
 
+    Private Function validateKuartersSubmit()
+        If gvCadanganKuarters.Rows.Count < 3 Then
+            Return True
+        ElseIf gvCadanganKuarters.Rows.Count.Equals(0) Then
+            Debug.WriteLine("Error(validateKuartersSubmit): SILA CADANG SEKURANG-KURANGNYA SATU(1) KUARTERS")
+            MsgTop.Attributes("class") = "errorMsg"
+            strlbl_top.Text = "SILA CADANG SEKURANG-KURANGNYA SATU(1) KUARTERS"
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = "SILA CADANG SEKURANG-KURANGNYA SATU(1) KUARTERS"
+            Return False
+        Else
+            Debug.WriteLine("Error(validateKuartersSubmit): KUARTERS YANG DICADANG TAK BOLEH LEBIh DARI TIGA(3)")
+            MsgTop.Attributes("class") = "errorMsg"
+            strlbl_top.Text = "KUARTERS YANG DICADANG TAK BOLEH LEBIh DARI TIGA(3)"
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = "KUARTERS YANG DICADANG TAK BOLEH LEBIh DARI TIGA(3)"
+            Return False
+        End If
+    End Function
+
+    Private Sub cbCadangKuartersLain_CheckedChanged(sender As Object, e As EventArgs) Handles cbCadangKuartersLain.CheckedChanged
+        If cbCadangKuartersLain.Checked Then
+            loadCadanganKuarters(hfPangkalanID.Value)
+            pnlCadanganKuarters.Visible = True
+            pnlPemilihanUnit.Visible = False
+        Else
+            pnlPemilihanUnit.Visible = True
+            pnlCadanganKuarters.Visible = False
+        End If
+    End Sub
 End Class

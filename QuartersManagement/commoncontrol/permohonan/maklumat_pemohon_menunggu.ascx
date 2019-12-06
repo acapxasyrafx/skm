@@ -1,5 +1,17 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="maklumat_pemohon_menunggu.ascx.vb" Inherits="QuartersManagement.maklumat_pemohon_menunggu" %>
 
+<header>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({ dateformat: 'dd MM yy' }).val();
+        });
+    </script>
+</header>
 <style>
     .label{
         display: inline-block;
@@ -219,6 +231,7 @@
                 <td class="auto-style2">:</td>
                 <td colspan="2">
                     <h5 class="label" runat="server" id="lbl_senaraiPangkalan"></h5>
+                    <asp:HiddenField runat="server" ID="hfPangkalanID"/>
                 </td>
             </tr>
             <tr>
@@ -281,9 +294,19 @@
                 <td><asp:Label Text="text" runat="server" ID="lblStatusKuarter" /></td>
             </tr>
             <tr runat="server" id="trUnitDitawarkan" visible="false">
-                <td style="width: 150px;">Unit Yang Dicadangkan</td>
+                <td style="width: 150px;">Unit Yang Ditawarkan</td>
                 <td style="width: 5px;">:</td>
                 <td><b><asp:Label Text="text" runat="server" ID="lblUnitDitawarkan"/></b></td>
+            </tr>
+             <tr runat="server" id="tr1" visible="false">
+                <td style="width: 150px;">Tarikh Kemasukan</td>
+                <td style="width: 5px;">:</td>
+                <td><b><asp:Label Text="text" runat="server" ID="lblTarikhKemasukan"/></b></td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:CheckBox Text="Cadang Kuarters Lain?" runat="server" ID="cbCadangKuartersLain" AutoPostBack="true" />
+                </td>
             </tr>
         </table>
         <%--  --%>
@@ -302,12 +325,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><asp:Button CssClass="btn" Text="Simpan" runat="server" ID="btnSimpanTawaranUnit" /></td>
+                    <td style="width: 150px;">Tarikh Kemasukan</td>
+                    <td>:</td>
+                    <td>
+                        <asp:TextBox CssClass="datepicker" ID="datepicker" runat="server" />
+                        &#160; <i class="fa fa-calendar w3-medium w3-text-black"></i>
+                    </td>
                 </tr>
                 <tr>
-                    <td>
-                        <asp:CheckBox Text="Cadang Kuarters Lain?" runat="server" ID="cbCadangKuartersLain"/>
-                    </td>
+                    <td><asp:Button CssClass="btn" Text="Simpan" runat="server" ID="btnSimpanTawaranUnit" /></td>
                 </tr>
             </table>
         </asp:Panel>

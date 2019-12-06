@@ -130,7 +130,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Tarikh Akhir Kemas Kini">
                             <ItemTemplate>
-                                <asp:Label ID="lbl_tarikhPermohonan" runat="server" Text='<%# Bind("tarikhUpdate")%>'></asp:Label>
+                                <asp:Label ID="lbl_tarikhKemasKini" runat="server" Text='<%# Bind("tarikhUpdate")%>'></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />

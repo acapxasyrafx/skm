@@ -20,7 +20,6 @@
     .ddl {
         border-radius: 25px;
     }
-
     .CalendarCssClass {
         background-color: #990000;
         font-family: Century;
@@ -34,6 +33,23 @@
     }
     .formdetail {
         z-index:1;
+    }
+    .wrapper{
+        display: flex;
+        justify-content: normal;
+        flex-direction: row;
+    }
+    .left{
+        display: block;
+        width: 40%;
+    }
+    .right{
+        display: block;
+        width: 60%;
+    }
+    .datepicker{
+        position: absolute;
+        z-index: 2;
     }
     </style>
 
@@ -65,76 +81,108 @@
 </table>
 </div>
 
-<div>
-<table>
-    <tr>
-        <td>
-            <asp:Label runat="server" ID="lblNama">Nama</asp:Label>
-        </td>
-        <td>:</td>
-        <td>
-            <asp:Label runat ="server" id="lbloutname"></asp:Label>
-
-        </td>
-    </tr>
-     <tr>
-        <td>
-            <asp:Label runat="server" ID="lblDateMasuk">Tarikh Masuk</asp:Label>
-        </td>
-        <td>:</td>
-        <td>
-            <br>            
-                <asp:TextBox CssClass="datepicker" ID="datepicker" runat="server" />
-                &#160; <i class="fa fa-calendar w3-medium w3-text-black"></i>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:Label runat="server" ID="lblKuarters">Kuarters Dipilih</asp:Label>
-        </td>
-        <td>:</td>
-        <td>
-            <asp:Label runat ="server" id="lblOutKuarters"></asp:Label>
-
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:label runat ="server" ID="lbl_unit">Unit</asp:label>
-        </td>
-        <td>:</td>
-        <td>
-            <asp:DropDownList runat ="server" id="ddl_unit" AutoPostBack="true" ></asp:DropDownList>
-
-        </td>
-        </tr>
-   </table>
+<div class="wrapper">
+    <div class="left">
+        <table class="fbform">
+            <tr class="fbform_mheader">
+                <td colspan="3">Maklumat Permohonan</td>
+            </tr>
+            <tr>
+                <td style="width:150px;">No. Permohonan</td>
+                <td>:</td>
+                <td><asp:Label Text="text" runat="server" ID="lblNoPermohonan"/></td>
+            </tr>
+            <tr>
+                <td style="width: 150px;">Nama</td>
+                <td>:</td>
+                <td>
+                    <asp:Label runat="server" ID="lblNama"></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 150px;">No Tentera</td>
+                <td>:</td>
+                <td>
+                    <asp:Label Text="text" runat="server" ID="lblNoTentera"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 150px;">Pangkat</td>
+                <td>:</td>
+                <td>
+                    <asp:Label Text="text" runat="server" ID="lblPangkat"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 150px;">Pangkalan Kuarters</td>
+                <td>:</td>
+                <td><asp:Label Text="text" runat="server" ID="lblPangkalan"/></td>
+            </tr>
+            <tr>
+                <td style="width:150px;">Kuarters Diterima</td>
+                <td>:</td>
+                <td>
+                    <asp:Label Text="text" runat="server" ID="lblKuarters"/>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:150px;">Unit Diterima</td>
+                <td>:</td>
+                <td>
+                    <asp:Label Text="text" runat="server" ID="lblUnit"/>
+                </td>
+            </tr>
+        </table>
     </div>
+    <div class="right">
+        <table class="fbform">
+            <tr class="fbform_mheader">
+                <td colspan="3">Surat Tawaran</td>
+            </tr>
+            <tr>
+                <td style="width: 150px;">
+                    Tarikh Kemasukan Kuarters
+                </td>
+                <td>:</td>
+                <td>
+                    <asp:TextBox CssClass="datepicker" ID="datepicker" runat="server" />
+                    &#160; <i class="fa fa-calendar w3-medium w3-text-black"></i>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 150px;">Jenis Surat Tawaran</td>
+                <td>:</td>
+                <td>
+                    <asp:DropDownList runat="server" ID="ddlJenisSuratTawaran" AutoPostBack="true"></asp:DropDownList>
+                </td>
+            </tr>
+        </table>
+        <hr />
+        <table>
+            <tr>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <textboxio:Textboxio
+                        runat="server"
+                        ID="editorSurattawaran"
+                        ScriptSrc="textboxio/textboxio.js"
+                        Content="<p></p>"
+                    />
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <asp:Button ID="btnSimpan" runat="server" Text="Hantar Surat Tawaran" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
 
 <div class="tbltexbox">
-<table>
-    <tr>
-        <td>
-            
-        </td>
-    </tr>
-    <tr>
-        <td colspan="3" >   
-        <textboxio:Textboxio
-            runat="server"
-            ID="editorSurattawaran"
-            ScriptSrc="textboxio/textboxio.js"
-            Content="<p></p>" />
-        
-            </td>
-    </tr>
-    <tr>
-        <td>
-            <asp:Button ID="btnSimpan" runat="server" Text ="Hantar Surat Tawaran" />
-        </td>
-    </tr>
-</table>
-
-    </div>
+</div>
 
 <asp:Label runat="server">Disclaimer : Fungsi surat tawaran ini masih lagi dalam pembinaan tetapi fungsi ini akan membuat surat tawaran berserta unit yang dipilih oleh admin.</asp:Label>

@@ -60,7 +60,7 @@
     </tr>
     <tr>
         <td class="auto-style3">
-            <asp:Label runat="server" ID="lbl_nama">Nama</asp:Label>
+            <asp:Label runat="server" ID="lbl_nama">Nama/No. Tentera</asp:Label>
         </td>
         <td class="auto-style4">:
         </td>
@@ -80,9 +80,20 @@
     <tr class="fbform_mheader">
          <td>
             <asp:Panel ID="Panel" runat="server" ScrollBars="vertical" Height="350">
-            <asp:GridView ID="datRespondent" runat="server" AutoGenerateColumns="False" AllowPaging="false"  
-             CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="permohonan_id"
-                Width="100%" PageSize="100" CssClass="gridview_footer" OnRowCommand ="datRespondent_RowCommand">
+            <asp:GridView 
+                ID="datRespondent" 
+                runat="server" 
+                AutoGenerateColumns="False" 
+                AllowPaging="false"  
+                CellPadding="4" 
+                ForeColor="#333333" 
+                GridLines="None" 
+                DataKeyNames="permohonan_id"
+                Width="100%" 
+                PageSize="100" 
+                CssClass="gridview_footer" 
+                OnRowCommand ="datRespondent_RowCommand"
+                >
                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                 <Columns>
                     <asp:TemplateField HeaderText="#">
@@ -94,43 +105,49 @@
                     </asp:TemplateField> 
                     <asp:TemplateField HeaderText="No.Permohonan" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_noPermohonan" runat="server"></asp:Label>
+                            <asp:Label ID="lbl_noPermohonan" runat="server"  Text='<%# Bind("permohonan_no_permohonan")%>' ></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:templatefield>
                     <asp:TemplateField HeaderText="Tarikh Permohonan" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_tarikhPermohonan" runat="server" Text='<%# Bind("tarikhMohon")%>' ></asp:Label>
+                            <asp:Label ID="lbl_tarikhPermohonan" runat="server" Text='<%# Bind("permohonan_tarikh")%>' ></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
                     <asp:TemplateField HeaderText="No.Tentera" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_noTentera" runat="server" Text='<%# Bind("no_tentera")%>' ></asp:Label>
+                            <asp:Label ID="lbl_noTentera" runat="server" Text='<%# Bind("pengguna_no_tentera")%>' ></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="6%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:templatefield>
                     <asp:TemplateField HeaderText="Pangkat" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_pangkat" runat="server" Text='<%# Bind("pangkat")%>' ></asp:Label>
+                            <asp:Label ID="lbl_pangkat" runat="server" Text='<%# Bind("pangkat_nama")%>' ></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>    
                     <asp:TemplateField HeaderText="Nama" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_nama" runat="server" Text='<%# Bind("nama")%>' ></asp:Label>
+                            <asp:Label ID="lbl_nama" runat="server" Text='<%# Bind("pengguna_nama")%>' ></asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="40%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                    </asp:TemplateField>   
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Kuarters Dipohon" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_kuartersDipohon" runat="server" Text='<%# Bind("unit")%>'> </asp:Label>
+                            <asp:Label ID="lbl_kuartersDipohon" runat="server" Text='<%# Bind("kuarters_nama")%>'> </asp:Label>
+                        </ItemTemplate>
+                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                    </asp:TemplateField>   
+                    <asp:TemplateField HeaderText="Unit Ditawarkan" >
+                        <ItemTemplate>
+                            <asp:Label ID="lbl_unitNama" runat="server" Text='<%# Bind("unit_nama")%>'> </asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField>   
                     <asp:TemplateField HeaderText="Markah" >
                         <ItemTemplate>
-                            <asp:Label ID="lbl_matapoin" runat="server" Text='<%# Bind("total_poin")%>'> </asp:Label>
+                            <asp:Label ID="lbl_matapoin" runat="server" Text='<%# Bind("permohonan_mata")%>'> </asp:Label>
                         </ItemTemplate>
                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" /><ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                     </asp:TemplateField> 

@@ -67,8 +67,12 @@
                             </li>
                         </ul>
                     </li>
-        
+
                     <li>
+                        <span><a href="Senarai.Penempatan.Pemohon.aspx?P=<%=lbl6.Text %>">Senarai Penempatan Pemohon</a></span>
+                    </li>
+                    
+                    <%--<li>
                         <a href="#"><span>Senarai Penempatan Kuarters Pemohon</span></a>
                         <ul class="nav-flyout">
                             <li><p>Senarai Penempatan Kuarters Pemohon</p></li>
@@ -77,7 +81,7 @@
                                 <a href="Senarai.Penempatan.Pemohon.aspx?P=<%=lbl6.Text %>"><i></i><img src ="icons/bullet_red.png" /> Senarai Penempatan Pemohon</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>--%>
           
                     <li>
                         <a href="#"><span class="">Penyelenggaraan Kuarters</span></a>
