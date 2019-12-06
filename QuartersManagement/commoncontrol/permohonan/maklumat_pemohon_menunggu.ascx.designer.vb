@@ -149,6 +149,15 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lbl_senaraiPangkalan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''hfPangkalanID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hfPangkalanID As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''lbl_senaraiKuarters control.
     '''</summary>
     '''<remarks>
@@ -248,6 +257,33 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lblUnitDitawarkan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''tr1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tr1 As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''lblTarikhKemasukan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhKemasukan As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''cbCadangKuartersLain control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cbCadangKuartersLain As Global.System.Web.UI.WebControls.CheckBox
+
+    '''<summary>
     '''pnlPemilihanUnit control.
     '''</summary>
     '''<remarks>
@@ -266,6 +302,15 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents ddlUnitKuarters As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''datepicker control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents datepicker As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
     '''btnSimpanTawaranUnit control.
     '''</summary>
     '''<remarks>
@@ -273,15 +318,6 @@ Partial Public Class maklumat_pemohon_menunggu
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnSimpanTawaranUnit As Global.System.Web.UI.WebControls.Button
-
-    '''<summary>
-    '''cbCadangKuartersLain control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cbCadangKuartersLain As Global.System.Web.UI.WebControls.CheckBox
 
     '''<summary>
     '''pnlCadanganKuarters control.
