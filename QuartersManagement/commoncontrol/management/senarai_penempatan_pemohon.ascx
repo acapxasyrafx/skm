@@ -22,6 +22,35 @@
         <td colspan="4">Senarai Pemohon dan Kuarters Penempatan</td>
     </tr>
     <tr>
+        <td style="width:150px;">Pangkalan</td>
+        <td>:</td>
+        <td>
+            <asp:DropDownList runat="server" ID="ddlCarianPangkalan" AutoPostBack="true"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:150px;">Kuarters</td>
+        <td>:</td>
+        <td>
+            <asp:DropDownList runat="server" ID="ddlCarianKuarters" AutoPostBack="true" Enabled="false"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:150px;">Kuarters</td>
+        <td>:</td>
+        <td>
+            <asp:DropDownList runat="server" ID="ddlCarianPangkat" AutoPostBack="true"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:150px;">Nama/No.Tentera</td>
+        <td>:</td>
+        <td><asp:TextBox runat="server" ID="tbCarianNama"/></td>
+    </tr>
+    <tr>
+        <td><asp:Button Text="Cari" runat="server" ID="btnCari"/></td>
+    </tr>
+    <tr>
         <td colspan="4">
             <asp:GridView 
                 ID="datRespondent" 
