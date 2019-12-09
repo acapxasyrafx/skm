@@ -32,6 +32,33 @@ Partial Public Class senarai_permohonan
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''ddlCarianPangkalan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCarianPangkalan As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlCarianKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCarianKuarters As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlCarianStatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCarianStatus As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''tblSenaraiPermohonan control.
     '''</summary>
     '''<remarks>

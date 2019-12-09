@@ -17,6 +17,8 @@ Public Class senarai_permohonan
     Dim strDataValAlert As String = ConfigurationManager.AppSettings("dataValidationAlert")
 
     Dim oCommon As New Commonfunction
+    Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
+    Dim objConn As SqlConnection = New SqlConnection(strConn)
 
     Dim penggunaID As Integer = 1
     Dim pangkalanID As Integer = 0
@@ -29,35 +31,89 @@ Public Class senarai_permohonan
     End Sub
 
     Private Sub Load_Page()
-        senaraiPermohonan()
+        loadPangkalan()
+        BindData(tblSenaraiPermohonan)
     End Sub
 
-    Private Sub senaraiPermohonan()
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim ds As New DataSet
-            Dim da As New SqlDataAdapter("SELECT 
-	            A.permohonan_id,
-	            A.permohonan_tarikh,
-	            B.kuarters_nama,
-	            A.permohonan_status,
-                A.permohonan_nota
-            FROM 
-	            spk_permohonan A
-	            JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
-            WHERE A.pengguna_id = " & penggunaID & "
-            ORDER BY A.permohonan_tarikh DESC", conn)
-            Try
-                conn.Open()
-                da.Fill(ds, "AnyTable")
-                If ds.Tables(0).Rows.Count > 0 Then
-                    tblSenaraiPermohonan.DataSource = ds
-                    tblSenaraiPermohonan.DataBind()
-                End If
-            Catch ex As Exception
-                Debug.WriteLine("Error(senaraiPermohonan): " & ex.Message)
-            End Try
-        End Using
-    End Sub
+    Private Function getSQL() As String
+        Dim tempSQL As String = "
+        SELECT 
+            * 
+        FROM spk_permohonan A
+        LEFT JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
+        LEFT JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
+        "
+        Dim whereSQL As String = " WHERE A.pengguna_id = " & penggunaID & ""
+        Dim orderSQL As String = " ORDER BY A.permohonan_tarikh DESC"
+
+        If ddlCarianPangkalan.SelectedIndex > 0 Then
+            whereSQL = whereSQL & " AND B.pangkalan_id = " & ddlCarianPangkalan.SelectedValue & ""
+        End If
+
+        If ddlCarianKuarters.SelectedIndex > 0 Then
+            whereSQL = whereSQL & " AND B.kuarters_id = " & ddlCarianKuarters.SelectedValue & ""
+        End If
+
+        If ddlCarianStatus.SelectedIndex > 0 Then
+            whereSQL = whereSQL & " AND A.permohonan_status = '" & ddlCarianStatus.SelectedValue & "'"
+        End If
+
+        getSQL = tempSQL + whereSQL + orderSQL
+        Return getSQL
+    End Function
+
+    Private Function GetData(ByVal cmd As SqlCommand) As DataTable
+        Dim dt As New DataTable()
+        Dim strConnString As [String] = ConfigurationManager.AppSettings("ConnectionString")
+        Dim con As New SqlConnection(strConnString)
+        Dim sda As New SqlDataAdapter()
+        cmd.CommandType = CommandType.Text
+        cmd.Connection = con
+        Try
+            con.Open()
+            sda.SelectCommand = cmd
+            sda.Fill(dt)
+            Return dt
+        Catch ex As Exception
+            Throw ex
+        Finally
+            con.Close()
+            sda.Dispose()
+            con.Dispose()
+        End Try
+    End Function
+
+    Private Function BindData(ByVal gvTable As GridView) As Boolean
+        Dim myDataSet As New DataSet
+        Dim myDataAdapter As New SqlDataAdapter(getSQL, strConn)
+        myDataAdapter.SelectCommand.CommandTimeout = 120
+
+        Try
+            myDataAdapter.Fill(myDataSet, "myaccount")
+
+            If myDataSet.Tables(0).Rows.Count = 0 Then
+
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = strDataBindAlert
+            Else
+
+                MsgBottom.Attributes("class") = "successMsg"
+                strlbl_bottom.Text = strRecordBindAlert & myDataSet.Tables(0).Rows.Count
+            End If
+
+            gvTable.DataSource = myDataSet
+            gvTable.DataBind()
+            objConn.Close()
+        Catch ex As Exception
+
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
+            Return False
+        End Try
+
+        Return True
+
+    End Function
 
     Private Sub tblSenaraiPermohonan_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles tblSenaraiPermohonan.RowCommand
         permohonanID = e.CommandArgument
@@ -186,4 +242,70 @@ Public Class senarai_permohonan
         Dim formatedDate As String = Convert.ToDateTime(d).ToString("dd/MM/yyyy")
         Return formatedDate
     End Function
+
+    Private Sub loadPangkalan()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim cmd As New SqlCommand("SELECT pangkalan_id, pangkalan_nama FROM spk_pangkalan;", conn)
+            Dim ds As New DataSet
+            Try
+                conn.Open()
+                Dim da As New SqlDataAdapter(cmd)
+                da.Fill(ds)
+                ddlCarianPangkalan.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                ddlCarianPangkalan.SelectedIndex = 0
+                ddlCarianPangkalan.DataSource = ds
+                ddlCarianPangkalan.DataTextField = "pangkalan_nama"
+                ddlCarianPangkalan.DataValueField = "pangkalan_id"
+                ddlCarianPangkalan.DataBind()
+                ddlCarianPangkalan.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                ddlCarianPangkalan.SelectedIndex = 0
+            Catch ex As Exception
+                Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Sub
+
+    Private Sub loadKuarters()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim cmd As New SqlCommand("SELECT kuarters_id, kuarters_nama FROM spk_kuarters WHERE pangkalan_id = " & ddlCarianPangkalan.SelectedValue & "; ", conn)
+            Dim ds As New DataSet
+
+            Try
+                conn.Open()
+                Dim da As New SqlDataAdapter(cmd)
+                da.Fill(ds)
+                ddlCarianKuarters.DataSource = ds
+                ddlCarianKuarters.DataTextField = "kuarters_nama"
+                ddlCarianKuarters.DataValueField = "kuarters_id"
+                ddlCarianKuarters.DataBind()
+                ddlCarianKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                ddlCarianKuarters.SelectedIndex = 0
+            Catch ex As Exception
+                Debug.Write("ERROR(loadKuarters): " & ex.Message)
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Sub
+
+    Private Sub ddlCarianPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlCarianPangkalan.SelectedIndexChanged
+        BindData(tblSenaraiPermohonan)
+        If ddlCarianPangkalan.SelectedIndex > 0 Then
+            loadKuarters()
+            ddlCarianKuarters.Enabled = True
+        Else
+            ddlCarianKuarters.SelectedIndex = 0
+            ddlCarianKuarters.Enabled = False
+        End If
+    End Sub
+
+    Private Sub ddlCarianKuarters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlCarianKuarters.SelectedIndexChanged
+        BindData(tblSenaraiPermohonan)
+    End Sub
+
+    Private Sub ddlCarianStatus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlCarianStatus.SelectedIndexChanged
+        BindData(tblSenaraiPermohonan)
+    End Sub
 End Class
