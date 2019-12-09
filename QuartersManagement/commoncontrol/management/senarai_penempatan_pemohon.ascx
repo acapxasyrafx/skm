@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="senarai_penempatan_pemohon.ascx.vb" Inherits="QuartersManagement.senarai_penempatan_pemohon" %>
 <style>
-
+    select{
+        width: 20em;
+    }
 </style>
 
 <table class ="fbform" style ="width :100%">
@@ -22,6 +24,37 @@
         <td colspan="4">Senarai Pemohon dan Kuarters Penempatan</td>
     </tr>
     <tr>
+        <td style="width:150px;">Pangkalan</td>
+        <td>:</td>
+        <td>
+            <asp:DropDownList runat="server" ID="ddlCarianPangkalan" AutoPostBack="true"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:150px;">Kuarters</td>
+        <td>:</td>
+        <td>
+            <asp:DropDownList runat="server" ID="ddlCarianKuarters" AutoPostBack="true" Enabled="false">
+                <asp:ListItem Text="-- Sila Pilih pangkalan Terlebih Dahulu --" />
+            </asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:150px;">Pangkat</td>
+        <td>:</td>
+        <td>
+            <asp:DropDownList runat="server" ID="ddlCarianPangkat" AutoPostBack="true"></asp:DropDownList>
+        </td>
+    </tr>
+    <tr>
+        <td style="width:150px;">Nama/No.Tentera</td>
+        <td>:</td>
+        <td><asp:TextBox runat="server" ID="tbCarianNama"/></td>
+    </tr>
+    <tr>
+        <td><asp:Button Text="Cari" runat="server" ID="btnCari"/></td>
+    </tr>
+    <tr>
         <td colspan="4">
             <asp:GridView 
                 ID="datRespondent" 
@@ -31,7 +64,7 @@
                 CellPadding="4" 
                 ForeColor="#333333" 
                 GridLines="None" 
-                DataKeyNames="pengguna_id"
+                DataKeyNames="unit_id"
                 Width="100%" PageSize="100" CssClass="gridview_footer">
                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                 <Columns>

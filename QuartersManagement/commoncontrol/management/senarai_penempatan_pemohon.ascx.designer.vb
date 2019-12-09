@@ -50,6 +50,51 @@ Partial Public Class senarai_penempatan_pemohon
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
+    '''ddlCarianPangkalan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCarianPangkalan As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlCarianKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCarianKuarters As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlCarianPangkat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlCarianPangkat As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''tbCarianNama control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbCarianNama As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnCari control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''datRespondent control.
     '''</summary>
     '''<remarks>
