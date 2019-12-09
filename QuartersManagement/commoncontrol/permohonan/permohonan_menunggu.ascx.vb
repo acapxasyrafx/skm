@@ -169,7 +169,7 @@ Public Class permohonan_menunggu
 				WHERE
 					A.log_status = 'PERMOHONAN BARU'
 			) G ON G.permohonan_id = B.permohonan_id"
-        strWhere += " WHERE B.permohonan_status = 'PERMOHONAN SEDANG DIPROSES'"
+        strWhere += " WHERE B.permohonan_status = 'PERMOHONAN MENUNGGU'"
 
         Try
             If Not ddlfilterKuarters.SelectedValue = "" Then
