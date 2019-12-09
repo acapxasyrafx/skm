@@ -59,37 +59,43 @@ Public Class senarai_penempatan_pemohon
 
     Private Function getSQL() As String
         Dim tempSQL As String
-        Dim whereSQL As String = "WHERE A.pengguna_nama IS NOT NULL"
-        Dim orderSQL As String = ""
+        Dim whereSQL As String = "WHERE A.unit_status = 'Occupied' AND B.permohonan_status = 'PERMOHONAN DITERIMA'"
+        Dim orderSQL As String = "ORDER BY B.permohonan_tarikh DESC"
         tempSQL = "
             SELECT 
-	            A.pengguna_id,
-	            A.pengguna_nama,
-	            B.pangkalan_nama,
-	            C.kuarters_nama,
-	            D.unit_nombor,
-	            D.unit_tingkat,
-	            D.unit_blok,
-	            (D.unit_blok + '-' + D.unit_tingkat + '-' + D.unit_nombor) as 'unit_location'
-            FROM 
-	            spk_pengguna A
-	            JOIN spk_pangkalan B ON B.pangkalan_id = A.pangkalan_id
-	            JOIN spk_kuarters C ON C.pangkalan_id = B.pangkalan_id
-	            JOIN spk_unit D ON D.kuarters_id = C.kuarters_id
-                LEFT JOIN spk_pangkat E ON E.pangkat_id = A.pangkat_id
+                A.unit_id
+	            ,   E.historyUnit_id
+	            ,	G.kuarters_nama
+	            ,	A.unit_nama
+	            ,	A.unit_blok
+	            ,	A.unit_tingkat
+	            ,	A.unit_nombor
+                ,	(A.unit_blok + '' + A.unit_tingkat + '' + A.unit_nombor) as unit_location
+	            ,	C.pengguna_nama
+	            ,	C.pengguna_no_tentera
+	            ,	F.pangkat_nama
+	            ,	A.unit_status
+            FROM spk_unit A
+                JOIN spk_permohonan B ON B.unit_id = A.unit_id
+                JOIN spk_pengguna C ON C.pengguna_id = A.pangkalan_id
+                JOIN spk_historyPengguna D ON D.historyPengguna_id = B.historyPengguna_id
+                JOIN spk_historyUnit E ON E.unit_id = A.unit_id
+                JOIN spk_pangkat  F On F.pangkat_id = C.pangkat_id
+                JOIN spk_kuarters G ON G.kuarters_id = A.kuarters_id
+                JOIN spk_pangkalan H ON H.pangkalan_id = G.pangkalan_id
         "
         If ddlCarianPangkalan.SelectedIndex > 0 Then
-            whereSQL = whereSQL & " AND B.pangkalan_id = " & ddlCarianPangkalan.SelectedValue & ""
+            whereSQL = whereSQL & " AND H.pangkalan_id = " & ddlCarianPangkalan.SelectedValue & ""
         End If
         If ddlCarianKuarters.SelectedIndex > 0 Then
-            whereSQL = whereSQL & " AND C.kuarters_id = " & ddlCarianKuarters.SelectedValue & ""
+            whereSQL = whereSQL & " AND G.kuarters_id = " & ddlCarianKuarters.SelectedValue & ""
         End If
         If ddlCarianPangkat.SelectedIndex > 0 Then
-            whereSQL = whereSQL & " AND E.pangkat_id = " & ddlCarianPangkat.SelectedValue & ""
+            whereSQL = whereSQL & " AND F.pangkat_id = " & ddlCarianPangkat.SelectedValue & ""
         End If
         If tbCarianNama.Text.Count > 0 Then
-            whereSQL = whereSQL & " AND (A.pengguna_nama LIKE '%" & tbCarianNama.Text & "%'"
-            whereSQL = whereSQL & " OR A.pengguna_no_tentera LIKE '%" & tbCarianNama.Text & "%')"
+            whereSQL = whereSQL & " AND (C.pengguna_nama LIKE '%" & tbCarianNama.Text & "%'"
+            whereSQL = whereSQL & " OR C.pengguna_no_tentera LIKE '%" & tbCarianNama.Text & "%')"
         End If
         getSQL = tempSQL & whereSQL & orderSQL
         Return getSQL
@@ -125,8 +131,10 @@ Public Class senarai_penempatan_pemohon
 
             If myDataSet.Tables(0).Rows.Count = 0 Then
                 MsgBottom.Attributes("class") = "errorMsg"
+                MsgBottom.InnerText = strDataBindAlert
             Else
                 MsgBottom.Attributes("class") = "successMsg"
+                MsgBottom.InnerText = strRecordBindAlert & myDataSet.Tables(0).Rows.Count
             End If
             gvTable.DataSource = myDataSet
             gvTable.DataBind()
