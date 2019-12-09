@@ -230,13 +230,13 @@ Partial Public Class index
     Protected WithEvents lblPermohonanKuarters As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''lblSenaraiKuarters control.
+    '''lblSenaraiPermohonan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblSenaraiKuarters As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents lblSenaraiPermohonan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblMaklumatPermohonan control.

@@ -83,14 +83,45 @@
             opacity: 1
         }
     }
-
+    select{
+        width: 20em;
+    }
 </style>
 <div>
     <table class="fbform" style="width: 100%">
         <tr class="fbform_header">
             <td>
-                <span id="MsgTop" runat="server">
-                    <asp:Label ID="strlbl_top" runat="server"></asp:Label></span>
+                <span id="MsgTop" runat="server"><asp:Label ID="strlbl_top" runat="server"></asp:Label></span>
+            </td>
+        </tr>
+    </table>
+    <table id="tblCarian" class="fbform">
+        <tr class="fbform_mheader">
+            <td colspan="3">Tapisan</td>
+        </tr>
+        <tr>
+            <td style="width: 150px;">Pangkalan</td>
+            <td>:</td>
+            <td><asp:DropDownList runat="server" ID="ddlCarianPangkalan" AutoPostBack="true"></asp:DropDownList></td>
+        </tr>
+        <tr>
+            <td>Kuarters</td>
+            <td>:</td>
+            <td><asp:DropDownList runat="server" ID="ddlCarianKuarters" Enabled="false" AutoPostBack="true">
+                <asp:ListItem Text="-- SILA PILIH PANGKALAN TERLEBIH DAHULU --" />
+                </asp:DropDownList></td>
+        </tr>
+        <tr>
+            <td>Status Permohonan</td>
+            <td>:</td>
+            <td>
+                <asp:DropDownList runat="server" ID="ddlCarianStatus" AutoPostBack="true">
+                    <asp:ListItem Text="--SILA PILIH--" Value="" />
+                    <asp:ListItem Text="PERMOHONAN BARU" Value="PERMOHONAN BARU"/>
+                    <asp:ListItem Text="PERMOHONAN MENUNGGU" Value="PERMOHONAN MENUNGGU" />
+                    <asp:ListItem Text="PERMOHONAN LULUS" Value="PERMOHONAN LULUS" />
+                    <asp:ListItem Text="PERMOHONAN DITOLAK" Value="PERMOHONAN DITOLAK" />
+                </asp:DropDownList>
             </td>
         </tr>
     </table>
@@ -123,7 +154,7 @@
                             <ItemStyle VerticalAlign="Middle" />
                         </asp:TemplateField>
                                 
-                        <asp:TemplateField HeaderText="Tarikh">
+                        <asp:TemplateField HeaderText="Tarikh Akhir Di Kemas Kini">
                             <ItemTemplate>
                                 <asp:Label ID="lblTarikhPermohonan" runat="server" Text='<%# changeDate(Eval("permohonan_tarikh")) %>' />
                             </ItemTemplate>
