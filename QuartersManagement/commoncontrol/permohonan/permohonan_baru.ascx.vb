@@ -62,8 +62,7 @@ Public Class permohonan_baru
     Private Function getSQL() As String
         Dim tmpSQL As String
         Dim strWhere As String = ""
-
-        Dim strOrder As String = "ORDER BY B.permohonan_tarikh DESC"
+        Dim strOrder As String = " ORDER BY SUBSTRING(B.permohonan_tarikh,4,2) DESC, B.permohonan_tarikh DESC"
 
         tmpSQL = "SELECT 
                     A.pengguna_id as pengguna_id 

@@ -95,6 +95,15 @@ Partial Public Class maklumat_pemohon
     Protected WithEvents lblTarikhLahir As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''lblStatusPerkahwinan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblStatusPerkahwinan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''lblTarikhMulaBerkhidmat control.
     '''</summary>
     '''<remarks>

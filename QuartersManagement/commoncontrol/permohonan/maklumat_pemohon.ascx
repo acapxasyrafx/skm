@@ -226,6 +226,13 @@
                 </td>
             </tr>
             <tr>
+                <td style="width: 150px;">Status Perkahwinan</td>
+                <td style="width: 5px;">:</td>
+                <td>
+                    <h5 class="label" style="font-weight: normal;" runat="server" id="lblStatusPerkahwinan"></h5>
+                </td>
+            </tr>
+            <tr>
                 <td style="width: 150px;">Tarikh Mula Berkhidmat</td>
                 <td style="width: 5px;">:</td>
                 <td>

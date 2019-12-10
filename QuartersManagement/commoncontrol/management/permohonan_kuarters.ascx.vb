@@ -552,20 +552,23 @@ Public Class permohonan_kuarters
             Using cmd As New SqlCommand("
                 INSERT INTO 
                     spk_historyPengguna(
-                        permohonan_id
+                        pengguna_id
+                        , permohonan_id
                         , pangkat_id
                         , historyPengguna_statusPerkahwinan
                         , historyPengguna_penggunaNoTentera
                 )
                 VALUES
                 (
-                    @permohonanID
+                    @penggunaID
+                    ,   @permohonanID
                     ,   @pangkatId
                     ,   @statusPerkahwinan
                     ,   @penggunaNoTentera
                 )
             ")
                 cmd.Connection = conn
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = penggunaID.Value
                 cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = permohonanID
                 cmd.Parameters.Add("@pangkatID", SqlDbType.Int).Value = Integer.Parse(pangkatID.Value)
                 cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = Integer.Parse(penggunaID.Value)

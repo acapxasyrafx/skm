@@ -36,14 +36,15 @@ Public Class maklumat_pemohon
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim cmd As New SqlCommand("SELECT
 	            A.permohonan_id
-                , D.pengguna_id
-	            , D.pengguna_nama
-	            , D.pengguna_jantina
-	            , D.pengguna_tarikh_lahir
+	            , D.pengguna_id
+	            , G.pengguna_nama
+	            , G.pengguna_jantina
+	            , G.pengguna_tarikh_lahir
+	            ,D.historyPengguna_statusPerkahwinan
 	            , F.pangkat_nama
-	            , D.pengguna_no_tentera
-	            , D.pengguna_mula_perkhidmatan
-	            , D.pengguna_tamat_perkhidmatan
+	            , D.historyPengguna_penggunaNoTentera
+	            , G.pengguna_mula_perkhidmatan
+	            , G.pengguna_tamat_perkhidmatan
 	            , A.permohonan_no_permohonan
 	            , A.kuarters_id
 	            , B.kuarters_nama
@@ -52,18 +53,19 @@ Public Class maklumat_pemohon
 	            , A.permohonan_status
 	            , A.permohonan_sub_status
 	            , A.permohonan_mata
-				, E.historyKeluarga_tempat_tinggal
-				, E.historyKeluarga_tarikh_mula
-				, E.historyKeluarga_tarikh_akhir
+	            , E.historyKeluarga_tempat_tinggal
+	            , E.historyKeluarga_tarikh_mula
+	            , E.historyKeluarga_tarikh_akhir
             FROM 
 	            spk_permohonan A
 	            JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
 	            JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
-	            JOIN spk_pengguna D ON D.pengguna_id = A.pengguna_id
+	            JOIN spk_historyPengguna D ON D.permohonan_id = A.permohonan_id
 	            JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
 	            JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id
+	            JOIN spk_pengguna G ON G.pengguna_id = D.pengguna_id
             WHERE
-                A.permohonan_id = " & Request.QueryString("uid") & ";",
+                A.permohonan_id =" & Request.QueryString("uid") & ";",
             conn)
 
             Try
@@ -75,8 +77,9 @@ Public Class maklumat_pemohon
                         lblNama.InnerText = reader("pengguna_nama")
                         lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
                         lblJantina.InnerText = reader("pengguna_jantina")
+                        lblStatusPerkahwinan.InnerText = reader("historyPengguna_statusPerkahwinan")
                         lblJawatan.InnerText = reader("pangkat_nama")
-                        lblNoTentera.InnerText = reader("pengguna_no_tentera")
+                        lblNoTentera.InnerText = reader("historyPengguna_penggunaNoTentera")
                         lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
                         lbl_senaraiKuarters.InnerText = reader("kuarters_nama")
