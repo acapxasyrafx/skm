@@ -97,7 +97,7 @@
     </table>
     <table id="tblCarian" class="fbform">
         <tr class="fbform_mheader">
-            <td colspan="3">Tapisan</td>
+            <td colspan="3">Saringan</td>
         </tr>
         <tr>
             <td style="width: 150px;">Pangkalan</td>
@@ -156,7 +156,7 @@
                                 
                         <asp:TemplateField HeaderText="Tarikh Akhir Di Kemas Kini">
                             <ItemTemplate>
-                                <asp:Label ID="lblTarikhPermohonan" runat="server" Text='<%# changeDate(Eval("permohonan_tarikh")) %>' />
+                                <asp:Label ID="lblTarikhPermohonan" runat="server" Text='<%# Bind("permohonan_tarikh") %>' />
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="10%" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -164,7 +164,7 @@
 
                         <asp:TemplateField HeaderText="Status" >
                             <ItemTemplate>
-                                <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("permohonan_status") %>'></asp:Label>
+                                <asp:Label ID="lblStatus" runat="server" Text='<%# changeStatus(Eval("permohonan_status")) %>'></asp:Label>
                             </ItemTemplate>
                             <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />

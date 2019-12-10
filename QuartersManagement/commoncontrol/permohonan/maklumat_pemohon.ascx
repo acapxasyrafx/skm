@@ -150,6 +150,9 @@
     .rowJumlahMata{
         border-top-style: solid;
     }
+    select{
+        width: 20em;
+    }
 </style>
 
  <script>

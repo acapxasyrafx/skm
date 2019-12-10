@@ -280,7 +280,7 @@ Public Class permohonan_tolak
                 Dim strCID = e.CommandArgument.ToString
 
                 'chk session to prevent postback
-                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN SEDANG DIPROSES' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
+                strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN MENUNGGU' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
 
                 strRet = oCommon.ExecuteSQL(strSQL)
                 If (strRet = 0) Then

@@ -44,7 +44,7 @@ Public Class senarai_permohonan
         LEFT JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
         "
         Dim whereSQL As String = " WHERE A.pengguna_id = " & penggunaID & ""
-        Dim orderSQL As String = " ORDER BY A.permohonan_tarikh DESC"
+        Dim orderSQL As String = " ORDER BY SUBSTRING(A.permohonan_tarikh,4,2) DESC, A.permohonan_tarikh DESC"
 
         If ddlCarianPangkalan.SelectedIndex > 0 Then
             whereSQL = whereSQL & " AND B.pangkalan_id = " & ddlCarianPangkalan.SelectedValue & ""
@@ -227,7 +227,7 @@ Public Class senarai_permohonan
 
     Protected Function changeStatus(ByVal status As String) As String
         Select Case status
-            Case "PERMOHONAN SEDANG DIPROSES"
+            Case "PERMOHONAN MENUNGGU"
                 Return "SEDANG DIPROSES"
             Case "PERMOHONAN DITOLAK"
                 Return "DITOLAK"

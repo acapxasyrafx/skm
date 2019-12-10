@@ -59,6 +59,9 @@
         background-color:aliceblue;
         color:black;
     }
+    select{
+        width: 20em;
+    }
 </style>
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
@@ -303,7 +306,7 @@
                 <td style="width: 5px;">:</td>
                 <td><b><asp:Label Text="text" runat="server" ID="lblTarikhKemasukan"/></b></td>
             </tr>
-            <tr>
+            <tr runat="server" visible="false">
                 <td>
                     <asp:CheckBox Text="Cadang Kuarters Lain?" runat="server" ID="cbCadangKuartersLain" AutoPostBack="true" />
                 </td>

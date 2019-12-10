@@ -18,6 +18,9 @@
         background-color:aliceblue;
         color:black;
     }
+    select{
+        width: 20em;
+    }
 </style>
 
 <table class ="fbform" style ="width :100%">
@@ -35,15 +38,15 @@
 
 <%-- SEARCH FIELD --%>
 <div class="fbform">
-<table>
+<table style="width: 100%;">
     <tr class="fbform_mheader">
-        <td>Carian Pegawai</td>
+        <td colspan="3">Carian Pegawai</td>
     </tr>
     <tr>
         <td style="width: 150px;">Nama Pegawai/No. Tentera</td>
         <td>:</td>
         <td>
-            <asp:TextBox runat="server" Text="" ID="txtCarian" />
+            <asp:TextBox runat="server" Text="" ID="txtCarian" style="width: 20em;"/>
         </td>
     </tr>
     <tr>

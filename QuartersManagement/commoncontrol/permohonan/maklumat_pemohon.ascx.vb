@@ -131,8 +131,8 @@ Public Class maklumat_pemohon
     Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
         Dim query As String = ""
         Try
-            query += String.Format("UPDATE spk_permohonan SET permohonan_tarikh = '{0}',permohonan_status 'PERMOHONAN SEDANG DIPROSES' WHERE permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid"))
-            query += String.Format("INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES({0},{1},{2},{3},'PERMOHONAN SEDANG DIPROSES');", Integer.Parse(pengguna_id.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
+            query += String.Format("UPDATE spk_permohonan SET permohonan_tarikh = '{0}',permohonan_status 'PERMOHONAN MENUNGGU' WHERE permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid"))
+            query += String.Format("INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES({0},{1},{2},{3},'PERMOHONAN MENUNGGU');", Integer.Parse(pengguna_id.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
             If (e.CommandName = "Approved") Then
                 Dim strCID = e.CommandArgument.ToString
                 oCommon.ExecuteSQL(query)
@@ -279,14 +279,14 @@ Public Class maklumat_pemohon
                 spk_permohonan 
             SET 
                 permohonan_tarikh = '{0}'
-                , permohonan_status = 'PERMOHONAN SEDANG DIPROSES' 
+                , permohonan_status = 'PERMOHONAN MENUNGGU' 
             WHERE 
                 permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid")
            )
         Dim insertLogPermohonan As String = String.Format("
             INSERT INTO 
                 spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
-            VALUES({0},{1},'{2}','PERMOHONAN SEDANG DIPROSES');",
+            VALUES({0},{1},'{2}','PERMOHONAN MENUNGGU');",
             Integer.Parse(pengguna_id.Value),
             Request.QueryString("uid"),
             Date.Now().ToString("dd/MM/yyyy")

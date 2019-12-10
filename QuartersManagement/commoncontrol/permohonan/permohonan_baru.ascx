@@ -13,6 +13,9 @@
     .auto-style6 {
         height: 23px;
     }
+    select{
+        width: 20em;
+    }
 </style>
 
 <table class="fbform" style="width: 100%">

@@ -19,9 +19,8 @@
 </table>
 
 <table class="fbform" style="width :100%">
-
     <tr class="fbform_mheader">
-        <td colspan="4">Senarai Pemohon dan Kuarters Penempatan</td>
+        <td colspan="4">Saringan</td>
     </tr>
     <tr>
         <td style="width:150px;">Pangkalan</td>
@@ -46,13 +45,19 @@
             <asp:DropDownList runat="server" ID="ddlCarianPangkat" AutoPostBack="true"></asp:DropDownList>
         </td>
     </tr>
+    <tr class="fbform_mheader">
+        <td colspan="3">Carian</td>
+    </tr>
     <tr>
         <td style="width:150px;">Nama/No.Tentera</td>
         <td>:</td>
-        <td><asp:TextBox runat="server" ID="tbCarianNama"/></td>
+        <td><asp:TextBox runat="server" ID="tbCarianNama" style="width: 20em;"/></td>
     </tr>
     <tr>
         <td><asp:Button Text="Cari" runat="server" ID="btnCari"/></td>
+    </tr>
+    <tr class="fbform_mheader">
+        <td colspan="4">Senarai Pemohon dan Kuarters Penempatan</td>
     </tr>
     <tr>
         <td colspan="4">

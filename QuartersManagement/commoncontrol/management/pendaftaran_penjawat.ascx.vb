@@ -282,52 +282,57 @@ Public Class pendaftaran_penjawat
 
     '--SAVE FUNCTION--'
     Private Function Save() As Boolean
+        Try
+            If Request.QueryString("z").Equals("Edit") Then
 
-        If Request.QueryString("z") = "edit" Then
+                strSQL = "UPDATE spk_pengguna SET "
 
-            strSQL = "UPDATE spk_pengguna SET "
+                strSQL += " pangkalan_id = '" & oCommon.FixSingleQuotes(ddlCawangan.SelectedValue) & "',"
+                strSQL += " pengguna_tarikh_lahir = '" & txt_MyDate.Text & "',"
+                strSQL += " pengguna_nama = '" & oCommon.FixSingleQuotes(txtNamaPertama.Text) & "',"
+                strSQL += " pengguna_alamat = '" & oCommon.FixSingleQuotes(txtAlamat1Daftar.Text + txtAlamat2Daftar.Text + txtAlamat3Daftar.Text) & "',"
+                strSQL += " pengguna_poskod = '" & oCommon.FixSingleQuotes(txtPoskodDaftar.Text) & "',"
+                strSQL += " pengguna_bandar = '" & oCommon.FixSingleQuotes(txtBandarDaftar.Text) & "',"
+                strSQL += " pengguna_negeri = '" & oCommon.FixSingleQuotes(ddlNegeriDaftar.SelectedValue) & "',"
+                strSQL += " pengguna_no_tentera = '" & oCommon.FixSingleQuotes(txtNoPekerja.Text) & "',"
+                strSQL += " pangkat_id = '" & oCommon.FixSingleQuotes(ddlJawatan.SelectedValue) & "',"
+                strSQL += " pengguna_jantina = '" & oCommon.FixSingleQuotes(ddlJantina.SelectedValue) & "'"
 
-            strSQL += " pangkalan_id = '" & oCommon.FixSingleQuotes(ddlCawangan.SelectedValue) & "',"
-            strSQL += " pengguna_tarikh_lahir = '" & txt_MyDate.Text & "',"
-            strSQL += " pengguna_nama = '" & oCommon.FixSingleQuotes(txtNamaPertama.Text) & "',"
-            strSQL += " pengguna_alamat = '" & oCommon.FixSingleQuotes(txtAlamat1Daftar.Text + txtAlamat2Daftar.Text + txtAlamat3Daftar.Text) & "',"
-            strSQL += " pengguna_poskod = '" & oCommon.FixSingleQuotes(txtPoskodDaftar.Text) & "',"
-            strSQL += " pengguna_bandar = '" & oCommon.FixSingleQuotes(txtBandarDaftar.Text) & "',"
-            strSQL += " pengguna_negeri = '" & oCommon.FixSingleQuotes(ddlNegeriDaftar.SelectedValue) & "',"
-            strSQL += " pengguna_no_tentera = '" & oCommon.FixSingleQuotes(txtNoPekerja.Text) & "',"
-            strSQL += " pangkat_id = '" & oCommon.FixSingleQuotes(ddlJawatan.SelectedValue) & "'"
-
-            strSQL += " WHERE pengguna_id = '" & Request.QueryString("edit") & "'"
-
-        Else
-            strSQL = "INSERT INTO spk_pengguna (pangkalan_id,pangkat_id,
+                strSQL += " WHERE pengguna_id = '" & Request.QueryString("edit") & "'"
+            ElseIf Request.QueryString("z").Equals("Insert") Then
+                strSQL = "INSERT INTO spk_pengguna (pangkalan_id,pangkat_id,
                         pengguna_mykad,pengguna_kewarganegaraan,pengguna_tarikh_lahir,pengguna_nama,
                         pengguna_alamat,pengguna_poskod,pengguna_bandar,pengguna_negeri,pengguna_negara,
                         pengguna_status_perkahwinan,pengguna_no_tentera)"
 
-            strSQL += " VALUES ("
-            strSQL += " UPPER('" & ddlCawangan.SelectedIndex & "'),"
-            strSQL += " UPPER('" & ddlJawatan.SelectedValue & "'),"
-            strSQL += " UPPER('" & oCommon.FixSingleQuotes(txt_MyDate.Text) & "'),"
-            strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtNamaPertama.Text) & "'),"
-            strSQL += " UPPER('" & txtAlamat1Daftar.Text + txtAlamat2Daftar.Text + txtAlamat3Daftar.Text & "'),"
-            strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtPoskodDaftar.Text) & "'),"
-            strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtBandarDaftar.Text) & "'),"
-            strSQL += " UPPER('" & oCommon.FixSingleQuotes(ddlNegeriDaftar.Text) & "'),"
-            strSQL += " UPPER('" & txtNoPekerja.Text & "'))"
+                strSQL += " VALUES ("
+                strSQL += " UPPER('" & ddlCawangan.SelectedIndex & "'),"
+                strSQL += " UPPER('" & ddlJawatan.SelectedValue & "'),"
+                strSQL += " UPPER('" & oCommon.FixSingleQuotes(txt_MyDate.Text) & "'),"
+                strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtNamaPertama.Text) & "'),"
+                strSQL += " UPPER('" & txtAlamat1Daftar.Text + txtAlamat2Daftar.Text + txtAlamat3Daftar.Text & "'),"
+                strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtPoskodDaftar.Text) & "'),"
+                strSQL += " UPPER('" & oCommon.FixSingleQuotes(txtBandarDaftar.Text) & "'),"
+                strSQL += " UPPER('" & oCommon.FixSingleQuotes(ddlNegeriDaftar.Text) & "'),"
+                strSQL += " UPPER('" & txtNoPekerja.Text & "'))"
+            Else
+                Debug.WriteLine("Error(Save): Save type bukan Insert/Edit")
+                Return False
+            End If
 
-        End If
+            strRet = oCommon.ExecuteSQL(strSQL)
 
-        strRet = oCommon.ExecuteSQL(strSQL)
-
-        If strRet = "0" Then
-            Return True
-        Else
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert
+            If strRet = "0" Then
+                Return True
+            Else
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = strSysErrorAlert
+                Return False
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error(Save): " & ex.Message)
             Return False
-        End If
-
+        End Try
     End Function
 
     '--DATA VALIDATION--'

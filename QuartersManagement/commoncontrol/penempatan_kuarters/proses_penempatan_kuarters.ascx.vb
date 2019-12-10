@@ -159,7 +159,7 @@ Public Class proses_penempatan_kuarters1
 	        LEFT JOIN spk_unit F ON F.unit_id = A.unit_id
 	        LEFT JOIN (SELECT * FROM spk_logPermohonan WHERE log_status = 'PERMOHONAN BARU') G ON G.permohonan_id = A.permohonan_id"
         strWhere += " WHERE 
-	        A.permohonan_status = 'PERMOHONAN SEDANG DIPROSES'
+	        A.permohonan_status = 'PERMOHONAN MENUNGGU'
 	        AND A.permohonan_sub_status = 'TERIMA TAWARAN UNIT'"
 
         Try

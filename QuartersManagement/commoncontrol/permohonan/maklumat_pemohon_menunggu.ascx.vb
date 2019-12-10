@@ -238,7 +238,7 @@ Public Class maklumat_pemohon_menunggu
             SET 
                 permohonan_sub_status = 'TAWARAN UNIT',
                 unit_id = " & ddlUnitKuarters.SelectedValue & ",
-                permohonan_tarikh = '" & Date.Now().ToString("dd/MM/yyyy") & "'
+                permohonan_tarikh = '" & Date.Now().ToString("dd/MM/yyyy") & "',
                 permohonan_tarikh_kemasukan = '" & datepicker.Text & "'
             WHERE permohonan_id = " & Request.QueryString("uid") & ";"
             strRet = oCommon.ExecuteSQL(query)
@@ -428,7 +428,9 @@ Public Class maklumat_pemohon_menunggu
     Private Function validateUnitSubmit()
         If ddlUnitKuarters.SelectedIndex > 0 Then
             If datepicker.Text.Count > 0 Then
-                If IsDate(datepicker) Then
+                Debug.WriteLine("Date: " & datepicker.Text)
+                Debug.WriteLine("IsDate: " & IsDate(datepicker.Text))
+                If IsDate(datepicker.Text) Then
                     Return True
                 Else
                     Debug.WriteLine("Error(validateUnitSubmit): Tarikh Kemasukan tak berformat betul")

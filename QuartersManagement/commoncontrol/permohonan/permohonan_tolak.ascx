@@ -23,6 +23,9 @@
         background-color: aliceblue;
         color: black;
     }
+    select{
+        width: 20em;
+    }
 </style>
 
 <table class="fbform" style="width: 100%">

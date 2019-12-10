@@ -1,5 +1,10 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="pendaftaran_penjawat.ascx.vb" Inherits="QuartersManagement.pendaftaran_penjawat" %>
 
+<style>
+    select{
+        width: 20em;
+    }
+</style>
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
         <td><span id="MsgTop" runat="server">
