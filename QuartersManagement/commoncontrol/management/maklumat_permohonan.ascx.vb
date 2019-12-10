@@ -39,11 +39,11 @@ Public Class maklumat_permohonan
         If statusPermohon.Equals("PERMOHONAN DITOLAK") Then
             mvStatusPermohonan.ActiveViewIndex = 3
         ElseIf statusPermohon.Equals("PERMOHONAN DITERIMA") Then
-            lblLulusKuarters.Text = "A"
-            lblLulusUnit.Text = "A-3-2"
             mvStatusPermohonan.ActiveViewIndex = 2
-        ElseIf statusPermohon.Equals("PERMOHONAN SEDANG DIPROSES") Then
-            If subStatusPermohonan.Equals("LULUS TANPA KEKOSONGAN") Then
+        ElseIf statusPermohon.Equals("PERMOHONAN MENUNGGU") Then
+            If subStatusPermohonan.Equals("") Then
+
+            ElseIf subStatusPermohonan.Equals("CADANGKAN KUARTERS LAIN") Then
                 Debug.WriteLine("User belum memilih kuarters dicadang")
                 maklumatCadanganKuarters()
                 mvStatusPermohonan.ActiveViewIndex = 1
@@ -62,24 +62,38 @@ Public Class maklumat_permohonan
     Private Sub maklumatPermohonan()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim cmd As New SqlCommand("
-                SELECT 
-	                  A.permohonan_id
+                SELECT
+	                A.permohonan_id
+	                , D.pengguna_id
+	                , G.pengguna_nama
+	                , G.pengguna_jantina
+	                , G.pengguna_tarikh_lahir
+	                , D.historyPengguna_statusPerkahwinan
+	                , F.pangkat_nama
+	                , D.historyPengguna_penggunaNoTentera
+	                , G.pengguna_mula_perkhidmatan
+	                , G.pengguna_tamat_perkhidmatan
+	                , A.permohonan_no_permohonan
+	                , A.kuarters_id
+	                , B.kuarters_nama
+	                , C.pangkalan_nama
 	                , A.permohonan_tarikh
 	                , A.permohonan_status
-                    , A.permohonan_sub_status
-	                , B.pengguna_nama
-	                , C.pangkat_nama
-	                , D.kuarters_nama
+	                , A.permohonan_sub_status
+	                , A.permohonan_mata
 	                , E.historyKeluarga_tempat_tinggal
 	                , E.historyKeluarga_tarikh_mula
+	                , E.historyKeluarga_tarikh_akhir
                 FROM 
 	                spk_permohonan A
-	                JOIN spk_pengguna B ON B.pengguna_id = A.pengguna_id
-	                JOIN spk_pangkat C ON C.pangkat_id = B.pangkat_id
-	                JOIN spk_kuarters D ON D.kuarters_id = A.kuarters_id
-	                JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
-                WHERE 
-	                A.permohonan_id = " & permohonanID & "
+	                LEFT JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
+	                LEFT JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
+	                LEFT JOIN spk_historyPengguna D ON D.permohonan_id = A.permohonan_id
+	                LEFT JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
+	                LEFT JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id
+	                LEFT JOIN spk_pengguna G ON G.pengguna_id = D.pengguna_id
+                WHERE
+                    A.permohonan_id = " & permohonanID & "
                 ;
             ", conn)
             Try
@@ -93,6 +107,10 @@ Public Class maklumat_permohonan
                             lblTarikhPermohonan.Text = reader("permohonan_tarikh")
                             statusPermohon = reader("permohonan_status")
                             subStatusPermohonan = reader("permohonan_sub_status").ToString
+                            If statusPermohon.Equals("PERMOHONAN DITERIMA") Then
+                                lblLulusKuarters.Text = reader("kuarter_nama")
+                                lblLulusUnit.Text = "A-3-2"
+                            End If
                             Debug.WriteLine("Success: maklumatUser")
                         Loop
                     Else
@@ -113,7 +131,9 @@ Public Class maklumat_permohonan
             Dim cmd As New SqlCommand("
                 SELECT log_tarikh, log_status 
                 FROM spk_logPermohonan 
-                WHERE pengguna_id = " & penggunaID & " AND permohonan_id = " & permohonanID & ";", conn)
+                WHERE 
+                    pengguna_id = " & penggunaID & " 
+                    AND permohonan_id = " & permohonanID & ";", conn)
             Try
                 conn.Open()
                 reader = cmd.ExecuteReader
@@ -124,7 +144,7 @@ Public Class maklumat_permohonan
                                 Debug.WriteLine("Permohonan Status: " & reader("log_status"))
                                 permohonanBaharu.Attributes("class") = "progress-done"
                                 lblTarikhBaharu.Text = reader("log_tarikh")
-                            Case "PERMOHONAN SEDANG DIPROSES"
+                            Case "PERMOHONAN MENUNGGU"
                                 Debug.WriteLine("Permohonan Status: " & reader("log_status"))
                                 permohonanMenunggu.Attributes("class") = "progress-done"
                                 lblTarikhMenuggu.Text = reader("log_tarikh")
