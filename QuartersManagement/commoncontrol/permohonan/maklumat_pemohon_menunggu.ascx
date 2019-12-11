@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="maklumat_pemohon_menunggu.ascx.vb" Inherits="QuartersManagement.maklumat_pemohon_menunggu" %>
+<%@ Register Assembly="TextboxioControl" Namespace="TextboxioControl" TagPrefix="textboxio" %>
 
 <header>
     <meta charset="utf-8"/>
@@ -306,6 +307,7 @@
                 <td style="width: 5px;">:</td>
                 <td><b><asp:Label Text="text" runat="server" ID="lblTarikhKemasukan"/></b></td>
             </tr>
+
             <tr runat="server" visible="false">
                 <td>
                     <asp:CheckBox Text="Cadang Kuarters Lain?" runat="server" ID="cbCadangKuartersLain" AutoPostBack="true" />
@@ -333,6 +335,18 @@
                     <td>
                         <asp:TextBox CssClass="datepicker" ID="datepicker" runat="server" />
                         &#160; <i class="fa fa-calendar w3-medium w3-text-black"></i>
+                    </td>
+                </tr>
+                <tr class="fbform_mheader">
+                    <td colspan="3">Surat Tawaran</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <textboxio:Textboxio
+                            runat="server"
+                            ID="editorSurattawaran"
+                            ScriptSrc="textboxio/textboxio.js"
+                            Content="<p></p>" />
                     </td>
                 </tr>
                 <tr>

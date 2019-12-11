@@ -311,6 +311,15 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents datepicker As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''editorSurattawaran control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents editorSurattawaran As Global.TextboxioControl.Textboxio
+
+    '''<summary>
     '''btnSimpanTawaranUnit control.
     '''</summary>
     '''<remarks>
