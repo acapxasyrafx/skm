@@ -92,7 +92,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 150px;">Jawatan</td>
+                <td style="width: 150px;">Pangkat</td>
                 <td style="width: 5px;">:</td>
                 <td>
                     <h5 class="label" runat="server" id="lblJawatan"></h5>
@@ -229,6 +229,7 @@
         <table class="fbform" style="width: 100%;">
             <tr class="fbform_mheader">
                 <td colspan="4">Butiran Permohonan</td>
+                <asp:HiddenField runat="server" ID="hfNoPermohonan" />
             </tr>
             <tr>
                 <td style="width: 100px;">Pangkalan</td>

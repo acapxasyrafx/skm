@@ -90,6 +90,7 @@ Public Class maklumat_pemohon_menunggu
 	            ,	E.historyKeluarga_tempat_tinggal
 	            ,	E.historyKeluarga_tarikh_mula
 				,	(G.unit_blok + '-' + g.unit_tingkat + '-' + g.unit_nombor) as unit_nama
+                ,   H.suratTawaran_content
             FROM 
                 spk_permohonan A
                 JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
@@ -98,6 +99,7 @@ Public Class maklumat_pemohon_menunggu
                 JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
                 JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id 
                 LEFT JOIN spk_unit G ON G.unit_id = A.unit_id
+                LEFT JOIN spk_suratTawaran H ON H.permohonan_id = A.permohonan_id
             WHERE A.permohonan_id = '" & Request.QueryString("uid") & "';",
             conn)
 
@@ -120,10 +122,11 @@ Public Class maklumat_pemohon_menunggu
                         lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
                         lblJenisPenempatan.InnerText = reader("historyKeluarga_tempat_tinggal")
                         lbltarikhPenempatan.InnerText = reader("historyKeluarga_tarikh_mula")
-
                         If reader("permohonan_sub_status").Equals("TAWARAN UNIT") Then
                             lblUnitDitawarkan.Text = reader("unit_nama")
                             lblTarikhKemasukan.Text = reader("permohonan_tarikh_kemasukan")
+                            editorSurattawaran.Content = Server.HtmlDecode(reader("suratTawaran_content")).ToString
+                            editorSurattawaran.Enabled = False
                             trUnitDitawarkan.Visible = True
                             trStatusKuarters.Visible = False
                         Else
@@ -243,7 +246,20 @@ Public Class maklumat_pemohon_menunggu
             WHERE permohonan_id = " & Request.QueryString("uid") & ";"
             strRet = oCommon.ExecuteSQL(query)
             If strRet = "0" Then
-                Response.Redirect("Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Menunggu")
+                query = "INSERT INTO 
+                            spk_suratTawaran(suratTawaran_content,permohonan_id,suratTawaran_tarikh_dibuat) 
+                        VALUES(
+                            " & Server.HtmlEncode(editorSurattawaran.Content) & "
+                           ," & Request.QueryString("uid") & "
+                            ,'" & Date.Now().ToString("dd/MM/yyyy") & "');"
+                strRet = oCommon.ExecuteSQL(query)
+                If strRet = "0" Then
+                    Response.Redirect("Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Menunggu")
+                Else
+                    Debug.WriteLine("Error(btnSimpanTawaranUnit): Error Save Surat Tawaran")
+                End If
+            Else
+                Debug.WriteLine("Error(btnSimpanTawaranUnit): Error Save Tawaran Unit")
             End If
         End If
     End Sub
@@ -487,5 +503,30 @@ Public Class maklumat_pemohon_menunggu
             pnlPemilihanUnit.Visible = True
             pnlCadanganKuarters.Visible = False
         End If
+    End Sub
+
+    Private Sub getSuratTawaran()
+        Dim stDB As String = oCommon.getFieldValue("SELECT suratTawaranConfig_parameter FROM spk_suratTawaranConfig WHERE suratTawaranConfig_id = 4")
+        Dim content As String
+        Try
+            If datepicker.Text.Count > 0 Then
+                content = Server.HtmlDecode(stDB)
+                content = content.Replace("{NAME}", lblNama.InnerText)
+                content = content.Replace("{NoPermohonan}", hfNoPermohonan.Value)
+                content = content.Replace("{ID}", lblNoTentera.InnerText)
+                content = content.Replace("{KUARTERS}", lblKuartersDipohon.Text)
+                content = content.Replace("{UNIT}", lblUnitDitawarkan.Text)
+                content = content.Replace("{PANGKALAN}", lbl_senaraiPangkalan.InnerText)
+                content = content.Replace("{TARIKH}", datepicker.Text)
+                editorSurattawaran.Content = content
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error(ddlJenisSuratTawaran): " & ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub datepicker_TextChanged(sender As Object, e As EventArgs) Handles datepicker.TextChanged
+        getSuratTawaran()
     End Sub
 End Class
