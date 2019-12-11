@@ -236,7 +236,7 @@ Public Class maklumat_pemohon_menunggu
             Dim query As String = "
             UPDATE spk_permohonan
             SET 
-                permohonan_sub_status = 'TAWARAN UNIT',
+                permohonan_sub_status = 'UNIT DICADANG',
                 unit_id = " & ddlUnitKuarters.SelectedValue & ",
                 permohonan_tarikh = '" & Date.Now().ToString("dd/MM/yyyy") & "',
                 permohonan_tarikh_kemasukan = '" & datepicker.Text & "'
