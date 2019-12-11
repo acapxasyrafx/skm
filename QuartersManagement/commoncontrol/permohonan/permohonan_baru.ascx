@@ -19,29 +19,42 @@
 
     .buttons {
         display: flex;
-        align-self: flex-start;
-        justify-content: space-evenly;
+        justify-content: flex-start;
     }
 
     .buttons a {
-      display: block;
-      background-color: inherit;
-      color: black;
-      padding: 1em 2em;
-      margin: 0 .5em;
-      border: 1px solid black;
-      border-radius: 1em;
-      text-align: center;
-      cursor: pointer;
+        display: block;
+        color: black;
+        background-color: inherit;
+        padding: .5em .3em;
+        margin: 0 .5em;
+        border: 1px solid black;
+        border-radius: 1em;
+        text-align: center;
+        cursor: pointer;
     }
 
-    .buttons a:hover {
-      background-color: #ddd;
+    .hover {
+        display: block;
+        color: black;
+        background-color: #ddd;
+        padding: .5em .3em;
+        margin: 0 .5em;
+        border-radius: 1em;
+        text-align: center;
+        cursor: pointer;
     }
 
     .selected {
-        color:white;
+        display:block;
+        color: white;
         background-color: #ddd;
+        padding: .5em .3em;
+        margin: 0 .5em;
+        border: 1px solid black;
+        border-radius: 1em;
+        text-align: center;
+        cursor: pointer;
     }
 </style>
 
@@ -75,8 +88,9 @@
                 Orientation="Horizontal"
                 ID="tabsMenu"
                 StaticEnableDefaultPopOutImage="False"
-                RenderingMode="Default"
-                StaticMenuItemStyle-CssClass="buttons"
+                RenderingMode="Table"
+                StaticMenuItemStyle-CssClass="buttons" 
+                StaticHoverStyle-CssClass="hover"
                 StaticSelectedStyle-CssClass="selected"
                 CssClass="buttons">
             </asp:Menu>
@@ -238,6 +252,11 @@
                                     HorizontalAlign="Center" />
                                 <EditRowStyle BackColor="#999999" />
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                <EmptyDataTemplate>
+                                    <span style="color: red;">Tiada Rekod Ditemui
+                                    </span>
+                                </EmptyDataTemplate>
+                                <EmptyDataRowStyle HorizontalAlign="Center" VerticalAlign="Bottom" BackColor="White" ForeColor="#284775" />
                             </asp:GridView>
                         </asp:Panel>
                     </td>
