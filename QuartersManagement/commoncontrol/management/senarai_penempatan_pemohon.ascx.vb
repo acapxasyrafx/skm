@@ -78,7 +78,7 @@ Public Class senarai_penempatan_pemohon
             FROM spk_unit A
                 JOIN spk_permohonan B ON B.unit_id = A.unit_id
                 JOIN spk_pengguna C ON C.pengguna_id = A.pangkalan_id
-                JOIN spk_historyPengguna D ON D.historyPengguna_id = B.historyPengguna_id
+                LEFT JOIN spk_historyPengguna D ON D.permohonan_id = B.permohonan_id
                 JOIN spk_historyUnit E ON E.unit_id = A.unit_id
                 JOIN spk_pangkat  F On F.pangkat_id = C.pangkat_id
                 JOIN spk_kuarters G ON G.kuarters_id = A.kuarters_id

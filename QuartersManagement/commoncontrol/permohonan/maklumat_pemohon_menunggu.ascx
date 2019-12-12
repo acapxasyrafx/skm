@@ -60,7 +60,7 @@
         background-color:aliceblue;
         color:black;
     }
-    select{
+    select, .select{
         width: 20em;
     }
 </style>
@@ -306,7 +306,7 @@
              <tr runat="server" id="tr1" visible="false">
                 <td style="width: 150px;">Tarikh Kemasukan</td>
                 <td style="width: 5px;">:</td>
-                <td><b><asp:Label Text="text" runat="server" ID="lblTarikhKemasukan"/></b></td>
+                <td><b><asp:Label Text="text" runat="server" ID="lblTarikhKemasukan" CssClass="select" /></b></td>
             </tr>
 
             <tr runat="server" visible="false">

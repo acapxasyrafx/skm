@@ -227,8 +227,8 @@ Public Class maklumat_pemohon_menunggu
         Dim year = ic.Substring(0, 2)
         Dim month = ic.Substring(2, 2)
         Dim day = ic.Substring(4, 2)
-        Dim dob_string = day & "/" & month & "/" & year
-        Dim dob_date = Convert.ToDateTime(dob_string)
+        Dim dob_string As String = day & "/" & month & "/" & year
+        Dim dob_date As DateTime = Convert.ToDateTime(dob_string)
         Dim age = Date.Now().Year - dob_date.Year
         Return age
     End Function
