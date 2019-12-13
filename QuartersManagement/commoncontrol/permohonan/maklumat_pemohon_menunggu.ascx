@@ -63,6 +63,13 @@
     select, .select{
         width: 20em;
     }
+    #editorSurattawaran{
+        position: relative;
+        z-index: -1;
+    }
+    .datepicker{
+        z-index: 1;
+    }
 </style>
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
@@ -347,7 +354,8 @@
                             runat="server"
                             ID="editorSurattawaran"
                             ScriptSrc="textboxio/textboxio.js"
-                            Content="<p></p>" />
+                            Content="<p></p>" 
+                        />
                     </td>
                 </tr>
                 <tr>

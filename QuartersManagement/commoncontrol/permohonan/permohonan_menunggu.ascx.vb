@@ -276,7 +276,6 @@ Public Class permohonan_menunggu
         strRet = BindData(datRespondent)
     End Sub
 
-
     Protected Sub load_menu()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Using cmd As New SqlCommand("select * from general_config WHERE config_type = 'KUMPULAN PEGAWAI' ORDER BY config_idx DESC;", conn)
