@@ -17,7 +17,13 @@
 <body>
     <form id="form1" runat="server">
         <div id="container">
-           <div id="footerup"><p><%--<a href="Homepage.aspx?p=Paparan Utama">Paparan Utama</a>|<a href="#">Notifikasi</a>|<a href="#">Panduan Pengguna</a>|--%><a href="default.aspx">Log Keluar </a>&nbsp</p></div>
+            <div>Test</div>
+           <div id="footerup">
+               <p>
+                   <a href="Admin.Homepage.aspx?p=Paparan Utama">Paparan Utama</a>
+                    |<a href="#" runat="server" id="btnNotifikasi">Notifikasi</a>
+                    |<a href="#">Panduan Pengguna</a>
+                    |<a href="default.aspx">Log Keluar </a>&nbsp</p></div>
            <div id="wrapper">
                <div id="content">
                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>

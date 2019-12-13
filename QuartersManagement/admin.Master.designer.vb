@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class admin
-    
+
     '''<summary>
     '''form1 control.
     '''</summary>
@@ -21,7 +21,16 @@ Partial Public Class admin
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
-    
+
+    '''<summary>
+    '''btnNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnNotifikasi As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
     '''<summary>
     '''ContentPlaceHolder1 control.
     '''</summary>
@@ -30,7 +39,7 @@ Partial Public Class admin
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ContentPlaceHolder1 As Global.System.Web.UI.WebControls.ContentPlaceHolder
-    
+
     '''<summary>
     '''ContentPlaceHolder2 control.
     '''</summary>
@@ -39,7 +48,7 @@ Partial Public Class admin
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ContentPlaceHolder2 As Global.System.Web.UI.WebControls.ContentPlaceHolder
-    
+
     '''<summary>
     '''indek control.
     '''</summary>
