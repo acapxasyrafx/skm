@@ -112,7 +112,9 @@
         <td class="auto-style3">Kuarters Dipohon</td>
         <td class="auto-style4">:</td>
         <td colspan="2">
-            <asp:DropDownList runat="server" ID="ddlfilterKuarters" AutoPostBack="true"></asp:DropDownList>
+            <asp:DropDownList runat="server" ID="ddlfilterKuarters" AutoPostBack="true" Enabled="false">
+                <asp:ListItem Text="SILA PILIH PANGKALAN TERLEBIH DAHULU" />
+            </asp:DropDownList>
         </td>
     </tr>
     <%-- <tr>

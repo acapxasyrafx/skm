@@ -30,7 +30,6 @@ Public Class permohonan_baru
     Protected Sub load_page()
         Try
             load_menu()
-            loadKuarters()
             loadPangkalan()
             loadPangkat()
             Label2.Text = getJenisPangkat()
@@ -73,7 +72,7 @@ Public Class permohonan_baru
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN BARU'"
 
         If ddlfilterKuarters.SelectedIndex > 0 Then
-            strWhere += " AND B.kuarters_id = '" & tabsMenu.SelectedItem.Value & "'"
+            strWhere += " AND B.kuarters_id = '" & ddlfilterKuarters.SelectedValue & "'"
         End If
 
         If tabsMenu.SelectedValue.Length > 0 Then
@@ -119,7 +118,7 @@ Public Class permohonan_baru
 
     Private Sub loadKuarters()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT kuarters_id, kuarters_nama FROM spk_kuarters ORDER BY kuarters_nama ASC; ", conn)
+            Dim cmd As New SqlCommand("SELECT kuarters_id, kuarters_nama FROM spk_kuarters WHERE pangkalan_id = " & ddlfilterPangkalan.SelectedValue & " ORDER BY kuarters_nama ASC; ", conn)
             Dim ds As New DataSet
 
             Try
@@ -259,6 +258,13 @@ Public Class permohonan_baru
     End Sub
 
     Private Sub ddlfilterPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterPangkalan.SelectedIndexChanged
+        If ddlfilterPangkalan.SelectedIndex > 0 Then
+            loadKuarters()
+            ddlfilterKuarters.Enabled = True
+            strRet = BindData(datRespondent)
+        Else
+            ddlfilterKuarters.Enabled = False
+        End If
         strRet = BindData(datRespondent)
     End Sub
 

@@ -28,7 +28,6 @@ Public Class permohonan_menunggu
     Protected Sub load_page()
         Try
             load_menu()
-            loadKuarters()
             loadPangkalan()
             loadPangkat()
             Label2.Text = getJenisPangkat()
@@ -67,7 +66,7 @@ Public Class permohonan_menunggu
 
     Private Sub loadKuarters()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters; ", conn)
+            Dim cmd As New SqlCommand("SELECT kuarters_id, kuarters_nama FROM spk_kuarters WHERE pangkalan_id = " & ddlfilterPangkalan.SelectedValue & " ORDER BY kuarters_nama ASC; ", conn)
             Dim ds As New DataSet
 
             Try
@@ -90,7 +89,7 @@ Public Class permohonan_menunggu
 
     Protected Sub loadPangkat()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_pangkat; ", conn)
+            Dim cmd As New SqlCommand("SELECT pangkat_id, pangkat_nama FROM spk_pangkat WHERE pangkat_jenis = " & tabsMenu.SelectedItem.Value & " ORDER BY pangkat_idx ASC; ", conn)
             Dim ds As New DataSet
 
             Try
@@ -151,19 +150,19 @@ Public Class permohonan_menunggu
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN MENUNGGU'"
 
         Try
-            If Not ddlfilterKuarters.SelectedValue = "" Then
+            If ddlfilterKuarters.SelectedIndex > 0 Then
                 strWhere += " AND B.kuarters_id = '" & ddlfilterKuarters.SelectedValue & "'"
             End If
-            If Not ddlfilterPangkalan.SelectedValue = "" Then
+            If ddlfilterPangkalan.SelectedIndex > 0 Then
                 strWhere += " AND A.pangkalan_id = '" & ddlfilterPangkalan.SelectedValue & "'"
             End If
-            If Not ddlfilterPangkat.SelectedValue = "" Then
+            If ddlfilterPangkat.SelectedIndex > 0 Then
                 strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
             End If
             If tabsMenu.SelectedValue.Length > 0 Then
                 strWhere += " AND D.pangkat_jenis = " & tabsMenu.SelectedValue & ""
             End If
-            If Not txt_nama.Text = "" Then
+            If txt_nama.Text.Length > 0 Then
                 strWhere += " AND (
                     A.pengguna_nama LIKE '%" & txt_nama.Text & "%' OR 
                     A.pengguna_no_tentera LIKE '%" & txt_nama.Text & "%')"
@@ -264,7 +263,13 @@ Public Class permohonan_menunggu
     End Sub
 
     Private Sub ddlfilterPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterPangkalan.SelectedIndexChanged
-        strRet = BindData(datRespondent)
+        If ddlfilterPangkalan.SelectedIndex > 0 Then
+            loadKuarters()
+            ddlfilterKuarters.Enabled = True
+            strRet = BindData(datRespondent)
+        Else
+            ddlfilterKuarters.Enabled = False
+        End If
     End Sub
 
     Private Sub ddlfilterKuarters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlfilterKuarters.SelectedIndexChanged
