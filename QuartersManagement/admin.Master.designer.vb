@@ -23,13 +23,67 @@ Partial Public Class admin
     Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
-    '''btnNotifikasi control.
+    '''footerup control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnNotifikasi As Global.System.Web.UI.HtmlControls.HtmlAnchor
+    Protected WithEvents footerup As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''myNav control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents myNav As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''adaNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents adaNotifikasi As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''menuBaru control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents menuBaru As Global.System.Web.UI.WebControls.Menu
+
+    '''<summary>
+    '''menuMenunggu control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents menuMenunggu As Global.System.Web.UI.WebControls.Menu
+
+    '''<summary>
+    '''menuTolak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents menuTolak As Global.System.Web.UI.WebControls.Menu
+
+    '''<summary>
+    '''tiadaNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tiadaNotifikasi As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
     '''ContentPlaceHolder1 control.

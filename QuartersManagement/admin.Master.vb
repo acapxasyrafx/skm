@@ -15,7 +15,7 @@ Public Class admin
     End Sub
 
     Protected Sub load_page()
-
+        load_notifikasi()
     End Sub
 
     Protected Function getSQL() As String
@@ -30,15 +30,27 @@ Public Class admin
     Protected Sub count_notification()
 
     End Sub
-    Protected Sub load_menu()
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlDataAdapter(getSQL(), conn)
-                Try
 
-                Catch ex As Exception
+    Protected Sub load_notifikasi()
+        notifikasi_baru()
+        notifikasi_menuggu()
+        notifikasi_ditolak()
+        notifikasi_diterima()
+    End Sub
 
-                End Try
-            End Using
-        End Using
+    Protected Sub notifikasi_baru()
+
+    End Sub
+
+    Protected Sub notifikasi_menuggu()
+
+    End Sub
+
+    Protected Sub notifikasi_diterima()
+
+    End Sub
+
+    Protected Sub notifikasi_ditolak()
+
     End Sub
 End Class
