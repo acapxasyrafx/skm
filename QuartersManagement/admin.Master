@@ -120,6 +120,13 @@
             height: 500px;
             padding: 0 2px;
         }
+
+        .jumlah-notifikasi {
+            color:#f1f1f1;
+            background:#9d0b0b;
+            border-radius:50%;
+            display:inherit;
+        }
     </style>
     <script>
         function openNav() {
@@ -150,10 +157,8 @@
                     <li class="nav-item">|</li>
                     <li class="nav-item">
                         <a href="javascript:void(0)" onclick="openNav()">
-                            <div>
-                                <span>Notifikasi</span>
-                                <span class="jumlah-notifikasi"></span>
-                            </div>
+                            <span>Notifikasi</span>
+                            <span class="jumlah-notifikasi">10</span>
                         </a>
                     </li>
                     <li class="nav-item">|</li>
@@ -166,7 +171,7 @@
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <div class="overlay-content">
                     <div class="overlay-items">
-                        <asp:Panel runat="server" ID="adaNotifikasi">
+                        <asp:Panel runat="server" ID="adaNotifikasi" Visible="false">
                             <asp:Menu CssClass="overlay-item" runat="server" ID="menuBaru" ClientIDMode="Static"></asp:Menu>
                             <span class="vertical-line"></span>
                             <asp:Menu CssClass="overlay-item" runat="server" ID="menuMenunggu" ClientIDMode="Static"></asp:Menu>
