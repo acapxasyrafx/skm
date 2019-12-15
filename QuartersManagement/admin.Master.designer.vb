@@ -32,6 +32,15 @@ Partial Public Class admin
     Protected WithEvents footerup As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''jumplahNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents jumplahNotifikasi As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''myNav control.
     '''</summary>
     '''<remarks>

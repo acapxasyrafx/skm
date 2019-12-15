@@ -193,7 +193,7 @@
                     <li class="nav-item">
                         <a href="javascript:void(0)" onclick="openNav()">
                             <span>Notifikasi</span>
-                            <span class="jumlah-notifikasi">10</span>
+                            <span class="jumlah-notifikasi" runat="server" id="jumplahNotifikasi"></span>
                         </a>
                     </li>
                     <li class="nav-item">|</li>

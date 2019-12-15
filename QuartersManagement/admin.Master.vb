@@ -23,6 +23,7 @@ Public Class admin
 
     Protected Sub load_page()
         load_notifikasi()
+        jumplahNotifikasi.InnerText = totalNotification
     End Sub
 
     Protected Function getSQL(ByVal jenisNotifikasi As String) As String
