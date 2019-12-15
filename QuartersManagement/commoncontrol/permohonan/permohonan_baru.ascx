@@ -83,17 +83,7 @@
         <td class="auto-style3">Kumpulan Pangkat</td>
         <td class="auto-style4">:</td>
         <td colspan="2">
-            <asp:Menu
-                runat="server"
-                Orientation="Horizontal"
-                ID="tabsMenu"
-                StaticEnableDefaultPopOutImage="False"
-                RenderingMode="Table"
-                StaticMenuItemStyle-CssClass="buttons" 
-                StaticHoverStyle-CssClass="hover"
-                StaticSelectedStyle-CssClass="selected"
-                CssClass="buttons">
-            </asp:Menu>
+            <asp:DropDownList runat="server" ID="ddlJenisPangkat" AutoPostBack="true"></asp:DropDownList>
         </td>
     </tr>
 

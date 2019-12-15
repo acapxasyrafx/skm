@@ -27,10 +27,10 @@ Public Class permohonan_menunggu
 
     Protected Sub load_page()
         Try
-            load_menu()
+            loadJenisPangkat()
             loadPangkalan()
             loadPangkat()
-            Label2.Text = getJenisPangkat()
+            Label2.Text = "SEMUA"
             BindData(datRespondent)
         Catch ex As Exception
             MsgTop.Attributes("class") = "errorMsg"
@@ -88,8 +88,18 @@ Public Class permohonan_menunggu
     End Sub
 
     Protected Sub loadPangkat()
+        Dim query As String = ""
+        Dim tempQuery = "SELECT pangkat_id, pangkat_nama FROM spk_pangkat"
+        Dim whereQuery = "  WHERE pangkat_jenis = " & ddlJenisPangkat.SelectedItem.Value & ""
+        Dim orderBy = " ORDER BY pangkat_idx ASC;"
+
+        If ddlJenisPangkat.SelectedIndex > 0 Then
+            query = tempQuery & whereQuery & orderBy
+        Else
+            query = tempQuery & orderBy
+        End If
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT pangkat_id, pangkat_nama FROM spk_pangkat WHERE pangkat_jenis = " & tabsMenu.SelectedItem.Value & " ORDER BY pangkat_idx ASC; ", conn)
+            Dim cmd As New SqlCommand(query, conn)
             Dim ds As New DataSet
 
             Try
@@ -159,8 +169,8 @@ Public Class permohonan_menunggu
             If ddlfilterPangkat.SelectedIndex > 0 Then
                 strWhere += " AND A.pangkat_id = '" & ddlfilterPangkat.SelectedValue & "'"
             End If
-            If tabsMenu.SelectedValue.Length > 0 Then
-                strWhere += " AND D.pangkat_jenis = " & tabsMenu.SelectedValue & ""
+            If ddlJenisPangkat.SelectedIndex > 0 Then
+                strWhere += " AND D.pangkat_jenis = " & ddlJenisPangkat.SelectedValue & ""
             End If
             If txt_nama.Text.Length > 0 Then
                 strWhere += " AND (
@@ -276,25 +286,22 @@ Public Class permohonan_menunggu
         strRet = BindData(datRespondent)
     End Sub
 
-    Protected Sub load_menu()
+    Protected Sub loadJenisPangkat()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("select * from general_config WHERE config_type = 'KUMPULAN PEGAWAI' ORDER BY config_idx DESC;", conn)
+            Using cmd As New SqlCommand("select config_id,config_parameter from general_config WHERE config_type = 'KUMPULAN PEGAWAI' ORDER BY config_idx DESC;", conn)
                 cmd.Connection = conn
-                Dim reader As SqlDataReader
+                Dim sda As New SqlDataAdapter(cmd)
                 Try
+                    Dim ds As New DataSet
                     conn.Open()
-                    reader = cmd.ExecuteReader
-                    If reader.HasRows Then
-                        While reader.Read()
-                            Dim menuItem As New MenuItem(reader("config_value").ToString, reader("config_id"))
-                            tabsMenu.Items.Add(menuItem)
-                        End While
-                        tabsMenu.Items.Item(0).Selected = True
-                    Else
-                        Debug.WriteLine("Error(load_menu): NO ROWS")
-                    End If
+                    sda.Fill(ds)
+                    ddlJenisPangkat.DataSource = ds
+                    ddlJenisPangkat.DataTextField = "config_parameter"
+                    ddlJenisPangkat.DataValueField = "config_id"
+                    ddlJenisPangkat.DataBind()
+                    ddlJenisPangkat.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 Catch ex As Exception
-                    Debug.Write("ERROR(loadPangkat): " & ex.Message)
+                    Debug.Write("ERROR(loadJenisPangkat): " & ex.Message)
                 Finally
                     conn.Close()
                 End Try
@@ -302,35 +309,13 @@ Public Class permohonan_menunggu
         End Using
     End Sub
 
-    Private Sub tabsMenu_MenuItemClick(sender As Object, e As MenuEventArgs) Handles tabsMenu.MenuItemClick
-        Dim kumpulan = getJenisPangkat()
-        If kumpulan.Length > 0 Then
-            Label2.Text = kumpulan
-            Select Case kumpulan
-                Case "PEGAWAI KANAN"
-                    loadPangkat()
-                    BindData(datRespondent)
-                Case "PEGAWAI MUDA"
-                    loadPangkat()
-                    BindData(datRespondent)
-                Case "LAIN-LAIN PEGAWAI"
-                    loadPangkat()
-                    BindData(datRespondent)
-                Case Else
-                    Debug.WriteLine("View: OTHERS/ERROR")
-                    Debug.WriteLine("Selected: " & tabsMenu.SelectedValue)
-                    loadPangkat()
-                    BindData(datRespondent)
-            End Select
+    Private Sub ddlJenisPangkat_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlJenisPangkat.SelectedIndexChanged
+        loadPangkat()
+        BindData(datRespondent)
+        If ddlJenisPangkat.SelectedIndex > 0 Then
+            Label2.Text = ddlJenisPangkat.SelectedItem.Text
+        Else
+            Label2.Text = "SEMUA"
         End If
     End Sub
-
-    Private Function getJenisPangkat() As String
-        Dim result = oCommon.getFieldValue("SELECT config_parameter FROM general_config WHERE config_id = " & tabsMenu.SelectedValue & "")
-        If result.Length > 0 Then
-            Return result
-        Else
-            Return ""
-        End If
-    End Function
 End Class
