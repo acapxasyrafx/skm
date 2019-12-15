@@ -50,31 +50,40 @@ Partial Public Class admin
     Protected WithEvents adaNotifikasi As Global.System.Web.UI.WebControls.Panel
 
     '''<summary>
-    '''menuBaru control.
+    '''rptBaru control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents menuBaru As Global.System.Web.UI.WebControls.Menu
+    Protected WithEvents rptBaru As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
-    '''menuMenunggu control.
+    '''rptMenunggu control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents menuMenunggu As Global.System.Web.UI.WebControls.Menu
+    Protected WithEvents rptMenunggu As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
-    '''menuTolak control.
+    '''rptDitolak control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents menuTolak As Global.System.Web.UI.WebControls.Menu
+    Protected WithEvents rptDitolak As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''rptDiterima control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptDiterima As Global.System.Web.UI.WebControls.Repeater
 
     '''<summary>
     '''tiadaNotifikasi control.

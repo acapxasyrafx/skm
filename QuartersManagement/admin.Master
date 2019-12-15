@@ -27,26 +27,7 @@
           transition: 0.5s;
         }
 
-        .overlay-content {
-          position: relative;
-          top: 25%;
-          width: 100%;
-          text-align: center;
-          margin-top: 30px;
-        }
-
-        overlay-content .overlay-items {
-            display: flex;
-            justify-content:space-evenly;
-        }
-
-        .overlay-item {
-            display: block;
-            color:white;
-            background: inherit;
-            cursor:pointer;
-        }
-
+        /*Open notification a tag*/
         .overlay a {
           padding: 8px;
           text-decoration: none;
@@ -56,6 +37,60 @@
           transition: 0.3s;
         }
 
+        .overlay-content {
+            position: relative;
+            top: 10%;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .overlay-items {
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: row;
+            overflow-x: scroll;
+            height: 100%;
+            width: 100%;
+        }
+
+        .overlay-item {
+            display: flex;
+            flex-direction: column;
+            margin: 5px;
+            padding: 2px 4px;
+            width: 100rem;
+            height:100rem;
+            color: #fff;
+            border-right: solid white 6px;
+        }
+        
+        .overlay-content>.overlay-item:last-child {
+            border-right:none;
+        }
+
+        .item-header {
+            align-content: center;
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        .item-list {
+            list-style:none;
+        }
+
+        .item {
+            padding: 4px 2px;
+            align-content:center;
+            text-align:center;
+        }
+
+        .item a {
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            font-size:15px;
+        }
         .overlay a:hover, .overlay a:focus {
           color: #f1f1f1;
         }
@@ -170,20 +205,73 @@
             <div id="myNav" class="overlay" runat="server">
                 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                 <div class="overlay-content">
-                    <div class="overlay-items">
-                        <asp:Panel runat="server" ID="adaNotifikasi" Visible="false">
-                            <asp:Menu CssClass="overlay-item" runat="server" ID="menuBaru" ClientIDMode="Static"></asp:Menu>
-                            <span class="vertical-line"></span>
-                            <asp:Menu CssClass="overlay-item" runat="server" ID="menuMenunggu" ClientIDMode="Static"></asp:Menu>
-                            <span class="vertical-line"></span>
-                            <asp:Menu CssClass="overlay-item" runat="server" ID="menuTolak" ClientIDMode="Static"></asp:Menu>
-                        </asp:Panel>
-                        <asp:Panel runat="server" ID="tiadaNotifikasi">
-                            <div class="overlay-item">
-                                <h3>Tiada Notifikasi Buat Masa Ini</h3>
-                            </div>
-                        </asp:Panel>
-                    </div>
+                    <asp:Panel runat="server" ID="adaNotifikasi" Visible="true" CssClass="overlay-items">
+                        <div class="overlay-item">
+                            <h3 class="item-header">Permohonan Baru</h3>
+                            <ul class="item-list">
+                                <asp:Repeater runat="server" ID="rptBaru">
+                                    <ItemTemplate>
+                                        <li class="item">
+                                            <a 
+                                                id="lblBaru" 
+                                                href='Senarai.Pemohon.Maklumat.Pemohon.aspx?p=Senarai%20Permohonan%20Baru%20>%20Maklumat%20Permohonan%20Baru&uid=<%# Eval("permohonan_id") %>' >
+                                                <%# Eval("notifikasi_log") %>
+                                            </a>
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </div>
+                        <div class="overlay-item">
+                            <h3 class="item-header">Permohonan Menunggu</h3>
+                            <ul class="item-list">
+                                <asp:Repeater runat="server" ID="rptMenunggu">
+                                    <ItemTemplate>
+                                        <li class="item">
+                                            <a 
+                                                id="lblMenunggu" 
+                                                href='Maklumat.Pemohon.Menunggu.aspx?uid=<%# Eval("permohonan_id") %>'
+                                            >
+                                                <%# Eval("notifikasi_log") %>
+                                            </a>
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </div>
+                        <div class="overlay-item">
+                            <h3 class="item-header">Permohonan Ditolak</h3>
+                            <ul class="item-list">
+                                <asp:Repeater runat="server" ID="rptDitolak">
+                                    <ItemTemplate>
+                                        <li class="item">
+                                            <a 
+                                                id="lblDitolak" 
+                                                href='Senarai.Permohonan.Ditolak.aspx?uid=<%# Eval("permohonan_id") %>'
+                                            >
+                                                <%# Eval("notifikasi_log") %>
+                                            </a>
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </div>
+                        <div class="overlay-item">
+                            <h3 class="item-header">Permohonan Diterima</h3>
+                            <ul class="item-list">
+                                <asp:Repeater runat="server" ID="rptDiterima">
+                                    <ItemTemplate>
+                                        <li><a id="lblDiterima" href="#"><%# Eval("notifikasi_log") %></a></li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </div>
+                    </asp:Panel>
+                    <asp:Panel runat="server" ID="tiadaNotifikasi" Visible="false">
+                        <div class="overlay-item">
+                            <h3 class="item-header">Tiada Notifikasi Buat Masa Ini</h3>
+                        </div>
+                    </asp:Panel>
                 </div>
             </div>
            <div id="wrapper">
