@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class admin
-    
+
     '''<summary>
     '''form1 control.
     '''</summary>
@@ -21,7 +21,88 @@ Partial Public Class admin
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
-    
+
+    '''<summary>
+    '''footerup control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents footerup As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''jumplahNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents jumplahNotifikasi As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''myNav control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents myNav As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''adaNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents adaNotifikasi As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''rptBaru control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptBaru As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''rptMenunggu control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptMenunggu As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''rptDitolak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptDitolak As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''rptDiterima control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptDiterima As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''tiadaNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tiadaNotifikasi As Global.System.Web.UI.WebControls.Panel
+
     '''<summary>
     '''ContentPlaceHolder1 control.
     '''</summary>
@@ -30,7 +111,7 @@ Partial Public Class admin
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ContentPlaceHolder1 As Global.System.Web.UI.WebControls.ContentPlaceHolder
-    
+
     '''<summary>
     '''ContentPlaceHolder2 control.
     '''</summary>
@@ -39,7 +120,7 @@ Partial Public Class admin
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ContentPlaceHolder2 As Global.System.Web.UI.WebControls.ContentPlaceHolder
-    
+
     '''<summary>
     '''indek control.
     '''</summary>
