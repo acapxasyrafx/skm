@@ -38,6 +38,16 @@
         width: 50%;
         display: block;
     }
+    .auto-style2 {
+        height: 100%;
+        width: 14px;
+    }
+    .auto-style3 {
+        width: 14px;
+    }
+    .auto-style4 {
+        width: 4px;
+    }
 </style>
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
@@ -201,17 +211,17 @@
                 <td colspan="3">Butiran Permohonan</td>
             </tr>
             <tr>
-                <td class="tblLabel" style="display:block;">Pangkalan</td>
-                <td class="tblColon">:</td>
+                <td class="auto-style3">Pangkalan</td>
+                <td class="auto-style4">:</td>
                 <td><h5 class="label" runat="server" id="lblPangkalanDimohon"></h5></td>
             </tr>
             <tr>
-                <td class="tblLabel">Kuarters/Rumah</td>
-                <td class="tblColon">:</td>
+                <td class="auto-style3">Kuarters/Rumah</td>
+                <td class="auto-style4">:</td>
                 <td><h5 class="label" runat="server" id="lblKuartersDimohon"></h5></td>
             </tr>
             <tr>
-                <td>
+                <td colspan="3">
                     <table runat="server" id="tblBertukar" visible="false">
                         <tr>
                             <td class="tblLabel">Dari Pasukan</td>
@@ -245,7 +255,7 @@
                 <td colspan="3">Sebab Permohonan Ditolak</td>
             </tr>
             <tr>
-                <td style="width: 100%; height: 100%;">
+                <td class="auto-style2">
                     <h4><asp:Label runat="server" ID="lblsebabTolak"></asp:Label></h4>
                 </td>
             </tr>
