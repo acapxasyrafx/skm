@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
         $(function () {
-            $(".datepicker").datepicker({ dateformat: 'dd MM yy' }).val();
+            $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' }).val();
         });
     </script>
 </header>
@@ -118,6 +118,13 @@
                 <td>:</td>
                 <td>
                     <h5 class="label" runat="server" id="lblJantina"></h5>
+                </td>
+            </tr>
+            <tr>
+                <td>Status Perkahwinan</td>
+                <td>:</td>
+                <td>
+                    <h5 class="label" runat="server" id="lblStatusPerkahwinan"></h5>
                 </td>
             </tr>
             <tr>
@@ -310,12 +317,26 @@
                 <td style="width: 5px;">:</td>
                 <td><b><asp:Label Text="text" runat="server" ID="lblUnitDitawarkan"/></b></td>
             </tr>
-             <tr runat="server" id="tr1" visible="false">
+             <tr runat="server" id="trTarikhKemasukan" visible="false">
                 <td style="width: 150px;">Tarikh Kemasukan</td>
                 <td style="width: 5px;">:</td>
                 <td><b><asp:Label Text="text" runat="server" ID="lblTarikhKemasukan" CssClass="select" /></b></td>
             </tr>
-
+            <tr runat="server" id="trSuratTawaran" visible="false">
+                <td colspan="3">
+                    <table class="fbform">
+                        <tr class="fbform_mheader">
+                            <td colspan="3">
+                                <textboxio:Textboxio
+                                    runat="server"
+                                    ID="editorViewSuratTawaran"
+                                    ScriptSrc="textboxio/textboxio.js"
+                                    Enabled="false" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
             <tr runat="server" visible="false">
                 <td>
                     <asp:CheckBox Text="Cadang Kuarters Lain?" runat="server" ID="cbCadangKuartersLain" AutoPostBack="true" />

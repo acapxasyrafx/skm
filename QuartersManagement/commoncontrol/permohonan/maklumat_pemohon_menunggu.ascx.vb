@@ -65,17 +65,17 @@ Public Class maklumat_pemohon_menunggu
 
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("
-            SELECT
+            Dim cmd As New SqlCommand("SELECT
                 A.permohonan_id
                 ,   D.pengguna_id
                 ,   D.pengguna_nama
                 ,   D.pengguna_jantina
 	            ,   D.pengguna_tarikh_lahir
+				,	I.historyPengguna_statusPerkahwinan
                 ,   F.pangkat_nama
-                ,   D.pengguna_no_tentera
-                ,   D.pengguna_mula_perkhidmatan
-                ,   D.pengguna_tamat_perkhidmatan
+                ,   I.historyPengguna_penggunaNoTentera
+                ,   I.historyPengguna_mulaBerkhidmat
+				,	I.historyPengguna_tamatBerkhidmat
                 ,   A.permohonan_no_permohonan
                 ,   A.permohonan_jenis_permohonan
                 ,   A.permohonan_tarikh_kemasukan
@@ -95,14 +95,15 @@ Public Class maklumat_pemohon_menunggu
                 spk_permohonan A
                 JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
                 JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
-                JOIN spk_pengguna D ON D.pengguna_id = A.pengguna_id
+				JOIN spk_historyPengguna I ON I.permohonan_id = A.permohonan_id
+                JOIN spk_pengguna D ON D.pengguna_id = I.pengguna_id
                 JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
-                JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id 
+                JOIN spk_pangkat F ON F.pangkat_id = I.pangkat_id 
                 LEFT JOIN spk_unit G ON G.unit_id = A.unit_id
                 LEFT JOIN spk_suratTawaran H ON H.permohonan_id = A.permohonan_id
-            WHERE A.permohonan_id = '" & Request.QueryString("uid") & "';",
+            WHERE A.permohonan_id = @uid;",
             conn)
-
+            cmd.Parameters.Add("@uid", SqlDbType.Int).Value = Request.QueryString("uid")
             Try
                 conn.Open()
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
@@ -113,21 +114,24 @@ Public Class maklumat_pemohon_menunggu
                         lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
                         lblJantina.InnerText = reader("pengguna_jantina")
                         lblJawatan.InnerText = reader("pangkat_nama")
-                        lblNoTentera.InnerText = reader("pengguna_no_tentera")
-                        lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
+                        lblNoTentera.InnerText = reader("historyPengguna_penggunaNoTentera")
+                        lblTarikhMulaBerkhidmat.InnerText = reader("historyPengguna_mulaBerkhidmat")
                         hfPangkalanID.Value = reader("pangkalan_id")
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
                         lbl_senaraiKuarters.InnerText = reader("kuarters_nama")
                         lblKuartersDipohon.Text = reader("kuarters_nama")
-                        lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
+                        lblTarikhAkhirBerkhidmat.InnerText = reader("historyPengguna_tamatBerkhidmat")
                         lblJenisPenempatan.InnerText = reader("historyKeluarga_tempat_tinggal")
                         lbltarikhPenempatan.InnerText = reader("historyKeluarga_tarikh_mula")
+                        lblStatusPerkahwinan.InnerText = reader("historyPengguna_statusPerkahwinan")
+                        getSuratTawaran()
                         If reader("permohonan_sub_status").Equals("TAWARAN UNIT") Then
                             lblUnitDitawarkan.Text = reader("unit_nama")
                             lblTarikhKemasukan.Text = reader("permohonan_tarikh_kemasukan")
-                            editorSurattawaran.Content = Server.HtmlDecode(reader("suratTawaran_content")).ToString
-                            editorSurattawaran.Enabled = False
+                            editorViewSuratTawaran.Content = Server.HtmlDecode(reader("suratTawaran_content")).ToString
                             trUnitDitawarkan.Visible = True
+                            trTarikhKemasukan.Visible = True
+                            trSuratTawaran.Visible = True
                             trStatusKuarters.Visible = False
                         Else
                             If checkKekosongan(Integer.Parse(reader("kuarters_id"))) Then
@@ -234,34 +238,40 @@ Public Class maklumat_pemohon_menunggu
     End Function
 
     Private Sub btnSimpanTawaranUnit_Click(sender As Object, e As EventArgs) Handles btnSimpanTawaranUnit.Click
-
-        If validateUnitSubmit() Then
-            Dim query As String = "
+        Try
+            If validateUnitSubmit() Then
+                Dim query As String = "
             UPDATE spk_permohonan
             SET 
-                permohonan_sub_status = 'UNIT DICADANG',
+                permohonan_sub_status = 'TAWARAN UNIT',
                 unit_id = " & ddlUnitKuarters.SelectedValue & ",
                 permohonan_tarikh = '" & Date.Now().ToString("dd/MM/yyyy") & "',
                 permohonan_tarikh_kemasukan = '" & datepicker.Text & "'
             WHERE permohonan_id = " & Request.QueryString("uid") & ";"
-            strRet = oCommon.ExecuteSQL(query)
-            If strRet = "0" Then
-                query = "INSERT INTO 
-                            spk_suratTawaran(suratTawaran_content,permohonan_id,suratTawaran_tarikh_dibuat) 
-                        VALUES(
-                            " & Server.HtmlEncode(editorSurattawaran.Content) & "
-                           ," & Request.QueryString("uid") & "
-                            ,'" & Date.Now().ToString("dd/MM/yyyy") & "');"
                 strRet = oCommon.ExecuteSQL(query)
                 If strRet = "0" Then
-                    Response.Redirect("Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Menunggu")
+                    query = ""
+                    query = "INSERT INTO 
+                            spk_suratTawaran(suratTawaran_content,permohonan_id,suratTawaran_tarikh_dibuat) 
+                        VALUES(
+                            '" & Server.HtmlEncode(editorSurattawaran.Content) & "'
+                           ," & Request.QueryString("uid") & "
+                            ,'" & Date.Now() & "');"
+                    strRet = oCommon.ExecuteSQL(query)
+                    If strRet = "0" Then
+                        newNotifikasi("USER", 32)
+                        Response.Redirect("Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Menunggu")
+                    Else
+                        Debug.WriteLine("Error(btnSimpanTawaranUnit): Error Save Surat Tawaran")
+                    End If
                 Else
-                    Debug.WriteLine("Error(btnSimpanTawaranUnit): Error Save Surat Tawaran")
+                    Debug.WriteLine("Error(btnSimpanTawaranUnit): Error Save Tawaran Unit")
                 End If
-            Else
-                Debug.WriteLine("Error(btnSimpanTawaranUnit): Error Save Tawaran Unit")
             End If
-        End If
+        Catch ex As Exception
+            Debug.WriteLine("Error(btnSimpanTawaranUnit): " & ex.Message)
+        End Try
+
     End Sub
 
     Private Sub loadCadanganKuarters(ByVal pangkalanID As Integer)
@@ -445,8 +455,8 @@ Public Class maklumat_pemohon_menunggu
         If ddlUnitKuarters.SelectedIndex > 0 Then
             If datepicker.Text.Count > 0 Then
                 Debug.WriteLine("Date: " & datepicker.Text)
-                Debug.WriteLine("IsDate: " & IsDate(datepicker.Text))
-                If IsDate(datepicker.Text) Then
+                Debug.WriteLine("IsDate: " & IsDate(Convert.ToDateTime(datepicker.Text).ToString("dd/MM/yy")))
+                If IsDate(Convert.ToDateTime(datepicker.Text).ToString("dd/MM/yy")) Then
                     Return True
                 Else
                     Debug.WriteLine("Error(validateUnitSubmit): Tarikh Kemasukan tak berformat betul")
@@ -523,10 +533,40 @@ Public Class maklumat_pemohon_menunggu
         Catch ex As Exception
             Debug.WriteLine("Error(ddlJenisSuratTawaran): " & ex.Message)
         End Try
-
     End Sub
 
-    Private Sub datepicker_TextChanged(sender As Object, e As EventArgs) Handles datepicker.TextChanged
-        getSuratTawaran()
+    Protected Sub newNotifikasi(ByVal untuk As String, ByVal kumpulan As Integer)
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("INSERT INTO 
+                spk_notifikasi(
+                    permohonan_id
+                    , pengguna_id
+                    , notifikasi_untuk
+                    , notifikasi_kumpulan
+                    , notifikasi_tarikh
+                ) 
+                VALUES(
+                    @permohonanID
+                    , @penggunaID
+                    , @untuk
+                    , @kumpulan
+                    , @tarikh);"
+                )
+                cmd.Connection = conn
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
+                cmd.Parameters.Add("@untuk", SqlDbType.NVarChar, 50).Value = untuk
+                cmd.Parameters.Add("@kumpulan", SqlDbType.Int).Value = kumpulan
+                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    Debug.WriteLine("Error(newNotifikasi): " & ex.Message)
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
     End Sub
 End Class

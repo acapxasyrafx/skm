@@ -86,6 +86,15 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lblJantina As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''lblStatusPerkahwinan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblStatusPerkahwinan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''lblTarikhLahir control.
     '''</summary>
     '''<remarks>
@@ -266,13 +275,13 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lblUnitDitawarkan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''tr1 control.
+    '''trTarikhKemasukan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents tr1 As Global.System.Web.UI.HtmlControls.HtmlTableRow
+    Protected WithEvents trTarikhKemasukan As Global.System.Web.UI.HtmlControls.HtmlTableRow
 
     '''<summary>
     '''lblTarikhKemasukan control.
@@ -282,6 +291,24 @@ Partial Public Class maklumat_pemohon_menunggu
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTarikhKemasukan As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''trSuratTawaran control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents trSuratTawaran As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''editorViewSuratTawaran control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents editorViewSuratTawaran As Global.TextboxioControl.Textboxio
 
     '''<summary>
     '''cbCadangKuartersLain control.
