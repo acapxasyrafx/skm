@@ -45,6 +45,8 @@ Public Class maklumat_pemohon_ditolak
 	            , D.pengguna_tarikh_lahir
 	            , F.pangkat_nama
 	            , D.pengguna_no_tentera
+                , G.historyPengguna_penggunaNoTentera
+                , G.historyPengguna_statusPerkahwinan
 	            , D.pengguna_mula_perkhidmatan
 	            , D.pengguna_tamat_perkhidmatan
 	            , A.permohonan_no_permohonan
@@ -57,15 +59,17 @@ Public Class maklumat_pemohon_ditolak
                 , A.permohonan_nota
 	            , A.permohonan_mata
 				, E.historyKeluarga_tempat_tinggal
-				, E.historyKeluarga_tarikh_mula
-				, E.historyKeluarga_tarikh_akhir
+                , G.historyPengguna_mulaBerkhidmat
+                , G.historyPengguna_tamatBerkhidmat
+                , E.historyKeluarga_tarikh_mula
             FROM 
 	            spk_permohonan A
 	            JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
 	            JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
-	            JOIN spk_pengguna D ON D.pengguna_id = A.pengguna_id
+                JOIN spk_historyPengguna G ON G.permohonan_id = A.permohonan_id
+	            JOIN spk_pengguna D ON D.pengguna_id = G.pengguna_id
 	            JOIN spk_historyKeluarga E ON E.permohonan_id = A.permohonan_id
-	            JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id
+	            JOIN spk_pangkat F ON F.pangkat_id = G.pangkat_id
             WHERE
                 A.permohonan_id = " & Request.QueryString("uid") & ";",
             conn)
@@ -74,25 +78,24 @@ Public Class maklumat_pemohon_ditolak
                 conn.Open()
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
-                    If reader.Read() Then
+                    While reader.Read()
                         pID.Value = reader("pengguna_id")
                         lblNama.InnerText = reader("pengguna_nama")
                         lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
                         lblJantina.InnerText = reader("pengguna_jantina")
                         lblJawatan.InnerText = reader("pangkat_nama")
-                        lblNoTentera.InnerText = reader("pengguna_no_tentera")
-                        lblTarikhMulaBerkhidmat.InnerText = reader("pengguna_mula_perkhidmatan")
+                        lblNoTentera.InnerText = reader("historyPengguna_penggunaNoTentera")
+                        lblTarikhMulaBerkhidmat.InnerText = reader("historyPengguna_mulaBerkhidmat")
                         lblsebabTolak.Text = reader("permohonan_nota")
-                        lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
+                        lblTarikhAkhirBerkhidmat.InnerText = reader("historyPengguna_tamatBerkhidmat")
                         lblKuartersDimohon.InnerText = reader("kuarters_nama")
                         lblPangkalanDimohon.InnerText = reader("pangkalan_nama")
                         lblJenisPenempatan.InnerHtml = reader("historyKeluarga_tempat_tinggal")
                         lbltarikhPenempatan.InnerHtml = reader("historyKeluarga_tarikh_mula")
-                    Else
-                        Debug.Write("CANNOT READ")
-                    End If
+                        lblStatusPerkahwinan.InnerText = reader("historyPengguna_statusPerkahwinan")
+                    End While
                 Else
-                    Debug.Write("NO ROWS")
+                    Debug.Write("ERROR(loadUser): NO ROWS")
                 End If
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadUser): " & ex.Message)
@@ -101,6 +104,7 @@ Public Class maklumat_pemohon_ditolak
             End Try
         End Using
     End Sub
+
     Private Function readMaklumatAnak() As Boolean
         Dim penggunaID = pID.Value
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))

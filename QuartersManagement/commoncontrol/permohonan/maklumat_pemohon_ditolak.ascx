@@ -95,6 +95,13 @@
                 </td>
             </tr>
             <tr>
+                <td class="tblLabel">Status Perkahwinan</td>
+                <td class="tblColon">:</td>
+                <td>
+                    <h5 class="label" runat="server" id="lblStatusPerkahwinan"></h5>
+                </td>
+            </tr>
+            <tr>
                 <td class="tblLabel">Tarikh Mula Berkhidmat</td>
                 <td class="tblColon">:</td>
                 <td>
