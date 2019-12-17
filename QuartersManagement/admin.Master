@@ -27,7 +27,6 @@
           transition: 0.5s;
         }
 
-        /*Open notification a tag*/
         .overlay a {
           padding: 8px;
           text-decoration: none;
@@ -197,7 +196,7 @@
                         </a>
                     </li>
                     <li class="nav-item">|</li>
-                    <li class="nav-item"><a href="#">Panduan Pengguna</a></li>
+                    <li class="nav-item"><a href="javascript:void(0)">Panduan Pengguna</a></li>
                     <li class="nav-item">|</li>
                     <li class="nav-item"><a href="default.aspx">Log Keluar </a>&nbsp</li>
                 </ul>

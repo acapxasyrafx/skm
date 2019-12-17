@@ -6,22 +6,213 @@
 <html>
 
 <head runat ="server" >
-<title>Prototaip Pengurusan Kuarters</title>
-<link rel = "icon" href ="mini.ico"> 
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-<link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <title>Prototaip Pengurusan Kuarters</title>
+    <link rel = "icon" href ="mini.ico"> 
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <style>
+        .overlay {
+          height: 0%;
+          width: 100%;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          background-color: rgb(0,0,0);
+          background-color: rgba(0,0,0, 0.9);
+          overflow:scroll;
+          transition: 0.5s;
+        }
+
+        .overlay a {
+          padding: 8px;
+          text-decoration: none;
+          font-size: 36px;
+          color: #818181;
+          display: block;
+          transition: 0.3s;
+        }
+
+        .overlay-content {
+            position: relative;
+            top: 10%;
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .overlay-items {
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: row;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        .overlay-item {
+            display: flex;
+            flex-direction: column;
+            margin: 5px;
+            padding: 2px 4px;
+            width: 100rem;
+            height:100rem;
+            color: #fff;
+        }
+        
+        .overlay-content>.overlay-item:last-child {
+            border-right:none;
+        }
+
+        .item-header {
+            align-content: center;
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        .item-list {
+            list-style:none;
+        }
+
+        .item {
+            padding: 4px 2px;
+            align-content:center;
+            text-align:left;
+        }
+
+        .item a {
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            font-size:15px;
+        }
+        .overlay a:hover, .overlay a:focus {
+          color: #f1f1f1;
+        }
+
+        .overlay .closebtn {
+          position: absolute;
+          top: 20px;
+          right: 45px;
+          font-size: 60px;
+        }
+
+        @media screen and (max-height: 450px) {
+          .overlay {overflow-y: auto;}
+          .overlay a {font-size: 20px}
+          .overlay .closebtn {
+          font-size: 40px;
+          top: 15px;
+          right: 35px;
+          }
+        }
+
+        li,a{
+            text-decoration:none;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: flex-end;
+            height: .1em;
+            background-color:#e9f83c;
+            align-items:center;
+            padding:10px;
+            padding-left:0;
+        }
+
+        .nav-list {
+            list-style: none;
+            overflow: hidden;
+        }
+        
+        .nav-list li {
+            display: inline-block;
+        }
+
+        .nav-item{
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 0 20px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .nav-item:nth-child(2n){
+            padding:0;
+            margin:0;
+            color:black;
+        }
+
+        .vertical-line {
+            border-left: 6px solid white;
+            height: 500px;
+            padding: 0 2px;
+        }
+
+        .jumlah-notifikasi {
+            color:#f1f1f1;
+            background:#9d0b0b;
+            border-radius:50%;
+            display:inherit;
+        }
+    </style>
 </head>
 
 <body>
     <form id="form1" runat="server">
         <div id="container">
-            <div id="footerup">
+            <div id="footerup" runat="server" visible="false">
                 <p>
                     <a href="User.Homepage.aspx?p=Paparan%20Utama">Paparan Utama</a>|
                     <a href="#">Notifikasi</a>|
                     <a href="#">Panduan Pengguna</a>|
                     <a href="default.aspx">Log Keluar </a>&nbsp
                 </p>
+            </div>
+            <div class="nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="User.Homepage.aspx?p=Paparan%20Utama">Paparan Utama</a></li>
+                    <li class="nav-item">|</li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" onclick="openNav()">
+                            <span>Notifikasi</span>
+                            <span class="jumlah-notifikasi" runat="server" id="jumlahNotifikasi"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">|</li>
+                    <li class="nav-item"><a href="javascript:void(0)">Panduan Pengguna</a></li>
+                    <li class="nav-item">|</li>
+                    <li class="nav-item"><a href="default.aspx">Log Keluar</a>&nbsp;</li>
+                </ul>
+            </div>
+            <div class="overlay" runat="server" id="myNav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <div class="overlay-content">
+                    <asp:Panel runat="server" ID="adaNotifikasi" Visible="true" CssClass="overlay-items">
+                        <div class="overlay-item">
+                            <ul class="item-list">
+                                <asp:Repeater runat="server" ID="rptNotifikasi">
+                                    <ItemTemplate>
+                                        <li class="item">
+                                            <a 
+                                                id="lblNotifikasi"
+                                                href='Maklumat.Permohonan.Pengguna.aspx?p=Maklumat%20Permohonan&permohonan=<%# Eval("permohonan_id") %>'>
+                                                <%# Eval("notifikasi_log") %>
+                                            </a>
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </div>
+                    </asp:Panel>
+                     <asp:Panel runat="server" ID="tiadaNotifikasi" Visible="false">
+                        <div class="overlay-item">
+                            <h3 class="item-header">Tiada Notifikasi Buat Masa Ini</h3>
+                        </div>
+                    </asp:Panel>
+                </div>
             </div>
            <div id="wrapper">
                <div id="content" style="height: 200vh;">
@@ -35,6 +226,14 @@
            <div id="footer"><p>Tentera Udara Diraja Malaysia (TUDM) @ 2019<br />Prototaip Versi 0.1</p></div>
         </div>
     </form>
+    <script>
+        function openNav() {
+            document.getElementById("myNav").style.height = "100%";
+        }
+        function closeNav() {
+            document.getElementById("myNav").style.height = "0%";
+        }
+    </script>
 </body>
 
 </html>

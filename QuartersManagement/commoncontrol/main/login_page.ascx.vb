@@ -16,12 +16,16 @@ Public Class login_page
 
     End Sub
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
+        Dim adminID As Integer = 1
+        Dim userID As Integer = 1
         If txtLoginID IsNot "" And txtPwd.Text IsNot "" Then
             If txtLoginID.Text.Equals("admin") And txtPwd.Text.Equals("admin") Then
                 Session("user_type") = "Admin"
+                Session("user_id") = adminID
                 Response.Redirect("Admin.Homepage.aspx")
             ElseIf txtLoginID.Text.Equals("user") And txtPwd.Text.Equals("user") Then
                 Session("user_type") = "User"
+                Session("user_id") = userID
                 Response.Redirect("User.Homepage.aspx")
             End If
         End If
