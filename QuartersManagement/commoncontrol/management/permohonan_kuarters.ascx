@@ -1,31 +1,52 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="permohonan_kuarters.ascx.vb" Inherits="QuartersManagement.permohonan_kuarters" %>
-<style>
-    .label{
-        display: inline-block;
-        margin:0;
-        padding:0;
-        padding:5px;
-        font-size: 100%;
-    }
-    .txtbox{
-        margin-right: 5px;
-        padding:0;
-        width: 250px;
-        height: 25px;
-    }
-    .btn{
-        border-radius: 5px;
-        background-color: grey;
-        color:white;
-        border: solid 1px white;
-        height: 2.5em;
-    }
-    .btn:hover{
-        border: solid 1px black;
-        background-color:aliceblue;
-        color:black;
-    }
-</style>
+<header>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' }).val();
+        });
+    </script>
+    <style>
+        .label {
+            display: inline-block;
+            margin: 0;
+            padding: 5px;
+            font-size: 100%;
+        }
+
+        .txtbox {
+            margin-right: 5px;
+            padding: 0;
+            width: 250px;
+            height: 25px;
+        }
+
+        .btn {
+            border-radius: 5px;
+            background-color: grey;
+            color: white;
+            border: solid 1px white;
+            height: 2.5em;
+        }
+
+        .btn:hover {
+            border: solid 1px black;
+            background-color: aliceblue;
+            color: black;
+        }
+
+        .datepicker {
+            z-index: 1;
+            width: 20em;
+            display:inline-block;
+        }
+    </style>
+</header>
+
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
         <td><span id="MsgTop" runat="server">
@@ -235,11 +256,8 @@
                     <td>Mula Menetap Dari</td>
                     <td>:</td>
                     <td>
-                        <asp:DropDownList CssClass="label" ID="ddlTarikhTinggalHariMula" runat="server"></asp:DropDownList>
-                        / 
-                        <asp:DropDownList CssClass="label" ID="ddlTarikhTinggalBulanMula" runat="server"></asp:DropDownList>
-                        / 
-                        <asp:DropDownList CssClass="label" ID="ddlTarikhTinggalTahunMula" runat="server"></asp:DropDownList>
+                         <asp:TextBox CssClass="datepicker" ID="dpTarikhMulaMenetap" runat="server" />
+                            &#160; <i class="fa fa-calendar w3-medium w3-text-black"></i>
                     </td>
                 </tr>
             </table>
@@ -261,7 +279,9 @@
         <td style="width:150px;">Kuarters/Rumah</td>
         <td>:</td>
         <td colspan="2">
-            <asp:DropDownList runat="server" CssClass="label"  ID="ddlSenaraiKuarters" Enabled="false"></asp:DropDownList>
+            <asp:DropDownList runat="server" CssClass="label"  ID="ddlSenaraiKuarters" Enabled="false">
+                <asp:ListItem Text="SILA PILIH PANGKALAN TERLEBIH DAHULU" />
+            </asp:DropDownList>
         </td>
     </tr>
     <tr>
@@ -294,9 +314,8 @@
                     <td>Tarikh Bertukar</td>
                     <td>:</td>
                     <td>
-                        <asp:DropDownList CssClass="label"  ID="ddlTarikhTukarHari" runat="server"></asp:DropDownList> / 
-                        <asp:DropDownList CssClass="label"  ID="ddlTarikhTukarBulan" runat="server"></asp:DropDownList> / 
-                        <asp:DropDownList CssClass="label"  ID="ddlTarikhTukarTahun" runat="server"></asp:DropDownList>
+                        <asp:TextBox CssClass="datepicker" ID="dpTarikhBertukar" runat="server" />
+                            &#160; <i class="fa fa-calendar w3-medium w3-text-black"></i>
                     </td>
                 </tr>
             </table>

@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Web.UI.ScriptManager
+Imports System.Web.UI.HtmlControls
 
 Public Class permohonan_kuarters
     Inherits System.Web.UI.UserControl
@@ -26,7 +27,10 @@ Public Class permohonan_kuarters
     Dim dataAnak As New DataSet
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
-            Load_Page()
+            If Session("user_id") IsNot Nothing Then
+                pID.Value = Session("user_id")
+                Load_Page()
+            End If
         End If
     End Sub
 
@@ -35,15 +39,6 @@ Public Class permohonan_kuarters
         loadPangkalan()
         loadUser()
         readMaklumatAnak()
-        'HARI
-        populateDay(ddlTarikhTinggalHariMula)
-        populateDay(ddlTarikhTukarHari)
-        'BULAN
-        populateMonth(ddlTarikhTinggalBulanMula)
-        populateMonth(ddlTarikhTukarBulan)
-        'TAHUN
-        populateYear(ddlTarikhTinggalTahunMula)
-        populateYear(ddlTarikhTukarTahun)
     End Sub
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
@@ -141,48 +136,11 @@ Public Class permohonan_kuarters
         End Using
     End Sub
 
-    Private Function getDate(ByVal hari As String, ByVal bulan As String, ByVal tahun As String) As String
-        Return (hari & "/" & bulan & "/" & tahun)
-    End Function
-
-    Private Sub populateDay(ByVal ddl As DropDownList)
-        For i As Integer = 1 To 31
-            Dim temp As ListItem
-            If i < 10 Then
-                temp = New ListItem("0" & i, i)
-            Else
-                temp = New ListItem(i, i)
-            End If
-            ddl.Items.Add(temp)
-        Next
-    End Sub
-
-    Private Sub populateMonth(ByVal ddl As DropDownList)
-        For i As Integer = 1 To 12
-            Dim temp As ListItem
-            If i < 10 Then
-                temp = New ListItem("0" & i, i)
-            Else
-                temp = New ListItem(i, i)
-            End If
-            ddl.Items.Add(temp)
-        Next
-    End Sub
-
-    Private Sub populateYear(ByVal ddl As DropDownList)
-        Dim startYear As Integer = Date.Now().Year - 30
-        For i As Integer = 1 To 30
-            Dim item As Integer = startYear + i
-            Dim temp As New ListItem(item, item)
-            ddl.Items.Add(item)
-        Next
-    End Sub
-
     Private Function Save() As Boolean
         Dim kuartersId = ddlSenaraiKuarters.SelectedValue
         Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
-        Dim mulaMenetap = getDate(ddlTarikhTinggalHariMula.SelectedValue, ddlTarikhTinggalBulanMula.SelectedValue, ddlTarikhTinggalTahunMula.SelectedValue)
-        Dim tarikhPindah = getDate(ddlTarikhTukarHari.SelectedValue, ddlTarikhTukarBulan.SelectedValue, ddlTarikhTukarTahun.SelectedValue)
+        Dim mulaMenetap = Convert.ToDateTime(dpTarikhMulaMenetap.Text).ToString("dd/MM/yyyy")
+        Dim tarikhPindah = Convert.ToDateTime(dpTarikhBertukar.Text).ToString("dd/MM/yyyy")
         Dim totalAnak = datRespondent.Rows.Count
 
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
@@ -278,20 +236,14 @@ Public Class permohonan_kuarters
         If ddlJenisPenempatan.SelectedValue = Nothing Then
             showMessage("ALERT", "Sila pilih jenis penempatan sebelum.")
             Return False
-        ElseIf ddlTarikhTinggalHariMula.SelectedValue = Nothing Then
-            showMessage("ALERT", "Sila pilih hari yang betul untuk tarikh mula menetak.")
-            Return False
-        ElseIf ddlTarikhTinggalBulanMula.SelectedValue = Nothing Then
-            showMessage("ALERT", "Sila pilih bulan yang betul untuk tarikh mula menetak.")
-            Return False
-        ElseIf ddlTarikhTinggalTahunMula.SelectedValue = Nothing Then
-            showMessage("ALERT", "Sila pilih TAHUN yang betul untuk tarikh mula menetak.")
-            Return False
         ElseIf ddlSenaraiPangkalan.SelectedValue = Nothing Then
-            showMessage("ALERT", "Bahagian Pangkalan adalah perlu.")
+            showMessage("ALERT", "Bahagian Pangkalan adalah perlu dipilih.")
             Return False
         ElseIf ddlSenaraiKuarters.SelectedValue = Nothing Then
-            showMessage("ALERT", "Bahagian Kuarters/Rumah adalah perlu.")
+            showMessage("ALERT", "Bahagian Kuarters/Rumah adalah perlu dipilih.")
+            Return False
+        ElseIf IsDate(Convert.ToDateTime(dpTarikhMulaMenetap.Text).ToString("dd/MM/yy")) = False Then
+            showMessage("ALERT", "Sila pilih tarikh mula menetap.")
             Return False
         Else
             Return True

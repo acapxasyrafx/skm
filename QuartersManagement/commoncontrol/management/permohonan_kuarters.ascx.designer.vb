@@ -194,31 +194,13 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents ddlJenisPenempatan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlTarikhTinggalHariMula control.
+    '''dpTarikhMulaMenetap control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlTarikhTinggalHariMula As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ddlTarikhTinggalBulanMula control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlTarikhTinggalBulanMula As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ddlTarikhTinggalTahunMula control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlTarikhTinggalTahunMula As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents dpTarikhMulaMenetap As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''ddlSenaraiPangkalan control.
@@ -275,31 +257,13 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents ddlPasukanBaru As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
-    '''ddlTarikhTukarHari control.
+    '''dpTarikhBertukar control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlTarikhTukarHari As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ddlTarikhTukarBulan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlTarikhTukarBulan As Global.System.Web.UI.WebControls.DropDownList
-
-    '''<summary>
-    '''ddlTarikhTukarTahun control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlTarikhTukarTahun As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents dpTarikhBertukar As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''Span1 control.

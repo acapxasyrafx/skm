@@ -12,65 +12,77 @@
             $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' }).val();
         });
     </script>
+    <style>
+        .label {
+            display: inline-block;
+            margin: 0;
+            padding: 5px;
+            font-size: 100%;
+            font-weight: normal;
+        }
+
+        .left {
+            display: flex;
+            flex: initial;
+        }
+
+        .auto-style1 {
+            height: 30px;
+        }
+
+        .auto-style2 {
+            width: 18px;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: space-evenly;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .left {
+            display: block;
+            width: 50%;
+            padding: 1px;
+        }
+
+        .right {
+            display: block;
+            width: 50%;
+            padding: 1px;
+        }
+
+        .btn {
+            border-radius: 5px;
+            background-color: grey;
+            color: white;
+            border: solid 1px white;
+            height: 2.5em;
+        }
+
+        .btn:hover {
+            border: solid 1px black;
+            background-color: aliceblue;
+            color: black;
+        }
+
+        select, .select {
+            width: 20em;
+        }
+
+        #editorSurattawaran {
+            position: relative;
+            z-index: -1;
+        }
+
+        .datepicker {
+            z-index: 1;
+        }
+    </style>
 </header>
-<style>
-    .label{
-        display: inline-block;
-        margin:0;
-        padding:5px;
-        font-size: 100%;
-        font-weight:normal;
-    }
-    .left {
-        display:flex;
-        flex: initial;
-    }
-    .auto-style1 {
-        height: 30px;
-    }
-    .auto-style2 {
-        width: 18px;
-    }
-    .wrapper{
-        display: flex;
-        justify-content: space-evenly;
-        height: 100%;
-        margin:0;
-        padding:0;
-    }
-    .left{
-        display: block;
-        width: 50%;
-        padding: 1px;
-    }
-    .right{
-        display: block;
-        width: 50%;
-        padding: 1px;
-    }
-     .btn{
-        border-radius: 5px;
-        background-color: grey;
-        color:white;
-        border: solid 1px white;
-        height: 2.5em;
-    }
-    .btn:hover{
-        border: solid 1px black;
-        background-color:aliceblue;
-        color:black;
-    }
-    select, .select{
-        width: 20em;
-    }
-    #editorSurattawaran{
-        position: relative;
-        z-index: -1;
-    }
-    .datepicker{
-        z-index: 1;
-    }
-</style>
+
 <table class="fbform" style="width: 100%">
     <tr class="fbform_header">
         <td><span id="MsgTop" runat="server">
