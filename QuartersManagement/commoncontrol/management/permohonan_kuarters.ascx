@@ -70,7 +70,7 @@
         <td style="width: 5px;">:</td>
         <td>
             <asp:Label runat="server" ID="lblNama"/>
-            <asp:HiddenField runat="server" ID="penggunaID"/>
+            <asp:HiddenField runat="server" ID="pID"/>
         </td>
     </tr>
 

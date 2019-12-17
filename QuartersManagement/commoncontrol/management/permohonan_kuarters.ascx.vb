@@ -72,7 +72,7 @@ Public Class permohonan_kuarters
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     If reader.Read() Then
-                        penggunaID.Value = reader("pengguna_id")
+                        pID.Value = reader("pengguna_id")
                         lblNama.Text = reader("pengguna_nama")
                         lblTarikhLahir.Text = reader("pengguna_tarikh_lahir")
                         lblJantina.Text = reader("pengguna_jantina")
@@ -197,7 +197,7 @@ Public Class permohonan_kuarters
                     , permohonan_mata
 	            )
             VALUES (
-	            " & penggunaID.Value & "
+	            " & pID.Value & "
 	            , '" & genNoPermohonan(Date.Now.Year & Date.Now.Month & Date.Now.Day) & "'
 	            , " & kuartersId & "
 	            , '" & Date.Now().ToString("dd'/'MM'/'yyyy") & "'
@@ -337,7 +337,7 @@ Public Class permohonan_kuarters
                     ,   anak_umur
                 ) 
                 VALUES(
-                    " & penggunaID.Value & "
+                    " & pID.Value & "
                     ,   '" & namaAnak & "'
                     ,   '" & icAnak & "'
                     ,   '" & umurAnak & "'
@@ -361,7 +361,7 @@ Public Class permohonan_kuarters
                         anak_ic,
                         anak_umur
                         FROM spk_anak
-                        WHERE pengguna_id = " & penggunaID.Value & ";",
+                        WHERE pengguna_id = " & pID.Value & ";",
                     conn)
             Try
                 conn.Open()
@@ -497,7 +497,7 @@ Public Class permohonan_kuarters
                     , log_tarikh 
                     , log_status
                 ) VALUES (
-                    " & penggunaID.Value & "
+                    " & pID.Value & "
                     , " & permohonanID & "
                     , '" & Date.Now & "'
                     , 'PERMOHONAN BARU'
@@ -528,7 +528,7 @@ Public Class permohonan_kuarters
 	                    )
                     VALUES (
 	                    " & permohoananID & "
-	                    , " & penggunaID.Value & "
+	                    , " & pID.Value & "
 	                    , '" & Date.Now().ToString("dd'/'MM'/'yyyy") & "'
 	                    , " & totalAnak & "
 	                    , '" & jenisRumahSebelum & "'
@@ -568,10 +568,10 @@ Public Class permohonan_kuarters
                 )
             ")
                 cmd.Connection = conn
-                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = penggunaID.Value
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
                 cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = permohonanID
                 cmd.Parameters.Add("@pangkatID", SqlDbType.Int).Value = Integer.Parse(pangkatID.Value)
-                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = Integer.Parse(penggunaID.Value)
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = Integer.Parse(pID.Value)
                 cmd.Parameters.Add("@statusPerkahwinan", SqlDbType.NVarChar, 50).Value = lblStatusPerkahwinan.Text
                 cmd.Parameters.Add("@penggunaNoTentera", SqlDbType.NVarChar, 50).Value = lblNoTentera.Text
                 Try

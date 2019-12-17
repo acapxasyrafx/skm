@@ -86,13 +86,13 @@ Partial Public Class permohonan_kuarters
     Protected WithEvents lblNama As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''penggunaID control.
+    '''pID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents penggunaID As Global.System.Web.UI.WebControls.HiddenField
+    Protected WithEvents pID As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''lblJantina control.
