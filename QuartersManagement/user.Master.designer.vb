@@ -23,6 +23,60 @@ Partial Public Class user
     Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
 
     '''<summary>
+    '''footerup control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents footerup As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''jumlahNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents jumlahNotifikasi As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''myNav control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents myNav As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''adaNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents adaNotifikasi As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''rptNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptNotifikasi As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
+    '''tiadaNotifikasi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tiadaNotifikasi As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''ContentPlaceHolder1 control.
     '''</summary>
     '''<remarks>
