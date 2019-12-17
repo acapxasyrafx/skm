@@ -29,6 +29,7 @@ Public Class user
         If load_notifikasi() Then
             adaNotifikasi.Visible = True
             tiadaNotifikasi.Visible = False
+            jumlahNotifikasi.InnerText = totalNotification
         Else
             adaNotifikasi.Visible = False
             tiadaNotifikasi.Visible = True
