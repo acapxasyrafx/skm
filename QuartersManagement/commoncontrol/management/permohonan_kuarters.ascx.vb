@@ -249,6 +249,7 @@ Public Class permohonan_kuarters
         Try
             If validateSave() = True Then
                 If Save() = True Then
+                    newNotifikasi("ADMIN", 29)
                     MsgTop.Attributes("class") = "successMsg"
                     strlbl_top.Text = strSaveSuccessAlert
                     MsgBottom.Attributes("class") = "successMsg"
@@ -632,5 +633,40 @@ Public Class permohonan_kuarters
         End If
         strlbl_top.Text = message
         strlbl_bottom.Text = message
+    End Sub
+
+    Protected Sub newNotifikasi(ByVal untuk As String, ByVal kumpulan As Integer)
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("INSERT INTO 
+                spk_notifikasi(
+                    permohonan_id
+                    , pengguna_id
+                    , notifikasi_untuk
+                    , notifikasi_kumpulan
+                    , notifikasi_tarikh
+                ) 
+                VALUES(
+                    @permohonanID
+                    , @penggunaID
+                    , @untuk
+                    , @kumpulan
+                    , @tarikh);"
+                )
+                cmd.Connection = conn
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
+                cmd.Parameters.Add("@untuk", SqlDbType.NVarChar, 50).Value = untuk
+                cmd.Parameters.Add("@kumpulan", SqlDbType.Int).Value = kumpulan
+                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    Debug.WriteLine("Error(newNotifikasi): " & ex.Message)
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
     End Sub
 End Class
