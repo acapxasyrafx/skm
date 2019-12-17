@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Web.UI.HtmlControls
 
 Public Class maklumat_pemohon_menunggu
     Inherits System.Web.UI.UserControl
@@ -434,7 +435,8 @@ Public Class maklumat_pemohon_menunggu
                         MsgBottom.Attributes("class") = "successMsg"
                         strlbl_bottom.Text = "Berjaya Disimpan."
                         loadCadanganKuarters()
-
+                        newNotifikasi("USER", 33)
+                        Response.Redirect("Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20%3E%20Senarai%20Permohonan%20%3E%20Senarai%20Permohonan%20Menunggu")
                     Catch ex As Exception
                         Debug.WriteLine("Error(btnSimpanCadanganKuarters): " & ex.Message)
                     Finally
