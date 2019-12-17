@@ -39,6 +39,7 @@ Public Class permohonan_kuarters
         loadPangkalan()
         loadUser()
         readMaklumatAnak()
+        loadJenisTempatTinggal()
     End Sub
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
@@ -126,7 +127,7 @@ Public Class permohonan_kuarters
                 ddlSenaraiKuarters.DataTextField = "kuarters_nama"
                 ddlSenaraiKuarters.DataValueField = "kuarters_id"
                 ddlSenaraiKuarters.DataBind()
-                ddlSenaraiKuarters.Items.Insert(0, New ListItem("Senarai Kuarters...", String.Empty))
+                ddlSenaraiKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlSenaraiKuarters.SelectedIndex = 0
             Catch ex As Exception
                 Debug.Write("ERROR(loadKuarters): " & ex.Message)
@@ -139,8 +140,10 @@ Public Class permohonan_kuarters
     Private Function Save() As Boolean
         Dim kuartersId = ddlSenaraiKuarters.SelectedValue
         Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
-        Dim mulaMenetap = Convert.ToDateTime(dpTarikhMulaMenetap.Text).ToString("dd/MM/yyyy")
-        Dim tarikhPindah = Convert.ToDateTime(dpTarikhBertukar.Text).ToString("dd/MM/yyyy")
+        Dim mulaMenetap = DateTime.ParseExact(dpTarikhMulaMenetap.Text, "dd/MM/yyyy", Nothing)
+        If cbBertukarPangkalan.Checked Then
+            Dim tarikhPindah = DateTime.ParseExact(dpTarikhBertukar.Text, "dd/MM/yyyy", Nothing)
+        End If
         Dim totalAnak = datRespondent.Rows.Count
 
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
@@ -172,7 +175,12 @@ Public Class permohonan_kuarters
                         If insertHistoryPengguna(permohonanID) Then
                             If insertLogPermohonan(permohonanID) Then
                                 If insertHistoryAnak(permohonanID) Then
-                                    Return True
+                                    If newNotifikasi(permohonanID, "ADMIN", 29) Then
+                                        Return True
+                                    Else
+                                        Debug.WriteLine("Error(Save -> newNotifikasi)")
+                                        Return False
+                                    End If
                                 Else
                                     Debug.WriteLine("Error(Save -> insertHistoryAnak)")
                                     Return False
@@ -204,28 +212,19 @@ Public Class permohonan_kuarters
     End Function
 
     Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
-        Try
-            If validateSave() = True Then
-                If Save() = True Then
-                    newNotifikasi("ADMIN", 29)
-                    MsgTop.Attributes("class") = "successMsg"
-                    strlbl_top.Text = strSaveSuccessAlert
-                    MsgBottom.Attributes("class") = "successMsg"
-                    strlbl_bottom.Text = strSaveSuccessAlert
-                Else
-                    MsgTop.Attributes("class") = "errorMsg"
-                    strlbl_top.Text = strSaveFailAlert
-                    MsgBottom.Attributes("class") = "errorMsg"
-                    strlbl_bottom.Text = strSaveFailAlert
-                End If
+        If validateSave() = True Then
+            If Save() = True Then
+                MsgTop.Attributes("class") = "successMsg"
+                strlbl_top.Text = strSaveSuccessAlert
+                MsgBottom.Attributes("class") = "successMsg"
+                strlbl_bottom.Text = strSaveSuccessAlert
+            Else
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = strSaveFailAlert
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = strSaveFailAlert
             End If
-        Catch ex As Exception
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-            Debug.WriteLine("ERROR(saveFunction): " & ex.Message)
-        End Try
+        End If
     End Sub
 
     Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick
@@ -242,8 +241,11 @@ Public Class permohonan_kuarters
         ElseIf ddlSenaraiKuarters.SelectedValue = Nothing Then
             showMessage("ALERT", "Bahagian Kuarters/Rumah adalah perlu dipilih.")
             Return False
-        ElseIf IsDate(Convert.ToDateTime(dpTarikhMulaMenetap.Text).ToString("dd/MM/yy")) = False Then
+        ElseIf dpTarikhMulaMenetap.Text.Length <= 0 Then
             showMessage("ALERT", "Sila pilih tarikh mula menetap.")
+            Return False
+        ElseIf IsDate(dpTarikhMulaMenetap.Text) = False Then
+            showMessage("ALERT", "Sila masukkan tarikh mula yang betul.")
             Return False
         Else
             Return True
@@ -524,7 +526,6 @@ Public Class permohonan_kuarters
                 cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
                 cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = permohonanID
                 cmd.Parameters.Add("@pangkatID", SqlDbType.Int).Value = Integer.Parse(pangkatID.Value)
-                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = Integer.Parse(pID.Value)
                 cmd.Parameters.Add("@statusPerkahwinan", SqlDbType.NVarChar, 50).Value = lblStatusPerkahwinan.Text
                 cmd.Parameters.Add("@penggunaNoTentera", SqlDbType.NVarChar, 50).Value = lblNoTentera.Text
                 Try
@@ -587,7 +588,7 @@ Public Class permohonan_kuarters
         strlbl_bottom.Text = message
     End Sub
 
-    Protected Sub newNotifikasi(ByVal untuk As String, ByVal kumpulan As Integer)
+    Protected Function newNotifikasi(ByVal permohonanID As Integer, ByVal untuk As String, ByVal kumpulan As Integer) As Boolean
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Using cmd As New SqlCommand("INSERT INTO 
                 spk_notifikasi(
@@ -605,7 +606,7 @@ Public Class permohonan_kuarters
                     , @tarikh);"
                 )
                 cmd.Connection = conn
-                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = permohonanID
                 cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
                 cmd.Parameters.Add("@untuk", SqlDbType.NVarChar, 50).Value = untuk
                 cmd.Parameters.Add("@kumpulan", SqlDbType.Int).Value = kumpulan
@@ -613,11 +614,29 @@ Public Class permohonan_kuarters
                 Try
                     conn.Open()
                     cmd.ExecuteNonQuery()
+                    Return True
                 Catch ex As Exception
                     Debug.WriteLine("Error(newNotifikasi): " & ex.Message)
+                    Return False
                 Finally
                     conn.Close()
                 End Try
+            End Using
+        End Using
+    End Function
+
+    Protected Sub loadJenisTempatTinggal()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT config_parameter, config_value FROM general_config WHERE config_type = 'JENIS PENEMPATAN SEBELUM';", conn)
+                Using sda As New SqlDataAdapter(cmd)
+                    Dim ds As New DataSet
+                    sda.Fill(ds)
+                    ddlJenisPenempatan.DataSource = ds
+                    ddlJenisPenempatan.DataTextField = "config_parameter"
+                    ddlJenisPenempatan.DataValueField = "config_value"
+                    ddlJenisPenempatan.DataBind()
+                    ddlJenisPenempatan.Items.Insert(0, New ListItem("-- SILA PILIH --"))
+                End Using
             End Using
         End Using
     End Sub

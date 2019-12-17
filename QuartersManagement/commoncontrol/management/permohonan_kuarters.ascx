@@ -244,12 +244,7 @@
                     <td>Jenis Tempat Tinggal Akhir</td>
                     <td>:</td>
                     <td>
-                        <asp:DropDownList runat="server" CssClass="label" ID="ddlJenisPenempatan">
-                            <asp:ListItem Value="">-- SILA PILIH --</asp:ListItem>
-                            <asp:ListItem Value="Rumah Sewa">Rumah Sewa</asp:ListItem>
-                            <asp:ListItem Value="Wisma">Wisma (Keluarga Di Kampung)</asp:ListItem>
-                            <asp:ListItem Value="Seberang">Bertugas Di Seberang (Keluarga Berada Di Rumah Sewa Di Malaysia Barat)</asp:ListItem>
-                        </asp:DropDownList>
+                        <asp:DropDownList runat="server" CssClass="label" ID="ddlJenisPenempatan"></asp:DropDownList>
                     </td>
                 </tr>
                 <tr>
