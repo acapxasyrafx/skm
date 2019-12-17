@@ -68,13 +68,13 @@ Partial Public Class maklumat_pemohon
     Protected WithEvents lblNama As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''pengguna_id control.
+    '''pID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents pengguna_id As Global.System.Web.UI.WebControls.HiddenField
+    Protected WithEvents pID As Global.System.Web.UI.WebControls.HiddenField
 
     '''<summary>
     '''lblJantina control.

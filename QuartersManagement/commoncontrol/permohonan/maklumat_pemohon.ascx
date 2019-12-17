@@ -208,7 +208,7 @@
                 <td style="width: 5px;">:</td>
                 <td>
                     <h5 class="label" runat="server" id="lblNama"></h5>
-                    <asp:HiddenField runat="server" ID="pengguna_id" Value="" />
+                    <asp:HiddenField runat="server" ID="pID" Value="" />
                 </td>
             </tr>
             <tr>

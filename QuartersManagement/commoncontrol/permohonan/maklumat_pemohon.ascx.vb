@@ -73,7 +73,7 @@ Public Class maklumat_pemohon
                 Dim reader As SqlDataReader = cmd.ExecuteReader()
                 If reader.HasRows Then
                     Do While reader.Read()
-                        pengguna_id.Value = reader("pengguna_id")
+                        pID.Value = reader("pengguna_id")
                         lblNama.InnerText = reader("pengguna_nama")
                         lblTarikhLahir.InnerText = reader("pengguna_tarikh_lahir")
                         lblJantina.InnerText = reader("pengguna_jantina")
@@ -100,7 +100,7 @@ Public Class maklumat_pemohon
         End Using
     End Sub
     Private Function readMaklumatAnak() As Boolean
-        Dim penggunaID = pengguna_id.Value
+        Dim penggunaID = pID.Value
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim table As DataTable = New DataTable
             Dim da As New SqlDataAdapter("
@@ -135,7 +135,7 @@ Public Class maklumat_pemohon
         Dim query As String = ""
         Try
             query += String.Format("UPDATE spk_permohonan SET permohonan_tarikh = '{0}',permohonan_status 'PERMOHONAN MENUNGGU' WHERE permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid"))
-            query += String.Format("INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES({0},{1},{2},{3},'PERMOHONAN MENUNGGU');", Integer.Parse(pengguna_id.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
+            query += String.Format("INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES({0},{1},{2},{3},'PERMOHONAN MENUNGGU');", Integer.Parse(pID.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
             If (e.CommandName = "Approved") Then
                 Dim strCID = e.CommandArgument.ToString
                 oCommon.ExecuteSQL(query)
@@ -263,7 +263,7 @@ Public Class maklumat_pemohon
             INSERT INTO 
                 spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
             VALUES({0},{1},'{2}','PERMOHONAN DITOLAK');",
-            Integer.Parse(pengguna_id.Value),
+            Integer.Parse(pID.Value),
             Request.QueryString("uid"),
             Date.Now().ToString("dd/MM/yyyy")
             )
@@ -271,6 +271,8 @@ Public Class maklumat_pemohon
             oCommon.ExecuteSQL(updatePermohonan)
             oCommon.ExecuteSQL(insertLogPermohonan)
             dialogModal.Style.Add("display", "none")
+            newNotifikasi("USER", 36)
+            Response.Redirect("Senarai.Permohonan.Baru.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Baru")
         Catch ex As Exception
             Debug.WriteLine("Error(btnImg_ditolak_Click): " & ex.Message)
         End Try
@@ -290,13 +292,15 @@ Public Class maklumat_pemohon
             INSERT INTO 
                 spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) 
             VALUES({0},{1},'{2}','PERMOHONAN MENUNGGU');",
-            Integer.Parse(pengguna_id.Value),
+            Integer.Parse(pID.Value),
             Request.QueryString("uid"),
             Date.Now().ToString("dd/MM/yyyy")
             )
         Try
             oCommon.ExecuteSQL(updatePermohonan)
             oCommon.ExecuteSQL(insertLogPermohonan)
+            newNotifikasi("ADMIN", 30)
+            newNotifikasi("USER", 31)
             Response.Redirect("Senarai.Permohonan.Baru.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Baru")
         Catch ex As Exception
             Debug.WriteLine("Error(btnImg_lulus_Click): " & ex.Message)
@@ -305,5 +309,40 @@ Public Class maklumat_pemohon
 
     Private Sub Button1_ServerClick(sender As Object, e As EventArgs) Handles Button1.ServerClick
         confirmModal.Style.Add("display", "none")
+    End Sub
+
+    Protected Sub newNotifikasi(ByVal untuk As String, ByVal kumpulan As Integer)
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("INSERT INTO 
+                spk_notifikasi(
+                    permohonan_id
+                    , pengguna_id
+                    , notifikasi_untuk
+                    , notifikasi_kumpulan
+                    , notifikasi_tarikh
+                ) 
+                VALUES(
+                    @permohonanID
+                    , @penggunaID
+                    , @untuk
+                    , @kumpulan
+                    , @tarikh);"
+                )
+                cmd.Connection = conn
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
+                cmd.Parameters.Add("@untuk", SqlDbType.NVarChar, 50).Value = untuk
+                cmd.Parameters.Add("@kumpulan", SqlDbType.Int).Value = kumpulan
+                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    Debug.WriteLine("Error(newNotifikasi): " & ex.Message)
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
     End Sub
 End Class
