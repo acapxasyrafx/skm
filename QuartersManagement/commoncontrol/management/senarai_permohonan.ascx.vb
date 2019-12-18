@@ -32,6 +32,7 @@ Public Class senarai_permohonan
 
     Private Sub Load_Page()
         loadPangkalan()
+        loadStatusPermohonan()
         BindData(tblSenaraiPermohonan)
     End Sub
 
@@ -287,6 +288,27 @@ Public Class senarai_permohonan
             Finally
                 conn.Close()
             End Try
+        End Using
+    End Sub
+
+    Private Sub loadStatusPermohonan()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT config_parameter, config_value FROM general_config WHERE config_type = 'STATUS PERMOHONAN';", conn)
+                Using sda As New SqlDataAdapter(cmd)
+                    Try
+                        Dim ds As New DataSet
+                        sda.Fill(ds)
+                        ddlCarianStatus.DataSource = ds
+                        ddlCarianStatus.DataValueField = "config_value"
+                        ddlCarianStatus.DataTextField = "config_parameter"
+                        ddlCarianStatus.DataBind()
+                        ddlCarianStatus.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                        ddlCarianStatus.SelectedIndex = 0
+                    Catch ex As Exception
+                        Debug.WriteLine("ERROR(loadStatusPermohonan): " & ex.Message)
+                    End Try
+                End Using
+            End Using
         End Using
     End Sub
 

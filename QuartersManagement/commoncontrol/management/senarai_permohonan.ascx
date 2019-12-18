@@ -115,13 +115,7 @@
             <td>Status Permohonan</td>
             <td>:</td>
             <td>
-                <asp:DropDownList runat="server" ID="ddlCarianStatus" AutoPostBack="true">
-                    <asp:ListItem Text="--SILA PILIH--" Value="" />
-                    <asp:ListItem Text="PERMOHONAN BARU" Value="PERMOHONAN BARU"/>
-                    <asp:ListItem Text="PERMOHONAN MENUNGGU" Value="PERMOHONAN MENUNGGU" />
-                    <asp:ListItem Text="PERMOHONAN LULUS" Value="PERMOHONAN LULUS" />
-                    <asp:ListItem Text="PERMOHONAN DITOLAK" Value="PERMOHONAN DITOLAK" />
-                </asp:DropDownList>
+                <asp:DropDownList runat="server" ID="ddlCarianStatus" AutoPostBack="true"></asp:DropDownList>
             </td>
         </tr>
     </table>
