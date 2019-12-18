@@ -68,33 +68,6 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents lblTarikhKeputusan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''mvStatusPermohonan control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents mvStatusPermohonan As Global.System.Web.UI.WebControls.MultiView
-
-    '''<summary>
-    '''viewPemohonanDir control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents viewPemohonanDir As Global.System.Web.UI.WebControls.View
-
-    '''<summary>
-    '''tblMaklumatAnak control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents tblMaklumatAnak As Global.System.Web.UI.WebControls.GridView
-
-    '''<summary>
     '''lblJenisTempatTinggal control.
     '''</summary>
     '''<remarks>
@@ -113,6 +86,15 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents lblTarikhMulaMenetap As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''tblMaklumatAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tblMaklumatAnak As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
     '''lblKuarterDipohon control.
     '''</summary>
     '''<remarks>
@@ -129,6 +111,15 @@ Partial Public Class maklumat_permohonan
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTarikhPermohonan As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''mvStatusPermohonan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents mvStatusPermohonan As Global.System.Web.UI.WebControls.MultiView
 
     '''<summary>
     '''viewCadanganKuarters control.
