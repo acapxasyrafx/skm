@@ -111,9 +111,7 @@ Public Class senarai_permohonan
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
             Return False
         End Try
-
         Return True
-
     End Function
 
     Private Sub tblSenaraiPermohonan_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles tblSenaraiPermohonan.RowCommand
@@ -141,21 +139,27 @@ Public Class senarai_permohonan
 
     Private Sub btnBatalPermohonan_Click(sender As Object, e As EventArgs) Handles btnBatalPermohonan.Click
         Dim batal As Boolean
-        Debug.WriteLine("permohonanID:" & hiddenPermohonanID.Value)
-        Debug.WriteLine("Note:" & txtNota.Text)
-        batal = batalPermohonan(hiddenPermohonanID.Value)
-        If batal Then
-            MsgTop.Attributes("class") = "successMsg"
-            strlbl_top.Text = strSaveSuccessAlert
-            MsgBottom.Attributes("class") = "successMsg"
-            strlbl_bottom.Text = strSaveSuccessAlert
-            closeModal()
-            Load_Page()
+        If canCancel(hiddenPermohonanID.Value) Then
+            batal = batalPermohonan(hiddenPermohonanID.Value)
+            If batal Then
+                MsgTop.Attributes("class") = "successMsg"
+                strlbl_top.Text = strSaveSuccessAlert
+                MsgBottom.Attributes("class") = "successMsg"
+                strlbl_bottom.Text = strSaveSuccessAlert
+                closeModal()
+                Load_Page()
+            Else
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = strSaveFailAlert
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = strSaveFailAlert
+            End If
         Else
+            closeModal()
             MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSaveFailAlert
+            strlbl_top.Text = "Hanya Permohonan Baru boleh dibatalkan."
             MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strSaveFailAlert
+            strlbl_bottom.Text = "Hanya Permohonan Baru boleh dibatalkan."
         End If
     End Sub
 
@@ -329,5 +333,41 @@ Public Class senarai_permohonan
 
     Private Sub ddlCarianStatus_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlCarianStatus.SelectedIndexChanged
         BindData(tblSenaraiPermohonan)
+    End Sub
+
+    Protected Function canCancel(ByVal pID As Integer) As Boolean
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT permohonan_status_permohonan FROM spk_permohonan WHERE permohonan_id = " & pID & ";", conn)
+                Using reader As SqlDataReader = cmd.ExecuteReader
+                    If reader.HasRows() Then
+                        While (reader.Read())
+                            Select Case reader("permohonan_status_permohonan")
+                                Case "PERMOHONAN BARU"
+                                    Return True
+                                Case Else
+                                    Return False
+                            End Select
+                        End While
+                    Else
+                        Debug.WriteLine("ERROR(canCancel): Not found pID(" & pID & ")")
+                        Return False
+                    End If
+                End Using
+            End Using
+        End Using
+        Return False
+    End Function
+
+    Protected Function test(ByVal query As String, Optional dt As DropDownList = Nothing)
+
+    End Function
+
+
+    Protected Sub newNotifkasi(ByVal untuk As String, ByVal kumpulan As Integer, ByVal permohonanID As Integer)
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("", conn)
+
+            End Using
+        End Using
     End Sub
 End Class
