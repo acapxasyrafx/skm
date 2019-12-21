@@ -112,7 +112,8 @@
     .table{
         cursor: pointer;
     }
-
+    
+    /*Tabs styling*/
     .tab-buttons {
         overflow: hidden;
         border: 1px solid #ccc;
@@ -154,6 +155,30 @@
         from {opacity: 0;}
         to {opacity: 1;}
     }
+    
+    /*Collapsible styling*/
+    .collapsible {
+        background-color: #eee;
+        color: #444;
+        cursor:pointer;
+        padding: 18px;
+        width: 97%;
+        border: none;
+        text-align:left;
+        font-size: 15px;
+    }
+    
+    .active, collapsible:hover {
+        background-color: #ccc;
+    }
+    
+    .content {
+        padding: 20px 18px;
+        display: none;
+        overflow: hidden;
+        /*background-color: #f1f1f1;*/
+        border: 1px solid #f1f1f1;
+    }
 </style>
 <div class="status-permohonan" style="height: 85vh;">
     <div class="div-center fbform" style="padding-bottom: 15px;">
@@ -169,165 +194,169 @@
             </li>
         </ul>
     </div>
+    <div>
+        <div class="collapsible fbform">
+            Maklumat Permohonan
+        </div>
+        <div class="content">
+            <div class="maklumat-pemohon">
+                <table style="width: 100%;">
+                    <tr>
+                        <td colspan="3" class="fbform">
+                            <div class="tab-buttons">
+                                <button class="tab-button" onclick="openContent(event, 'pemohon')" id="default">Maklumat Pemohon</button>
+                                <button class="tab-button" onclick="openContent(event, 'keluarga')">Maklumat Keluarga</button>
+                                <button class="tab-button" onclick="openContent(event, 'anak')">Maklumat Anak</button>
+                            </div>
+                            <div id="pemohon" class="tab-content">
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td style="width: 150px;">Pangkat</td>
+                                        <td>:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">No. Tentera</td>
+                                        <td>:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">Nama</td>
+                                        <td>:</td>
+                                        <td>Amir Hamzah</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">Jantina</td>
+                                        <td>:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">Tarikh Lahir</td>
+                                        <td>:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">Status Perkahwinan</td>
+                                        <td>:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">Tarikh Mula Berkhidmat</td>
+                                        <td>:</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">Tarikh Tamat Perkhidmatan</td>
+                                        <td>:</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="keluarga" class="tab-content">
+                                <table class="fbform" style="width: 100%;">
+                                    <tr class="fbform_mheader">
+                                        <td colspan="3">Maklumat Keluarga</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 150px;">Jenis Tempat Tinggal</td>
+                                        <td style="width: 5px;">:</td>
+                                        <td>
+                                            <asp:Label Text="text" runat="server" ID="lblJenisTempatTinggal" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tarikh Mula Menetap</td>
+                                        <td>:</td>
+                                        <td>
+                                            <asp:Label Text="text" runat="server" ID="lblTarikhMulaMenetap" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="anak" class="tab-content">
+                                <table class="fbform">
+                                    <tr class="fbform_mheader">
+                                        <td>Maklumat Anak</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <asp:GridView
+                                                ID="tblMaklumatAnak"
+                                                runat="server"
+                                                DataKeyNames="historyAnak_id"
+                                                AutoGenerateColumns="False"
+                                                AllowPaging="false"
+                                                CellPadding="4"
+                                                ForeColor="#333333"
+                                                GridLines="None"
+                                                Width="100%"
+                                                PageSize="100"
+                                                CssClass="gridview_footer">
+                                                <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="#">
+                                                        <ItemTemplate>
+                                                            <%# Container.DataItemIndex + 1 %>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
+                                                        <ItemStyle VerticalAlign="Middle" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderText="Nama">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblHistoryNamaAnak" runat="server" Text='<%# Bind("historyAnak_nama")%>'></asp:Label>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                    </asp:TemplateField>
+
+                                                    <asp:TemplateField HeaderText="KP">
+                                                        <ItemTemplate>
+                                                            <asp:Label ID="lblHistoryAnak" runat="server" Text='<%# Bind("historyAnak_ic")%>'></asp:Label>
+                                                        </ItemTemplate>
+                                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
+                                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                                    </asp:TemplateField>
+                                                </Columns>
+                                                <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
+                                                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
+                                                <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+                                                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle" HorizontalAlign="Center" />
+                                                <EditRowStyle BackColor="#999999" />
+                                                <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                            </asp:GridView>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="maklumat-permohonan">
+                <table class="fbform" style="width: 100%;">
+                    <tr class="fbform_mheader">
+                        <td colspan="3">Maklumat Kuarters Dimohon</td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;">Nama Kuarters</td>
+                        <td style="width: 5px;">:</td>
+                        <td>
+                            <asp:Label runat="server" ID="lblKuarterDipohon" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;">Tarikh Permohonan</td>
+                        <td style="width: 5px;">:</td>
+                        <td>
+                            <asp:Label runat="server" ID="lblTarikhPermohonan" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
     <div class="" style="width: 100%;">
-        <div class="maklumat-pemohon">
-            <table class="fbform" style="width: 100%;">
-                <tr class="fbform_mheader">
-                    <td colspan="3">Maklumat Pemohon</td>
-                </tr>
-                <tr>
-                    <td colspan="3">
-                        <div class="tab-buttons">
-                            <button class="tab-button" onclick="openContent(event, 'pemohon')" id="default">Maklumat Pemohon</button>
-                            <button class="tab-button" onclick="openContent(event, 'keluarga')">Maklumat Keluarga</button>
-                            <button class="tab-button" onclick="openContent(event, 'anak')">Maklumat Anak</button>
-                        </div>
-                        <div id="pemohon" class="tab-content">
-                            <table style="width: 100%">
-                                <tr>
-                                    <td style="width: 150px;">Pangkat</td>
-                                    <td>:</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 150px;">No. Tentera</td>
-                                    <td>:</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 150px;">Nama</td>
-                                    <td>:</td>
-                                    <td>Amir Hamzah</td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 150px;">Jantina</td>
-                                    <td>:</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 150px;">Tarikh Lahir</td>
-                                    <td>:</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 150px;">Status Perkahwinan</td>
-                                    <td>:</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 150px;">Tarikh Mula Berkhidmat</td>
-                                    <td>:</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 150px;">Tarikh Tamat Perkhidmatan</td>
-                                    <td>:</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div id="keluarga" class="tab-content">
-                            <table class="fbform" style="width: 100%;">
-                                <tr class="fbform_mheader">
-                                    <td colspan="3">Maklumat Keluarga</td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 150px;">Jenis Tempat Tinggal</td>
-                                    <td style="width: 5px;">:</td>
-                                    <td>
-                                        <asp:Label Text="text" runat="server" ID="lblJenisTempatTinggal" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Tarikh Mula Menetap</td>
-                                    <td>:</td>
-                                    <td>
-                                        <asp:Label Text="text" runat="server" ID="lblTarikhMulaMenetap" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div id="anak" class="tab-content">
-                            <table class="fbform">
-                                <tr class="fbform_mheader">
-                                    <td>Maklumat Anak</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <asp:GridView
-                                            ID="tblMaklumatAnak"
-                                            runat="server"
-                                            DataKeyNames="historyAnak_id"
-                                            AutoGenerateColumns="False"
-                                            AllowPaging="false"
-                                            CellPadding="4"
-                                            ForeColor="#333333"
-                                            GridLines="None"
-                                            Width="100%"
-                                            PageSize="100"
-                                            CssClass="gridview_footer">
-                                            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                                            <Columns>
-                                                <asp:TemplateField HeaderText="#">
-                                                    <ItemTemplate>
-                                                        <%# Container.DataItemIndex + 1 %>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
-                                                    <ItemStyle VerticalAlign="Middle" />
-                                                </asp:TemplateField>
-
-                                                <asp:TemplateField HeaderText="Nama">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblHistoryNamaAnak" runat="server" Text='<%# Bind("historyAnak_nama")%>'></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                </asp:TemplateField>
-
-                                                <asp:TemplateField HeaderText="KP">
-                                                    <ItemTemplate>
-                                                        <asp:Label ID="lblHistoryAnak" runat="server" Text='<%# Bind("historyAnak_ic")%>'></asp:Label>
-                                                    </ItemTemplate>
-                                                    <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
-                                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                                </asp:TemplateField>
-                                            </Columns>
-                                            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
-                                            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
-                                            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                                            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle" HorizontalAlign="Center" />
-                                            <EditRowStyle BackColor="#999999" />
-                                            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                                        </asp:GridView>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="maklumat-permohonan">
-            <table class="fbform" style="width: 100%;">
-                <tr class="fbform_mheader">
-                    <td colspan="3">Maklumat Kuarters Dimohon</td>
-                </tr>
-                <tr>
-                    <td style="width: 150px;">Nama Kuarters</td>
-                    <td style="width: 5px;">:</td>
-                    <td>
-                        <asp:Label runat="server" ID="lblKuarterDipohon" />
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 150px;">Tarikh Permohonan</td>
-                    <td style="width: 5px;">:</td>
-                    <td>
-                        <asp:Label runat="server" ID="lblTarikhPermohonan" />
-                    </td>
-                </tr>
-            </table>
-        </div>
         <div class="detail-status">
             <asp:MultiView ActiveViewIndex="0" runat="server" ID="mvStatusPermohonan">
                 <asp:View runat="server" ID="viewCadanganKuarters">
@@ -362,7 +391,7 @@
                                     </p>
                                     <br />
                                 </div>
-                                <p>Sila <b>PILIH</b> dari senarai kuarters yang dicadangkan dibawah jika Tuan/Puan masih berniat untuk meneruskan permohonan Tuan/Puan: </p>
+                                <p>Sila <b>PILIH</b> dari senarai kuarters yang dicadangkan dibawah jika Tuan/Puan masih berminat untuk meneruskan permohonan Tuan/Puan: </p>
                             </td>
                         </tr>
                         <tr>
@@ -482,6 +511,7 @@
     </table>
 </div>
 <script>
+    //--TABS--
     function openContent(e, divID) {
         e.preventDefault();
         var i, tabContents, tabButtons;
@@ -498,5 +528,22 @@
         document.getElementById(divID).style.display = "block";
         e.currentTarget.className += " active";
     }
+    //Tabs click default
     document.getElementById("default").click();
+    //--TABS--
+
+    //--COLLAPSIBLES
+    var colls = document.getElementsByClassName("collapsible");
+    for (var i = 0; i < colls.length; i++) {
+        colls[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+    //--COLLAPSIBLES
 </script>
