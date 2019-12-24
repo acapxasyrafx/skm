@@ -527,8 +527,17 @@
                     </asp:View>
                     <asp:View runat="server">
                         <div class="maklumat-diterima fbform">
-                            <p>Permohonan telah <b>DILULUSKAN</b>.</p>
-                            <p> Sila tunggu hingga surat tawaran dihantar untuk no unit dan tarikh kemasukan.</p>
+                            <table style="width:100%; height: 100%;">
+                                <tr class="fbform_mheader">
+                                    <td colspan="3">Status Permohonan</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="align-content:center; text-align:center;">
+                                        <p>Permohonan telah <b>DILULUSKAN</b>.</p>
+                                        <p> Sila tunggu hingga surat tawaran disiapkan untuk no unit dan tarikh kemasukan.</p>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </asp:View>
                     <asp:View runat="server">
