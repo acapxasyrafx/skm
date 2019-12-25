@@ -604,7 +604,7 @@
                             <asp:GridView
                                 ID="gvSenaraiKuarters"
                                 runat="server"
-                                DataKeyNames="kuarters_id"
+                                DataKeyNames="kuarters_dicadang"
                                 AutoGenerateColumns="False"
                                 AllowPaging="false"
                                 CellPadding="4"
@@ -651,9 +651,35 @@
                                 </EmptyDataTemplate>
                                 <EmptyDataRowStyle HorizontalAlign="Center" VerticalAlign="Bottom" BackColor="White" ForeColor="#284775" />
                             </asp:GridView>
-                            <div class="btn-group">
+                            <div class="btn-group" runat="server" id="bgCadangnaKuarters">
                                 <asp:Button Text="Simpan" runat="server" ID="btnTerimaCadangan"/>
-                                <asp:Button Text="Batal Permohonan" runat="server" ID="btnTolakCadangan"/>
+                                <div>
+                                    <input type="button" ID="openModal3" value="Tolak"/>
+                                    <div id="modal3" class="modal">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <span class="close">&times;</span>
+                                        <h2>Batal Permohonan?</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h4>Sebab membatalken permohonan:</h4>
+                                        <div>
+                                            <asp:TextBox 
+                                                runat="server" 
+                                                ID="tbTolakCadanganKuarters"
+                                                Text="Membatalkan permohonan."
+                                                TextMode="MultiLine"
+                                                width="400px"
+                                                height="150px"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <asp:Button Text="Simpan" CssClass="footer-btn" runat="server" ID="btnTolakCadangan" />
+                                    </div>
+                                </div>
+                            </div>
+                                </div>
                             </div>
                         </div>
                     </asp:View>
@@ -766,8 +792,10 @@
     //MODAL
     var modal1 = document.getElementById("modal1");
     var modal2 = document.getElementById("modal2");
+    var modal3 = document.getElementById("modal3");
     var btn1 = document.getElementById("openModal1");
     var btn2 = document.getElementById("openModal2");
+    var btn3 = document.getElementById("openModal3")
     var closeSpan = document.getElementsByClassName("close")[0];
 
     if (typeof (btn1) != 'undefined' && btn1 != null) {
@@ -784,6 +812,15 @@
         }
     } else {
         console.log("btn2 undefined/null");
+    }
+
+
+    if (typeof (btn3) != 'undefined' && btn3 != null) {
+        btn3.onclick = function () {
+            modal3.style.display = "block";
+        }
+    } else {
+        console.log("btn3 undefined/null");
     }
 
     if (typeof (closeSpan) != 'undefined' && closeSpan != null) {

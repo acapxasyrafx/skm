@@ -36,7 +36,6 @@ Public Class maklumat_permohonan
         maklumatPermohonan()
         maklumatAnak()
         maklumatStatusPermohonan()
-
     End Sub
 
     Private Sub maklumatPermohonan()
@@ -269,7 +268,7 @@ Public Class maklumat_permohonan
     Private Sub gvSenaraiKuarters_RowDataBound(sender As Object, e As GridViewRowEventArgs) Handles gvSenaraiKuarters.RowDataBound
         If e.Row.RowType = DataControlRowType.DataRow Then
             e.Row.Attributes("onclick") = Page.ClientScript.GetPostBackClientHyperlink(gvSenaraiKuarters, "Select$" & e.Row.RowIndex)
-            e.Row.ToolTip = "Klik row untuk pilih kuarters."
+            e.Row.ToolTip = "Klik untuk pilih kuarters."
         End If
     End Sub
 
@@ -287,48 +286,6 @@ Public Class maklumat_permohonan
             End If
         Next
     End Sub
-
-    'Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
-    '    Dim idKuartersDiplih As Integer
-    '    Dim setRef As String = ""
-    '    Dim query = "UPDATE spk_permohonan SET kuarters_id = {0}, permohonan_sub_status = 'TUNGGU KELULUSAN' WHERE permohonan_id = {1};"
-    '    For Each row As GridViewRow In tblCadanganKuarters.Rows
-    '        If row.RowIndex = tblCadanganKuarters.SelectedIndex Then
-    '            idKuartersDiplih = Integer.Parse(tblCadanganKuarters.DataKeys(row.RowIndex).Value)
-    '        End If
-    '    Next
-
-    '    If idKuartersDiplih = Nothing Then
-    '        MsgTop.Attributes("class") = "errorMsg"
-    '        strlbl_top.Text = "Sila pilih SATU kuarters untuk meneruskan proses permohonan."
-    '        MsgBottom.Attributes("class") = "errorMsg"
-    '        strlbl_bottom.Text = "Sila pilih SATU kuarters untuk meneruskan proses permohonan."
-    '    ElseIf idKuartersDiplih > 0 Then
-    '        setRef = oCommon.ExecuteSQL(String.Format(query, idKuartersDiplih, permohonanID))
-    '        If setRef = "0" Then
-    '            If setRef = "0" Then
-    '                MsgTop.Attributes("class") = "successMsg"
-    '                strlbl_top.Text = "Pemilihan kuarters berjaya. Pemohonan anda diprosess"
-    '                MsgBottom.Attributes("class") = "successMsg"
-    '                strlbl_bottom.Text = "Pemilihan kuarters bejaya. Pemohonan anda diprosess"
-    '                SaveFunction.Disabled = True
-    '                Load_Page()
-    '            Else
-    '                MsgTop.Attributes("class") = "errorMsg"
-    '                strlbl_top.Text = strSaveFailAlert
-    '                MsgBottom.Attributes("class") = "errorMsg"
-    '                strlbl_bottom.Text = strSaveFailAlert
-    '                Debug.WriteLine("Error(SaveFunction_ServerClick):" & setRef)
-    '            End If
-    '        Else
-    '            MsgTop.Attributes("class") = "errorMsg"
-    '            strlbl_top.Text = strSaveFailAlert
-    '            MsgBottom.Attributes("class") = "errorMsg"
-    '            strlbl_bottom.Text = strSaveFailAlert
-    '            Debug.WriteLine("Error(SaveFunction_ServerClick):" & setRef)
-    '        End If
-    '    End If
-    'End Sub
 
     Private Function checkCadanganKuarters() As Boolean
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
@@ -357,7 +314,7 @@ Public Class maklumat_permohonan
         SET	
 	        status_dicadang = 'DIRUJUK'
         WHERE
-	        pengguna_id = " & penggunaID & " AND permohonan_id = " & permohonanID & ";"
+	        pengguna_id = " & penggunaID & " AND permohonan_id = " & Request.QueryString("permohonan") & ";"
         setRef = oCommon.ExecuteSQL(query)
         If setRef = "0" Then
             Debug.WriteLine("updateCadanganKuartersStatus")
@@ -382,7 +339,8 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
                         Debug.WriteLine("Error(btnBatalPermohonan): " & ex.Message)
                     Finally
                         conn.Close()
-                        Response.Redirect("Maklumat.Permohonan.Pengguna.aspx?p=Maklumat%20Permohonan&permohonan=" & Request.QueryString("permohonan"))
+                        newNotifikasi(Request.QueryString("permohonan"), "ADMIN", 35)
+                        Load_Page()
                     End Try
                 End Using
             End Using
@@ -404,7 +362,7 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
                     Debug.WriteLine("Error(btnTerimaTawaran): " & ex.Message)
                 Finally
                     conn.Close()
-                    Response.Redirect("Maklumat.Permohonan.Pengguna.aspx?p=Maklumat%20Permohonan&permohonan=" & Request.QueryString("permohonan"))
+                    Load_Page()
                 End Try
             End Using
         End Using
@@ -429,7 +387,8 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
                         Debug.WriteLine("Error(btnBatalPermohonan): " & ex.Message)
                     Finally
                         conn.Close()
-                        Response.Redirect("Maklumat.Permohonan.Pengguna.aspx?p=Maklumat%20Permohonan&permohonan=" & Request.QueryString("permohonan"))
+                        newNotifikasi(Request.QueryString("permohonan"), "ADMIN", 35)
+                        Load_Page()
                     End Try
                 End Using
             End Using
@@ -439,4 +398,110 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
     Private Sub lbPermohonanBaru_Click(sender As Object, e As EventArgs) Handles lbPermohonanBaru.Click
         Response.Redirect("Permohonan.Kuarters.aspx?p=Permohonan%20Kuarters")
     End Sub
+
+    Private Sub btnTerimaCadangan_Click(sender As Object, e As EventArgs) Handles btnTerimaCadangan.Click
+        Dim idKuartersDiplih As Integer
+        Dim setRef As String = ""
+        Dim query = "UPDATE spk_permohonan SET kuarters_id = {0}, permohonan_sub_status = 'TERIMA CADANGAN KUARTERS' WHERE permohonan_id = {1};"
+        For Each row As GridViewRow In gvSenaraiKuarters.Rows
+            If row.RowIndex = gvSenaraiKuarters.SelectedIndex Then
+                idKuartersDiplih = Integer.Parse(gvSenaraiKuarters.DataKeys(row.RowIndex).Value)
+            End If
+        Next
+
+        If idKuartersDiplih = Nothing Then
+            MsgTop.Attributes("class") = "errorMsg"
+            strlbl_top.Text = "Sila pilih SATU kuarters untuk meneruskan proses permohonan."
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = "Sila pilih SATU kuarters untuk meneruskan proses permohonan."
+        ElseIf idKuartersDiplih > 0 Then
+            setRef = oCommon.ExecuteSQL(String.Format(query, idKuartersDiplih, Request.QueryString("permohonan")))
+            If setRef = "0" Then
+                If setRef = "0" Then
+                    MsgTop.Attributes("class") = "successMsg"
+                    strlbl_top.Text = "Pemilihan kuarters berjaya. Pemohonan anda diprosess"
+                    MsgBottom.Attributes("class") = "successMsg"
+                    strlbl_bottom.Text = "Pemilihan kuarters bejaya. Pemohonan anda diprosess"
+                    bgCadangnaKuarters.Visible = False
+                    updateCadanganKuartersStatus()
+                    newNotifikasi(Request.QueryString("permohonan"), "ADMIN", 30)
+                    Load_Page()
+                Else
+                    MsgTop.Attributes("class") = "errorMsg"
+                    strlbl_top.Text = strSaveFailAlert
+                    MsgBottom.Attributes("class") = "errorMsg"
+                    strlbl_bottom.Text = strSaveFailAlert
+                    Debug.WriteLine("Error(SaveFunction_ServerClick):" & setRef)
+                End If
+            Else
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = strSaveFailAlert
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = strSaveFailAlert
+                Debug.WriteLine("Error(SaveFunction_ServerClick):" & setRef)
+            End If
+        End If
+    End Sub
+
+    Private Sub btnTolakCadangan_Click(sender As Object, e As EventArgs) Handles btnTolakCadangan.Click
+        Dim query = "
+        UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN DITOLAK' , permohonan_sub_status = 'TOLAK TAWARAN UNIT' , permohonan_nota = @sebab , permohonan_tarikh = '" & Date.Now.ToString("dd/MM/yy") & "' WHERE permohonan_id = @permohonanID; 
+        INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (" & penggunaID & ", @permohonanID, '" & Date.Now & "', 'PERMOHONAN DITOLAK');"
+        If tbSebabBatal.Text.Length > 0 Then
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand(query)
+                    cmd.Connection = conn
+                    cmd.Parameters.Add("@sebab", SqlDbType.NVarChar, 50).Value = tbTolakCadanganKuarters.Text
+                    cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("permohonan")
+                    Try
+                        conn.Open()
+                        cmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        Debug.WriteLine("Error(btnBatalPermohonan): " & ex.Message)
+                    Finally
+                        conn.Close()
+                        newNotifikasi(Request.QueryString("permohonan"), "ADMIN", 35)
+                        Load_Page()
+                    End Try
+                End Using
+            End Using
+        End If
+    End Sub
+
+    Protected Function newNotifikasi(ByVal permohonanID As Integer, ByVal untuk As String, ByVal kumpulan As Integer) As Boolean
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("INSERT INTO 
+                spk_notifikasi(
+                    permohonan_id
+                    , pengguna_id
+                    , notifikasi_untuk
+                    , notifikasi_kumpulan
+                    , notifikasi_tarikh
+                ) 
+                VALUES(
+                    @permohonanID
+                    , @penggunaID
+                    , @untuk
+                    , @kumpulan
+                    , @tarikh);"
+                )
+                cmd.Connection = conn
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = permohonanID
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = penggunaID
+                cmd.Parameters.Add("@untuk", SqlDbType.NVarChar, 50).Value = untuk
+                cmd.Parameters.Add("@kumpulan", SqlDbType.Int).Value = kumpulan
+                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                    Return True
+                Catch ex As Exception
+                    Debug.WriteLine("Error(newNotifikasi): " & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+    End Function
 End Class

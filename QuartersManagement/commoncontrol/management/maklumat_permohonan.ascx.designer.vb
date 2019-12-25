@@ -365,6 +365,15 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents gvSenaraiKuarters As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
+    '''bgCadangnaKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents bgCadangnaKuarters As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''btnTerimaCadangan control.
     '''</summary>
     '''<remarks>
@@ -372,6 +381,15 @@ Partial Public Class maklumat_permohonan
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnTerimaCadangan As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''tbTolakCadanganKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbTolakCadanganKuarters As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''btnTolakCadangan control.
