@@ -1,6 +1,7 @@
 ﻿Imports System.Data
 Imports System.Drawing
 Imports System.Data.SqlClient
+Imports System.Web.UI.HtmlControls
 Public Class maklumat_permohonan
     Inherits System.Web.UI.UserControl
 
@@ -67,6 +68,9 @@ Public Class maklumat_permohonan
 	                , E.historyKeluarga_tarikh_akhir
 					, H.suratTawaran_content
 					, H.suratTawaran_tarikh_dibuat
+                    , I.unit_id
+					, (I.unit_blok + '-' + I.unit_tingkat + '-' + I.unit_nombor) as 'unit_nama'
+                    , A.permohonan_tarikh_kemasukan
                 FROM 
 	                spk_permohonan A
 	                LEFT JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
@@ -76,6 +80,7 @@ Public Class maklumat_permohonan
 	                LEFT JOIN spk_pangkat F ON F.pangkat_id = D.pangkat_id
 	                LEFT JOIN spk_pengguna G ON G.pengguna_id = D.pengguna_id
 					LEFT JOIN spk_suratTawaran H ON H.permohonan_id = A.permohonan_id
+					LEFT JOIN spk_unit I ON I.unit_id = A.unit_id
                 WHERE
                     A.permohonan_id = " & permohonanID & "
                 ;
@@ -85,29 +90,42 @@ Public Class maklumat_permohonan
                 Using reader As SqlDataReader = cmd.ExecuteReader
                     If reader.HasRows Then
                         While reader.Read()
-                            lblPangkat.Text = reader("pangkat_nama")
-                            lblNoTentera.Text = reader("historyPengguna_penggunaNoTentera")
-                            lblNama.Text = reader("pengguna_nama")
-                            lblJantina.Text = reader("pengguna_jantina")
-                            lblTarikhLahir.Text = reader("pengguna_tarikh_lahir")
-                            lblStatusKahwin.Text = reader("historyPengguna_statusPerkahwinan")
-                            lblMulaBerkhidmat.Text = reader("pengguna_mula_perkhidmatan")
-                            lblTamatBerkhidmat.Text = reader("pengguna_tamat_perkhidmatan")
-                            lblJenisTempatTinggal.Text = reader("historyKeluarga_tempat_tinggal")
+                            lblPangkat.Text = reader("pangkat_nama").ToString()
+                            lblNoTentera.Text = reader("historyPengguna_penggunaNoTentera").ToString()
+                            lblNama.Text = reader("pengguna_nama").ToString()
+                            lblJantina.Text = reader("pengguna_jantina").ToString()
+                            lblTarikhLahir.Text = reader("pengguna_tarikh_lahir").ToString()
+                            lblStatusKahwin.Text = reader("historyPengguna_statusPerkahwinan").ToString()
+                            lblMulaBerkhidmat.Text = reader("pengguna_mula_perkhidmatan").ToString()
+                            lblTamatBerkhidmat.Text = reader("pengguna_tamat_perkhidmatan").ToString()
+                            lblJenisTempatTinggal.Text = reader("historyKeluarga_tempat_tinggal").ToString()
                             lblTarikhMulaMenetap.Text = reader("historyKeluarga_tarikh_mula").ToString()
-                            lblKuarterDipohon.Text = reader("kuarters_nama")
-                            lblTarikhPermohonan.Text = reader("permohonan_tarikh")
-                            statusPermohonan = reader("permohonan_status")
-                            subStatusPermohonan = reader("permohonan_sub_status").ToString
-                            Debug.WriteLine("Success: maklumatUser")
+                            lblKuarterDipohon.Text = reader("kuarters_nama").ToString()
+                            lblTarikhPermohonan.Text = reader("permohonan_tarikh").ToString()
+                            statusPermohonan = reader("permohonan_status").ToString()
+                            subStatusPermohonan = reader("permohonan_sub_status").ToString()
+                            hfUnitID.Value = reader("unit_id").ToString()
                             Select Case statusPermohonan
                                 Case "PERMOHONAN BARU"
                                     mvMaklumatStatus.ActiveViewIndex = 0
                                 Case "PERMOHONAN MENUNGGU"
                                     Select Case subStatusPermohonan
                                         Case "TAWARAN UNIT"
-                                            btnField.Visible = True
+                                            pText.InnerText = "Berikut adalah surat tawaran unit. Jika bersetuju dengan unit yang diterima, sila klik 'Terima'"
                                             divSuratTawaran.InnerHtml = Server.HtmlDecode(reader("suratTawaran_content"))
+                                            lblUnit.Text = reader("unit_nama")
+                                            lblTarikhMasuk.Text = reader("permohonan_tarikh_kemasukan")
+                                            trUnitDitawarkan.Visible = True
+                                            trTarikhMasuk.Visible = True
+                                            mvMaklumatStatus.ActiveViewIndex = 2
+                                        Case "TERIMA TAWARAN UNIT"
+                                            pText.InnerText = "Berikut adalah surat tawaran yang dihantar."
+                                            divSuratTawaran.InnerHtml = Server.HtmlDecode(reader("suratTawaran_content"))
+                                            lblUnit.Text = reader("unit_nama")
+                                            lblTarikhMasuk.Text = reader("permohonan_tarikh_kemasukan")
+                                            trUnitDitawarkan.Visible = True
+                                            trTarikhMasuk.Visible = True
+                                            btnGroupTerimaTawaran.Visible = False
                                             mvMaklumatStatus.ActiveViewIndex = 2
                                         Case "CADANGKAN KUARTERS LAIN"
                                             btnField.Visible = True
@@ -118,16 +136,17 @@ Public Class maklumat_permohonan
                                             mvMaklumatStatus.ActiveViewIndex = 1
                                     End Select
                                 Case "PERMOHONAN DITOLAK"
-                                    If subStatusPermohonan.Equals("DITOLAK") Then
-                                        lblSebabDitolak.Text = reader("permohonan_nota")
-                                        mvMaklumatStatus.ActiveViewIndex = 4
-                                    ElseIf subStatusPermohonan.Equals("DIBATAL") Then
-                                        lblSebabDibatal.Text = reader("permohonan_nota")
-                                        mvMaklumatStatus.ActiveViewIndex = 5
-                                    End If
-                                Case Else
-                                    Debug.WriteLine("Status(Else): " & statusPermohonan)
-                                    mvMaklumatStatus.ActiveViewIndex = 0
+                                    lblSebabDitolak.Text = reader("permohonan_nota").ToString
+                                    lblKeputusanTolak.Text = reader("permohonan_sub_status")
+                                    mvMaklumatStatus.ActiveViewIndex = 4
+                                Case "PERMOHONAN DITERIMA"
+                                    lblKeputusanTerima.Text = statusPermohonan
+                                    pSuratTawaran.InnerHtml = Server.HtmlDecode(reader("suratTawaran_content"))
+                                    lblUnit.Text = reader("unit_nama")
+                                    lblTarikhMasuk.Text = reader("permohonan_tarikh_kemasukan")
+                                    trUnitDitawarkan.Visible = True
+                                    trTarikhMasuk.Visible = True
+                                    mvMaklumatStatus.ActiveViewIndex = 5
                             End Select
                         End While
                     Else
@@ -137,6 +156,9 @@ Public Class maklumat_permohonan
             Catch ex As Exception
                 Debug.WriteLine("Error(maklumatPermohonan): " & ex.Message)
             Finally
+                Debug.WriteLine("status permohonan: " & statusPermohonan.ToString())
+                Debug.WriteLine("sub status permohonan: " & subStatusPermohonan.ToString())
+                Debug.WriteLine("Success: maklumatUser")
                 conn.Close()
             End Try
         End Using
@@ -161,14 +183,16 @@ Public Class maklumat_permohonan
                                 Debug.WriteLine("Permohonan Status: " & reader("log_status"))
                                 permohonanBaharu.Attributes("class") = "progress-done"
                                 lblTarikhBaharu.Text = reader("log_tarikh")
-                            Case "PERMOHONAN MENUNGGU"
-                                Debug.WriteLine("Permohonan Status: " & reader("log_status"))
-                                permohonanMenunggu.Attributes("class") = "progress-done"
-                                lblTarikhMenuggu.Text = reader("log_tarikh")
                             Case "PERMOHONAN DITERIMA", "PERMOHONAN DITOLAK"
                                 Debug.WriteLine("Permohonan Status: " & reader("log_status"))
                                 permohonanKeputusan.Attributes("class") = "progress-done"
                                 lblTarikhKeputusan.Text = reader("log_tarikh")
+                                permohonanMenunggu.Visible = False
+                            Case "PERMOHONAN MENUNGGU"
+                                Debug.WriteLine("Permohonan Status: " & reader("log_status"))
+                                permohonanMenunggu.Attributes("class") = "progress-done"
+                                lblTarikhMenuggu.Text = reader("log_tarikh")
+                                permohonanMenunggu.Visible = True
                             Case Else
                                 Debug.WriteLine("ELSE")
                         End Select
@@ -363,5 +387,56 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
                 End Using
             End Using
         End If
+    End Sub
+
+    Private Sub btnTerimaTawaran_Click(sender As Object, e As EventArgs) Handles btnTerimaTawaran.Click
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("UPDATE spk_permohonan SET permohonan_sub_status = 'TERIMA TAWARAN UNIT' WHERE permohonan_id = @permohonanID;
+                UPDATE spk_unit SET unit_status='Occupied' WHERE unit_id = @unitID
+            ")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("permohonan")
+                cmd.Parameters.Add("@unitID", SqlDbType.Int).Value = hfUnitID.Value
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    Debug.WriteLine("Error(btnTerimaTawaran): " & ex.Message)
+                Finally
+                    conn.Close()
+                    Response.Redirect("Maklumat.Permohonan.Pengguna.aspx?p=Maklumat%20Permohonan&permohonan=" & Request.QueryString("permohonan"))
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Private Sub btnTolakTawaran_Click(sender As Object, e As EventArgs) Handles btnTolakTawaran.Click
+        Dim query = "
+        UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN DITOLAK' , permohonan_sub_status = 'TOLAK TAWARAN UNIT' , permohonan_nota = @sebab , permohonan_tarikh = '" & Date.Now.ToString("dd/MM/yy") & "' WHERE permohonan_id = @permohonanID; 
+        INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (" & penggunaID & ", @permohonanID, '" & Date.Now & "', 'PERMOHONAN DITOLAK');
+        UPDATE spk_unit SET unit_status='Available' WHERE unit_id = @unitID"
+        If tbSebabBatal.Text.Length > 0 Then
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand(query)
+                    cmd.Connection = conn
+                    cmd.Parameters.Add("@sebab", SqlDbType.NVarChar, 50).Value = tbSebabTolak.Text
+                    cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("permohonan")
+                    cmd.Parameters.Add("@unitID", SqlDbType.Int).Value = hfUnitID.Value
+                    Try
+                        conn.Open()
+                        cmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        Debug.WriteLine("Error(btnBatalPermohonan): " & ex.Message)
+                    Finally
+                        conn.Close()
+                        Response.Redirect("Maklumat.Permohonan.Pengguna.aspx?p=Maklumat%20Permohonan&permohonan=" & Request.QueryString("permohonan"))
+                    End Try
+                End Using
+            End Using
+        End If
+    End Sub
+
+    Private Sub lbPermohonanBaru_Click(sender As Object, e As EventArgs) Handles lbPermohonanBaru.Click
+        Response.Redirect("Permohonan.Kuarters.aspx?p=Permohonan%20Kuarters")
     End Sub
 End Class

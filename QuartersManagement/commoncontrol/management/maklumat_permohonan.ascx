@@ -272,7 +272,13 @@
         display: block;
         padding: 0 2px;
     }
- 
+    .btn-group {
+        display: flex;
+        justify-content: center;
+    }
+    .btn-group input {
+        margin: 5px 2px;
+    }
 </style>
 <div class="status-permohonan" style="height: 85vh;">
     <div class="div-center fbform" style="padding-bottom: 15px;">
@@ -449,7 +455,10 @@
                    <tr runat="server" id="trUnitDitawarkan" visible="false">
                        <td style="width: 150px;">Unit Ditawarkan</td>
                        <td style="width: 5px;">:</td>
-                       <td><asp:Label Text="text" runat="server" ID="lblUnit" /></td>
+                       <td>
+                           <asp:Label Text="text" runat="server" ID="lblUnit" />
+                            <asp:HiddenField runat="server" ID="hfUnitID" />
+                       </td>
                    </tr>
                    <tr runat="server" id="trTarikhMasuk" visible="false">
                        <td style="width: 150px;">Tarikh Masuk</td>
@@ -476,7 +485,8 @@
                         </td>
                     </tr>
                 </table>
-                <asp:MultiView ActiveViewIndex="0" runat="server" ID="mvMaklumatStatus">
+                <asp:MultiView ActiveViewIndex="5" runat="server" ID="mvMaklumatStatus">
+                    <%-- Permohonan baru --%>
                     <asp:View runat="server">
                         <div class="maklumat-baru fbform">
                             <table style="width:100%; height: 100%;">
@@ -492,14 +502,14 @@
                                     <td colspan="3" style="align-content:center; text-align:center;">
                                         <a 
                                             class="modal-btn" 
-                                            id="openModal" 
+                                            id="openModal1" 
                                             href="#"
                                             style="color:red; cursor:pointer;"
                                         >Batal Permohonan?</a>
                                     </td>
                                 </tr>
                             </table>
-                            <div id="modal" class="modal">
+                            <div id="modal1" class="modal">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <span class="close">&times;</span>
@@ -525,6 +535,7 @@
                             </div>
                         </div>
                     </asp:View>
+                    <%-- Permohonan menunggu(lulus) --%>
                     <asp:View runat="server">
                         <div class="maklumat-diterima fbform">
                             <table style="width:100%; height: 100%;">
@@ -540,17 +551,53 @@
                             </table>
                         </div>
                     </asp:View>
+                    <%-- Tawaran unit --%>
                     <asp:View runat="server">
-                        <div class="surat-tawaran">
-                            <p>Berikut adalah surat tawaran unit. Jika bersetuju dengan unit yang diterima, sila klik 'Terima'</p>
-                            <p></p>
-                            <div runat="server" id="divSuratTawaran"></div>
-                            <div class="btn-group">
-                                <asp:Button Text="Simpan" runat="server" ID="btnTerimaTawaran"/>
-                                <asp:Button Text="Batal Permohonan" runat="server" ID="btnTolakTawaran"/>
-                            </div>
+                        <div class="surat-tawaran fbform">
+                            <table style="width:100%; height: 100%;">
+                                <tr class="fbform_mheader">
+                                    <td colspan="3">Status Permohonan</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="align-content:center; text-align:center;">
+                                       <p runat="server" id="pText"></p>
+                                        <div class="fbform">
+                                            <p runat="server" id="divSuratTawaran"></p>
+                                        </div>
+                                        <div class="btn-group" runat="server" id="btnGroupTerimaTawaran">
+                                            <asp:Button Text="Terima" runat="server" ID="btnTerimaTawaran"/>
+                                            <input type="button" id="openModal2" value="Tolak" />
+                                        </div>
+                                        <div id="modal2" class="modal">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <span class="close">&times;</span>
+                                                    <h2>Tolak Permohonan?</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Sebab menolak unit ditawarkan:</h4>
+                                                    <div>
+                                                        <asp:TextBox 
+                                                            runat="server" 
+                                                            ID="tbSebabTolak"
+                                                            Text="Lokasi unit tak bersesuaian"
+                                                            TextMode="MultiLine"
+                                                            width="400px"
+                                                            height="150px"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <asp:Button Text="Simpan" CssClass="footer-btn" runat="server" ID="btnTolakTawaran" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
                     </asp:View>
+                    <%-- Cadangan kuarters lain --%>
                     <asp:View runat="server">
                         <div class="cadangan-kuarters fbform">
                             <p>Kuarters yang dipohon tiada kekosongan, sila pilih dari senarai kuarters berikut jika masih ingin meneruskan permohonan.</p>
@@ -610,40 +657,56 @@
                             </div>
                         </div>
                     </asp:View>
+                    <%-- Keputusan batal/tolak --%>
                     <asp:View runat="server">
                         <div class="maklumat-ditolak">
                             <table class="fbform">
+                                <tr class="fbform_mheader">
+                                    <td colspan="3">Keputusan Permohonan</td>
+                                </tr>
                                 <tr>
                                     <td>Status Permohonan</td>
                                     <td>:</td>
-                                    <td>Ditolak</td>
+                                    <td><asp:Label Text="text" runat="server" ID="lblKeputusanTolak"/></td>
                                 </tr>
                                 <tr>
-                                    <td>Sebab</td>
-                                    <td></td>
+                                    <td style="width:150px;">Sebab</td>
+                                    <td style="width:5px;">:</td>
                                     <td>
                                         <asp:Label Text="text" runat="server" ID="lblSebabDitolak" />
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">Permohonan anda ditolak. Sila buat permohonan baru dan cuba lagi.</td>
+                                    <td colspan="3">Permohonan anda ditolak/dibatalkan.</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="align-items:center;">
+                                        <asp:LinkButton Text="Halaman Permohonan Kuarters" runat="server" ID="lbPermohonanBaru"/>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
                     </asp:View>
+                    <%-- Permohonan diterima --%>
                     <asp:View runat="server">
                         <div class="maklumat-batal fbform">
                             <table>
+                                <tr class="fbform_mheader">
+                                    <td>Keputusan Permohonan</td>
+                                </tr>
                                 <tr>
                                     <td>Status Permohonan</td>
                                     <td>:</td>
-                                    <td>Dibatalkan</td>
+                                    <td><asp:Label Text="text" runat="server" ID="lblKeputusanTerima"/></td>
                                 </tr>
                                 <tr>
-                                    <td>Alasan dibatalkan</td>
-                                    <td>:</td>
-                                    <td>
-                                        <asp:Label Text="text" runat="server" ID="lblSebabDibatal" />
+                                    <td colspan="3">Surat Tawaran</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="fbform">
+                                            <p runat="server" id="pSuratTawaran"></p>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -701,15 +764,34 @@
     //--COLLAPSIBLES
 
     //MODAL
-    var modal = document.getElementById("modal");
-    var btn = document.getElementById("openModal");
+    var modal1 = document.getElementById("modal1");
+    var modal2 = document.getElementById("modal2");
+    var btn1 = document.getElementById("openModal1");
+    var btn2 = document.getElementById("openModal2");
     var closeSpan = document.getElementsByClassName("close")[0];
-    
-    btn.onclick = function () {
-        modal.style.display = "block";
+
+    if (typeof (btn1) != 'undefined' && btn1 != null) {
+        btn1.onclick = function () {
+            modal1.style.display = "block";
+        }
+    } else {
+        console.log("btn1 undefined/null");
     }
-    closeSpan.onclick = function () {
-        modal.style.display = "none";
+    
+    if (typeof (btn2) != 'undefined' && btn2 != null) {
+        btn2.onclick = function () {
+            modal2.style.display = "block";
+        }
+    } else {
+        console.log("btn2 undefined/null");
+    }
+
+    if (typeof (closeSpan) != 'undefined' && closeSpan != null) {
+        closeSpan.onclick = function () {
+            modal2.style.display = "none";
+        }
+    } else {
+        console.log("closeSpan undefined/null");
     }
     //window.onclick = function (event) {
     //    if (event.target = modal) {
