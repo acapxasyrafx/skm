@@ -257,7 +257,8 @@ Public Class maklumat_pemohon_menunggu
                         VALUES(
                             '" & Server.HtmlEncode(editorSurattawaran.Content) & "'
                            ," & Request.QueryString("uid") & "
-                            ,'" & Date.Now() & "');"
+                            ,'" & Date.Now() & "');
+                           UPDATE spk_unit SET unit_status = 'On Hold' WHERE unit_id = " & ddlUnitKuarters.SelectedValue & ";"
                     strRet = oCommon.ExecuteSQL(query)
                     If strRet = "0" Then
                         newNotifikasi("USER", 32)

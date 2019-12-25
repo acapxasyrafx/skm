@@ -68,31 +68,76 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents lblTarikhKeputusan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''mvStatusPermohonan control.
+    '''lblPangkat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents mvStatusPermohonan As Global.System.Web.UI.WebControls.MultiView
+    Protected WithEvents lblPangkat As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''viewPemohonanDir control.
+    '''lblNoTentera control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents viewPemohonanDir As Global.System.Web.UI.WebControls.View
+    Protected WithEvents lblNoTentera As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''tblMaklumatAnak control.
+    '''lblNama control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents tblMaklumatAnak As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents lblNama As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblJantina control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblJantina As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblTarikhLahir control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhLahir As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblStatusKahwin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblStatusKahwin As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblMulaBerkhidmat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMulaBerkhidmat As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblTamatBerkhidmat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTamatBerkhidmat As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''lblJenisTempatTinggal control.
@@ -113,6 +158,15 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents lblTarikhMulaMenetap As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''tblMaklumatAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tblMaklumatAnak As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
     '''lblKuarterDipohon control.
     '''</summary>
     '''<remarks>
@@ -131,13 +185,58 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents lblTarikhPermohonan As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''viewCadanganKuarters control.
+    '''trUnitDitawarkan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents viewCadanganKuarters As Global.System.Web.UI.WebControls.View
+    Protected WithEvents trUnitDitawarkan As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''lblUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblUnit As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''hfUnitID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hfUnitID As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''trTarikhMasuk control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents trTarikhMasuk As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''lblTarikhMasuk control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTarikhMasuk As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''btnField control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnField As Global.System.Web.UI.HtmlControls.HtmlTable
 
     '''<summary>
     '''MsgTop control.
@@ -176,49 +275,175 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
-    '''tblCadanganKuarters control.
+    '''mvMaklumatStatus control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents tblCadanganKuarters As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents mvMaklumatStatus As Global.System.Web.UI.WebControls.MultiView
 
     '''<summary>
-    '''viewPenerimaanUnit control.
+    '''tbSebabBatal control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents viewPenerimaanUnit As Global.System.Web.UI.WebControls.View
+    Protected WithEvents tbSebabBatal As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''lblLulusKuarters control.
+    '''btnBatalPermohonan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblLulusKuarters As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents btnBatalPermohonan As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''lblLulusUnit control.
+    '''pText control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblLulusUnit As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents pText As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''viewPermohonanGagal control.
+    '''divSuratTawaran control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents viewPermohonanGagal As Global.System.Web.UI.WebControls.View
+    Protected WithEvents divSuratTawaran As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''btnGroupTerimaTawaran control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnGroupTerimaTawaran As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''btnTerimaTawaran control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnTerimaTawaran As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''tbSebabTolak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbSebabTolak As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnTolakTawaran control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnTolakTawaran As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''gvSenaraiKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents gvSenaraiKuarters As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''bgCadangnaKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents bgCadangnaKuarters As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''btnTerimaCadangan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnTerimaCadangan As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''tbTolakCadanganKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbTolakCadanganKuarters As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnTolakCadangan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnTolakCadangan As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''lblKeputusanTolak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblKeputusanTolak As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lblSebabDitolak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblSebabDitolak As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''lbPermohonanBaru control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lbPermohonanBaru As Global.System.Web.UI.WebControls.LinkButton
+
+    '''<summary>
+    '''lblKeputusanTerima control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblKeputusanTerima As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''pSuratTawaran control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents pSuratTawaran As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''MsgBottom control.
