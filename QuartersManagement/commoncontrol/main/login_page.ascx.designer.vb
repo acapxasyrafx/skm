@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class login_page
-    
+
     '''<summary>
     '''txtLoginID control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class login_page
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtLoginID As Global.System.Web.UI.WebControls.TextBox
-    
+
     '''<summary>
     '''txtPwd control.
     '''</summary>
@@ -30,7 +30,16 @@ Partial Public Class login_page
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtPwd As Global.System.Web.UI.WebControls.TextBox
-    
+
+    '''<summary>
+    '''alertMsg control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents alertMsg As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
     '''<summary>
     '''btnLogin control.
     '''</summary>
@@ -39,7 +48,7 @@ Partial Public Class login_page
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnLogin As Global.System.Web.UI.WebControls.Button
-    
+
     '''<summary>
     '''lblDebug control.
     '''</summary>
@@ -48,7 +57,7 @@ Partial Public Class login_page
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblDebug As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lblMsg control.
     '''</summary>
@@ -57,7 +66,7 @@ Partial Public Class login_page
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblMsg As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
     '''lbl1 control.
     '''</summary>

@@ -13,127 +13,59 @@ Public Class login_page
     Dim ci As CultureInfo
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Not IsPostBack Then
 
+        End If
     End Sub
+
     Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
         Dim adminID As Integer = 1
         Dim userID As Integer = 1
         If txtLoginID IsNot "" And txtPwd.Text IsNot "" Then
-            If txtLoginID.Text.Equals("admin") And txtPwd.Text.Equals("admin") Then
-                Session("user_type") = "Admin"
-                Session("user_id") = adminID
+            If UserLogin().Equals("ADMIN") Then
                 Response.Redirect("Admin.Homepage.aspx")
-            ElseIf txtLoginID.Text.Equals("user") And txtPwd.Text.Equals("user") Then
-                Session("user_type") = "User"
-                Session("user_id") = userID
+            ElseIf UserLogin().Equals("PENGGUNA") Then
                 Response.Redirect("User.Homepage.aspx")
-            End If
-        End If
-        'Dim jenisPengguna As String = ""
-        'jenisPengguna = UserLogin()
-        'Select Case jenisPengguna
-        '    Case "ADMIN"
-        '        Response.Redirect("Admin.Homepage.aspx")
-        '    Case "PENGGUNA"
-        '        Response.Redirect("User.Homepage.aspx")
-        '    Case Else
-        '        Response.Write("<script>alert('Tiada pengguna dengan ID " & txtLoginID.Text & " berikut');</script>")
-        'End Select
-    End Sub
-    Private Function UserLogin() As String
-        Try
-            Dim query As String = "
-            SELECT 
-                pengguna_id, 
-                pengguna_jenis 
-            FROM 
-                spk_pengguna 
-            WHERE 
-                pengguna_no_tentera = '" & txtLoginID.Text & "' AND 
-                pengguna_pwd = '" & txtPwd.Text & "';"
-            strRet = oCommon.getFieldValueEx(query)
-            Dim result As Array
-            result = strRet.Split("|")
-            Session("pengguna_id") = result(0)
-            Session("pengguna_jenis") = result(1)
-            Return result(1)
-        Catch ex As Exception
-            Debug.WriteLine("Error(UserLogin): " & ex.Message)
-            Return ""
-        End Try
-    End Function
-
-    Private Function isExistL(ByVal strSQL As String) As String
-        If strSQL.Length = 0 Then
-            Return False
-        End If
-
-        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionUkm")
-        Dim strConn1 As String = ConfigurationManager.AppSettings("ConnectionString")
-        Dim objConn As SqlConnection = New SqlConnection(strConn)
-        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
-
-        Try
-            Dim ds As DataSet = New DataSet
-            sqlDA.Fill(ds, "AnyTable")
-            If ds.Tables(0).Rows.Count > 0 Then
-                lblDebug.Text = "OK:" & strConn
-                Return True
+            ElseIf UserLogin().Equals("1") Then
+                Debug.WriteLine("User not exist")
+                alertMsg.InnerText = "Akaun tiada dalam sistem. Sila pastikan ID dan KATA LALUAN adalah betul."
             Else
-                lblDebug.Text = "NOK:" & strConn
-                Return False
+                Debug.WriteLine("Error")
             End If
-
-        Catch ex As Exception
-            lblDebug.Text = "Err:" & ex.Message
-            Return False
-        Finally
-            objConn.Dispose()
-        End Try
-
-    End Function
-    Private Sub displayDebug(ByVal strMsg As String)
-        If oCommon.getAppsettings("isDebug") = "Y" Then
-            lblDebug.Text = strMsg
-        End If
-    End Sub
-    Private Sub dummy()
-        Dim strSQL1 As String = ""
-        Dim strSQL2 As String = ""
-        'strSQL = "SELECT UserType FROM UserProfile WITH (NOLOCK) WHERE LoginID='" & oCommon.FixSingleQuotes(txtLoginID.Text) & "' AND Pwd='" & oDes.EncryptData(txtPwd.Text) & "'"
-
-        strSQL = "select top 1 A.userLvlAccess from skp.dbo.user_detail A WITH (NOLOCK) 
-                   
-                where A.userID = '" & oCommon.FixSingleQuotes(txtLoginID.Text) & "' and A.userPass = '" & txtPwd.Text & "''"
-
-        If oCommon.isExist(strSQL) = True Then
-
-            Select Case getUserProfile_UserType()
-                Case "Admin"
-                    Response.Redirect("default.aspx")
-                Case "User"
-                    Response.Redirect("default.aspx")
-                Case Else
-                    lblMsg.Text = "Invalid User Type! " & getUserProfile_UserType()
-            End Select
-        Else
-            oCommon.LoginTrail(oCommon.FixSingleQuotes(txtLoginID.Text), oCommon.getNow, Request.UserHostAddress, Request.UserHostName, Request.Browser.Browser, "LOGIN-FAILED", "NA")
         End If
     End Sub
 
-    Private Function getUserProfile_UserType() As String
-        Dim usrType As String
-        Dim tmpSQL As String = "select top 1 staff_position from staff_info where staff_login = '" & oCommon.FixSingleQuotes(txtLoginID.Text) & "' "
-
-
-        If oCommon.isExist(strSQL) = True Then
-            strRet = oCommon.getFieldValue(tmpSQL)
-            usrType = strRet
-        End If
-
-        Return usrType
-
+    Private Function UserLogin() As String
+        Dim da As SqlDataAdapter
+        Dim dt As New DataTable
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT TOP(1) pengguna_id, pengguna_jenis FROM spk_pengguna WHERE pengguna_no_tentera = @noTentera AND pengguna_pwd = @pwd")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@noTentera", SqlDbType.NVarChar, 50).Value = txtLoginID.Text
+                cmd.Parameters.Add("@pwd", SqlDbType.NVarChar, 50).Value = txtPwd.Text
+                Try
+                    conn.Open()
+                    da = New SqlDataAdapter(cmd)
+                    da.Fill(dt)
+                    If dt.Rows.Count > 0 Then
+                        Session("user_type") = dt.Rows(0)("pengguna_jenis")
+                        Session("user_id") = dt.Rows(0)("pengguna_id")
+                        Return dt.Rows(0)("pengguna_jenis")
+                    Else
+                        Debug.WriteLine("Error(UserLogin): Pengguna tiada dalam sistem.")
+                        Debug.WriteLine("txtLoginID: " & txtLoginID.Text.ToUpper)
+                        Debug.WriteLine("txtPwd: " & txtPwd.Text)
+                        Return "1"
+                    End If
+                Catch ex As Exception
+                    Debug.WriteLine("txtLoginID: " & txtLoginID.Text.ToUpper)
+                    Debug.WriteLine("txtPwd: " & txtPwd.Text)
+                    Debug.WriteLine("Error(UserLogin): " & ex.Message)
+                    Return "0"
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
     End Function
-
-
 End Class

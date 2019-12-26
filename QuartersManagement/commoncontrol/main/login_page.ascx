@@ -29,6 +29,9 @@
    
     </tr>
     <tr>
+        <td colspan="3"><p runat="server" style="color: red" id="alertMsg"></p></td>
+    </tr>
+    <tr>
         <td>&nbsp</td>
     </tr>
     <tr>

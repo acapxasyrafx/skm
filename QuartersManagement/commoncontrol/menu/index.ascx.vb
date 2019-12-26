@@ -6,9 +6,9 @@
         If user_type = Nothing Then
             Response.Redirect("Default.aspx")
         Else
-            If user_type.Equals("Admin") Then
+            If user_type.Equals("ADMIN") Then
                 PnlPemohon.Visible = False
-            ElseIf user_type.Equals("User") Then
+            ElseIf user_type.Equals("PENGGUNA") Then
                 PnlPengurusan.Visible = False
                 PnlKonfigurasi.Visible = False
             End If

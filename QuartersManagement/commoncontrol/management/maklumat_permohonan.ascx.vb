@@ -18,16 +18,15 @@ Public Class maklumat_permohonan
 
     Dim oCommon As New Commonfunction
 
-    Dim penggunaID As Integer = 1
+    Dim penggunaID As Integer = Session("user_id")
     Dim pangkalanID As Integer = 0
-    Dim permohonanID As Integer
+    Dim permohonanID As Integer = Request.QueryString("permohonan")
     Dim statusPermohonan As String = ""
     Dim subStatusPermohonan As String = ""
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
-            permohonanID = Request.QueryString("permohonan")
             Load_Page()
         End If
     End Sub
