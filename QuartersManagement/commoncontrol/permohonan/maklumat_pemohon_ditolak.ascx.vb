@@ -24,14 +24,17 @@ Public Class maklumat_pemohon_ditolak
     Dim countAnak As Integer = 0
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-
         Try
-            loadUser()
-            readMaklumatAnak()
+            load_page()
         Catch ex As Exception
 
         End Try
+    End Sub
+
+    Protected Sub load_page()
+        loadUser()
+        readMaklumatAnak()
+        update_notifikasi(Request.QueryString("uid"))
     End Sub
 
     Private Sub loadUser()
@@ -137,4 +140,33 @@ Public Class maklumat_pemohon_ditolak
         End Using
     End Function
 
+    Protected Function icToAge(ByVal ic As String) As Integer
+        Dim year = ic.Substring(0, 2)
+        Dim month = ic.Substring(2, 2)
+        Dim day = ic.Substring(4, 2)
+        Dim dob_string = day & "/" & month & "/" & year
+        Dim dob_date = Convert.ToDateTime(dob_string)
+        Dim age = Date.Now().Year - dob_date.Year
+        Debug.WriteLine("icToAge: " & dob_string & "|Age: " & age & "")
+        Return age
+    End Function
+
+    Private Sub update_notifikasi(ByVal notifikasiID As Integer)
+        If notifikasiID > 0 Then
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE permohonan_id = @notifikasiID")
+                    cmd.Connection = conn
+                    cmd.Parameters.Add("@notifikasiID", SqlDbType.Int).Value = notifikasiID
+                    Try
+                        conn.Open()
+                        cmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        Debug.WriteLine("Error(update_notikasi): " & ex.Message)
+                    Finally
+                        conn.Close()
+                    End Try
+                End Using
+            End Using
+        End If
+    End Sub
 End Class
