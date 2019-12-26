@@ -26,10 +26,15 @@ Public Class maklumat_pemohon
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
-            loadUser()
-            readMaklumatAnak()
-            loadMaklumatMata()
+            load_page()
         End If
+    End Sub
+
+    Protected Sub load_page()
+        loadUser()
+        readMaklumatAnak()
+        loadMaklumatMata()
+        update_notifikasi(Request.QueryString("uid"))
     End Sub
 
     Private Sub loadUser()
@@ -163,7 +168,6 @@ Public Class maklumat_pemohon
         Dim dob_string = day & "/" & month & "/" & year
         Dim dob_date = Convert.ToDateTime(dob_string)
         Dim age = Date.Now().Year - dob_date.Year
-        Debug.WriteLine("icToAge: " & dob_string & "|Age: " & age & "")
         Return age
     End Function
 
@@ -344,5 +348,24 @@ Public Class maklumat_pemohon
                 End Try
             End Using
         End Using
+    End Sub
+
+    Private Sub update_notifikasi(ByVal notifikasiID As Integer)
+        If notifikasiID > 0 Then
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE permohonan_id = @notifikasiID")
+                    cmd.Connection = conn
+                    cmd.Parameters.Add("@notifikasiID", SqlDbType.Int).Value = notifikasiID
+                    Try
+                        conn.Open()
+                        cmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        Debug.WriteLine("Error(update_notikasi): " & ex.Message)
+                    Finally
+                        conn.Close()
+                    End Try
+                End Using
+            End Using
+        End If
     End Sub
 End Class

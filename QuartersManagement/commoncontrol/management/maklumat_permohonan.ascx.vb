@@ -36,6 +36,7 @@ Public Class maklumat_permohonan
         maklumatPermohonan()
         maklumatAnak()
         maklumatStatusPermohonan()
+        update_notifikasi(Request.QueryString("uid"))
     End Sub
 
     Private Sub maklumatPermohonan()
@@ -504,4 +505,23 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
             End Using
         End Using
     End Function
+
+    Private Sub update_notifikasi(ByVal notifikasiID As Integer)
+        If notifikasiID > 0 Then
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE permohonan_id = @notifikasiID")
+                    cmd.Connection = conn
+                    cmd.Parameters.Add("@notifikasiID", SqlDbType.Int).Value = notifikasiID
+                    Try
+                        conn.Open()
+                        cmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        Debug.WriteLine("Error(update_notikasi): " & ex.Message)
+                    Finally
+                        conn.Close()
+                    End Try
+                End Using
+            End Using
+        End If
+    End Sub
 End Class

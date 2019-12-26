@@ -135,7 +135,7 @@
                     <asp:GridView
                         ID="datRespondent"
                         runat="server"
-                        DataKeyNames="anak_id"
+                        DataKeyNames="historyAnak_id"
                         AutoGenerateColumns="False"
                         AllowPaging="false"
                         CellPadding="4"
@@ -156,7 +156,7 @@
 
                             <asp:TemplateField HeaderText="Nama">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("anak_nama")%>'></asp:Label>
+                                    <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("historyAnak_nama")%>'></asp:Label>
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="20%" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -164,7 +164,7 @@
 
                             <asp:TemplateField HeaderText="IC">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("anak_ic")%>'></asp:Label>
+                                    <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("historyAnak_ic")%>'></asp:Label>
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="20%" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -172,7 +172,7 @@
 
                             <asp:TemplateField HeaderText="UMUR">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblUmurAnak" runat="server" Text='<%# Bind("anak_umur")%>'></asp:Label>
+                                    <asp:Label ID="lblUmurAnak" runat="server" Text='<%# icToAge(Eval("historyAnak_ic"))%>'></asp:Label>
                                 </ItemTemplate>
                                 <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="20%" />
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
