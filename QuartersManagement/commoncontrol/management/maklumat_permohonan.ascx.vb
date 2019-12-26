@@ -350,7 +350,7 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
 
     Private Sub btnTerimaTawaran_Click(sender As Object, e As EventArgs) Handles btnTerimaTawaran.Click
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("UPDATE spk_permohonan SET permohonan_sub_status = 'TERIMA TAWARAN UNIT' WHERE permohonan_id = @permohonanID;
+            Using cmd As New SqlCommand("UPDATE spk_permohonan SET permohonan_status='PERMOHONAN DITERIMA', permohonan_sub_status = 'TERIMA TAWARAN UNIT' WHERE permohonan_id = @permohonanID;
                 UPDATE spk_unit SET unit_status='Occupied' WHERE unit_id = @unitID
             ")
                 cmd.Connection = conn

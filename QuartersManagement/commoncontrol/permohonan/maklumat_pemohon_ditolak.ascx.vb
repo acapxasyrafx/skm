@@ -139,6 +139,7 @@ Public Class maklumat_pemohon_ditolak
             End Try
         End Using
     End Function
+
     Protected Function icToAge(ByVal ic As String) As Integer
         Dim year = ic.Substring(0, 2)
         Dim month = ic.Substring(2, 2)
