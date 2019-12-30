@@ -39,8 +39,9 @@ Public Class permohonan_kuarters
         ddlSenaraiKuarters.Enabled = False
         loadPangkalan()
         loadUser()
-        readMaklumatAnak()
+        loadMaklumatAnak()
         loadJenisTempatTinggal()
+        loadPoints()
     End Sub
     Private Sub loadUser()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
@@ -94,6 +95,40 @@ Public Class permohonan_kuarters
         End Using
     End Sub
 
+    Private Function loadMaklumatAnak() As Boolean
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Dim table As DataTable = New DataTable
+            Dim da As New SqlDataAdapter(
+                    "SELECT 
+                        anak_id,
+                        pengguna_id,
+                        anak_nama,
+                        anak_ic,
+                        anak_umur
+                        FROM spk_anak
+                        WHERE pengguna_id = " & pID.Value & ";",
+                    conn)
+            Try
+                conn.Open()
+                da.Fill(dataAnak, "AnyTable")
+                Dim nRows As Integer = 0
+                Dim nCount As Integer = 1
+                countAnak = dataAnak.Tables(0).Rows.Count
+                If countAnak > 0 Then
+                    datRespondent.DataSource = dataAnak
+                    datRespondent.DataBind()
+                End If
+                Return True
+            Catch ex As Exception
+                Debug.WriteLine("ERROR(loadMaklumatAnak): " & ex.Message)
+                Return False
+            Finally
+                conn.Close()
+            End Try
+        End Using
+    End Function
+
+
     Private Sub loadPangkalan()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim cmd As New SqlCommand("SELECT * FROM spk_pangkalan;", conn)
@@ -138,77 +173,72 @@ Public Class permohonan_kuarters
         End Using
     End Sub
 
-    Private Function Save() As Boolean
-        Dim kuartersId = ddlSenaraiKuarters.SelectedValue
-        Dim jenisRumahSebelum = ddlJenisPenempatan.SelectedValue
-        Dim mulaMenetap = DateTime.ParseExact(dpTarikhMulaMenetap.Text, "dd/MM/yyyy", Nothing)
-        If cbBertukarPangkalan.Checked Then
-            Dim tarikhPindah = DateTime.ParseExact(dpTarikhBertukar.Text, "dd/MM/yyyy", Nothing)
-        End If
-        Dim totalAnak = datRespondent.Rows.Count
-
+    Protected Sub loadJenisTempatTinggal()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("
+            Using cmd As New SqlCommand("SELECT config_parameter, config_value FROM general_config WHERE config_type = 'JENIS PENEMPATAN SEBELUM';", conn)
+                Using sda As New SqlDataAdapter(cmd)
+                    Dim ds As New DataSet
+                    sda.Fill(ds)
+                    ddlJenisPenempatan.DataSource = ds
+                    ddlJenisPenempatan.DataTextField = "config_parameter"
+                    ddlJenisPenempatan.DataValueField = "config_value"
+                    ddlJenisPenempatan.DataBind()
+                    ddlJenisPenempatan.Items.Insert(0, New ListItem("-- SILA PILIH --"))
+                End Using
+            End Using
+        End Using
+    End Sub
+
+    Protected Function Save()
+        'Save permohonan
+        Dim query As String = "
+            DECLARE @permohonanID INT;
             INSERT INTO
-	            spk_permohonan(
-		            pengguna_id
-		            , permohonan_no_permohonan
-		            , kuarters_id
-		            , permohonan_tarikh
-		            , permohonan_status
-                    , permohonan_mata
-	            )
-            VALUES (
-	            " & pID.Value & "
-	            , '" & genNoPermohonan(Date.Now.Year & Date.Now.Month & Date.Now.Day) & "'
-	            , " & kuartersId & "
-	            , '" & Date.Now().ToString("dd'/'MM'/'yyyy") & "'
-	            , 'PERMOHONAN BARU'
-                , " & jumlahPoint & "
-            );SELECT SCOPE_IDENTITY()", conn)
-            Try
-                conn.Open()
-                permohonanID = cmd.ExecuteScalar
-                If permohonanID = Nothing Then
-                    Debug.WriteLine("ERROR(Save->permohonan): PermohonanID is nothing")
-                Else
-                    If insertHistroyKeluarga(permohonanID, totalAnak, jenisRumahSebelum, mulaMenetap) Then
-                        If insertHistoryPengguna(permohonanID) Then
-                            If insertLogPermohonan(permohonanID) Then
-                                If insertHistoryAnak(permohonanID) Then
-                                    If newNotifikasi(permohonanID, "ADMIN", 29) Then
-                                        Return True
-                                    Else
-                                        Debug.WriteLine("Error(Save -> newNotifikasi)")
-                                        Return False
-                                    End If
-                                Else
-                                    Debug.WriteLine("Error(Save -> insertHistoryAnak)")
-                                    Return False
-                                End If
-                            Else
-                                Debug.WriteLine("Error(Save -> insertLogPermohonan)")
-                                Return False
-                            End If
-                        Else
-                            Debug.WriteLine("Error(Save -> insertHistoryPengguna)")
-                            Return False
-                        End If
-                    Else
-                        Debug.WriteLine("Error(Save -> insertHistroyKeluarga)")
-                        Return False
+	            spk_permohonan( pengguna_id , permohonan_no_permohonan , kuarters_id , permohonan_tarikh , permohonan_status , permohonan_mata) 
+            VALUES ( @penggunaID, @noPermohonan, @kuartersID, @tarikh, 'PERMOHONAN BARU', @mata );"
+        'Scope Identity
+        query += "SELECT @permohonanID = SCOPE_IDENTITY();"
+        'History Keluarga
+        query += "INSERT INTO spk_historyKeluarga( permohonan_id , pengguna_id , historyKeluarga_tarikh , historyKeluarga_anak , historyKeluarga_tempat_tinggal , historyKeluarga_tarikh_mula )
+                    VALUES ( @permohonanID, @penggunaID, @tarikh, @jumlahAnak, @rumahSebelum, @tarikhMulaMenetap);"
+        'History Pengguna
+        query += "INSERT INTO  spk_historyPengguna( pengguna_id , permohonan_id , pangkat_id , historyPengguna_statusPerkahwinan , historyPengguna_penggunaNoTentera )
+                VALUES ( @penggunaID ,   @permohonanID ,   @pangkatId ,   @statusPerkahwinan ,   @penggunaNoTentera );"
+        query += " INSERT INTO spk_logPermohonan ( pengguna_id , permohonan_id , log_tarikh  , log_status ) 
+                VALUES ( @penggunaID, @permohonanID, @tarikh, 'PERMOHONAN BARU');"
+        query += "SELECT @permohonanID as 'permohonan_id'"
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand(query)
+                cmd.Connection = conn
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
+                cmd.Parameters.Add("@noPermohonan", SqlDbType.NVarChar, 50).Value = genNoPermohonan(Date.Now.Year & Date.Now.Month & Date.Now.Day)
+                cmd.Parameters.Add("@kuartersID", SqlDbType.Int).Value = ddlSenaraiKuarters.SelectedValue
+                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now.ToString("dd/MM/yy")
+                cmd.Parameters.Add("@mata", SqlDbType.NVarChar, 50).Value = Integer.Parse(loadPoints())
+                cmd.Parameters.Add("@jumlahAnak", SqlDbType.NVarChar, 50).Value = datRespondent.Rows.Count
+                cmd.Parameters.Add("@rumahSebelum", SqlDbType.NVarChar, 50).Value = ddlJenisPenempatan.SelectedValue
+                cmd.Parameters.Add("@tarikhMulaMenetap", SqlDbType.NVarChar, 50).Value = DateTime.ParseExact(dpTarikhMulaMenetap.Text, "dd/MM/yyyy", Nothing)
+                cmd.Parameters.Add("@pangkatID", SqlDbType.Int).Value = pangkatID.Value
+                cmd.Parameters.Add("@statusPerkahwinan", SqlDbType.NVarChar, 50).Value = lblStatusPerkahwinan.Text
+                cmd.Parameters.Add("@penggunaNoTentera", SqlDbType.NVarChar, 50).Value = lblNoTentera.Text
+                Try
+                    conn.Open()
+                    Dim reader As SqlDataReader
+                    reader = cmd.ExecuteReader
+                    If reader.HasRows() Then
+                        While reader.Read()
+                            insertHistoryAnak(reader("permohonan_id"))
+                            newNotifikasi(reader("permohonan_id"), "ADMIN", 29)
+                        End While
                     End If
-                End If
-            Catch ex As Exception
-                Debug.WriteLine("Error(Save -> permohonan): " & ex.Message)
-                MsgTop.Attributes("class") = "errorMsg"
-                strlbl_top.Text = strSysErrorAlert
-                MsgBottom.Attributes("class") = "errorMsg"
-                strlbl_bottom.Text = strSysErrorAlert & "<br>" & strRet
-                Return False
-            Finally
-                conn.Close()
-            End Try
+                    Return True
+                Catch ex As Exception
+                    Debug.WriteLine("Error(new_save): " & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
+            End Using
         End Using
     End Function
 
@@ -268,10 +298,10 @@ Public Class permohonan_kuarters
         If insertMaklumatAnak() Then
             txtNamaAnak.Text = ""
             txtICAnak.Text = ""
-            If readMaklumatAnak() Then
+            If loadMaklumatAnak() Then
                 Debug.WriteLine("OK(btnTambahRow): WRITE OK, READ OK")
             Else
-                Debug.WriteLine("ERROR(btnTambahRow): Error readMaklumatAnak")
+                Debug.WriteLine("ERROR(btnTambahRow): Error loadMaklumatAnak")
             End If
         Else
             Debug.WriteLine("ERROR(btnTambahRow): Error insertMaklumatAnak")
@@ -306,47 +336,13 @@ Public Class permohonan_kuarters
         End If
     End Function
 
-    Private Function readMaklumatAnak() As Boolean
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim table As DataTable = New DataTable
-            Dim da As New SqlDataAdapter(
-                    "SELECT 
-                        anak_id,
-                        pengguna_id,
-                        anak_nama,
-                        anak_ic,
-                        anak_umur
-                        FROM spk_anak
-                        WHERE pengguna_id = " & pID.Value & ";",
-                    conn)
-            Try
-                conn.Open()
-                da.Fill(dataAnak, "AnyTable")
-                Dim nRows As Integer = 0
-                Dim nCount As Integer = 1
-                countAnak = dataAnak.Tables(0).Rows.Count
-                jumlahPoint = loadPoints(dataAnak)
-                If countAnak > 0 Then
-                    datRespondent.DataSource = dataAnak
-                    datRespondent.DataBind()
-                End If
-                Return True
-            Catch ex As Exception
-                Debug.WriteLine("ERROR(readMaklumatAnak): " & ex.Message)
-                Return False
-            Finally
-                conn.Close()
-            End Try
-        End Using
-    End Function
-
     Private Sub datRespondent_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles datRespondent.RowDeleting
         Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("anak_id").ToString
         If Not strCID = "" Then
             strSQL = "DELETE FROM spk_anak WHERE anak_id='" & oCommon.FixSingleQuotes(strCID) & "'"
             strRet = oCommon.ExecuteSQL(strSQL)
             If strRet = "0" Then
-                readMaklumatAnak()
+                loadMaklumatAnak()
             Else
                 Debug.WriteLine("ERROR(datRespondent_RowDeleting)")
             End If
@@ -389,25 +385,19 @@ Public Class permohonan_kuarters
         Return noPermohonan
     End Function
 
-    Private Function loadPoints(ByVal dataAnak As DataSet)
+    Private Function loadPoints()
         Dim totalAnakLayak As Integer = 0
-
-        For i As Integer = 0 To dataAnak.Tables(0).Rows.Count - 1
-            If icToAge(dataAnak.Tables(0).Rows(i)(3).ToString) < 18 Then
+        For i As Integer = 0 To datRespondent.Rows.Count - 1
+            If icToAge(CType(datRespondent.Rows(i).FindControl("lblICAnak"), Label).Text) > 18 Then
                 Continue For
             Else
                 totalAnakLayak += 1
             End If
         Next
-
         If totalAnakLayak > 5 Then
             totalAnakLayak = 5
         End If
-
         Dim totalPoint As Integer = pangkatMata + (totalAnakLayak * 5)
-        Debug.WriteLine("Total Anak Layak: " & totalAnakLayak)
-        Debug.WriteLine("Mata pangkat: " & pangkatMata)
-        Debug.WriteLine("Total Point: " & totalPoint)
         Return totalPoint
     End Function
 
@@ -442,105 +432,6 @@ Public Class permohonan_kuarters
             Debug.WriteLine("Error(insertHistoryAnak): " & ex.Message)
             Return False
         End Try
-    End Function
-
-    Private Function insertLogPermohonan(ByVal permohonanID As Integer) As Boolean
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("
-                INSERT INTO spk_logPermohonan (
-                      pengguna_id
-                    , permohonan_id
-                    , log_tarikh 
-                    , log_status
-                ) VALUES (
-                    " & pID.Value & "
-                    , " & permohonanID & "
-                    , '" & Date.Now & "'
-                    , 'PERMOHONAN BARU'
-                )", conn)
-            Try
-                conn.Open()
-                cmd.ExecuteNonQuery()
-                Return True
-            Catch ex As Exception
-                Debug.WriteLine("Error(insertLogPermohonan): " & ex.Message)
-                Return False
-            Finally
-                conn.Close()
-            End Try
-        End Using
-    End Function
-    Private Function insertHistroyKeluarga(ByVal permohoananID As Integer, ByVal totalAnak As Integer, ByVal jenisRumahSebelum As String, ByVal mulaMenetap As String) As Boolean
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("
-                    INSERT INTO
-	                    spk_historyKeluarga(
-		                    permohonan_id
-		                    , pengguna_id
-		                    , historyKeluarga_tarikh
-		                    , historyKeluarga_anak
-		                    , historyKeluarga_tempat_tinggal
-		                    , historyKeluarga_tarikh_mula
-	                    )
-                    VALUES (
-	                    " & permohoananID & "
-	                    , " & pID.Value & "
-	                    , '" & Date.Now().ToString("dd'/'MM'/'yyyy") & "'
-	                    , " & totalAnak & "
-	                    , '" & jenisRumahSebelum & "'
-	                    , '" & mulaMenetap & "'
-                    )", conn)
-            Try
-                conn.Open()
-                cmd.ExecuteNonQuery()
-                Return True
-            Catch ex As Exception
-                Debug.WriteLine("ERROR(inserHistroyKeluarga): " & ex.Message)
-                Return False
-            Finally
-                conn.Close()
-            End Try
-        End Using
-    End Function
-
-    Private Function insertHistoryPengguna(ByVal permohonanID As Integer) As Boolean
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("
-                INSERT INTO 
-                    spk_historyPengguna(
-                        pengguna_id
-                        , permohonan_id
-                        , pangkat_id
-                        , historyPengguna_statusPerkahwinan
-                        , historyPengguna_penggunaNoTentera
-                )
-                VALUES
-                (
-                    @penggunaID
-                    ,   @permohonanID
-                    ,   @pangkatId
-                    ,   @statusPerkahwinan
-                    ,   @penggunaNoTentera
-                )
-            ")
-                cmd.Connection = conn
-                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
-                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = permohonanID
-                cmd.Parameters.Add("@pangkatID", SqlDbType.Int).Value = Integer.Parse(pangkatID.Value)
-                cmd.Parameters.Add("@statusPerkahwinan", SqlDbType.NVarChar, 50).Value = lblStatusPerkahwinan.Text
-                cmd.Parameters.Add("@penggunaNoTentera", SqlDbType.NVarChar, 50).Value = lblNoTentera.Text
-                Try
-                    conn.Open()
-                    cmd.ExecuteNonQuery()
-                    Return True
-                Catch ex As Exception
-                    Debug.WriteLine("Error(insertHistoryPengguna): " & ex.Message)
-                    Return False
-                Finally
-                    conn.Close()
-                End Try
-            End Using
-        End Using
     End Function
 
     Private Sub saveBottom_ServerClick(sender As Object, e As EventArgs) Handles saveBottom.ServerClick
@@ -626,19 +517,4 @@ Public Class permohonan_kuarters
         End Using
     End Function
 
-    Protected Sub loadJenisTempatTinggal()
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("SELECT config_parameter, config_value FROM general_config WHERE config_type = 'JENIS PENEMPATAN SEBELUM';", conn)
-                Using sda As New SqlDataAdapter(cmd)
-                    Dim ds As New DataSet
-                    sda.Fill(ds)
-                    ddlJenisPenempatan.DataSource = ds
-                    ddlJenisPenempatan.DataTextField = "config_parameter"
-                    ddlJenisPenempatan.DataValueField = "config_value"
-                    ddlJenisPenempatan.DataBind()
-                    ddlJenisPenempatan.Items.Insert(0, New ListItem("-- SILA PILIH --"))
-                End Using
-            End Using
-        End Using
-    End Sub
 End Class
