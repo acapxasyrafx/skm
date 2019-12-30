@@ -323,7 +323,10 @@
                                     <tr>
                                         <td style="width: 150px;">Nama</td>
                                         <td>:</td>
-                                        <td><asp:Label Text="" runat="server" ID="lblNama"/></td>
+                                        <td>
+                                            <asp:Label Text="" runat="server" ID="lblNama"/>
+                                            <asp:HiddenField runat="server" ID="pID" />
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td style="width: 150px;">Jantina</td>

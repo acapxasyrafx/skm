@@ -18,20 +18,24 @@ Public Class maklumat_permohonan
 
     Dim oCommon As New Commonfunction
 
-    Dim penggunaID As Integer = Session("user_id")
     Dim pangkalanID As Integer = 0
-    Dim permohonanID As Integer = Request.QueryString("permohonan")
+    Dim permohonanID As Integer
     Dim statusPermohonan As String = ""
     Dim subStatusPermohonan As String = ""
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        If Not IsPostBack Then
+        If Session("user_id") IsNot Nothing Then
+            pID.Value = Session("user_id")
+            permohonanID = Request.QueryString("permohonan")
             Load_Page()
+        Else
+            Response.Redirect("/")
         End If
     End Sub
 
     Private Sub Load_Page()
+
         maklumatPermohonan()
         maklumatAnak()
         maklumatStatusPermohonan()
@@ -170,7 +174,7 @@ Public Class maklumat_permohonan
                 SELECT log_tarikh, log_status 
                 FROM spk_logPermohonan 
                 WHERE 
-                    pengguna_id = " & penggunaID & " 
+                    pengguna_id = " & pID.Value & " 
                     AND permohonan_id = " & permohonanID & ";", conn)
             Try
                 conn.Open()
@@ -314,7 +318,7 @@ Public Class maklumat_permohonan
         SET	
 	        status_dicadang = 'DIRUJUK'
         WHERE
-	        pengguna_id = " & penggunaID & " AND permohonan_id = " & Request.QueryString("permohonan") & ";"
+	        pengguna_id = " & pID.Value & " AND permohonan_id = " & Request.QueryString("permohonan") & ";"
         setRef = oCommon.ExecuteSQL(query)
         If setRef = "0" Then
             Debug.WriteLine("updateCadanganKuartersStatus")
@@ -325,7 +329,7 @@ Public Class maklumat_permohonan
 
     Private Sub btnBatalPermohonan_Click(sender As Object, e As EventArgs) Handles btnBatalPermohonan.Click
         Dim query = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN DITOLAK' , permohonan_sub_status = 'DIBATAL' , permohonan_nota = @sebab , permohonan_tarikh = '" & Date.Now.ToString("dd/MM/yy") & "' WHERE permohonan_id = @permohonanID; 
-INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (" & penggunaID & ", @permohonanID, '" & Date.Now & "', 'PERMOHONAN DITOLAK')"
+INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (" & pID.Value & ", @permohonanID, '" & Date.Now & "', 'PERMOHONAN DITOLAK')"
         If tbSebabBatal.Text.Length > 0 Then
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand(query)
@@ -371,7 +375,7 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
     Private Sub btnTolakTawaran_Click(sender As Object, e As EventArgs) Handles btnTolakTawaran.Click
         Dim query = "
         UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN DITOLAK' , permohonan_sub_status = 'TOLAK TAWARAN UNIT' , permohonan_nota = @sebab , permohonan_tarikh = '" & Date.Now.ToString("dd/MM/yy") & "' WHERE permohonan_id = @permohonanID; 
-        INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (" & penggunaID & ", @permohonanID, '" & Date.Now & "', 'PERMOHONAN DITOLAK');
+        INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (" & pID.Value & ", @permohonanID, '" & Date.Now & "', 'PERMOHONAN DITOLAK');
         UPDATE spk_unit SET unit_status='Available' WHERE unit_id = @unitID"
         If tbSebabBatal.Text.Length > 0 Then
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
@@ -446,7 +450,7 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
     Private Sub btnTolakCadangan_Click(sender As Object, e As EventArgs) Handles btnTolakCadangan.Click
         Dim query = "
         UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN DITOLAK' , permohonan_sub_status = 'TOLAK TAWARAN UNIT' , permohonan_nota = @sebab , permohonan_tarikh = '" & Date.Now.ToString("dd/MM/yy") & "' WHERE permohonan_id = @permohonanID; 
-        INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (" & penggunaID & ", @permohonanID, '" & Date.Now & "', 'PERMOHONAN DITOLAK');"
+        INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (" & pID.Value & ", @permohonanID, '" & Date.Now & "', 'PERMOHONAN DITOLAK');"
         If tbSebabBatal.Text.Length > 0 Then
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand(query)
@@ -487,7 +491,7 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
                 )
                 cmd.Connection = conn
                 cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = permohonanID
-                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = penggunaID
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
                 cmd.Parameters.Add("@untuk", SqlDbType.NVarChar, 50).Value = untuk
                 cmd.Parameters.Add("@kumpulan", SqlDbType.Int).Value = kumpulan
                 cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now

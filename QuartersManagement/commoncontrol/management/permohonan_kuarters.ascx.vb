@@ -20,7 +20,6 @@ Public Class permohonan_kuarters
     Dim strSQL As String = ""
     Dim strRet As String = ""
     Dim countAnak As Integer = 0
-    Dim tempID As Integer = 1
     Dim permohonanID As Integer
     Dim pangkatMata As Integer
     Dim jumlahPoint As Integer
@@ -30,6 +29,8 @@ Public Class permohonan_kuarters
             If Session("user_id") IsNot Nothing Then
                 pID.Value = Session("user_id")
                 Load_Page()
+            Else
+                Response.Redirect("/")
             End If
         End If
     End Sub
@@ -60,7 +61,7 @@ Public Class permohonan_kuarters
 	                spk_pengguna A
 	                JOIN spk_pangkat B ON B.pangkat_id = A.pangkat_id
                 WHERE
-	                A.pengguna_id = " & tempID & ";",
+	                A.pengguna_id = " & pID.Value & ";",
             conn)
 
             Try
