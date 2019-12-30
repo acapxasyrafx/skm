@@ -37,8 +37,6 @@ Public Class permohonan_menunggu
             strlbl_top.Text = strSysErrorAlert
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-        Finally
-
         End Try
     End Sub
 
@@ -68,7 +66,6 @@ Public Class permohonan_menunggu
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim cmd As New SqlCommand("SELECT kuarters_id, kuarters_nama FROM spk_kuarters WHERE pangkalan_id = " & ddlfilterPangkalan.SelectedValue & " ORDER BY kuarters_nama ASC; ", conn)
             Dim ds As New DataSet
-
             Try
                 conn.Open()
                 Dim da As New SqlDataAdapter(cmd)
@@ -120,13 +117,10 @@ Public Class permohonan_menunggu
         End Using
     End Sub
 
-
-    '-- BIND DATA --'
     Private Function getSQL() As String
         Dim tmpSQL As String
         Dim strWhere As String = ""
-        Dim strOrder As String = ""
-
+        Dim strOrder As String = " ORDER BY tarikhUpdate DESC"
         tmpSQL = "SELECT 
 		        A.pengguna_id as pengguna_id 
             ,   B.permohonan_no_permohonan
@@ -158,7 +152,6 @@ Public Class permohonan_menunggu
 					A.log_status = 'PERMOHONAN BARU'
 			) G ON G.permohonan_id = B.permohonan_id"
         strWhere += " WHERE B.permohonan_status = 'PERMOHONAN MENUNGGU'"
-
         Try
             If ddlfilterKuarters.SelectedIndex > 0 Then
                 strWhere += " AND B.kuarters_id = '" & ddlfilterKuarters.SelectedValue & "'"
@@ -177,16 +170,11 @@ Public Class permohonan_menunggu
                     A.pengguna_nama LIKE '%" & txt_nama.Text & "%' OR 
                     A.pengguna_no_tentera LIKE '%" & txt_nama.Text & "%')"
             End If
-
         Catch ex As Exception
             MsgBottom.InnerText = ex.ToString
         End Try
-
-
         getSQL = tmpSQL & strWhere & strOrder
-
         Return getSQL
-
     End Function
 
     Private Function GetData(ByVal cmd As SqlCommand) As DataTable
@@ -214,56 +202,44 @@ Public Class permohonan_menunggu
         Dim myDataSet As New DataSet
         Dim myDataAdapter As New SqlDataAdapter(getSQL, strConn)
         myDataAdapter.SelectCommand.CommandTimeout = 120
-
         Try
             myDataAdapter.Fill(myDataSet, "myaccount")
-
             If myDataSet.Tables(0).Rows.Count = 0 Then
-
                 MsgBottom.Attributes("class") = "errorMsg"
                 strlbl_bottom.Text = strDataBindAlert
             Else
-
                 MsgBottom.Attributes("class") = "successMsg"
                 strlbl_bottom.Text = strRecordBindAlert & myDataSet.Tables(0).Rows.Count
             End If
-
             gvTable.DataSource = myDataSet
             gvTable.DataBind()
             objConn.Close()
         Catch ex As Exception
-
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
             Return False
         End Try
-
         Return True
-
     End Function
 
     Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
         Try
-
             If (e.CommandName = "ViewApllicant") Then
                 Dim strCID = e.CommandArgument.ToString
-
                 Response.Redirect("Maklumat.Pemohon.Menunggu.aspx?uid=" + strCID)
             ElseIf (e.CommandName = "Batal") Then
                 Dim strCID = e.CommandArgument.ToString
-
                 'chk session to prevent postback
                 strSQL = "UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN ANDA DITOLAK' WHERE permohonan_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
                 oCommon.ExecuteSQL(strSQL)
-
             End If
             BindData(datRespondent)
-
         Catch ex As Exception
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
         End Try
     End Sub
+
     Private Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
         strRet = BindData(datRespondent)
     End Sub

@@ -39,7 +39,7 @@ Public Class login_page
         Dim da As SqlDataAdapter
         Dim dt As New DataTable
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("SELECT TOP(1) pengguna_id, pengguna_jenis FROM spk_pengguna WHERE pengguna_no_tentera = @noTentera AND pengguna_pwd = @pwd")
+            Using cmd As New SqlCommand("SELECT TOP(1) pengguna_id, pengguna_jenis, pangkat_id FROM spk_pengguna WHERE pengguna_no_tentera = @noTentera AND pengguna_pwd = @pwd")
                 cmd.Connection = conn
                 cmd.Parameters.Add("@noTentera", SqlDbType.NVarChar, 50).Value = txtLoginID.Text
                 cmd.Parameters.Add("@pwd", SqlDbType.NVarChar, 50).Value = txtPwd.Text
@@ -50,6 +50,7 @@ Public Class login_page
                     If dt.Rows.Count > 0 Then
                         Session("user_type") = dt.Rows(0)("pengguna_jenis")
                         Session("user_id") = dt.Rows(0)("pengguna_id")
+                        Session("pangkat_id") = dt.Rows(0)("pangkat_id")
                         Return dt.Rows(0)("pengguna_jenis")
                     Else
                         Debug.WriteLine("Error(UserLogin): Pengguna tiada dalam sistem.")
