@@ -66,6 +66,13 @@
         }
         
         .overlay-content>.overlay-item:last-child {
+            display: flex;
+            flex-direction: column;
+            margin: 5px;
+            padding: 2px 4px;
+            width: 100rem;
+            height:100rem;
+            color: #fff;
             border-right:none;
         }
 
@@ -261,7 +268,7 @@
                             <ul class="item-list">
                                 <asp:Repeater runat="server" ID="rptDiterima">
                                     <ItemTemplate>
-                                        <li><a id="lblDiterima" href="#"><%# Eval("notifikasi_log") %></a></li>
+                                        <li class="item"><a id="lblDiterima" href="#"><%# Eval("notifikasi_log") %></a></li>
                                     </ItemTemplate>
                                 </asp:Repeater>
                             </ul>
