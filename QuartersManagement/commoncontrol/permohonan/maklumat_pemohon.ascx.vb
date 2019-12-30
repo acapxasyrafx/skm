@@ -21,12 +21,18 @@ Public Class maklumat_pemohon
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
 
+    Dim penggunaID As Integer
     Dim countAnak As Integer = 0
     Dim dataAnak As New DataSet
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
-            load_page()
+            If Session("user_id") Then
+                penggunaID = Session("user_id")
+                load_page()
+            Else
+                Response.Redirect("/")
+            End If
         End If
     End Sub
 
@@ -34,7 +40,7 @@ Public Class maklumat_pemohon
         loadUser()
         readMaklumatAnak()
         loadMaklumatMata()
-        update_notifikasi(Request.QueryString("uid"))
+        update_notifikasi()
     End Sub
 
     Private Sub loadUser()
@@ -350,22 +356,18 @@ Public Class maklumat_pemohon
         End Using
     End Sub
 
-    Private Sub update_notifikasi(ByVal notifikasiID As Integer)
-        If notifikasiID > 0 Then
-            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-                Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE permohonan_id = @notifikasiID")
-                    cmd.Connection = conn
-                    cmd.Parameters.Add("@notifikasiID", SqlDbType.Int).Value = notifikasiID
-                    Try
-                        conn.Open()
-                        cmd.ExecuteNonQuery()
-                    Catch ex As Exception
-                        Debug.WriteLine("Error(update_notikasi): " & ex.Message)
-                    Finally
-                        conn.Close()
-                    End Try
-                End Using
+    Protected Sub update_notifikasi()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE pengguna_id = @penggunaID AND permohonan_id = @permohonanID")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = penggunaID
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                Try
+                    cmd.ExecuteScalar()
+                Catch ex As Exception
+                    Debug.WriteLine("Error(updateNotifikasi): " & ex.Message)
+                End Try
             End Using
-        End If
+        End Using
     End Sub
 End Class

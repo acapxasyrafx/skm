@@ -21,17 +21,22 @@ Public Class maklumat_pemohon_menunggu
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
 
-
     Dim dataAnak As New DataSet
     Dim countAnak As Integer = 0
+    Dim penggunaID As Integer
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
         If Not IsPostBack Then
-            loadUser()
-            readMaklumatAnak()
-            loadCadanganKuarters()
+            If Session("user_id") IsNot Nothing Then
+                penggunaID = Session("user_id")
+                loadUser()
+                readMaklumatAnak()
+                loadCadanganKuarters()
+                update_notifikasi()
+            Else
+                Response.Redirect("/")
+            End If
         End If
-
     End Sub
     Private Function readMaklumatAnak() As Boolean
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
@@ -305,6 +310,21 @@ Public Class maklumat_pemohon_menunggu
                     Debug.WriteLine("Error(loadCadanganKuarters): " & ex.Message)
                 Finally
                     conn.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Protected Sub update_notifikasi()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE pengguna_id = @penggunaID AND permohonan_id = @permohonanID")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = penggunaID
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                Try
+                    cmd.ExecuteScalar()
+                Catch ex As Exception
+                    Debug.WriteLine("Error(updateNotifikasi): " & ex.Message)
                 End Try
             End Using
         End Using

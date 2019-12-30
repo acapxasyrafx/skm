@@ -23,7 +23,6 @@ Public Class maklumat_permohonan
     Dim statusPermohonan As String = ""
     Dim subStatusPermohonan As String = ""
 
-
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Session("user_id") IsNot Nothing Then
             pID.Value = Session("user_id")
@@ -35,11 +34,10 @@ Public Class maklumat_permohonan
     End Sub
 
     Private Sub Load_Page()
-
         maklumatPermohonan()
         maklumatAnak()
         maklumatStatusPermohonan()
-        update_notifikasi(Request.QueryString("uid"))
+        update_notifikasi()
     End Sub
 
     Private Sub maklumatPermohonan()
@@ -509,22 +507,18 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
         End Using
     End Function
 
-    Private Sub update_notifikasi(ByVal notifikasiID As Integer)
-        If notifikasiID > 0 Then
-            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-                Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE permohonan_id = @notifikasiID")
-                    cmd.Connection = conn
-                    cmd.Parameters.Add("@notifikasiID", SqlDbType.Int).Value = notifikasiID
-                    Try
-                        conn.Open()
-                        cmd.ExecuteNonQuery()
-                    Catch ex As Exception
-                        Debug.WriteLine("Error(update_notikasi): " & ex.Message)
-                    Finally
-                        conn.Close()
-                    End Try
-                End Using
+    Protected Sub update_notifikasi()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE pengguna_id = @penggunaID AND permohonan_id = @permohonanID")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                Try
+                    cmd.ExecuteScalar()
+                Catch ex As Exception
+                    Debug.WriteLine("Error(updateNotifikasi): " & ex.Message)
+                End Try
             End Using
-        End If
+        End Using
     End Sub
 End Class

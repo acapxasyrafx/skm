@@ -20,21 +20,25 @@ Public Class maklumat_pemohon_ditolak
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
 
+    Dim penggunaID As Integer
     Dim dataAnak As New DataSet
     Dim countAnak As Integer = 0
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        Try
-            load_page()
-        Catch ex As Exception
-
-        End Try
+        If Not IsPostBack Then
+            If Session("user_id") Then
+                penggunaID = Session("user_id")
+                load_page()
+            Else
+                Response.Redirect("/")
+            End If
+        End If
     End Sub
 
     Protected Sub load_page()
         loadUser()
         readMaklumatAnak()
-        update_notifikasi(Request.QueryString("uid"))
+        update_notifikasi()
     End Sub
 
     Private Sub loadUser()
@@ -140,6 +144,21 @@ Public Class maklumat_pemohon_ditolak
         End Using
     End Function
 
+    Protected Sub update_notifikasi()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE pengguna_id = @penggunaID AND permohonan_id = @permohonanID")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = penggunaID
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                Try
+                    cmd.ExecuteScalar()
+                Catch ex As Exception
+                    Debug.WriteLine("Error(updateNotifikasi): " & ex.Message)
+                End Try
+            End Using
+        End Using
+    End Sub
+
     Protected Function icToAge(ByVal ic As String) As Integer
         Dim year = ic.Substring(0, 2)
         Dim month = ic.Substring(2, 2)
@@ -150,23 +169,4 @@ Public Class maklumat_pemohon_ditolak
         Debug.WriteLine("icToAge: " & dob_string & "|Age: " & age & "")
         Return age
     End Function
-
-    Private Sub update_notifikasi(ByVal notifikasiID As Integer)
-        If notifikasiID > 0 Then
-            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-                Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE permohonan_id = @notifikasiID")
-                    cmd.Connection = conn
-                    cmd.Parameters.Add("@notifikasiID", SqlDbType.Int).Value = notifikasiID
-                    Try
-                        conn.Open()
-                        cmd.ExecuteNonQuery()
-                    Catch ex As Exception
-                        Debug.WriteLine("Error(update_notikasi): " & ex.Message)
-                    Finally
-                        conn.Close()
-                    End Try
-                End Using
-            End Using
-        End If
-    End Sub
 End Class
