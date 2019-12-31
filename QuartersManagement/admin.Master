@@ -266,11 +266,21 @@
                         <div class="overlay-item">
                             <h3 class="item-header">Permohonan Diterima</h3>
                             <ul class="item-list">
+                                <%-- Sample Repeater with clickable link --%>
                                 <asp:Repeater runat="server" ID="rptDiterima">
                                     <ItemTemplate>
-                                        <li class="item"><a id="lblDiterima" href="#"><%# Eval("notifikasi_log") %></a></li>
+                                        <li class="item">
+                                            <asp:LinkButton
+                                                ID="lblDiterima"
+                                                ClientIDMode="Static"
+                                                Text='<%# Eval("notifikasi_log") %>'
+                                                CommandName="permohonan_diterima"
+                                                CommandArgument='<%# Eval("notifikasi_id") %>'
+                                                runat="server" />
+                                        </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
+                                <%-- Sample Repeater with clickable link --%>
                             </ul>
                         </div>
                     </asp:Panel>

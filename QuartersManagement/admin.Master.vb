@@ -144,7 +144,27 @@ Public Class admin
         End Using
     End Function
 
-    Private Sub rptBaru_ItemDataBound(sender As Object, e As RepeaterItemEventArgs) Handles rptBaru.ItemDataBound
+    Private Sub rptDiterima_ItemCommand(source As Object, e As RepeaterCommandEventArgs) Handles rptDiterima.ItemCommand
+        If e.CommandName = "permohonan_diterima" Then
+            update_notifikasi(e.CommandArgument)
+        End If
+    End Sub
 
+    Private Sub update_notifikasi(ByVal notifikasiID As Integer)
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked=1 WHERE notifikasi_id = @notifikasiID")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@notifikasiID", SqlDbType.Int).Value = notifikasiID
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    Debug.WriteLine("Error(update_notifikasi): " & ex.Message)
+                Finally
+                    conn.Close()
+                    Response.Redirect("Senarai.Penempatan.Pemohon.aspx?P=Pengurusan%20Pentadbiran%20%3E%20Kuarters%20%3E%20Senarai%20Penempatan%20Kuarters")
+                End Try
+            End Using
+        End Using
     End Sub
 End Class
