@@ -64,16 +64,13 @@
             color: #fff;
             border-right: solid white 6px;
         }
+
+        .overlay-item:last-child{
+            border: none;
+        }
         
-        .overlay-content>.overlay-item:last-child {
-            display: flex;
-            flex-direction: column;
-            margin: 5px;
-            padding: 2px 4px;
-            width: 100rem;
-            height:100rem;
-            color: #fff;
-            border-right:none;
+        #tiadaNotifikasi > .overlay-item {
+            border: none;
         }
 
         .item-header {
