@@ -146,11 +146,11 @@ Public Class maklumat_pemohon_ditolak
 
     Protected Sub update_notifikasi()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE pengguna_id = @penggunaID AND permohonan_id = @permohonanID")
+            Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE permohonan_id = @permohonanID AND notifikasi_untuk='ADMIN'")
                 cmd.Connection = conn
-                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = penggunaID
                 cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
                 Try
+                    conn.Open()
                     cmd.ExecuteScalar()
                 Catch ex As Exception
                     Debug.WriteLine("Error(updateNotifikasi): " & ex.Message)
