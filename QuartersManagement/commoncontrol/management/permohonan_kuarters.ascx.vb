@@ -202,8 +202,9 @@ Public Class permohonan_kuarters
         query += "INSERT INTO spk_historyKeluarga( permohonan_id , pengguna_id , historyKeluarga_tarikh , historyKeluarga_anak , historyKeluarga_tempat_tinggal , historyKeluarga_tarikh_mula )
                     VALUES ( @permohonanID, @penggunaID, @tarikh, @jumlahAnak, @rumahSebelum, @tarikhMulaMenetap);"
         'History Pengguna
-        query += "INSERT INTO  spk_historyPengguna( pengguna_id , permohonan_id , pangkat_id , historyPengguna_statusPerkahwinan , historyPengguna_penggunaNoTentera )
-                VALUES ( @penggunaID ,   @permohonanID ,   @pangkatId ,   @statusPerkahwinan ,   @penggunaNoTentera );"
+        query += "INSERT INTO  spk_historyPengguna( pengguna_id , permohonan_id , pangkat_id , historyPengguna_statusPerkahwinan , historyPengguna_penggunaNoTentera, historyPengguna_mulaBerkhidmat, historyPengguna_tamatBerkhidmat)
+                VALUES ( @penggunaID ,   @permohonanID ,   @pangkatId ,   @statusPerkahwinan ,   @penggunaNoTentera @tarikhMulaBerkhidmat, @tarikhTamatBerkhidmat );"
+        'Log Status Permohonan
         query += " INSERT INTO spk_logPermohonan ( pengguna_id , permohonan_id , log_tarikh  , log_status ) 
                 VALUES ( @penggunaID, @permohonanID, @tarikh, 'PERMOHONAN BARU');"
         query += "SELECT @permohonanID as 'permohonan_id'"
@@ -221,6 +222,8 @@ Public Class permohonan_kuarters
                 cmd.Parameters.Add("@pangkatID", SqlDbType.Int).Value = pangkatID.Value
                 cmd.Parameters.Add("@statusPerkahwinan", SqlDbType.NVarChar, 50).Value = lblStatusPerkahwinan.Text
                 cmd.Parameters.Add("@penggunaNoTentera", SqlDbType.NVarChar, 50).Value = lblNoTentera.Text
+                cmd.Parameters.Add("@tarikhMulaBerkhidmat", SqlDbType.NVarChar, 50).Value = lblTarikhMulaBerkhidmat.Text
+                cmd.Parameters.Add("@tarikhTamatBerkhidmat", SqlDbType.NVarChar, 50).Value = lblTarikhAkhirBerkhidmat.Text
                 Try
                     conn.Open()
                     Dim reader As SqlDataReader
