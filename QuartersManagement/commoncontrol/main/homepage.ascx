@@ -51,7 +51,7 @@
     <div class="header-title">
         <h1>
             <span style="align-items: center">
-                <asp:Label runat="server" ID="lblWelcome">Selamat Datang ADMIN</asp:Label>
+                <asp:Label runat="server" ID="lblWelcome"></asp:Label>
             </span>
         </h1>
     </div>
@@ -64,26 +64,34 @@
                 <ul class="status-list">
                     <li class="status-item">
                         <a href="#">
-                            <span class="status-title">Permohonan Baru</span>
-                            <span class="status-count">12</span>
+                            <span class="status-title" runat="server" id="lblBaruText">Permohonan Baru</span>
+                            <span class="status-count">
+                                <asp:Label Text="0" runat="server" ID="lblBaruCount"/>
+                            </span>
                         </a>
                     </li>
                     <li class="status-item">
                         <a href="#">
-                            <span class="status-title">Permohonan Menunggu</span>
-                            <span class="status-count">12</span>
+                            <span class="status-title" runat="server" id="lblMenunggguText">Permohonan Menunggu</span>
+                            <span class="status-count">
+                                <asp:Label Text="0" runat="server" ID="lblMenungguCount"/>
+                            </span>
                         </a>
                     </li>
                     <li class="status-item">
                         <a href="#">
-                            <span class="status-title">Permohonan Terima</span>
-                            <span class="status-count">12</span>
+                            <span class="status-title" runat="server" id="lblTerimaText">Permohonan Terima</span>
+                            <span class="status-count">
+                                <asp:Label Text="0" runat="server" ID="lblTerimaCount"/>
+                            </span>
                         </a>
                     </li>
                     <li class="status-item">
                         <a href="#">
-                            <span class="status-title">Permohonan Tolak</span>
-                            <span class="status-count">12</span>
+                            <span class="status-title" runat="server" id="lblTolakText">Permohonan Tolak</span>
+                            <span class="status-count">
+                                <asp:Label Text="0" runat="server" ID="lblTolakCount"/>
+                            </span>
                         </a>
                     </li>
                 </ul>
