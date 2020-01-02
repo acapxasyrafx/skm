@@ -162,7 +162,7 @@ Public Class senarai_penempatan_pemohon
                 ddlCarianPangkalan.Items.Insert(0, New ListItem("--SILA PILIH--", String.Empty))
                 ddlCarianPangkalan.SelectedIndex = 0
             Catch ex As Exception
-                Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
+                Debug.WriteLine("ERROR(loadPangkalan-senarai_penempatan_pemohon:165): " & ex.Message)
             Finally
                 conn.Close()
             End Try

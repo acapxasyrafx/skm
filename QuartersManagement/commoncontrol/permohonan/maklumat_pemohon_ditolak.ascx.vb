@@ -136,7 +136,7 @@ Public Class maklumat_pemohon_ditolak
                 End If
                 Return True
             Catch ex As Exception
-                Debug.WriteLine("ERROR(readMaklumatAnak): " & ex.Message)
+                Debug.WriteLine("ERROR(readMaklumatAnak-makluamt_pemohon_ditolak:139): " & ex.Message)
                 Return False
             Finally
                 conn.Close()

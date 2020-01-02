@@ -101,10 +101,10 @@ Public Class maklumat_pemohon
                         lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
                     Loop
                 Else
-                    Debug.WriteLine("Error(loadUser): NO ROWS")
+                    Debug.WriteLine("Error(loadUser-makluamt_pemohon:104): NO ROWS")
                 End If
             Catch ex As Exception
-                Debug.WriteLine("ERROR(loadUser): " & ex.Message)
+                Debug.WriteLine("ERROR(loadUser-makluamt_pemohon:107): " & ex.Message)
             Finally
                 conn.Close()
             End Try
@@ -133,7 +133,7 @@ Public Class maklumat_pemohon
                 End If
                 Return True
             Catch ex As Exception
-                Debug.WriteLine("ERROR(readMaklumatAnak): " & ex.Message)
+                Debug.WriteLine("ERROR(readMaklumatAnak-makluamt_pemohon:136): " & ex.Message)
                 Return False
             Finally
                 conn.Close()
@@ -209,7 +209,7 @@ Public Class maklumat_pemohon
                         jumlahAnakLayak = 0
                     End If
                 Catch ex As Exception
-                    Debug.WriteLine("Error(loadMakluamtMata): " & ex.Message)
+                    Debug.WriteLine("Error(loadMakluamtMata-makluamt_pemohon:212): " & ex.Message)
                 Finally
                     conn.Close()
                 End Try
