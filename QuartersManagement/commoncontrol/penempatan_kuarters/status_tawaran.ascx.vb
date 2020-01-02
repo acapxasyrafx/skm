@@ -45,7 +45,7 @@ Public Class status_tawaran
                     ddlJenisSuratTawaran.DataBind()
                     ddlJenisSuratTawaran.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 Catch ex As Exception
-                    Debug.WriteLine("Error(loadDDLSuratTawaran): " & ex.Message)
+                    Debug.WriteLine("Error(loadDDLSuratTawaran-proses_penempatan_kuarters:48): " & ex.Message)
                 End Try
             End Using
         End Using
@@ -92,10 +92,10 @@ Public Class status_tawaran
                             lblPangkalan.Text = reader("pangkalan_nama")
                         End While
                     Else
-                        Debug.WriteLine("Error(loadPermohonan): No Rows")
+                        Debug.WriteLine("Error(loadPermohonan-proses_penempatan_kuarters:95): No Rows")
                     End If
                 Catch ex As Exception
-                    Debug.WriteLine("Error(loadPermohonan): " & ex.Message)
+                    Debug.WriteLine("Error(loadPermohonan-proses_penempatan_kuarters:98): " & ex.Message)
                 Finally
                     conn.Close()
                 End Try
@@ -131,7 +131,7 @@ Public Class status_tawaran
                 Response.Redirect("Proses.Penempatan.Kuarters.aspx?P=Pengurusan%20Pentadbiran%20>%20Kuarters%20>%20Proses%20Penempatan%20Kuarters")
             End If
         Catch ex As Exception
-            Debug.WriteLine("Error(btnSimpan): " & ex.Message)
+            Debug.WriteLine("Error(btnSimpan-proses_penempatan_kuarters:134): " & ex.Message)
         End Try
     End Sub
 
@@ -168,7 +168,7 @@ Public Class status_tawaran
                 editorSurattawaran.Content = content
             End If
         Catch ex As Exception
-            Debug.WriteLine("Error(ddlJenisSuratTawaran): " & ex.Message)
+            Debug.WriteLine("Error(ddlJenisSuratTawaran-status_tawaran:171): " & ex.Message)
         End Try
 
     End Sub

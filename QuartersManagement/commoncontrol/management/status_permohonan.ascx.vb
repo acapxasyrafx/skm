@@ -85,11 +85,11 @@ Public Class status_permohonan1
                         Debug.WriteLine("Success: maklumatUser")
                     Loop
                 Else
-                    Debug.WriteLine("Error(maklumatUser): No Rows")
+                    Debug.WriteLine("Error(maklumatUser-status_permohonan:88): No Rows")
                 End If
                 reader.Close()
             Catch ex As Exception
-                Debug.WriteLine("Error(maklumatUser): " & ex.Message)
+                Debug.WriteLine("Error(maklumatUser-status_permohonan:92): " & ex.Message)
             Finally
                 conn.Close()
             End Try
@@ -110,7 +110,7 @@ Public Class status_permohonan1
                     Debug.WriteLine("Success: maklumatAnak")
                 End If
             Catch ex As Exception
-                Debug.WriteLine("Error(maklumatAnak):" & ex.Message)
+                Debug.WriteLine("Error(maklumatAnak-status_permohonan:113):" & ex.Message)
             Finally
                 conn.Close()
             End Try
@@ -144,7 +144,7 @@ Public Class status_permohonan1
                     Debug.WriteLine("Success: maklumatCadanganKuarters")
                 End If
             Catch ex As Exception
-                Debug.WriteLine("Error(maklumatCadangantKuartes): " & ex.Message)
+                Debug.WriteLine("Error(maklumatCadangantKuartes-status_permohonan:147): " & ex.Message)
             Finally
                 conn.Close()
             End Try

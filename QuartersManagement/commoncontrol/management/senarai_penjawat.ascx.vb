@@ -176,7 +176,7 @@ Public Class senarai_penjawat
                 ddlCarianPangkat.DataBind()
                 ddlCarianPangkat.Items.Insert(0, New ListItem("-- SILA PILIH --", ""))
             Catch ex As Exception
-                Debug.WriteLine("Error(loadDDDLCarianPangkat): " & ex.Message)
+                Debug.WriteLine("Error(loadDDDLCarianPangkat-senarai_penjawat:179): " & ex.Message)
             Finally
                 conn.Close()
             End Try

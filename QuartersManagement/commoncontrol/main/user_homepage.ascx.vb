@@ -35,7 +35,7 @@ Public Class user_homepage
                         End While
                     End If
                 Catch ex As Exception
-                    Debug.WriteLine("Error(load_user): " & ex.Message)
+                    Debug.WriteLine("Error(load_user-user_homepage:38): " & ex.Message)
                 Finally
                     conn.Close()
                 End Try

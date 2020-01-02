@@ -159,7 +159,7 @@ Public Class admin
                     conn.Open()
                     cmd.ExecuteNonQuery()
                 Catch ex As Exception
-                    Debug.WriteLine("Error(update_notifikasi): " & ex.Message)
+                    Debug.WriteLine("Error(update_notifikasi-admin.Master:162): " & ex.Message)
                 Finally
                     conn.Close()
                     Response.Redirect("Senarai.Penempatan.Pemohon.aspx?P=Pengurusan%20Pentadbiran%20%3E%20Kuarters%20%3E%20Senarai%20Penempatan%20Kuarters")

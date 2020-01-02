@@ -36,7 +36,7 @@ Public Class homepage
                         End While
                     End If
                 Catch ex As Exception
-                    Debug.WriteLine("Error(load_user): " & ex.Message)
+                    Debug.WriteLine("Error(load_user-homepage:39): " & ex.Message)
                 Finally
                     conn.Close()
                 End Try
@@ -71,7 +71,7 @@ Public Class homepage
                         End While
                     End If
                 Catch ex As Exception
-                    Debug.WriteLine("Error(load_status_count) : " & ex.Message)
+                    Debug.WriteLine("Error(load_status_count-homepage:74) : " & ex.Message)
                 Finally
                     conn.Close()
                 End Try

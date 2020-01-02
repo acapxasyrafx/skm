@@ -316,7 +316,7 @@ Public Class pendaftaran_penjawat
                 strSQL += " UPPER('" & oCommon.FixSingleQuotes(ddlNegeriDaftar.Text) & "'),"
                 strSQL += " UPPER('" & txtNoPekerja.Text & "'))"
             Else
-                Debug.WriteLine("Error(Save): Save type bukan Insert/Edit")
+                Debug.WriteLine("Error(Save-pendaftaran_penjawat:319): Save type bukan Insert/Edit")
                 Return False
             End If
 
@@ -330,7 +330,7 @@ Public Class pendaftaran_penjawat
                 Return False
             End If
         Catch ex As Exception
-            Debug.WriteLine("Error(Save): " & ex.Message)
+            Debug.WriteLine("Error(Save-pendaftaran_penjawat:333): " & ex.Message)
             Return False
         End Try
     End Function

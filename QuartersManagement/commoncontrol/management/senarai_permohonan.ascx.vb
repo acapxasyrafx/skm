@@ -191,11 +191,11 @@ Public Class senarai_permohonan
             If strRef = "0" Then
                 Return True
             Else
-                Debug.WriteLine("Error(batalPermohonan): " & strRef)
+                Debug.WriteLine("Error(batalPermohonan-senarai_permohonan:194): " & strRef)
                 Return False
             End If
         Catch ex As Exception
-            Debug.WriteLine("Error(batalPermohonan): " & ex.Message)
+            Debug.WriteLine("Error(batalPermohonan-senarai_permohonan:198): " & ex.Message)
             Return False
         End Try
     End Function
@@ -220,11 +220,11 @@ Public Class senarai_permohonan
                         End If
                     Loop
                 Else
-                    Debug.WriteLine("Error(showButton): No Rows")
+                    Debug.WriteLine("Error(showButton-senarai_permohonan:223): No Rows")
                     Return False
                 End If
             Catch ex As Exception
-                Debug.WriteLine("Error(showButton): " & ex.Message)
+                Debug.WriteLine("Error(showButton-senarai_permohonan:227): " & ex.Message)
                 Return False
             Finally
                 conn.Close()
@@ -268,7 +268,7 @@ Public Class senarai_permohonan
                 ddlCarianPangkalan.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlCarianPangkalan.SelectedIndex = 0
             Catch ex As Exception
-                Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
+                Debug.WriteLine("ERROR(loadPangkalan-senarai_permohonan:271): " & ex.Message)
             Finally
                 conn.Close()
             End Try
@@ -312,7 +312,7 @@ Public Class senarai_permohonan
                         ddlCarianStatus.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                         ddlCarianStatus.SelectedIndex = 0
                     Catch ex As Exception
-                        Debug.WriteLine("ERROR(loadStatusPermohonan): " & ex.Message)
+                        Debug.WriteLine("ERROR(loadStatusPermohonan-senarai_permohonan:315): " & ex.Message)
                     End Try
                 End Using
             End Using
@@ -352,7 +352,7 @@ Public Class senarai_permohonan
                             End Select
                         End While
                     Else
-                        Debug.WriteLine("ERROR(canCancel): Not found pID(" & pID & ")")
+                        Debug.WriteLine("ERROR(canCancel-senarai_permohonan:355): Not found pID(" & pID & ")")
                         Return False
                     End If
                 End Using

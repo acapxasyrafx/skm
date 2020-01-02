@@ -30,7 +30,7 @@ Public Class login_page
                 Debug.WriteLine("User not exist")
                 alertMsg.InnerText = "Akaun tiada dalam sistem. Sila pastikan ID dan KATA LALUAN adalah betul."
             Else
-                Debug.WriteLine("Error")
+                Debug.WriteLine("Error(btnLogin-login_page:33)")
             End If
         End If
     End Sub
@@ -53,7 +53,7 @@ Public Class login_page
                         Session("pangkat_id") = dt.Rows(0)("pangkat_id")
                         Return dt.Rows(0)("pengguna_jenis")
                     Else
-                        Debug.WriteLine("Error(UserLogin): Pengguna tiada dalam sistem.")
+                        Debug.WriteLine("Error(UserLogin-login_page:56): Pengguna tiada dalam sistem.")
                         Debug.WriteLine("txtLoginID: " & txtLoginID.Text.ToUpper)
                         Debug.WriteLine("txtPwd: " & txtPwd.Text)
                         Return "1"
@@ -61,7 +61,7 @@ Public Class login_page
                 Catch ex As Exception
                     Debug.WriteLine("txtLoginID: " & txtLoginID.Text.ToUpper)
                     Debug.WriteLine("txtPwd: " & txtPwd.Text)
-                    Debug.WriteLine("Error(UserLogin): " & ex.Message)
+                    Debug.WriteLine("Error(UserLogin-login_page:64): " & ex.Message)
                     Return "0"
                 Finally
                     conn.Close()

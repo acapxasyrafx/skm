@@ -88,7 +88,7 @@ Public Class permohonan_kuarters
                     Debug.Write("ERROR(loadUser): NO ROWS")
                 End If
             Catch ex As Exception
-                Debug.WriteLine("ERROR(loadUser): " & ex.Message)
+                Debug.WriteLine("ERROR(loadUser-permohonan_kuarters:91): " & ex.Message)
             Finally
                 conn.Close()
             End Try
@@ -120,7 +120,7 @@ Public Class permohonan_kuarters
                 End If
                 Return True
             Catch ex As Exception
-                Debug.WriteLine("ERROR(loadMaklumatAnak): " & ex.Message)
+                Debug.WriteLine("ERROR(loadMaklumatAnak-permohonan_kuarters:123): " & ex.Message)
                 Return False
             Finally
                 conn.Close()
@@ -144,7 +144,7 @@ Public Class permohonan_kuarters
                 ddlSenaraiPangkalan.Items.Insert(0, New ListItem("Senarai Pangkalan...", String.Empty))
                 ddlSenaraiPangkalan.SelectedIndex = 0
             Catch ex As Exception
-                Debug.WriteLine("ERROR(loadPangkalan): " & ex.Message)
+                Debug.WriteLine("ERROR(loadPangkalan-permohonan_kuarters:147): " & ex.Message)
             Finally
                 conn.Close()
             End Try
@@ -203,7 +203,7 @@ Public Class permohonan_kuarters
                     VALUES ( @permohonanID, @penggunaID, @tarikh, @jumlahAnak, @rumahSebelum, @tarikhMulaMenetap);"
         'History Pengguna
         query += "INSERT INTO  spk_historyPengguna( pengguna_id , permohonan_id , pangkat_id , historyPengguna_statusPerkahwinan , historyPengguna_penggunaNoTentera, historyPengguna_mulaBerkhidmat, historyPengguna_tamatBerkhidmat)
-                VALUES ( @penggunaID ,   @permohonanID ,   @pangkatId ,   @statusPerkahwinan ,   @penggunaNoTentera @tarikhMulaBerkhidmat, @tarikhTamatBerkhidmat );"
+                VALUES ( @penggunaID ,   @permohonanID ,   @pangkatId ,   @statusPerkahwinan ,   @penggunaNoTentera, @tarikhMulaBerkhidmat, @tarikhTamatBerkhidmat );"
         'Log Status Permohonan
         query += " INSERT INTO spk_logPermohonan ( pengguna_id , permohonan_id , log_tarikh  , log_status ) 
                 VALUES ( @penggunaID, @permohonanID, @tarikh, 'PERMOHONAN BARU');"
@@ -236,7 +236,7 @@ Public Class permohonan_kuarters
                     End If
                     Return True
                 Catch ex As Exception
-                    Debug.WriteLine("Error(new_save): " & ex.Message)
+                    Debug.WriteLine("Error(new_save-permohonan_kuarters:239): " & ex.Message)
                     Return False
                 Finally
                     conn.Close()
@@ -304,10 +304,10 @@ Public Class permohonan_kuarters
             If loadMaklumatAnak() Then
                 Debug.WriteLine("OK(btnTambahRow): WRITE OK, READ OK")
             Else
-                Debug.WriteLine("ERROR(btnTambahRow): Error loadMaklumatAnak")
+                Debug.WriteLine("ERROR(btnTambahRow-permohonan_kuarters:307): Error loadMaklumatAnak")
             End If
         Else
-            Debug.WriteLine("ERROR(btnTambahRow): Error insertMaklumatAnak")
+            Debug.WriteLine("ERROR(btnTambahRow-permohonan_kuarters:310): Error insertMaklumatAnak")
         End If
 
     End Sub
@@ -347,7 +347,7 @@ Public Class permohonan_kuarters
             If strRet = "0" Then
                 loadMaklumatAnak()
             Else
-                Debug.WriteLine("ERROR(datRespondent_RowDeleting)")
+                Debug.WriteLine("ERROR(datRespondent_RowDeleting-permohonan_kuarters:350)")
             End If
         End If
     End Sub
@@ -427,12 +427,12 @@ Public Class permohonan_kuarters
                 If strRet = "0" Then
                     Continue For
                 Else
-                    Debug.WriteLine("Error(saveHistoryAnak): Failed to save(" & namaAnak & ", idx:" & i & ")")
+                    Debug.WriteLine("Error(saveHistoryAnak-permohonan_kuarters:430): Failed to save(" & namaAnak & ", idx:" & i & ")")
                 End If
             Next
             Return True
         Catch ex As Exception
-            Debug.WriteLine("Error(insertHistoryAnak): " & ex.Message)
+            Debug.WriteLine("Error(insertHistoryAnak-permohonan_kuarters:435): " & ex.Message)
             Return False
         End Try
     End Function
@@ -456,7 +456,7 @@ Public Class permohonan_kuarters
             strlbl_top.Text = strSysErrorAlert
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-            Debug.WriteLine("ERROR(saveFunction): " & ex.Message)
+            Debug.WriteLine("ERROR(saveFunction-permohonan_kuarters:459): " & ex.Message)
         End Try
     End Sub
 
@@ -511,7 +511,7 @@ Public Class permohonan_kuarters
                     cmd.ExecuteNonQuery()
                     Return True
                 Catch ex As Exception
-                    Debug.WriteLine("Error(newNotifikasi): " & ex.Message)
+                    Debug.WriteLine("Error(newNotifikasi - permohonan_kuarters:514): " & ex.Message)
                     Return False
                 Finally
                     conn.Close()

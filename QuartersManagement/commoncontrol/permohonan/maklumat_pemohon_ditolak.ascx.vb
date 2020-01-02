@@ -102,10 +102,10 @@ Public Class maklumat_pemohon_ditolak
                         lblStatusPerkahwinan.InnerText = reader("historyPengguna_statusPerkahwinan")
                     End While
                 Else
-                    Debug.Write("ERROR(loadUser): NO ROWS")
+                    Debug.Write("ERROR(loadUser-makluamt_pemohon_ditolak:105): NO ROWS")
                 End If
             Catch ex As Exception
-                Debug.WriteLine("ERROR(loadUser): " & ex.Message)
+                Debug.WriteLine("ERROR(loadUser-makluamt_pemohon_ditolak:108): " & ex.Message)
             Finally
                 conn.Close()
             End Try
@@ -153,7 +153,7 @@ Public Class maklumat_pemohon_ditolak
                     conn.Open()
                     cmd.ExecuteScalar()
                 Catch ex As Exception
-                    Debug.WriteLine("Error(updateNotifikasi): " & ex.Message)
+                    Debug.WriteLine("Error(updateNotifikasi-maklumat_pemohon_ditolak:156): " & ex.Message)
                 End Try
             End Using
         End Using
