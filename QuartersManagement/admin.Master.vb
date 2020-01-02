@@ -167,4 +167,11 @@ Public Class admin
             End Using
         End Using
     End Sub
+
+    Private Sub logKeluar_ServerClick(sender As Object, e As EventArgs) Handles logKeluar.ServerClick
+        Session("user_type") = Nothing
+        Session("user_id") = Nothing
+        Session("pangkat_id") = Nothing
+        Response.Redirect("default.aspx")
+    End Sub
 End Class

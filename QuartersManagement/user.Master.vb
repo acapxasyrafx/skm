@@ -36,6 +36,13 @@ Public Class user
         End If
     End Sub
 
+    Private Sub logKeluar_ServerClick(sender As Object, e As EventArgs) Handles logKeluar.ServerClick
+        Session("user_type") = Nothing
+        Session("user_id") = Nothing
+        Session("pangkat_id") = Nothing
+        Response.Redirect("default.aspx")
+    End Sub
+
     Protected Function getSQL() As String
         Dim tempSQL As String = "SELECT 
 	        A.permohonan_id

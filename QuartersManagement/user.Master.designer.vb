@@ -41,6 +41,15 @@ Partial Public Class user
     Protected WithEvents jumlahNotifikasi As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''logKeluar control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents logKeluar As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
     '''myNav control.
     '''</summary>
     '''<remarks>
