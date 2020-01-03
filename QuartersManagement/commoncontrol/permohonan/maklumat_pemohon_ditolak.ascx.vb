@@ -151,7 +151,7 @@ Public Class maklumat_pemohon_ditolak
                 cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
                 Try
                     conn.Open()
-                    cmd.ExecuteScalar()
+                    cmd.ExecuteNonQuery()
                 Catch ex As Exception
                     Debug.WriteLine("Error(updateNotifikasi-maklumat_pemohon_ditolak:156): " & ex.Message)
                 End Try

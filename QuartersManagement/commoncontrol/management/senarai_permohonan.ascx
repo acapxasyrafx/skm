@@ -134,11 +134,12 @@
                     CellPadding="4" 
                     ForeColor="#333333" 
                     GridLines="None" 
-                    Width="100%" 
+                    Width="100%"
+                    Height="100%"
                     PageSize="100" 
                     CssClass="gridview_footer"
                     >
-                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                    <RowStyle BackColor="#F7F6F3" ForeColor="#333333" Height="50px" />
                     <Columns>
                         <asp:TemplateField HeaderText="#">
                             <ItemTemplate>

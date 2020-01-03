@@ -347,7 +347,7 @@ Public Class maklumat_pemohon_menunggu
                 cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
                 Try
                     conn.Open()
-                    cmd.ExecuteScalar()
+                    cmd.ExecuteNonQuery()
                 Catch ex As Exception
                     Debug.WriteLine("Error(updateNotifikasi-maklumat_pemohon_menunggu:356): " & ex.Message)
                 End Try
@@ -619,6 +619,7 @@ Public Class maklumat_pemohon_menunggu
     Private Sub ddlJenisSuratTawaran_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlJenisSuratTawaran.SelectedIndexChanged
         If ddlJenisSuratTawaran.SelectedIndex > 0 Then
             getSuratTawaran()
+            load_page()
         End If
     End Sub
 End Class

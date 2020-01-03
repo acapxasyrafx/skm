@@ -690,13 +690,13 @@
                     <%-- Keputusan batal/tolak --%>
                     <asp:View runat="server">
                         <div class="maklumat-ditolak">
-                            <table class="fbform">
+                            <table class="fbform" style="width:100%; height: 100%;">
                                 <tr class="fbform_mheader">
                                     <td colspan="3">Keputusan Permohonan</td>
                                 </tr>
                                 <tr>
-                                    <td>Status Permohonan</td>
-                                    <td>:</td>
+                                    <td style="width:150px;">Status Permohonan</td>
+                                    <td style="width:5px;">:</td>
                                     <td><asp:Label Text="text" runat="server" ID="lblKeputusanTolak"/></td>
                                 </tr>
                                 <tr>
@@ -721,15 +721,15 @@
                     <asp:View runat="server">
                         <div class="maklumat-batal fbform">
                             <table>
-                                <tr class="fbform_mheader">
-                                    <td>Keputusan Permohonan</td>
+                                 <tr class="fbform_mheader">
+                                    <td colspan="3">Keputusan Permohonan</td>
                                 </tr>
                                 <tr>
-                                    <td>Status Permohonan</td>
-                                    <td>:</td>
+                                    <td style="width:150px;">Status Permohonan</td>
+                                    <td style="width:5px;">:</td>
                                     <td><asp:Label Text="text" runat="server" ID="lblKeputusanTerima"/></td>
                                 </tr>
-                                <tr>
+                                <tr class="fbform_mheader">
                                     <td colspan="3">Surat Tawaran</td>
                                 </tr>
                                 <tr>

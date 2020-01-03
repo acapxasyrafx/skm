@@ -63,7 +63,7 @@
             <div>
                 <ul class="status-list">
                     <li class="status-item">
-                        <a href="#">
+                        <a href="Senarai.Permohonan.Baru.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Baru">
                             <span class="status-title" runat="server" id="lblBaruText">Permohonan Baru</span>
                             <span class="status-count">
                                 <asp:Label Text="0" runat="server" ID="lblBaruCount"/>
@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li class="status-item">
-                        <a href="#">
+                        <a href="Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20%3E%20Senarai%20Permohonan%20%3E%20Senarai%20Permohonan%20Menunggu">
                             <span class="status-title" runat="server" id="lblMenunggguText">Permohonan Menunggu</span>
                             <span class="status-count">
                                 <asp:Label Text="0" runat="server" ID="lblMenungguCount"/>
@@ -79,7 +79,7 @@
                         </a>
                     </li>
                     <li class="status-item">
-                        <a href="#">
+                        <a href="Senarai.Penempatan.Pemohon.aspx?P=Pengurusan%20Pentadbiran%20>%20Kuarters%20>%20Senarai%20Penempatan%20Kuarters">
                             <span class="status-title" runat="server" id="lblTerimaText">Permohonan Terima</span>
                             <span class="status-count">
                                 <asp:Label Text="0" runat="server" ID="lblTerimaCount"/>
@@ -87,7 +87,7 @@
                         </a>
                     </li>
                     <li class="status-item">
-                        <a href="#">
+                        <a href="Senarai.Permohonan.Tolak.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Tolak">
                             <span class="status-title" runat="server" id="lblTolakText">Permohonan Tolak</span>
                             <span class="status-count">
                                 <asp:Label Text="0" runat="server" ID="lblTolakCount"/>

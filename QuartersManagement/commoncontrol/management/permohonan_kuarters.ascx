@@ -175,7 +175,7 @@
                                             <%# Container.DataItemIndex + 1 %>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" WIdth="5%"/>
-                                        <ItemStyle VerticalAlign="Middle" />
+                                        <ItemStyle VerticalAlign="Middle" Height="30px" Font-Size="15px"/>
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="Nama" >
@@ -183,7 +183,7 @@
                                            <asp:Label ID="lblNamaAnak" runat="server" Text='<%# Bind("anak_nama")%>'></asp:Label>
                                        </ItemTemplate>
                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="30%" />
-                                       <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                       <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left"  Height="30px" Font-Size="15px"/>
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="KP" >
@@ -191,7 +191,7 @@
                                             <asp:Label ID="lblICAnak" runat="server" Text='<%# Bind("anak_ic")%>'></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="30%" />
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left"  Height="30px" Font-Size="15px"/>
                                     </asp:TemplateField>
                         
                                     <asp:TemplateField HeaderText="UMUR" >
@@ -199,7 +199,7 @@
                                             <asp:Label ID="lblUmurAnak" runat="server" Text='<%# icToAge(Eval("anak_ic")) %>'></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top"  Width ="20%" />
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left"  Height="30px" Font-Size="15px"/>
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="Padam">
@@ -229,6 +229,10 @@
                                     HorizontalAlign="Center" />
                                 <EditRowStyle BackColor="#999999" />
                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                <EmptyDataTemplate>
+                                    <span style="color: red;">Tiada anak didaftarkan dalam sistem</span>
+                                </EmptyDataTemplate>
+                                <EmptyDataRowStyle HorizontalAlign="Center" VerticalAlign="Bottom" BackColor="White" ForeColor="#284775" />
                             </asp:GridView>
                         </td>
                     </tr>

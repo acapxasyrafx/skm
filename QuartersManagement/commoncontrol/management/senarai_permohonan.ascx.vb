@@ -20,7 +20,7 @@ Public Class senarai_permohonan
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
 
-    Dim penggunaID As Integer = 1
+    Dim penggunaID As Integer
     Dim pangkalanID As Integer = 0
     Dim permohonanID As Integer = Nothing
     Dim statusPermohon As String = ""
@@ -149,6 +149,7 @@ Public Class senarai_permohonan
                 strlbl_top.Text = strSaveSuccessAlert
                 MsgBottom.Attributes("class") = "successMsg"
                 strlbl_bottom.Text = strSaveSuccessAlert
+                newNotifikasi(hiddenPermohonanID.Value, "ADMIN", 35)
                 closeModal()
                 Load_Page()
             Else
@@ -163,6 +164,7 @@ Public Class senarai_permohonan
             strlbl_top.Text = "Hanya Permohonan Baru boleh dibatalkan."
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = "Hanya Permohonan Baru boleh dibatalkan."
+            closeModal()
         End If
     End Sub
 
@@ -180,24 +182,26 @@ Public Class senarai_permohonan
     End Sub
 
     Private Function batalPermohonan(ByVal pID As Integer) As Boolean
-        Dim strRef = ""
-        Dim query = "UPDATE spk_permohonan
-                    SET 
-	                    permohonan_nota = '" & txtNota.Text & "',
-	                    permohonan_status = 'PERMOHONAN DITOLAK'
-                    WHERE permohonan_id = " & pID & ";"
-        Try
-            strRef = oCommon.ExecuteSQL(query)
-            If strRef = "0" Then
-                Return True
-            Else
-                Debug.WriteLine("Error(batalPermohonan-senarai_permohonan:194): " & strRef)
-                Return False
-            End If
-        Catch ex As Exception
-            Debug.WriteLine("Error(batalPermohonan-senarai_permohonan:198): " & ex.Message)
-            Return False
-        End Try
+        Dim query As String
+        query = "UPDATE spk_permohonan SET permohonan_nota = @nota, permohonan_status = @status, permohonan_sub_status = @subStatus WHERE permohonan_id = @permohonanID;"
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand(query)
+                cmd.Connection = conn
+                cmd.Parameters.Add("@nota", SqlDbType.NVarChar).Value = txtNota.Text
+                cmd.Parameters.Add("@status", SqlDbType.NVarChar, 50).Value = "PERMOHONAN DITOLAK"
+                cmd.Parameters.Add("@subStatus", SqlDbType.NVarChar, 50).Value = "DIBATAL"
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = hiddenPermohonanID.Value
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                    Return True
+                Catch ex As Exception
+                    Debug.WriteLine("Error(batalPermohonan-senarai_permohonan:198): " & ex.Message)
+                    Return False
+                End Try
+            End Using
+        End Using
+
     End Function
 
     Protected Function showButton(ByVal pID As Integer) As Boolean
@@ -337,11 +341,12 @@ Public Class senarai_permohonan
 
     Protected Function canCancel(ByVal pID As Integer) As Boolean
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("SELECT permohonan_status_permohonan FROM spk_permohonan WHERE permohonan_id = " & pID & ";", conn)
+            Using cmd As New SqlCommand("SELECT permohonan_status FROM spk_permohonan WHERE permohonan_id = " & pID & ";", conn)
+                conn.Open()
                 Using reader As SqlDataReader = cmd.ExecuteReader
                     If reader.HasRows() Then
                         While (reader.Read())
-                            Select Case reader("permohonan_status_permohonan")
+                            Select Case reader("permohonan_status")
                                 Case "PERMOHONAN BARU"
                                     Return True
                                 Case Else
@@ -353,21 +358,46 @@ Public Class senarai_permohonan
                         Return False
                     End If
                 End Using
+                conn.Close()
             End Using
         End Using
         Return False
     End Function
 
-    Protected Function test(ByVal query As String, Optional dt As DropDownList = Nothing)
-
-    End Function
-
-
-    Protected Sub newNotifkasi(ByVal untuk As String, ByVal kumpulan As Integer, ByVal permohonanID As Integer)
+    Protected Function newNotifikasi(ByVal permohonanID As Integer, ByVal untuk As String, ByVal kumpulan As Integer) As Boolean
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("", conn)
-
+            Using cmd As New SqlCommand("INSERT INTO 
+                spk_notifikasi(
+                    permohonan_id
+                    , pengguna_id
+                    , notifikasi_untuk
+                    , notifikasi_kumpulan
+                    , notifikasi_tarikh
+                ) 
+                VALUES(
+                    @permohonanID
+                    , @penggunaID
+                    , @untuk
+                    , @kumpulan
+                    , @tarikh);"
+                )
+                cmd.Connection = conn
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = permohonanID
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = penggunaID
+                cmd.Parameters.Add("@untuk", SqlDbType.NVarChar, 50).Value = untuk
+                cmd.Parameters.Add("@kumpulan", SqlDbType.Int).Value = kumpulan
+                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                    Return True
+                Catch ex As Exception
+                    Debug.WriteLine("Error(newNotifikasi-maklumat_permohonan:498): " & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
             End Using
         End Using
-    End Sub
+    End Function
 End Class

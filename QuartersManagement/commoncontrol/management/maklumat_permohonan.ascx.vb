@@ -157,9 +157,6 @@ Public Class maklumat_permohonan
             Catch ex As Exception
                 Debug.WriteLine("Error(maklumatPermohonan-maklumat_permohonan:158): " & ex.Message)
             Finally
-                Debug.WriteLine("status permohonan: " & statusPermohonan.ToString())
-                Debug.WriteLine("sub status permohonan: " & subStatusPermohonan.ToString())
-                Debug.WriteLine("Success: maklumatUser")
                 conn.Close()
             End Try
         End Using
@@ -226,7 +223,7 @@ Public Class maklumat_permohonan
                     Debug.WriteLine("Success: maklumatAnak")
                 End If
             Catch ex As Exception
-                Debug.WriteLine("Error(maklumatAnak-maklumat_permohonan:229):" & ex.Message)
+                Debug.WriteLine("Error(maklumatAnak-maklumat_permohonan:226):" & ex.Message)
             Finally
                 conn.Close()
             End Try
@@ -260,7 +257,7 @@ Public Class maklumat_permohonan
                     Debug.WriteLine("Success: maklumatCadanganKuarters")
                 End If
             Catch ex As Exception
-                Debug.WriteLine("Error(maklumatCadangantKuartes-maklumat_permohonan:263): " & ex.Message)
+                Debug.WriteLine("Error(maklumatCadangantKuartes-maklumat_permohonan:260): " & ex.Message)
             Finally
                 conn.Close()
             End Try
@@ -301,7 +298,7 @@ Public Class maklumat_permohonan
                     Return False
                 End If
             Catch ex As Exception
-                Debug.WriteLine("Error(checkCadanganKuarters-maklumat_permohonan:304): " & ex.Message)
+                Debug.WriteLine("Error(checkCadanganKuarters-maklumat_permohonan:301): " & ex.Message)
                 Return False
             Finally
                 conn.Close()
@@ -321,7 +318,7 @@ Public Class maklumat_permohonan
         If setRef = "0" Then
             Debug.WriteLine("updateCadanganKuartersStatus")
         Else
-            Debug.WriteLine("Error(updateCadanganKuartersStatus-maklumat_permohonan:324): Failed to update.")
+            Debug.WriteLine("Error(updateCadanganKuartersStatus-maklumat_permohonan:321): Failed to update.")
         End If
     End Sub
 
@@ -338,7 +335,7 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
                         conn.Open()
                         cmd.ExecuteNonQuery()
                     Catch ex As Exception
-                        Debug.WriteLine("Error(btnBatalPermohonan-maklumat_permohonan:341): " & ex.Message)
+                        Debug.WriteLine("Error(btnBatalPermohonan-maklumat_permohonan:338): " & ex.Message)
                     Finally
                         conn.Close()
                         newNotifikasi(Request.QueryString("permohonan"), "ADMIN", 35)
@@ -361,7 +358,7 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
                     conn.Open()
                     cmd.ExecuteNonQuery()
                 Catch ex As Exception
-                    Debug.WriteLine("Error(btnTerimaTawaran-maklumat_permohonan:364): " & ex.Message)
+                    Debug.WriteLine("Error(btnTerimaTawaran-maklumat_permohonan:361): " & ex.Message)
                 Finally
                     conn.Close()
                     Load_Page()
@@ -386,7 +383,7 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
                         conn.Open()
                         cmd.ExecuteNonQuery()
                     Catch ex As Exception
-                        Debug.WriteLine("Error(btnBatalPermohonan-maklumat_permohonan:389): " & ex.Message)
+                        Debug.WriteLine("Error(btnBatalPermohonan-maklumat_permohonan:386): " & ex.Message)
                     Finally
                         conn.Close()
                         newNotifikasi(Request.QueryString("permohonan"), "ADMIN", 35)
@@ -433,14 +430,14 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
                     strlbl_top.Text = strSaveFailAlert
                     MsgBottom.Attributes("class") = "errorMsg"
                     strlbl_bottom.Text = strSaveFailAlert
-                    Debug.WriteLine("Error(SaveFunction_ServerClick-maklumat_permohonan:436):" & setRef)
+                    Debug.WriteLine("Error(SaveFunction_ServerClick-maklumat_permohonan:433):" & setRef)
                 End If
             Else
                 MsgTop.Attributes("class") = "errorMsg"
                 strlbl_top.Text = strSaveFailAlert
                 MsgBottom.Attributes("class") = "errorMsg"
                 strlbl_bottom.Text = strSaveFailAlert
-                Debug.WriteLine("Error(SaveFunction_ServerClick-maklumat_permohonan:443):" & setRef)
+                Debug.WriteLine("Error(SaveFunction_ServerClick-maklumat_permohonan:440):" & setRef)
             End If
         End If
     End Sub
@@ -498,7 +495,7 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
                     cmd.ExecuteNonQuery()
                     Return True
                 Catch ex As Exception
-                    Debug.WriteLine("Error(newNotifikasi-maklumat_permohonan:501): " & ex.Message)
+                    Debug.WriteLine("Error(newNotifikasi-maklumat_permohonan:498): " & ex.Message)
                     Return False
                 Finally
                     conn.Close()
@@ -512,12 +509,12 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
             Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked = 1 WHERE pengguna_id = @penggunaID AND permohonan_id = @permohonanID AND notifikasi_untuk='USER'")
                 cmd.Connection = conn
                 cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
-                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = permohonanID
                 Try
                     conn.Open()
-                    cmd.ExecuteScalar()
+                    cmd.ExecuteNonQuery()
                 Catch ex As Exception
-                    Debug.WriteLine("Error(updateNotifikasi-maklumat_permohonan:520): " & ex.Message)
+                    Debug.WriteLine("Error(updateNotifikasi-maklumat_permohonan:517): " & ex.Message)
                 End Try
             End Using
         End Using

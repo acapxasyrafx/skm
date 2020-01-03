@@ -168,8 +168,8 @@
                         <asp:Panel ID="Panel1" runat="server" ScrollBars="vertical" Height="350">
                             <asp:GridView ID="datRespondent" runat="server" AutoGenerateColumns="False" AllowPaging="false"
                                 CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="permohonan_id"
-                                Width="100%" PageSize="100" CssClass="gridview_footer" OnRowCommand="datRespondent_RowCommand">
-                                <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+                                Width="100%" Height="100%" PageSize="100" CssClass="gridview_footer" OnRowCommand="datRespondent_RowCommand">
+                                <RowStyle BackColor="#F7F6F3" ForeColor="#333333" Height="50px" />
                                 <Columns>
                                     <asp:TemplateField HeaderText="#">
                                         <ItemTemplate>
