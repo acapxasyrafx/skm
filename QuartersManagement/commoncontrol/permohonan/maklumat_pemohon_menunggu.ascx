@@ -378,8 +378,15 @@
                         &#160; <i class="fa fa-calendar w3-medium w3-text-black"></i>
                     </td>
                 </tr>
+                <tr>
+                    <td style="width: 150px;">Jenis Surat Tawaran</td>
+                    <td>:</td>
+                    <td>
+                        <asp:DropDownList runat="server" id="ddlJenisSuratTawaran"/>
+                    </td>
+                </tr>
                 <tr class="fbform_mheader">
-                    <td colspan="3">Surat Tawaran</td>
+                    <td colspan="3">Kandungan Surat Tawaran</td>
                 </tr>
                 <tr>
                     <td colspan="3">

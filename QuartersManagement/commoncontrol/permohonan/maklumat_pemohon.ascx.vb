@@ -258,7 +258,7 @@ Public Class maklumat_pemohon
     Private Sub btnTolakPermohonan_Click(sender As Object, e As EventArgs) Handles btnTolakPermohonan.Click
         Dim query = "UPDATE spk_permohonan SET permohonan_tarikh = @tarikh, permohonan_status = @status, permohonan_nota = @permohonanNota WHERE permohonan_id = @permohonanID;"
         query += "INSERT INTO spkLogPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (@penggunaID, @permohonanID, @tarikh, @status);"
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings(""))
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Using cmd As New SqlCommand(query)
                 cmd.Connection = conn
                 cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now.ToString("dd/MM/yyyy")
@@ -282,8 +282,8 @@ Public Class maklumat_pemohon
 
     Private Sub btnTerimaTawaran_Click(sender As Object, e As EventArgs) Handles btnTerimaTawaran.Click
         Dim query = "UPDATE spk_permohonan SET permohonan_tarikh=@tarikh, permohonan_status=@status WHERE permohonan_id=@permohonanID;"
-        query += "INSERT INTO spkLogPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (@penggunaID, @permohonanID, @tarikh, @status);"
-        Using conn As New SqlConnection(ConfigurationManager.AppSettings(""))
+        query += "INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (@penggunaID, @permohonanID, @tarikh, @status);"
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Using cmd As New SqlCommand(query)
                 cmd.Connection = conn
                 cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now.ToString("dd/MM/yyyy")

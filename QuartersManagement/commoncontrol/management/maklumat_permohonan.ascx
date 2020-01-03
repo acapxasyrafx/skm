@@ -257,7 +257,7 @@
         display: flex;
         justify-content:space-evenly;
         flex-direction: row;
-        width: 100%;
+        width: 99.3%;
     }
 
     .maklumat-permohonan {
@@ -265,6 +265,7 @@
         display: block;
         overflow-y: auto;
         padding: 0 2px;
+        height: inherit;
     }
 
     .maklumat-status {

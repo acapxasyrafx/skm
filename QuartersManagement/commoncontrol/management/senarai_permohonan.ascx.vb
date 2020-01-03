@@ -209,13 +209,10 @@ Public Class senarai_permohonan
                 If reader.HasRows Then
                     Do While reader.Read()
                         If reader("permohonan_status").Equals("PERMOHONAN DITERIMA") Or reader("permohonan_status").Equals("PERMOHONAN DITOLAK") Then
-                            Debug.WriteLine("Status(showButton): " & reader("permohonan_status"))
                             Return False
                         ElseIf reader("permohonan_status").Equals("PERMOHONAN MENUNGGU") Then
-                            Debug.WriteLine("Status(showButton): " & reader("permohonan_status"))
-                            Return True
+                            Return False
                         ElseIf reader("permohonan_status").Equals("PERMOHONAN BARU") Then
-                            Debug.WriteLine("Status(showButton): " & reader("permohonan_status"))
                             Return True
                         End If
                     Loop

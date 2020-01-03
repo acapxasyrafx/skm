@@ -28,16 +28,22 @@ Public Class maklumat_pemohon_menunggu
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
             If Session("user_id") IsNot Nothing Then
-                penggunaID = Session("user_id")
-                loadUser()
-                readMaklumatAnak()
-                loadCadanganKuarters()
-                update_notifikasi()
+                load_page()
             Else
                 Response.Redirect("/")
             End If
         End If
     End Sub
+
+    Protected Sub load_page()
+        penggunaID = Session("user_id")
+        loadUser()
+        readMaklumatAnak()
+        loadCadanganKuarters()
+        loadJenisSuratTawaran()
+        update_notifikasi()
+    End Sub
+
     Private Function readMaklumatAnak() As Boolean
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Dim table As DataTable = New DataTable
@@ -61,7 +67,7 @@ Public Class maklumat_pemohon_menunggu
                 End If
                 Return True
             Catch ex As Exception
-                Debug.WriteLine("ERROR(readMaklumatAnak-makluamt_pemohon_menunggu:64): " & ex.Message)
+                Debug.WriteLine("ERROR(readMaklumatAnak-makluamt_pemohon_menunggu:70): " & ex.Message)
                 Return False
             Finally
                 conn.Close()
@@ -130,7 +136,7 @@ Public Class maklumat_pemohon_menunggu
                         lblJenisPenempatan.InnerText = reader("historyKeluarga_tempat_tinggal")
                         lbltarikhPenempatan.InnerText = reader("historyKeluarga_tarikh_mula")
                         lblStatusPerkahwinan.InnerText = reader("historyPengguna_statusPerkahwinan")
-                        getSuratTawaran()
+                        'getSuratTawaran()
                         If reader("permohonan_sub_status").Equals("TAWARAN UNIT") Then
                             lblUnitDitawarkan.Text = reader("unit_nama")
                             lblTarikhKemasukan.Text = reader("permohonan_tarikh_kemasukan")
@@ -161,10 +167,33 @@ Public Class maklumat_pemohon_menunggu
                     Debug.Write("Error(loadUser): NO ROWS")
                 End If
             Catch ex As Exception
-                Debug.WriteLine("ERROR(loadUser-makluamt_pemohon_menunggu:164): " & ex.Message)
+                Debug.WriteLine("ERROR(loadUser-makluamt_pemohon_menunggu:170): " & ex.Message)
             Finally
                 conn.Close()
             End Try
+        End Using
+    End Sub
+
+    Protected Sub loadJenisSuratTawaran()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT suratTawaranConfig_parameter, suratTawaranConfig_type FROM spk_suratTawaranConfig")
+                Dim ds As New DataSet
+                cmd.Connection = conn
+                Try
+                    conn.Open()
+                    Dim da As New SqlDataAdapter(cmd)
+                    da.Fill(ds, "AnyTable")
+                    ddlJenisSuratTawaran.DataSource = ds
+                    ddlJenisSuratTawaran.DataValueField = "suratTawaranConfig_parameter"
+                    ddlJenisSuratTawaran.DataTextField = "suratTawaranConfig_type"
+                    ddlJenisSuratTawaran.DataBind()
+                    ddlJenisSuratTawaran.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
+                Catch ex As Exception
+                    Debug.WriteLine("Error(loadSuratTawaran-maklumat_pemohon_menunggu:181): " & ex.Message)
+                Finally
+                    conn.Close()
+                End Try
+            End Using
         End Using
     End Sub
 
@@ -187,7 +216,7 @@ Public Class maklumat_pemohon_menunggu
                     conn.Open()
                     jumlahKekosongan = cmd.ExecuteScalar
                 Catch ex As Exception
-                    Debug.WriteLine("Error(checkKekosongan-makluamt_pemohon_menunggu:190): " & ex.Message)
+                    Debug.WriteLine("Error(checkKekosongan-makluamt_pemohon_menunggu:219): " & ex.Message)
                     Return False
                 Finally
                     conn.Close()
@@ -225,7 +254,7 @@ Public Class maklumat_pemohon_menunggu
                     ddlUnitKuarters.DataBind()
                     ddlUnitKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 Catch ex As Exception
-                    Debug.WriteLine("Error(loadUnitAvailable-makluamt_pemohon_menunggu:228): " & ex.Message)
+                    Debug.WriteLine("Error(loadUnitAvailable-makluamt_pemohon_menunggu:257): " & ex.Message)
                 Finally
                     conn.Close()
                 End Try
@@ -244,41 +273,37 @@ Public Class maklumat_pemohon_menunggu
     End Function
 
     Private Sub btnSimpanTawaranUnit_Click(sender As Object, e As EventArgs) Handles btnSimpanTawaranUnit.Click
-        Try
-            If validateUnitSubmit() Then
-                Dim query As String = "
-            UPDATE spk_permohonan
-            SET 
-                permohonan_sub_status = 'TAWARAN UNIT',
-                unit_id = " & ddlUnitKuarters.SelectedValue & ",
-                permohonan_tarikh = '" & Date.Now().ToString("dd/MM/yyyy") & "',
-                permohonan_tarikh_kemasukan = '" & datepicker.Text & "'
-            WHERE permohonan_id = " & Request.QueryString("uid") & ";"
-                strRet = oCommon.ExecuteSQL(query)
-                If strRet = "0" Then
-                    query = ""
-                    query = "INSERT INTO 
-                            spk_suratTawaran(suratTawaran_content,permohonan_id,suratTawaran_tarikh_dibuat) 
-                        VALUES(
-                            '" & Server.HtmlEncode(editorSurattawaran.Content) & "'
-                           ," & Request.QueryString("uid") & "
-                            ,'" & Date.Now() & "');
-                           UPDATE spk_unit SET unit_status = 'On Hold' WHERE unit_id = " & ddlUnitKuarters.SelectedValue & ";"
-                    strRet = oCommon.ExecuteSQL(query)
-                    If strRet = "0" Then
+        If validateUnitSubmit() Then
+            'spk_permohonan
+            Dim q = "UPDATE spk_permohonan SET permohonan_sub_status = @subStatus, unit_id = @unitID, permohonan_tarikh = @tarikh, permohonan_tarikh_kemasukan = @tarikhMasuk WHERE permohonan_id = @permohonanID;"
+            'spk_suratTawaran
+            q += "INSERT INTO spk_suratTawaran(suratTawaran_content, permohonan_id, suratTawaran_tarikh_dibuat) VALUES (@suratTawaran, @permohonanID, @tarikh);"
+            'spk_unit
+            q += "UPDATE spk_unit SET unit_status = @unitStatus WHERE unit_id=@unitID;"
+
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand(q)
+                    cmd.Connection = conn
+                    cmd.Parameters.Add("@subStatus", SqlDbType.NVarChar, 50).Value = "TAWARAN UNIT"
+                    cmd.Parameters.Add("@unitID", SqlDbType.Int).Value = ddlUnitKuarters.SelectedValue
+                    cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now.ToString("dd/MM/yyyy")
+                    cmd.Parameters.Add("@tarikhMasuk", SqlDbType.NVarChar).Value = datepicker.Text
+                    cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                    cmd.Parameters.Add("@suratTawaran", SqlDbType.NVarChar).Value = Server.HtmlEncode(editorSurattawaran.Content)
+                    cmd.Parameters.Add("@unitStatus", SqlDbType.NVarChar, 50).Value = "On Hold"
+                    Try
+                        conn.Open()
+                        cmd.ExecuteNonQuery()
                         newNotifikasi("USER", 32)
                         Response.Redirect("Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Menunggu")
-                    Else
-                        Debug.WriteLine("Error(btnSimpanTawaranUnit-makluamt_pemohon_menunggu:272): Error Save Surat Tawaran")
-                    End If
-                Else
-                    Debug.WriteLine("Error(btnSimpanTawaranUnit-makluamt_pemohon_menunggu:275): Error Save Tawaran Unit")
-                End If
-            End If
-        Catch ex As Exception
-            Debug.WriteLine("Error(btnSimpanTawaranUnit-makluamt_pemohon_menunggu:279): " & ex.Message)
-        End Try
-
+                    Catch ex As Exception
+                        Debug.WriteLine("Error(btnSimpanTawaranUnit-makluamt_pemohon_menunggu:300")
+                    Finally
+                        conn.Close()
+                    End Try
+                End Using
+            End Using
+        End If
     End Sub
 
     Private Sub loadCadanganKuarters(ByVal pangkalanID As Integer)
@@ -307,7 +332,7 @@ Public Class maklumat_pemohon_menunggu
                     ddlCadanganKuarters.DataBind()
                     ddlCadanganKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 Catch ex As Exception
-                    Debug.WriteLine("Error(loadCadanganKuarters-makluamt_pemohon_menunggu:310): " & ex.Message)
+                    Debug.WriteLine("Error(loadCadanganKuarters-makluamt_pemohon_menunggu:335): " & ex.Message)
                 Finally
                     conn.Close()
                 End Try
@@ -324,7 +349,7 @@ Public Class maklumat_pemohon_menunggu
                     conn.Open()
                     cmd.ExecuteScalar()
                 Catch ex As Exception
-                    Debug.WriteLine("Error(updateNotifikasi-maklumat_pemohon_menunggu:327): " & ex.Message)
+                    Debug.WriteLine("Error(updateNotifikasi-maklumat_pemohon_menunggu:356): " & ex.Message)
                 End Try
             End Using
         End Using
@@ -365,18 +390,18 @@ Public Class maklumat_pemohon_menunggu
                         strlbl_bottom.Text = "Gagal Disimpan.<br/>" & strRet.ToString
                     End If
                 Catch ex As Exception
-                    Debug.WriteLine("Error(btnTambahCadangan-makluamt_pemohon_menunggu:368): " & ex.Message)
+                    Debug.WriteLine("Error(btnTambahCadangan-makluamt_pemohon_menunggu:393): " & ex.Message)
                 End Try
 
             Else
-                Debug.WriteLine("Error(btnTambahCadangan-makluamt_pemohon_menunggu:372): LIMIT REACH")
+                Debug.WriteLine("Error(btnTambahCadangan-makluamt_pemohon_menunggu:397): LIMIT REACH")
                 MsgTop.Attributes("class") = "errorMsg"
                 strlbl_top.Text = "Hanya 3 kuarters boleh dicadangkan."
                 MsgBottom.Attributes("class") = "errorMsg"
                 strlbl_bottom.Text = "Hanya 3 kuarters boleh dicadangkan."
             End If
         Else
-            Debug.WriteLine("Error(btnTambahCadangan-makluamt_pemohon_menunggu:379): KUARTERS TAK DIPILIH")
+            Debug.WriteLine("Error(btnTambahCadangan-makluamt_pemohon_menunggu:404): KUARTERS TAK DIPILIH")
             MsgTop.Attributes("class") = "errorMsg"
             strlbl_top.Text = "Kuarters perlu dipilih."
             MsgBottom.Attributes("class") = "errorMsg"
@@ -427,10 +452,10 @@ Public Class maklumat_pemohon_menunggu
             If strRet = "0" Then
                 loadCadanganKuarters()
             Else
-                Debug.WriteLine("Error(gvCadanganKuarters_rowDeleting-makluamt_pemohon_menunggu:430): strRet != 0")
+                Debug.WriteLine("Error(gvCadanganKuarters_rowDeleting-makluamt_pemohon_menunggu:455): strRet != 0")
             End If
         Else
-            Debug.WriteLine("Error(gvCadanganKuarters_rowDeleting-makluamt_pemohon_menunggu:433): strCID = 0")
+            Debug.WriteLine("Error(gvCadanganKuarters_rowDeleting-makluamt_pemohon_menunggu:458): strCID = 0")
         End If
     End Sub
 
@@ -459,14 +484,14 @@ Public Class maklumat_pemohon_menunggu
                         newNotifikasi("USER", 33)
                         Response.Redirect("Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20%3E%20Senarai%20Permohonan%20%3E%20Senarai%20Permohonan%20Menunggu")
                     Catch ex As Exception
-                        Debug.WriteLine("Error(btnSimpanCadanganKuarters-makluamt_pemohon_menunggu:462): " & ex.Message)
+                        Debug.WriteLine("Error(btnSimpanCadanganKuarters-makluamt_pemohon_menunggu:487): " & ex.Message)
                     Finally
                         conn.Close()
                     End Try
                 End Using
             End Using
         Else
-            Debug.WriteLine("Error(btnSimpanCadanganKuarters-makluamt_pemohon_menunggu:469): TIADA SEBARANG KUARTERS DICADANG")
+            Debug.WriteLine("Error(btnSimpanCadanganKuarters-makluamt_pemohon_menunggu:494): TIADA SEBARANG KUARTERS DICADANG")
             MsgTop.Attributes("class") = "errorMsg"
             strlbl_top.Text = "Sila pilih kuarters untuk dicadang."
             MsgBottom.Attributes("class") = "errorMsg"
@@ -482,7 +507,7 @@ Public Class maklumat_pemohon_menunggu
                 If IsDate(Convert.ToDateTime(datepicker.Text).ToString("dd/MM/yy")) Then
                     Return True
                 Else
-                    Debug.WriteLine("Error(validateUnitSubmit-makluamt_pemohon_menunggu:485): Tarikh Kemasukan tak berformat betul")
+                    Debug.WriteLine("Error(validateUnitSubmit-makluamt_pemohon_menunggu:510): Tarikh Kemasukan tak berformat betul")
                     MsgTop.Attributes("class") = "errorMsg"
                     strlbl_top.Text = "SILA MASUKKAN TARIKH KEMASUKAN YANG BETUL"
                     MsgBottom.Attributes("class") = "errorMsg"
@@ -490,7 +515,7 @@ Public Class maklumat_pemohon_menunggu
                     Return False
                 End If
             Else
-                Debug.WriteLine("Error(validateUnitSubmit-makluamt_pemohon_menunggu:493): TARIKH KEMASUKAN PERLU DIISI")
+                Debug.WriteLine("Error(validateUnitSubmit-makluamt_pemohon_menunggu:518): TARIKH KEMASUKAN PERLU DIISI")
                 MsgTop.Attributes("class") = "errorMsg"
                 strlbl_top.Text = "TARIKH KEMASUKAN PERLU DIISI"
                 MsgBottom.Attributes("class") = "errorMsg"
@@ -498,7 +523,7 @@ Public Class maklumat_pemohon_menunggu
                 Return False
             End If
         Else
-            Debug.WriteLine("Error(validateUnitSubmit-makluamt_pemohon_menunggu:501): UNIT TAK DIPILIH")
+            Debug.WriteLine("Error(validateUnitSubmit-makluamt_pemohon_menunggu:526): UNIT TAK DIPILIH")
             MsgTop.Attributes("class") = "errorMsg"
             strlbl_top.Text = "UNIT KUARTERS PERLU DIPILIH"
             MsgBottom.Attributes("class") = "errorMsg"
@@ -511,14 +536,14 @@ Public Class maklumat_pemohon_menunggu
         If gvCadanganKuarters.Rows.Count < 3 Then
             Return True
         ElseIf gvCadanganKuarters.Rows.Count.Equals(0) Then
-            Debug.WriteLine("Error(validateKuartersSubmit-makluamt_pemohon_menunggu:514): SILA CADANG SEKURANG-KURANGNYA SATU(1) KUARTERS")
+            Debug.WriteLine("Error(validateKuartersSubmit-makluamt_pemohon_menunggu:539): SILA CADANG SEKURANG-KURANGNYA SATU(1) KUARTERS")
             MsgTop.Attributes("class") = "errorMsg"
             strlbl_top.Text = "SILA CADANG SEKURANG-KURANGNYA SATU(1) KUARTERS"
             MsgBottom.Attributes("class") = "errorMsg"
             strlbl_bottom.Text = "SILA CADANG SEKURANG-KURANGNYA SATU(1) KUARTERS"
             Return False
         Else
-            Debug.WriteLine("Error(validateKuartersSubmit-makluamt_pemohon_menunggu:521): KUARTERS YANG DICADANG TAK BOLEH LEBIh DARI TIGA(3)")
+            Debug.WriteLine("Error(validateKuartersSubmit-makluamt_pemohon_menunggu:546): KUARTERS YANG DICADANG TAK BOLEH LEBIh DARI TIGA(3)")
             MsgTop.Attributes("class") = "errorMsg"
             strlbl_top.Text = "KUARTERS YANG DICADANG TAK BOLEH LEBIh DARI TIGA(3)"
             MsgBottom.Attributes("class") = "errorMsg"
@@ -536,26 +561,6 @@ Public Class maklumat_pemohon_menunggu
             pnlPemilihanUnit.Visible = True
             pnlCadanganKuarters.Visible = False
         End If
-    End Sub
-
-    Private Sub getSuratTawaran()
-        Dim stDB As String = oCommon.getFieldValue("SELECT suratTawaranConfig_parameter FROM spk_suratTawaranConfig WHERE suratTawaranConfig_id = 4")
-        Dim content As String
-        Try
-            If datepicker.Text.Count > 0 Then
-                content = Server.HtmlDecode(stDB)
-                content = content.Replace("{NAME}", lblNama.InnerText)
-                content = content.Replace("{NoPermohonan}", hfNoPermohonan.Value)
-                content = content.Replace("{ID}", lblNoTentera.InnerText)
-                content = content.Replace("{KUARTERS}", lblKuartersDipohon.Text)
-                content = content.Replace("{UNIT}", lblUnitDitawarkan.Text)
-                content = content.Replace("{PANGKALAN}", lbl_senaraiPangkalan.InnerText)
-                content = content.Replace("{TARIKH}", datepicker.Text)
-                editorSurattawaran.Content = content
-            End If
-        Catch ex As Exception
-            Debug.WriteLine("Error(ddlJenisSuratTawaran-makluamt_pemohon_menunggu:557): " & ex.Message)
-        End Try
     End Sub
 
     Protected Sub newNotifikasi(ByVal untuk As String, ByVal kumpulan As Integer)
@@ -585,11 +590,35 @@ Public Class maklumat_pemohon_menunggu
                     conn.Open()
                     cmd.ExecuteNonQuery()
                 Catch ex As Exception
-                    Debug.WriteLine("Error(newNotifikasi-maklumat_permohonan:588): " & ex.Message)
+                    Debug.WriteLine("Error(newNotifikasi-maklumat_permohonan:597): " & ex.Message)
                 Finally
                     conn.Close()
                 End Try
             End Using
         End Using
+    End Sub
+
+    Private Sub getSuratTawaran()
+        Dim stDB As String = ddlJenisSuratTawaran.SelectedValue
+        Dim content As String
+        Try
+            If datepicker.Text.Count > 0 Then
+                content = Server.HtmlDecode(stDB)
+                content = content.Replace("{NAMA_UNIT}", lblUnitDitawarkan.Text)
+                content = content.Replace("{NAMA_KUARTERS}", lblKuartersDipohon.Text)
+                content = content.Replace("{NAMA_PANGKALAN}", lbl_senaraiPangkalan.InnerText)
+                content = content.Replace("{TARIKH_KEMASUKAN}", datepicker.Text)
+                content = content.Replace("{NAMA_PEMOHON}", lblNama.InnerText)
+                editorSurattawaran.Content = content
+            End If
+        Catch ex As Exception
+            Debug.WriteLine("Error(getSuratTawaran-maklumat_pemohon_menunggu:619): " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub ddlJenisSuratTawaran_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlJenisSuratTawaran.SelectedIndexChanged
+        If ddlJenisSuratTawaran.SelectedIndex > 0 Then
+            getSuratTawaran()
+        End If
     End Sub
 End Class
