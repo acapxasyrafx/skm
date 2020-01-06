@@ -122,7 +122,7 @@ Public Class status_tawaran
                     strSQL = "UPDATE 
                             spk_permohonan
                         SET 
-                            permohonan_tarikh = '" & Date.Now().ToString("dd/MM/yyyy") & "'
+                            permohonan_tarikh = '" & Date.Now() & "'
                         ,   permohonan_sub_status = 'TERIMA SURAT TAWARAN'
                         WHERE
                             permohonan_id = " & uid & ";"

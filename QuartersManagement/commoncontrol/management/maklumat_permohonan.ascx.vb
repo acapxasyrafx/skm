@@ -138,7 +138,7 @@ Public Class maklumat_permohonan
                                     End Select
                                 Case "PERMOHONAN DITOLAK"
                                     lblSebabDitolak.Text = reader("permohonan_nota").ToString
-                                    lblKeputusanTolak.Text = reader("permohonan_sub_status")
+                                    lblKeputusanTolak.Text = reader("permohonan_status")
                                     mvMaklumatStatus.ActiveViewIndex = 4
                                 Case "PERMOHONAN DITERIMA"
                                     lblKeputusanTerima.Text = statusPermohonan
@@ -170,7 +170,8 @@ Public Class maklumat_permohonan
                 FROM spk_logPermohonan 
                 WHERE 
                     pengguna_id = " & pID.Value & " 
-                    AND permohonan_id = " & permohonanID & ";", conn)
+                    AND permohonan_id = " & permohonanID & "
+                ORDER BY log_tarikh DESC;", conn)
             Try
                 conn.Open()
                 reader = cmd.ExecuteReader
@@ -180,19 +181,19 @@ Public Class maklumat_permohonan
                             Case "PERMOHONAN BARU"
                                 Debug.WriteLine("Permohonan Status: " & reader("log_status"))
                                 permohonanBaharu.Attributes("class") = "progress-done"
-                                lblTarikhBaharu.Text = reader("log_tarikh")
+                                lblTarikhBaharu.Text = Convert.ToDateTime(reader("log_tarikh")).ToString("dd/MM/yyyy")
                             Case "PERMOHONAN DITERIMA", "PERMOHONAN DITOLAK"
                                 Debug.WriteLine("Permohonan Status: " & reader("log_status"))
                                 permohonanKeputusan.Attributes("class") = "progress-done"
-                                lblTarikhKeputusan.Text = reader("log_tarikh")
+                                lblTarikhKeputusan.Text = Convert.ToDateTime(reader("log_tarikh")).ToString("dd/MM/yyyy")
                                 permohonanMenunggu.Visible = False
                             Case "PERMOHONAN MENUNGGU"
                                 Debug.WriteLine("Permohonan Status: " & reader("log_status"))
                                 permohonanMenunggu.Attributes("class") = "progress-done"
-                                lblTarikhMenuggu.Text = reader("log_tarikh")
+                                lblTarikhMenuggu.Text = Convert.ToDateTime(reader("log_tarikh")).ToString("dd/MM/yyyy")
                                 permohonanMenunggu.Visible = True
                             Case Else
-                                Debug.WriteLine("ELSE")
+                                Debug.WriteLine("ELSE(maklumat_permohonan:195)")
                         End Select
                     End While
                 End If

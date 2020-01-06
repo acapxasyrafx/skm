@@ -126,7 +126,7 @@
                 </td>
             </tr>
         </table>
-        <table class="fbform" style="width: 100%;">
+        <table class="fbform" style="width: 100%;" runat="server" id="divMaklumatAnak">
             <tr class="fbform_mheader">
                 <td colspan="3">Maklumat Anak</td>
             </tr>
@@ -255,7 +255,7 @@
                 <td colspan="3">Sebab Permohonan Ditolak</td>
             </tr>
             <tr>
-                <td class="auto-style2">
+                <td colspan="3" class="auto-style2">
                     <h4><asp:Label runat="server" ID="lblsebabTolak"></asp:Label></h4>
                 </td>
             </tr>

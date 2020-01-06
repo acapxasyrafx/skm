@@ -280,6 +280,10 @@
     .btn-group input {
         margin: 5px 2px;
     }
+
+    .maklumat-ditolak {
+        width: 101%;
+    }
 </style>
 <div class="status-permohonan" style="height: 85vh;">
     <div class="div-center fbform" style="padding-bottom: 15px;">
@@ -707,12 +711,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">Permohonan anda ditolak/dibatalkan.</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="align-items:center;">
-                                        <asp:LinkButton Text="Halaman Permohonan Kuarters" runat="server" ID="lbPermohonanBaru"/>
-                                    </td>
+                                    <td colspan="3">Permohonan anda ditolak/dibatalkan. Sila buat permohonan baru(<asp:LinkButton Text="Ke Halaman Permohonan Kuarters" runat="server" ID="lbPermohonanBaru"/>)</td>
                                 </tr>
                             </table>
                         </div>

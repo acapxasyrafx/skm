@@ -78,7 +78,8 @@
         }
 
         .datepicker {
-            z-index: 1;
+            position: relative;
+            z-index: 100000;
         }
     </style>
 </header>
@@ -164,7 +165,7 @@
         <%--  --%>
 
         <%-- Maklumat Anak --%>
-        <table class="fbform" style="width: 100%;">
+        <table class="fbform" style="width: 100%;" runat="server" id="divMaklumatAnak">
             <tr class="fbform_mheader">
                 <td>Maklumat Anak</td>
             </tr>
@@ -339,11 +340,12 @@
                     <table class="fbform">
                         <tr class="fbform_mheader">
                             <td colspan="3">
-                                <textboxio:Textboxio
-                                    runat="server"
-                                    ID="editorViewSuratTawaran"
-                                    ScriptSrc="textboxio/textboxio.js"
-                                    Enabled="false" />
+                                Kandungan Surat Tawaran
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <p runat="server" id="editorViewSuratTawaran"></p>
                             </td>
                         </tr>
                     </table>
@@ -367,14 +369,14 @@
                     <td style="width: 150px;">Unit Kuarters</td>
                     <td style="width: 5px;">:</td>
                     <td>
-                        <asp:DropDownList runat="server" ID="ddlUnitKuarters"></asp:DropDownList>
+                        <asp:DropDownList runat="server" ID="ddlUnitKuarters" AutoPostBack="true"></asp:DropDownList>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 150px;">Tarikh Kemasukan</td>
                     <td>:</td>
                     <td>
-                        <asp:TextBox CssClass="datepicker" ID="datepicker" runat="server" />
+                        <asp:TextBox CssClass="datepicker" ID="datepicker" runat="server" AutoPostBack="true" />
                         &#160; <i class="fa fa-calendar w3-medium w3-text-black"></i>
                     </td>
                 </tr>
@@ -382,7 +384,7 @@
                     <td style="width: 150px;">Jenis Surat Tawaran</td>
                     <td>:</td>
                     <td>
-                        <asp:DropDownList runat="server" id="ddlJenisSuratTawaran"/>
+                        <asp:DropDownList runat="server" id="ddlJenisSuratTawaran" AutoPostBack="true"/>
                     </td>
                 </tr>
                 <tr class="fbform_mheader">

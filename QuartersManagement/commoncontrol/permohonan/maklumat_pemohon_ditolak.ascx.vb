@@ -100,6 +100,7 @@ Public Class maklumat_pemohon_ditolak
                         lblJenisPenempatan.InnerHtml = reader("historyKeluarga_tempat_tinggal")
                         lbltarikhPenempatan.InnerHtml = reader("historyKeluarga_tarikh_mula")
                         lblStatusPerkahwinan.InnerText = reader("historyPengguna_statusPerkahwinan")
+                        divMaklumatAnak.Visible = reader("historyPengguna_statusPerkahwinan").Equals("BERKAHWIN")
                     End While
                 Else
                     Debug.Write("ERROR(loadUser-makluamt_pemohon_ditolak:105): NO ROWS")

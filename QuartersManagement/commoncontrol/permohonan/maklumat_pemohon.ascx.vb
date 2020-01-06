@@ -95,7 +95,7 @@ Public Class maklumat_pemohon
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
                         lbl_senaraiKuarters.InnerText = reader("kuarters_nama")
                         lblJenisPenempatan.Text = reader("historyKeluarga_tempat_tinggal")
-                        lbltarikhPenempatan.Text = reader("historyKeluarga_tarikh_mula")
+                        lbltarikhPenempatan.Text = Convert.ToDateTime(reader("historyKeluarga_tarikh_mula")).ToString("dd/MM/yyyy")
                         'lbl_poinDisplay.InnerText = reader("permohonan_mata")
                         lbl_senaraiPangkalan.InnerText = reader("pangkalan_nama")
                         lblTarikhAkhirBerkhidmat.InnerText = reader("pengguna_tamat_perkhidmatan")
@@ -145,8 +145,8 @@ Public Class maklumat_pemohon
     Protected Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs)
         Dim query As String = ""
         Try
-            query += String.Format("UPDATE spk_permohonan SET permohonan_tarikh = '{0}',permohonan_status 'PERMOHONAN MENUNGGU' WHERE permohonan_id = {1};", Date.Now().ToString("dd/MM/yyyy"), Request.QueryString("uid"))
-            query += String.Format("INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES({0},{1},{2},{3},'PERMOHONAN MENUNGGU');", Integer.Parse(pID.Value), Request.QueryString("uid"), Date.Now().ToString("dd/MM/yyyy"))
+            query += String.Format("UPDATE spk_permohonan SET permohonan_tarikh = '{0}',permohonan_status 'PERMOHONAN MENUNGGU' WHERE permohonan_id = {1};", Date.Now(), Request.QueryString("uid"))
+            query += String.Format("INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES({0},{1},{2},'PERMOHONAN MENUNGGU');", Integer.Parse(pID.Value), Request.QueryString("uid"), Date.Now())
             If (e.CommandName = "Approved") Then
                 Dim strCID = e.CommandArgument.ToString
                 oCommon.ExecuteSQL(query)
@@ -257,11 +257,11 @@ Public Class maklumat_pemohon
 
     Private Sub btnTolakPermohonan_Click(sender As Object, e As EventArgs) Handles btnTolakPermohonan.Click
         Dim query = "UPDATE spk_permohonan SET permohonan_tarikh = @tarikh, permohonan_status = @status, permohonan_nota = @permohonanNota WHERE permohonan_id = @permohonanID;"
-        query += "INSERT INTO spkLogPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (@penggunaID, @permohonanID, @tarikh, @status);"
+        query += "INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (@penggunaID, @permohonanID, @tarikh, @status);"
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Using cmd As New SqlCommand(query)
                 cmd.Connection = conn
-                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now.ToString("dd/MM/yyyy")
+                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now
                 cmd.Parameters.Add("@status", SqlDbType.NVarChar, 50).Value = "PERMOHONAN DITOLAK"
                 cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
                 cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
@@ -286,7 +286,7 @@ Public Class maklumat_pemohon
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
             Using cmd As New SqlCommand(query)
                 cmd.Connection = conn
-                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now.ToString("dd/MM/yyyy")
+                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now
                 cmd.Parameters.Add("@status", SqlDbType.NVarChar, 50).Value = "PERMOHONAN MENUNGGU"
                 cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
                 cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value

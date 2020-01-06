@@ -37,6 +37,7 @@ Public Class maklumat_pemohon_menunggu
 
     Protected Sub load_page()
         penggunaID = Session("user_id")
+        datepicker.Text = Date.Now.ToString("dd/MM/yyyy")
         loadUser()
         readMaklumatAnak()
         loadCadanganKuarters()
@@ -136,11 +137,12 @@ Public Class maklumat_pemohon_menunggu
                         lblJenisPenempatan.InnerText = reader("historyKeluarga_tempat_tinggal")
                         lbltarikhPenempatan.InnerText = reader("historyKeluarga_tarikh_mula")
                         lblStatusPerkahwinan.InnerText = reader("historyPengguna_statusPerkahwinan")
+                        divMaklumatAnak.Visible = reader("historyPengguna_statusPerkahwinan").Equals("BERKAHWIN")
                         'getSuratTawaran()
                         If reader("permohonan_sub_status").Equals("TAWARAN UNIT") Then
                             lblUnitDitawarkan.Text = reader("unit_nama")
                             lblTarikhKemasukan.Text = reader("permohonan_tarikh_kemasukan")
-                            editorViewSuratTawaran.Content = Server.HtmlDecode(reader("suratTawaran_content")).ToString
+                            editorViewSuratTawaran.InnerHtml = Server.HtmlDecode(reader("suratTawaran_content")).ToString
                             trUnitDitawarkan.Visible = True
                             trTarikhKemasukan.Visible = True
                             trSuratTawaran.Visible = True
@@ -286,7 +288,7 @@ Public Class maklumat_pemohon_menunggu
                     cmd.Connection = conn
                     cmd.Parameters.Add("@subStatus", SqlDbType.NVarChar, 50).Value = "TAWARAN UNIT"
                     cmd.Parameters.Add("@unitID", SqlDbType.Int).Value = ddlUnitKuarters.SelectedValue
-                    cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now.ToString("dd/MM/yyyy")
+                    cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now
                     cmd.Parameters.Add("@tarikhMasuk", SqlDbType.NVarChar).Value = datepicker.Text
                     cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
                     cmd.Parameters.Add("@suratTawaran", SqlDbType.NVarChar).Value = Server.HtmlEncode(editorSurattawaran.Content)
@@ -297,7 +299,7 @@ Public Class maklumat_pemohon_menunggu
                         newNotifikasi("USER", 32)
                         Response.Redirect("Senarai.Permohonan.Menunggu.aspx?P=Pengurusan%20Pentadbiran%20>%20Senarai%20Permohonan%20>%20Senarai%20Permohonan%20Menunggu")
                     Catch ex As Exception
-                        Debug.WriteLine("Error(btnSimpanTawaranUnit-makluamt_pemohon_menunggu:300")
+                        Debug.WriteLine("Error(btnSimpanTawaranUnit-maklumat_pemohon_menunggu:300): " & ex.Message)
                     Finally
                         conn.Close()
                     End Try
@@ -470,7 +472,7 @@ Public Class maklumat_pemohon_menunggu
                 WHERE permohonan_id = @permohonanID")
                     cmd.Connection = conn
                     cmd.Parameters.Add("@subStatus", SqlDbType.NVarChar, 50).Value = "CADANGKAN KUARTERS LAIN"
-                    cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now.ToString("dd/MM/yyyy")
+                    cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now
                     cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
                     Try
                         conn.Open()
@@ -533,7 +535,7 @@ Public Class maklumat_pemohon_menunggu
     End Function
 
     Private Function validateKuartersSubmit()
-        If gvCadanganKuarters.Rows.Count < 3 Then
+        If gvCadanganKuarters.Rows.Count <= 3 Then
             Return True
         ElseIf gvCadanganKuarters.Rows.Count.Equals(0) Then
             Debug.WriteLine("Error(validateKuartersSubmit-makluamt_pemohon_menunggu:539): SILA CADANG SEKURANG-KURANGNYA SATU(1) KUARTERS")
@@ -604,7 +606,7 @@ Public Class maklumat_pemohon_menunggu
         Try
             If datepicker.Text.Count > 0 Then
                 content = Server.HtmlDecode(stDB)
-                content = content.Replace("{NAMA_UNIT}", lblUnitDitawarkan.Text)
+                content = content.Replace("{NAMA_UNIT}", ddlUnitKuarters.SelectedItem.Text)
                 content = content.Replace("{NAMA_KUARTERS}", lblKuartersDipohon.Text)
                 content = content.Replace("{NAMA_PANGKALAN}", lbl_senaraiPangkalan.InnerText)
                 content = content.Replace("{TARIKH_KEMASUKAN}", datepicker.Text)
@@ -618,8 +620,26 @@ Public Class maklumat_pemohon_menunggu
 
     Private Sub ddlJenisSuratTawaran_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlJenisSuratTawaran.SelectedIndexChanged
         If ddlJenisSuratTawaran.SelectedIndex > 0 Then
+            If ddlUnitKuarters.SelectedIndex > 0 And datepicker.Text.Length > 0 Then
+                getSuratTawaran()
+            Else
+                MsgTop.Attributes("class") = "errorMsg"
+                strlbl_top.Text = "SIla pilih unit dan tarikh kemasukan terlebih dahulu."
+                MsgBottom.Attributes("class") = "errorMsg"
+                strlbl_bottom.Text = "Sila pilih unit dan tarikh kemasukan terlebih dahulu."
+            End If
+        End If
+    End Sub
+
+    Private Sub ddlUnitKuarters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlUnitKuarters.SelectedIndexChanged
+        If ddlJenisSuratTawaran.SelectedIndex > 0 Then
             getSuratTawaran()
-            load_page()
+        End If
+    End Sub
+
+    Private Sub datepicker_TextChanged(sender As Object, e As EventArgs) Handles datepicker.TextChanged
+        If ddlJenisSuratTawaran.SelectedIndex > 0 And ddlUnitKuarters.SelectedIndex > 0 Then
+            getSuratTawaran()
         End If
     End Sub
 End Class

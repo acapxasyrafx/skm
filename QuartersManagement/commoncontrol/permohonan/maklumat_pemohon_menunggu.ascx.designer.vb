@@ -122,6 +122,15 @@ Partial Public Class maklumat_pemohon_menunggu
     Protected WithEvents lblTarikhAkhirBerkhidmat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
+    '''divMaklumatAnak control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divMaklumatAnak As Global.System.Web.UI.HtmlControls.HtmlTable
+
+    '''<summary>
     '''datRespondent control.
     '''</summary>
     '''<remarks>
@@ -308,7 +317,7 @@ Partial Public Class maklumat_pemohon_menunggu
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents editorViewSuratTawaran As Global.TextboxioControl.Textboxio
+    Protected WithEvents editorViewSuratTawaran As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''cbCadangKuartersLain control.

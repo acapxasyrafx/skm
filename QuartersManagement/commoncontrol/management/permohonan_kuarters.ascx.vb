@@ -81,6 +81,7 @@ Public Class permohonan_kuarters
                         lblTarikhAkhirBerkhidmat.Text = reader("pengguna_tamat_perkhidmatan")
                         lblStatusPerkahwinan.Text = reader("pengguna_status_perkahwinan")
                         pangkatMata = Integer.Parse(reader("pangkat_mata"))
+                        tblMaklumatAnak.Visible = reader("pengguna_status_perkahwinan").Equals("BERKAHWIN")
                     Else
                         Debug.Write("ERROR(loadUser): CANNOT READ")
                     End If
@@ -214,11 +215,11 @@ Public Class permohonan_kuarters
                 cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
                 cmd.Parameters.Add("@noPermohonan", SqlDbType.NVarChar, 50).Value = genNoPermohonan(Date.Now.Year & Date.Now.Month & Date.Now.Day)
                 cmd.Parameters.Add("@kuartersID", SqlDbType.Int).Value = ddlSenaraiKuarters.SelectedValue
-                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now.ToString("dd/MM/yy")
+                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar, 50).Value = Date.Now
                 cmd.Parameters.Add("@mata", SqlDbType.NVarChar, 50).Value = Integer.Parse(loadPoints())
                 cmd.Parameters.Add("@jumlahAnak", SqlDbType.NVarChar, 50).Value = datRespondent.Rows.Count
                 cmd.Parameters.Add("@rumahSebelum", SqlDbType.NVarChar, 50).Value = ddlJenisPenempatan.SelectedValue
-                cmd.Parameters.Add("@tarikhMulaMenetap", SqlDbType.NVarChar, 50).Value = DateTime.ParseExact(dpTarikhMulaMenetap.Text, "dd/MM/yyyy", Nothing)
+                cmd.Parameters.Add("@tarikhMulaMenetap", SqlDbType.NVarChar, 50).Value = Convert.ToDateTime(dpTarikhMulaMenetap.Text).ToString("dd/MM/yyyy")
                 cmd.Parameters.Add("@pangkatID", SqlDbType.Int).Value = pangkatID.Value
                 cmd.Parameters.Add("@statusPerkahwinan", SqlDbType.NVarChar, 50).Value = lblStatusPerkahwinan.Text
                 cmd.Parameters.Add("@penggunaNoTentera", SqlDbType.NVarChar, 50).Value = lblNoTentera.Text
