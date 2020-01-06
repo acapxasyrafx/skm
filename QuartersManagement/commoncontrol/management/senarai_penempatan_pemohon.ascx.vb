@@ -59,43 +59,40 @@ Public Class senarai_penempatan_pemohon
 
     Private Function getSQL() As String
         Dim tempSQL As String
-        Dim whereSQL As String = "WHERE A.unit_status = 'Occupied' AND B.permohonan_status = 'PERMOHONAN DITERIMA'"
-        Dim orderSQL As String = "ORDER BY B.permohonan_tarikh DESC"
-        tempSQL = "
-            SELECT 
-                A.unit_id
-	            ,   E.historyUnit_id
-	            ,	G.kuarters_nama
-	            ,	A.unit_nama
-	            ,	A.unit_blok
-	            ,	A.unit_tingkat
-	            ,	A.unit_nombor
-                ,	(A.unit_blok + '' + A.unit_tingkat + '' + A.unit_nombor) as unit_location
-	            ,	C.pengguna_nama
-	            ,	C.pengguna_no_tentera
-	            ,	F.pangkat_nama
-	            ,	A.unit_status
-            FROM spk_unit A
-                JOIN spk_permohonan B ON B.unit_id = A.unit_id
-                JOIN spk_pengguna C ON C.pengguna_id = A.pangkalan_id
-                LEFT JOIN spk_historyPengguna D ON D.permohonan_id = B.permohonan_id
-                JOIN spk_historyUnit E ON E.unit_id = A.unit_id
-                JOIN spk_pangkat  F On F.pangkat_id = C.pangkat_id
-                JOIN spk_kuarters G ON G.kuarters_id = A.kuarters_id
-                JOIN spk_pangkalan H ON H.pangkalan_id = G.pangkalan_id
-        "
+        Dim whereSQL As String = " WHERE A.permohonan_status = 'PERMOHONAN DITERIMA'"
+        Dim orderSQL As String = "ORDER BY A.permohonan_tarikh DESC"
+        tempSQL = "SELECT 
+	        A.permohonan_id
+	        , C.pengguna_nama
+	        , D.pangkat_nama
+	        , F.pangkalan_nama
+	        , E.unit_nama
+	        , (E.unit_blok + '-' + E.unit_tingkat + '-' + E.unit_nombor) AS 'unit_nama_lain'
+	        , A.permohonan_tarikh_kemasukan
+	        , G.kuarters_nama
+            , F.pangkalan_id
+            , D.pangkat_id
+            , G.kuarters_id
+        FROM 
+	        spk_permohonan A
+	        JOIN spk_historyPengguna B ON B.permohonan_id = A.permohonan_id
+	        JOIN spk_pengguna C ON C.pengguna_id = A.pengguna_id
+	        JOIN spk_pangkat D ON D.pangkat_id = B.pangkat_id
+	        JOIN spk_unit E ON E.unit_id = A.unit_id
+	        JOIN spk_pangkalan F ON F.pangkalan_id = E.pangkalan_id
+	        JOIN spk_kuarters G ON G.kuarters_id = E.kuarters_id"
         If ddlCarianPangkalan.SelectedIndex > 0 Then
-            whereSQL = whereSQL & " AND H.pangkalan_id = " & ddlCarianPangkalan.SelectedValue & ""
+            whereSQL = whereSQL & " AND F.pangkalan_id = " & ddlCarianPangkalan.SelectedValue & ""
         End If
         If ddlCarianKuarters.SelectedIndex > 0 Then
             whereSQL = whereSQL & " AND G.kuarters_id = " & ddlCarianKuarters.SelectedValue & ""
         End If
         If ddlCarianPangkat.SelectedIndex > 0 Then
-            whereSQL = whereSQL & " AND F.pangkat_id = " & ddlCarianPangkat.SelectedValue & ""
+            whereSQL = whereSQL & " AND D.pangkat_id = " & ddlCarianPangkat.SelectedValue & ""
         End If
         If tbCarianNama.Text.Count > 0 Then
             whereSQL = whereSQL & " AND (C.pengguna_nama LIKE '%" & tbCarianNama.Text & "%'"
-            whereSQL = whereSQL & " OR C.pengguna_no_tentera LIKE '%" & tbCarianNama.Text & "%')"
+            whereSQL = whereSQL & " OR B.pengguna_no_tentera LIKE '%" & tbCarianNama.Text & "%')"
         End If
         getSQL = tempSQL & whereSQL & orderSQL
         Return getSQL
@@ -231,5 +228,17 @@ Public Class senarai_penempatan_pemohon
 
     Private Sub btnCari_Click(sender As Object, e As EventArgs) Handles btnCari.Click
         BindData(datRespondent)
+    End Sub
+
+    Private Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles datRespondent.RowCommand
+        Try
+            If (e.CommandName = "View_Permohonan") Then
+                Dim strCID = e.CommandArgument.ToString
+                Response.Redirect("Maklumat.Penempatan.Pemohon.aspx?uid=" & strCID)
+            End If
+        Catch ex As Exception
+            MsgBottom.Attributes("class") = "errorMsg"
+            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
+        End Try
     End Sub
 End Class

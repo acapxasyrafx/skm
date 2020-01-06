@@ -121,6 +121,7 @@
     <Content Include="commoncontrol\main\homepage.ascx" />
     <Content Include="commoncontrol\main\login_page.ascx" />
     <Content Include="commoncontrol\main\user_homepage.ascx" />
+    <Content Include="commoncontrol\management\maklumat_penempatan_pemohon.ascx" />
     <Content Include="commoncontrol\management\maklumat_permohonan.ascx" />
     <Content Include="commoncontrol\management\pendaftaran_penjawat.ascx" />
     <Content Include="commoncontrol\management\permohonan_kuarters.ascx" />
@@ -182,6 +183,7 @@
     <Content Include="Konfigurasi.Sistem.aspx" />
     <Content Include="commoncontrol\configuration\konfigurasi_sistem.ascx" />
     <Content Include="Konfigurasi.Surat.Tawaran.aspx" />
+    <Content Include="Maklumat.Penempatan.Pemohon.aspx" />
     <Content Include="Maklumat.Permohonan.aspx" />
     <Content Include="Maklumat.Permohonan.Pengguna.aspx" />
     <Content Include="Pendaftaran.Penjawat.aspx" />
@@ -475,6 +477,13 @@
       <DependentUpon>user_homepage.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="commoncontrol\management\maklumat_penempatan_pemohon.ascx.designer.vb">
+      <DependentUpon>maklumat_penempatan_pemohon.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\management\maklumat_penempatan_pemohon.ascx.vb">
+      <DependentUpon>maklumat_penempatan_pemohon.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="commoncontrol\management\maklumat_permohonan.ascx.designer.vb">
       <DependentUpon>maklumat_permohonan.ascx</DependentUpon>
     </Compile>
@@ -721,6 +730,19 @@
     </Compile>
     <Compile Include="Konfigurasi.Surat.Tawaran.aspx.vb">
       <DependentUpon>Konfigurasi.Surat.Tawaran.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Maklumat.Penempatan.Pemohon.aspx.designer.vb">
+      <DependentUpon>Maklumat.Penempatan.Pemohon.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Maklumat.Penempatan.Pemohon.aspx.vb">
+      <DependentUpon>Maklumat.Penempatan.Pemohon.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Maklumat.Penempatan.Pemohon.designer.vb">
+      <DependentUpon>Maklumat.Penempatan.Pemohon.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Maklumat.Penempatan.Pemohon.vb">
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Maklumat.Permohonan.aspx.designer.vb">
