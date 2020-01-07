@@ -27,7 +27,21 @@ Public Class maklumat_penempatan_pemohon1
     End Sub
     Protected Sub maklumat_pemohon()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("")
+            Using cmd As New SqlCommand("SELECT 
+	                * 
+                FROM 
+	                spk_permohonan A 
+	                JOIN spk_pengguna B ON B.pengguna_id = A.pengguna_id
+	                JOIN spk_historyPengguna C ON C.pengguna_id = B.pengguna_id
+	                JOIN spk_pangkat D ON D.pangkat_id = C.pangkat_id
+	                JOIN spk_kuarters E ON E.kuarters_id = A.kuarters_id
+	                JOIN spk_pangkalan F ON F.pangkalan_id = E.pangkalan_id
+	                JOIN spk_unit G ON G.unit_id = A.unit_id
+	                JOIN spk_historyKeluarga H ON H.permohonan_id = A.permohonan_id 
+	                JOIN spk_suratTawaran I ON I.permohonan_id = A.permohonan_id
+                WHERE A.permohonan_id = @permohonanID;")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
                 Try
                     conn.Open()
                     Using sdr As SqlDataReader = cmd.ExecuteReader
@@ -49,8 +63,10 @@ Public Class maklumat_penempatan_pemohon1
 
     Protected Sub maklumat_anak()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("")
-                Dim ds As DataSet
+            Using cmd As New SqlCommand("SELECT * FROM spk_historyAnak WHERE permohonan_id = @permohonanID;")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+                Dim ds As New DataSet
                 Try
                     conn.Open()
                     Using sda As New SqlDataAdapter(cmd)
