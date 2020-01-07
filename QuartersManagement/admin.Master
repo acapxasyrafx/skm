@@ -267,13 +267,7 @@
                                 <asp:Repeater runat="server" ID="rptDiterima">
                                     <ItemTemplate>
                                         <li class="item">
-                                            <asp:LinkButton
-                                                ID="lblDiterima"
-                                                ClientIDMode="Static"
-                                                Text='<%# Eval("notifikasi_log") %>'
-                                                CommandName="permohonan_diterima"
-                                                CommandArgument='<%# Eval("notifikasi_id") %>'
-                                                runat="server" />
+                                            <a href='Maklumat.Penempatan.Pemohon.aspx?uid=<%# Eval("permohonan_id") %>'><%# Eval("notifikasi_log") %></a>
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
