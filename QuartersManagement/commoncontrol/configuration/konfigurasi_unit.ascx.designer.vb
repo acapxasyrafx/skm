@@ -14,6 +14,42 @@ Option Explicit On
 Partial Public Class konfigurasi_unit
 
     '''<summary>
+    '''viewConfig control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents viewConfig As Global.System.Web.UI.WebControls.MultiView
+
+    '''<summary>
+    '''Span1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Span1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''Label1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''tambahUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tambahUnit As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
     '''ddlPangkalan control.
     '''</summary>
     '''<remarks>
@@ -41,6 +77,15 @@ Partial Public Class konfigurasi_unit
     Protected WithEvents tbCari As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''btnCari control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
     '''Panel control.
     '''</summary>
     '''<remarks>
@@ -57,4 +102,148 @@ Partial Public Class konfigurasi_unit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''MsgTop control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''strlbl_top control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''SaveTop control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents SaveTop As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
+    '''UpdateTop control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdateTop As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
+    '''CancelTop control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents CancelTop As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
+    '''ddlInsertPangkalan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlInsertPangkalan As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''ddlInsertKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlInsertKuarters As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''tbNamaUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbNamaUnit As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''tbBlok control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbBlok As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''tbTingkat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbTingkat As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''tbNoUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbNoUnit As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''MsgBottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''strlbl_bottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''SaveBottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents SaveBottom As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
+    '''UpdateBottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdateBottom As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
+    '''CancelBottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents CancelBottom As Global.System.Web.UI.HtmlControls.HtmlAnchor
 End Class

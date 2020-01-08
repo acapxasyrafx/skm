@@ -173,6 +173,7 @@
     <Content Include="icons\select.png" />
     <Content Include="icons\send.png" />
     <Content Include="icons\verified-text-paper.png" />
+    <Content Include="icons\x-button.png" />
     <Content Include="img\backlog.jpg" />
     <Content Include="img\tudmlogo.png" />
     <Content Include="Konfigurasi.aspx" />
