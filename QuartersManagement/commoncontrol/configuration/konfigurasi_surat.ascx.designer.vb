@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class konfigurasi_surat
-    
+
     '''<summary>
     '''MsgTop control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class konfigurasi_surat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''strlbl_top control.
     '''</summary>
@@ -30,61 +30,34 @@ Partial Public Class konfigurasi_surat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
-    
+
     '''<summary>
-    '''SaveFunction control.
+    '''AddNew control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents SaveFunction As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
+    Protected WithEvents AddNew As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
     '''<summary>
-    '''Refresh control.
+    '''tbCarian control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Refresh As Global.System.Web.UI.HtmlControls.HtmlAnchor
-    
+    Protected WithEvents tbCarian As Global.System.Web.UI.WebControls.TextBox
+
     '''<summary>
-    '''txtIsiSurat control.
+    '''btnCari control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtIsiSurat As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtJenissurat control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtJenissurat As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''lblConfig control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblConfig As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblQ control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblQ As Global.System.Web.UI.WebControls.Label
-    
+    Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
+
     '''<summary>
     '''Panel control.
     '''</summary>
@@ -93,7 +66,7 @@ Partial Public Class konfigurasi_surat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Panel As Global.System.Web.UI.WebControls.Panel
-    
+
     '''<summary>
     '''datRespondent control.
     '''</summary>
@@ -102,7 +75,7 @@ Partial Public Class konfigurasi_surat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
-    
+
     '''<summary>
     '''MsgBottom control.
     '''</summary>
@@ -111,7 +84,7 @@ Partial Public Class konfigurasi_surat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
+
     '''<summary>
     '''strlbl_bottom control.
     '''</summary>
@@ -120,4 +93,40 @@ Partial Public Class konfigurasi_surat
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''suratForm control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents suratForm As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''tbTajukSurat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbTajukSurat As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''editorContentSurat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents editorContentSurat As Global.System.Web.UI.HtmlControls.HtmlTextArea
+
+    '''<summary>
+    '''btnSimpan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSimpan As Global.System.Web.UI.WebControls.Button
 End Class

@@ -19,134 +19,35 @@ Public Class konfigurasi_surat
 
     Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
     Dim objConn As SqlConnection = New SqlConnection(strConn)
+
+    Dim penggunaID As Integer
+
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
-        Try
-
-            If Not IsPostBack Then
-
-                If strlblMsgBottom = 0 Then
-                    strlbl_bottom.Visible = True
-                Else
-                    strlbl_bottom.Visible = False
-                End If
-                If strlblMsgTop = 0 Then
-                    strlbl_top.Visible = True
-                Else
-                    strlbl_top.Visible = False
-                End If
-
-                If Not Request.QueryString("edit") = "" Then
-                    lblConfig.Text = Request.QueryString("p")
-                    Load_page()
-                Else
-                    requestPage()
-                    strRet = BindData(datRespondent)
-                End If
-
+        If Not IsPostBack Then
+            If Session("user_id") IsNot Nothing Then
+                penggunaID = Session("user_id")
             End If
-
-        Catch ex As Exception
-
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-
-        Finally
-
-        End Try
-
+            load_page()
+        End If
     End Sub
 
-    Private Sub Load_page()
-
-        strSQL = " SELECT * FROM spk_suratTawaranConfig"
-        strSQL += " WHERE suratTawaranConfig_id = '" & Request.QueryString("edit") & "'"
-
-        Dim strConn As String = ConfigurationManager.AppSettings("ConnectionString")
-        Dim objConn As SqlConnection = New SqlConnection(strConn)
-        Dim sqlDA As New SqlDataAdapter(strSQL, objConn)
-
-        Try
-
-            Dim ds As DataSet = New DataSet
-            sqlDA.Fill(ds, "AnyTable")
-
-            Dim nRows As Integer = 0
-            Dim nCount As Integer = 1
-            Dim MyTable As DataTable = New DataTable
-            MyTable = ds.Tables(0)
-            If MyTable.Rows.Count > 0 Then
-
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("suratTawaranConfig_parameter")) Then
-                    txtIsiSurat.Text = ds.Tables(0).Rows(0).Item("suratTawaranConfig_parameter")
-                Else
-                    txtIsiSurat.Text = ""
-                End If
-
-                If Not IsDBNull(ds.Tables(0).Rows(0).Item("suratTawaranConfig_type")) Then
-                    txtJenissurat.Text = ds.Tables(0).Rows(0).Item("suratTawaranConfig_type")
-                Else
-                    txtJenissurat.Text = ""
-                End If
-
-
-            End If
-            strRet = BindData(datRespondent)
-        Catch ex As Exception
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strSysErrorAlert & ex.Message
-        Finally
-            objConn.Dispose()
-        End Try
-
+    Private Sub load_page()
+        BindData(datRespondent)
     End Sub
 
-    '-- BIND DATA --'
     Private Function getSQL() As String
-        Dim tmpSQL As String
-        Dim strWhere As String = ""
+        Dim tempSQL = "SELECT * from spk_suratTawaranConfig"
+        Dim whereSQL = " WHERE suratTawaranConfig_parameter IS NOT NULL"
+        Dim orderSQL = " ORDER BY suratTawaranConfig_type ASC;"
 
-        Dim strOrder As String = " ORDER BY suratTawaranConfig_id ASC"
-
-        tmpSQL = "SELECT * FROM spk_suratTawaranConfig"
-
-        strWhere += " WHERE suratTawaranConfig_id IS NOT NULL"
-
-        If Not txtIsiSurat.Text = "" Then
-
-            strWhere += " AND suratTawaranConfig_parameter LIKE '%" & txtIsiSurat.Text & "%'"
-
+        If tbCarian.Text.Length > 0 Then
+            Debug.WriteLine(tbCarian.Text)
+            whereSQL += " AND suratTawaranConfig_parameter LIKE '%" & tbCarian.Text & "%'"
+            whereSQL += " OR suratTawaranConfig_type LIKE '%" & tbCarian.Text & "%'"
         End If
 
-        getSQL = tmpSQL & strWhere & strOrder
-
-        Return getSQL
-
-    End Function
-
-    Private Function GetData(ByVal cmd As SqlCommand) As DataTable
-        Dim dt As New DataTable()
-        Dim strConnString As [String] = ConfigurationManager.AppSettings("ConnectionString")
-        Dim con As New SqlConnection(strConnString)
-        Dim sda As New SqlDataAdapter()
-        cmd.CommandType = CommandType.Text
-        cmd.Connection = con
-        Try
-            con.Open()
-            sda.SelectCommand = cmd
-            sda.Fill(dt)
-            Return dt
-        Catch ex As Exception
-            Throw ex
-        Finally
-            con.Close()
-            sda.Dispose()
-            con.Dispose()
-        End Try
+        Dim query = tempSQL & whereSQL & orderSQL
+        Return query
     End Function
 
     Private Function BindData(ByVal gvTable As GridView) As Boolean
@@ -176,132 +77,74 @@ Public Class konfigurasi_surat
             strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
             Return False
         End Try
-
-        Return True
-
-    End Function
-
-    '--SAVE FUNCTION--'
-    Private Function Save() As Boolean
-
-        If Not Request.QueryString("edit") = "" Then
-
-            strSQL = "UPDATE spk_suratTawaranConfig SET "
-
-            strSQL += " suratTawaranConfig_parameter = '" & txtIsiSurat.Text & "',"
-            strSQL += " suratTawaranConfig_type = UPPER('" & txtJenissurat.Text & "')"
-
-            strSQL += " WHERE suratTawaranConfig_id = '" & Request.QueryString("edit") & "'"
-
-        Else
-            strSQL = "INSERT INTO spk_suratTawaranConfig (suratTawaranConfig_parameter, suratTawaranConfig_type)"
-
-            strSQL += " VALUES ("
-            strSQL += " '" & txtIsiSurat.Text & "',"
-            strSQL += " UPPER('" & txtJenissurat.Text & "'))"
-
-        End If
-
-        strRet = oCommon.ExecuteSQL(strSQL)
-
-        If strRet = "0" Then
-            Return True
-        Else
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strSysErrorAlert & "<br>" & strRet
-            Return False
-        End If
-
-    End Function
-
-    '--DATA VALIDATION--'
-    Private Function ValidateData() As Boolean
-        'If Not oCommon.isNumeric(txtidx.Text) Then
-        '    txtidx.Focus()
-        '    Return False
-
-        'End If
         Return True
     End Function
 
-    Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
+    Protected Function load_surat_content(ByVal suratID)
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT * from spk_suratTawaranConfig WHERE suratTawaranConfig_id = @SuratID", conn)
+                cmd.Parameters.Add("@SuratID", SqlDbType.Int).Value = suratID
+                Try
+                    conn.Open()
+                    Dim sdr As SqlDataReader
+                    sdr = cmd.ExecuteReader
+                    If sdr.HasRows Then
+                        While sdr.Read
+                            tbTajukSurat.Text = sdr("suratTawaranConfig_type")
+                            editorContentSurat.InnerHtml = sdr("suratTawaranConfig_parameter")
+                        End While
+                        Return True
+                    Else
+                        Return False
+                    End If
+                Catch ex As Exception
+                    Debug.WriteLine("Error(load_surat_content-konfigurasi_surat:86): " & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+    End Function
 
-        strlbl_bottom.Text = ""
-        strlbl_top.Text = ""
-        '--validate--'
-        If ValidateData() = False Then
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strDataValAlert
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strDataValAlert
-            Exit Sub
-        End If
-        Try
-            '--execute--'
-            If Save() = True Then
-                MsgTop.Attributes("class") = "successMsg"
-                strlbl_top.Text = strSaveSuccessAlert
-                MsgBottom.Attributes("class") = "successMsg"
-                strlbl_bottom.Text = strSaveSuccessAlert
-            Else
-                MsgTop.Attributes("class") = "errorMsg"
-                strlbl_top.Text = strSaveFailAlert
-                MsgBottom.Attributes("class") = "errorMsg"
-                strlbl_bottom.Text = strSaveFailAlert
-            End If
-        Catch ex As Exception
-            MsgTop.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert
-            MsgBottom.Attributes("class") = "errorMsg"
-            strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-        End Try
+    Protected Function delete_surat(ByVal suratID)
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("DELETE FROM spk_suratTawaranConfig WHERE suratTawaranConfig_id = @SuratID", conn)
+                cmd.Parameters.Add("@SuratID", SqlDbType.Int).Value = suratID
+                Try
+                    cmd.ExecuteNonQuery()
+                    Return True
+                Catch ex As Exception
+                    Debug.WriteLine("Error(delete_surat-konfigurasi_surat:103): " & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+    End Function
 
-        If Not Request.QueryString("edit") = "" Then
-            Dim Pagelabel As String = lblConfig.Text & "&q=" & lblQ.Text & "&lblTop=" & strlbl_top.Text & "&lblBottom=" & strlbl_top.Text
-            Response.Redirect("Konfigurasi.Surat.Tawaran.aspx?p=" & Pagelabel)
-        Else
-            strRet = BindData(datRespondent)
-        End If
-
-
-
-    End Sub
-    '--REFRESH BUTTON--'
-    Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick
-        Dim Pagelabel As String = lblConfig.Text & "&q=" & lblQ.Text
-        Response.Redirect("Konfigurasi.Jenis.Kuarters.aspx?p=" & Pagelabel)
-    End Sub
-
-    Private Sub requestPage()
-        lblConfig.Text = Request.QueryString("p")
-        lblQ.Text = Request.QueryString("q")
-        If Not Request.QueryString("lblBottom") = "" Then
-            strlbl_top.Text = Request.QueryString("lblTop")
-            strlbl_bottom.Text = Request.QueryString("lblBottom")
+    Private Sub openModal()
+        If suratForm.Style.Item("display").Equals("none") Then
+            suratForm.Attributes.CssStyle.Add("display", "block")
         End If
     End Sub
 
-    Private Sub clear()
-        txtIsiSurat.Text = ""
-        txtJenissurat.Text = ""
-    End Sub
-
-    '--DELETE FUNCTION--'
-    Private Sub datRespondent_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles datRespondent.RowDeleting
-
-        Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("suratTawaranConfig_id").ToString
-
-        'chk session to prevent postback
-        If Not strCID = Session("strCID") Then
-            strSQL = "DELETE FROM spk_suratTawaranConfig WHERE suratTawaranConfig_id = '" & oCommon.FixSingleQuotes(strCID) & "'"
-            strRet = oCommon.ExecuteSQL(strSQL)
-
-            Session("strCID") = ""
+    Private Sub closeModal()
+        If suratForm.Style.Item("display").Equals("block") Then
+            suratForm.Attributes.CssStyle.Add("display", "none")
         End If
-        strRet = BindData(datRespondent)
-
     End Sub
 
+    Private Sub btnCari_Click(sender As Object, e As EventArgs) Handles btnCari.Click
+        BindData(datRespondent)
+    End Sub
+
+    Private Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles datRespondent.RowCommand
+        Debug.WriteLine("RowCommand")
+    End Sub
+
+    Private Sub datRespondent_RowEditing(sender As Object, e As GridViewEditEventArgs) Handles datRespondent.RowEditing
+        Debug.WriteLine("Editing")
+    End Sub
 End Class
