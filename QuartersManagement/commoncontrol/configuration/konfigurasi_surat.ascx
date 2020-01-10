@@ -25,7 +25,10 @@
         margin: auto;
         padding: 0;
         border: 1px solid #888;
-        width: 80%;
+        width: 65%;
+        height: 65%;
+        min-width: 60%;
+        min-height: 60%;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
         -webkit-animation-name: animatetop;
         -webkit-animation-duration: 0.4s;
@@ -88,15 +91,12 @@
         background-color: #5cb85c;
         color: white;
     }
+    
     .form-container{
         padding: 5px;
         margin: 0;
     }
-    .form-inline {
-        display:flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
+    
     .form-inline textarea {
         width: 80%;
         height: 100%;
@@ -111,43 +111,55 @@
         width: 100%;
         margin: 5px;
         padding: 10px;
+    }    
+    .primary, .warning {
+        color: white;
+    }
+    .primary {
+        background: #2196f3;
+    }
+    .warning {
+        background: #ffab00;
     }
 
     .footer-btn{
         display:flex;
         justify-content: space-between;
     }
+
+    .editor {
+        display: flex;
+        align-items: center;
+    }
 </style>
-<table class ="fbform" style ="width :100%">
-    <tr class ="fbform_header">
-         <td>
-             <span id="MsgTop" runat ="server"><asp:Label ID ="strlbl_top" runat ="server" ></asp:Label></span>
-         </td>
-         <td>
+<table class="fbform" style="width: 100%">
+    <tr class="fbform_header">
+        <td>
+            <span id="MsgTop" runat="server">
+                <asp:Label ID="strlbl_top" runat="server"></asp:Label></span>
+        </td>
+        <td>
             <span class="buttonMenu">
-                <a href="javascript:void(0)" runat ="server" id="AddNew" name="AddNew">
-                    <img title="Tambah" style="vertical-align: middle;" src="icons/add.png" width="25" height="25" alt="::"/>
+                <a href="#" runat="server" id="AddNew" name="AddNew">
+                    <img title="Tambah" style="vertical-align: middle;" src="icons/add.png" width="25" height="25" alt="::" />
                 </a>
             </span>
-         </td>
-    </tr>
-</table>
-<table class="fbform" style="width :100%">
-    <tr class="fbform_mheader">
-        <td colspan="3">Carian</td>
-    </tr>
-    <tr>
-         <td style="width: 150px;">Carian Surat</td>
-        <td style="width: 5px;">:</td>
-        <td>
-            <asp:TextBox runat="server" ID="tbCarian"/>
         </td>
     </tr>
+</table>
+<table class="fbform" style="width: 100%">
+    <tr class="fbform_mheader">
+        <td colspan="4">Carian</td>
+    </tr>
     <tr>
-        <td><asp:Button Text="Cari" runat="server" id="btnCari"/></td>
+        <td style="width: 150px;">Carian Surat</td>
+        <td style="width: 5px;">:</td>
+        <td>
+            <asp:TextBox runat="server" ID="tbCarian" />
+            <asp:Button Text="Cari" runat="server" ID="btnCari" />
+        </td>
     </tr>
 </table>
-
 <br />
 <script src="textboxio/textboxio.js"></script>
 <%-- List --%>
@@ -180,7 +192,7 @@
                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="Isi">
+                        <asp:TemplateField HeaderText="Kandungan">
                             <ItemTemplate>
                                 <asp:Label ID="pangkalan_negara" runat="server" Text='<%# Bind("suratTawaranConfig_parameter")%>'></asp:Label>
                             </ItemTemplate>
@@ -194,7 +206,7 @@
                                     Width="25px"
                                     Height="25px"
                                     runat="server"
-                                    ID="Ubah_Surat"
+                                    ID="Edit_Surat"
                                     CommandName="Ubah"
                                     CommandArgument='<%#Eval("suratTawaranConfig_id") %>'
                                     ImageUrl="~/icons/test.svg"
@@ -202,7 +214,7 @@
                                 <asp:ImageButton
                                     Width="25px"
                                     Height="25px"
-                                    ID="Padam_Surat"
+                                    ID="Delete_Surat"
                                     CommandName="Padam"
                                     CommandArgument='<%#Eval("suratTawaranConfig_id")%>'
                                     OnClientClick="javascript:return confirm('Adakah anda pasti mahu memadamkan item ini secara kekal? ')"
@@ -230,99 +242,59 @@
         <td colspan="3"></td>
     </tr>
 </table>
-<table class ="fbform">
+<table class="fbform">
     <tr>
-        <td><span id ="MsgBottom" runat ="server" ><asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label></span></td>
+        <td><span id="MsgBottom" runat="server">
+            <asp:Label ID="strlbl_bottom" runat="server"></asp:Label></span></td>
     </tr>
 
 </table>
 
-<div id="suratForm" name="suratForm" class="modal" runat="server">
-  <div class="modal-content">
-    <div class="modal-header">
-      <span class="close">&times;</span>
-      <h2>Tambah Surat Tawaran Baru</h2>
-    </div>
-    <div class="modal-body">
-      <div class="form-container">
-          <table style="width: 100%;" class="fbform">
-              <tr>
-                  <td style="width: 150px;">Tajuk Surat</td>
-                  <td style="width: 5px;">:</td>
-                  <td>
-                      <asp:TextBox runat="server" id="tbTajukSurat" ClientIDMode="Static"/>
-                  </td>
-              </tr>
-              <tr class="fbform_mheader">
-                  <td colspan="3">Kandungan Surat:</td>
-              </tr>
-              <tr>
-                  <td colspan="3">
-                      <div class="form-inline">
-                          <textarea 
-                              id="editorContentSurat" 
-                              name="editorContentSurat"
-                              runat="server"
-                               ClientIDMode="Static"
-                              rows="100"
-                            ></textarea>
-                          <div class="btn-column">
-                              <%--<asp:Repeater runat="server" ID="repeaterButtons">
-                                  <ItemTemplate>
-                                    <button type="button" onclick='insertText('<%# %>')' class="btn" id="btnPemohon">Nama Pemohon</button>
-                                  </ItemTemplate>
-                              </asp:Repeater>--%>
-                              <button type="button" onclick="insertText('{NAMA_PEMOHON}')" class="btn" id="btnPemohon">Nama Pemohon</button>
-                              <button type="button" onclick="insertText('{NAMA_UNIT}')" class="btn" id="btnUnit">Nama Unit</button>
-                              <button type="button" onclick="insertText('{NAMA_KUARTERS}')" class="btn" id="btnKuarters">Nama Kuarters</button>
-                              <button type="button" onclick="insertText('{NAMA_PANGKALAN}')" class="btn" id="btnPangkalan">Nama Pangkalan</button>
-                          </div>
-                      </div>
-                  </td>
-              </tr>
-          </table>
-      </div>
-    </div>
-    <div class="modal-footer">
-        <div class="footer-btn">
-            <asp:Button Text="Simpan" runat="server" id="btnSimpan" CssClass="btn"/>
-            <button type="button" id="btnClose" class="btn">Batal</button>
+<div id="modalSurat" name="suratForm" class="modal" runat="server">
+    <div class="fbform modal-content">
+        <div class="modal-header">
+            <a href="#" runat="server" ClientIDMode="Static" id="closeSpan">
+                <span class="close">&times;</span>
+            </a>
+            <h2>Tambah Surat Tawaran Baru</h2>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-container">
+                <table style="width: 100%;" class="fbform">
+                    <tr>
+                        <td style="width: 150px;">Tajuk Surat</td>
+                        <td style="width: 5px;">:</td>
+                        <td>
+                            <asp:TextBox runat="server" ID="tajukSurat" ClientIDMode="Static" />
+                        </td>
+                    </tr>
+                    <tr class="fbform_mheader">
+                        <td colspan="3">Kandungan Surat:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <textboxio:Textboxio
+                                runat="server"
+                                ID="editorSuratContent"
+                                Content="<p></p>" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="footer-btn">
+                <asp:Button Text="Simpan" runat="server" ID="btnSubmit" CssClass="btn primary" />
+                <asp:Button Text="Tutup" runat="server" ID="btnClose" CssClass="btn warning" />
+            </div>
         </div>
     </div>
-  </div>
-
 </div>
 
+<script src="textboxio/textboxio.js"></script>
 <script type="text/javascript">
-    var btn = document.getElementsByName("AddNew")[0];
-    var modal = document.getElementsByName("suratForm")[0];
-    var span = document.getElementsByClassName("close")[0];
-    var editor = textboxio.replace('#editorContentSurat');
-    var btnClose = document.getElementById("btnClose");
 
-    editor.content.set('Masukkan surat tawaran disini...');
-
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
-
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-
-    btnClose.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    function insertText(text) {
-        editor.content.insertHtmlAtCursor(text);
-    }
 </script>
 
 <script type="text/vbscript">

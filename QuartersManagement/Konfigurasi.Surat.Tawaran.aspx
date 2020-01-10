@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/admin.Master" CodeBehind="Konfigurasi.Surat.Tawaran.aspx.vb" Inherits="QuartersManagement.Konfigurasi_Surat_Tawaran" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/admin.Master" CodeBehind="Konfigurasi.Surat.Tawaran.aspx.vb" Inherits="QuartersManagement.Konfigurasi_Surat_Tawaran"  validateRequest="false"%>
 
 <%@ Register Src="~/commoncontrol/configuration/konfigurasi_surat.ascx" TagPrefix="uc1" TagName="konfigurasi_surat" %>
 <%@ Register Src="~/commoncontrol/menu/navigation_menu.ascx" TagPrefix="uc1" TagName="navigation_menu" %>

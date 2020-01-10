@@ -95,38 +95,56 @@ Partial Public Class konfigurasi_surat
     Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''suratForm control.
+    '''modalSurat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents suratForm As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents modalSurat As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''tbTajukSurat control.
+    '''closeSpan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents tbTajukSurat As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents closeSpan As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
-    '''editorContentSurat control.
+    '''tajukSurat control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents editorContentSurat As Global.System.Web.UI.HtmlControls.HtmlTextArea
+    Protected WithEvents tajukSurat As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''btnSimpan control.
+    '''editorSuratContent control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnSimpan As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents editorSuratContent As Global.TextboxioControl.Textboxio
+
+    '''<summary>
+    '''btnSubmit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnSubmit As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''btnClose control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnClose As Global.System.Web.UI.WebControls.Button
 End Class
