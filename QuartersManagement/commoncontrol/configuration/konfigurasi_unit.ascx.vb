@@ -244,12 +244,14 @@ Public Class konfigurasi_unit
 
     Private Sub CancelTop_ServerClick(sender As Object, e As EventArgs) Handles CancelTop.ServerClick
         cancel()
+        Response.Redirect(Request.RawUrl)
         Session("tambah_unit") = Nothing
         Session("unit_id") = Nothing
     End Sub
 
     Private Sub CancelBottom_ServerClick(sender As Object, e As EventArgs) Handles CancelBottom.ServerClick
         cancel()
+        Response.Redirect(Request.RawUrl)
         Session("tambah_unit") = Nothing
         Session("unit_id") = Nothing
     End Sub
@@ -490,7 +492,7 @@ Public Class konfigurasi_unit
     Private Sub SaveTop_ServerClick(sender As Object, e As EventArgs) Handles SaveTop.ServerClick
         If insert() Then
             viewConfig.ActiveViewIndex = 0
-            clear_form()
+            Response.Redirect(Request.RawUrl)
             message("SUCCESS", "Berjaya simpan unit baru.")
         End If
     End Sub
@@ -498,7 +500,7 @@ Public Class konfigurasi_unit
     Private Sub SaveBottom_ServerClick(sender As Object, e As EventArgs) Handles SaveBottom.ServerClick
         If insert() Then
             viewConfig.ActiveViewIndex = 0
-            clear_form()
+            Response.Redirect(Request.RawUrl)
             message("SUCCESS", "Berjaya simpan unit baru.")
         End If
     End Sub
@@ -632,4 +634,20 @@ Public Class konfigurasi_unit
             Return False
         End If
     End Function
+
+    Private Sub UpdateTop_ServerClick(sender As Object, e As EventArgs) Handles UpdateTop.ServerClick
+        If update() Then
+            viewConfig.ActiveViewIndex = 0
+            Response.Redirect(Request.RawUrl)
+            message("SUCCESS", "Berjaya Ubah Unit.")
+        End If
+    End Sub
+
+    Private Sub UpdateBottom_ServerClick(sender As Object, e As EventArgs) Handles UpdateBottom.ServerClick
+        If update() Then
+            viewConfig.ActiveViewIndex = 0
+            Response.Redirect(Request.RawUrl)
+            message("SUCCESS", "Berjaya Ubah Unit.")
+        End If
+    End Sub
 End Class
