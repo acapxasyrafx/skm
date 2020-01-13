@@ -1,8 +1,16 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="konfigurasi_unit.ascx.vb" Inherits="QuartersManagement.konfigurasi_unit" %>
+<style>
+    .input {
+        width: 20em;
+    }
+    .required {
+        color:red;
+    }
+</style>
 <div>
     <asp:MultiView ActiveViewIndex="0" runat="server" ID="viewConfig">
         <asp:View runat="server">
-             <table class="fbform">
+            <table class="fbform">
                 <tr>
                     <td>
                         <span id="Span1" runat="server">
@@ -43,34 +51,35 @@
                 </tr>
                 <tr>
                     <td style="width: 150px;">Nama Unit</td>
-                    <td style="width:5px;">:</td>
-                    <td><asp:TextBox runat="server" ID="tbCari"/></td>
+                    <td style="width: 5px;">:</td>
+                    <td>
+                        <asp:TextBox runat="server" ID="tbCari" /></td>
                 </tr>
                 <tr>
                     <td style="width: 150px;"></td>
-                    <td><asp:Button Text="Cari" runat="server" ID="btnCari"/></td>
+                    <td>
+                        <asp:Button Text="Cari" runat="server" ID="btnCari" /></td>
                 </tr>
             </table>
             <table class="fbform" style="width: 100%;">
                 <tr class="fbform_mheader">
-                    <td colspan="3">
-                        Senarai Unit
+                    <td colspan="3">Senarai Unit
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <asp:Panel ID="Panel" runat="server" ScrollBars="Vertical" Height="90%">
-                            <asp:GridView 
-                                ID="datRespondent" 
-                                runat="server" 
-                                AutoGenerateColumns="False" 
-                                AllowPaging="false"  
-                                CellPadding="4" 
+                            <asp:GridView
+                                ID="datRespondent"
+                                runat="server"
+                                AutoGenerateColumns="False"
+                                AllowPaging="true"
+                                CellPadding="4"
                                 ForeColor="#333333"
                                 GridLines="None"
                                 DataKeyNames="unit_id"
                                 Width="100%"
-                                PageSize="100"
+                                PageSize="20"
                                 CssClass="gridview_footer">
                                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                                 <Columns>
@@ -144,6 +153,15 @@
                     </td>
                 </tr>
             </table>
+            <table class="fbform">
+                <tr>
+                    <td>
+                        <span id="Span2" runat="server">
+                            <asp:Label ID="Label2" runat="server"></asp:Label>
+                        </span>
+                    </td>
+                </tr>
+            </table>
         </asp:View>
         <asp:View runat="server">
             <table class="fbform" style="width: 100%">
@@ -167,51 +185,105 @@
             </table>
             <table class="fbform" style="width: 100%">
                 <tr class="fbform_mheader">
-                    <td colspan="3">Ubah Maklumat Unit</td>
+                    <td colspan="3">Maklumat Unit</td>
                 </tr>
                 <tr>
                     <td style="width: 150px;">Pangkalan</td>
                     <td style="width: 5px;">:</td>
                     <td>
-                        <asp:DropDownList runat="server" ID="ddlInsertPangkalan" AutoPostBack="true"></asp:DropDownList>
+                        <asp:Label Text="" runat="server" id="lblNamaPangkalan" Visible="false"/>
+                        <asp:DropDownList runat="server" ID="ddlInsertPangkalan" CssClass="input" AutoPostBack="true"></asp:DropDownList>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 150px;">Kuarters</td>
                     <td style="width: 5px;">:</td>
-                    <td>
-                          <asp:DropDownList runat="server" ID="ddlInsertKuarters"></asp:DropDownList>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 150px;">Nama Unit</td>
-                    <td style="width: 5px;">:</td>
-                    <td>
-                        <asp:TextBox runat="server" ID="tbNamaUnit"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 150px;">Blok/Baris</td>
-                    <td style="width: 5px;">:</td>
-                    <td>
-                        <asp:TextBox runat="server" ID="tbBlok"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 150px;">No. Tingkat</td>
-                    <td style="width: 5px;">:</td>
-                    <td>
-                        <asp:TextBox runat="server" ID="tbTingkat"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="width: 150px;">No. Unit</td>
-                    <td style="width: 5px;">:</td>
-                    <td>
-                        <asp:TextBox runat="server" ID="tbNoUnit"/>
+                    <td style="display: flex;">
+                        <asp:Label Text="" runat="server" id="lblNamaKuarters" Visible="false"/>
+                        <asp:DropDownList runat="server" ID="ddlInsertKuarters" CssClass="input" AutoPostBack="true" Enabled="false">
+                            <asp:ListItem Text="Sila PIlih Pangkalan Terlebih Dahulu" />
+                        </asp:DropDownList>
+                        <div style="padding-left: 5px;" runat="server" id="divJenisKuarters" visible="false">
+                            (Jenis Kuarters:
+                            <asp:Label runat="server" ID="lblJenisKuarters"></asp:Label>)
+                        </div>
                     </td>
                 </tr>
             </table>
+            <asp:Panel runat="server" ID="panelMaklumatUnit" Visible="false">
+                <table class="fbform">
+                    <asp:Panel runat="server" ID="panelBanglo">
+                        <tr class="fbform_mheader" runat="server" id="trbanglo" visible="false">
+                            <td colspan="4">Maklumat Banglo</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 150px;">Nama Bangunan</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbBangloNama" CssClass="input" />
+                            </td>
+                        </tr>
+                    </asp:Panel>
+                    <asp:Panel runat="server" ID="panelTeres" Visible="false">
+                        <tr class="fbform_mheader">
+                            <td colspan="4">Maklumat Rumah Teres</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 150px;">Lot Unit</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbTeresNoBaris" CssClass="input" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 150px;">No. Unit</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbTeresNoUnit" CssClass="input" />
+                            </td>
+                        </tr>
+                    </asp:Panel>
+                    <asp:Panel runat="server" ID="panelPangsapuri" Visible="false">
+                        <tr class="fbform_mheader">
+                            <td colspan="4">Maklumat Pangsapuri</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 150px;">Nama Blok</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbPangsapuriBlok" CssClass="input" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 150px;">No. Tingkat</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbPangsapuriTingkat" CssClass="input" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 150px;">No. Unit</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbPangaspuriNoUnit" CssClass="input" />
+                            </td>
+                        </tr>
+                    </asp:Panel>
+                    <tr>
+                        <td style="width: 150px;">Status Unit</td>
+                        <td style="width: 5px;">:</td>
+                        <td>
+                            <asp:DropDownList runat="server" ID="ddlStatusUnit" CssClass="input">
+                                <asp:ListItem Text="-- PILIH --" />
+                                <asp:ListItem Text="SEDIA UNTUK DIDUDUK" Value="Available" />
+                                <asp:ListItem Text="DALAM PROSES" Value="On Hold" />
+                                <asp:ListItem Text="DIDUDUKI" Value="Occupied" />
+                                <asp:ListItem Text="DALAM PROSES BAIK PULIH" Value="Under Maintenace" />
+                            </asp:DropDownList>
+                        </td>
+                    </tr>
+                </table>
+            </asp:Panel>
 
             <table class="fbform">
                 <tr>
