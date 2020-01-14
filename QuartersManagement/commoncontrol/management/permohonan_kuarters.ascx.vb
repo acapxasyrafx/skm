@@ -142,7 +142,7 @@ Public Class permohonan_kuarters
                 ddlSenaraiPangkalan.DataTextField = "pangkalan_nama"
                 ddlSenaraiPangkalan.DataValueField = "pangkalan_id"
                 ddlSenaraiPangkalan.DataBind()
-                ddlSenaraiPangkalan.Items.Insert(0, New ListItem("Senarai Pangkalan...", String.Empty))
+                ddlSenaraiPangkalan.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 ddlSenaraiPangkalan.SelectedIndex = 0
             Catch ex As Exception
                 Debug.WriteLine("ERROR(loadPangkalan-permohonan_kuarters:147): " & ex.Message)

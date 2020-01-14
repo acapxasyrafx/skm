@@ -18,6 +18,7 @@ Public Class maklumat_penempatan_pemohon1
         check_session()
         maklumat_pemohon()
         maklumat_anak()
+        update_notifikasi()
     End Sub
 
     Protected Sub check_session()
@@ -119,5 +120,21 @@ Public Class maklumat_penempatan_pemohon1
             End Using
         End Using
     End Sub
-
+    Private Sub update_notifikasi()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("UPDATE spk_notifikasi SET notifikasi_checked=1 WHERE notifikasi_id = @notifikasiID")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@notifikasiID", SqlDbType.Int).Value = Request.QueryString("uid")
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    Debug.WriteLine("Error(update_notifikasi-admin.Master:162): " & ex.Message)
+                Finally
+                    conn.Close()
+                    Response.Redirect("Senarai.Penempatan.Pemohon.aspx?P=Pengurusan%20Pentadbiran%20%3E%20Kuarters%20%3E%20Senarai%20Penempatan%20Kuarters")
+                End Try
+            End Using
+        End Using
+    End Sub
 End Class

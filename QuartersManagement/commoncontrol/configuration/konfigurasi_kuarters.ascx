@@ -1,5 +1,10 @@
 ﻿<%@ Control Language="vb" AutoEventWireup="false" CodeBehind="konfigurasi_kuarters.ascx.vb" Inherits="QuartersManagement.konfigurasi_kuarters" %>
 
+<style>
+    .input {
+        width: 20em;
+    }
+</style>
 <table class ="fbform" style ="width :100%">
     <tr class ="fbform_header">
          <td><span id="MsgTop" runat ="server"><asp:Label ID ="strlbl_top" runat ="server" ></asp:Label></span></td>
@@ -15,23 +20,29 @@
 <table class="fbform" style="width :100%">
 
     <tr>
-         <td>AKSES SISTEM</td>
-         <td>:</td>
-         <td colspan="4"><asp:DropDownList  ID ="ddlAkses" runat ="server" AutoPostBack ="true"  >
-         <asp:ListItem Value ="GLOBAL">- GLOBAL -</asp:ListItem>
-         </asp:DropDownList></td>
+        <td>AKSES SISTEM</td>
+        <td>:</td>
+        <td colspan="4">
+            <asp:DropDownList ID="ddlAkses" runat="server" AutoPostBack="true">
+                <asp:ListItem Value="GLOBAL">- GLOBAL -</asp:ListItem>
+            </asp:DropDownList>
+        </td>
     </tr>
 
-        <tr>
-         <td>JENIS</td>
-         <td>:</td>
-         <td colspan="4"><asp:DropDownList ID="ddlJenisKuarters" runat="server" Width="200px" AutoPostBack="true"></asp:DropDownList></td>
+    <tr>
+        <td>JENIS</td>
+        <td>:</td>
+        <td colspan="4">
+            <asp:DropDownList ID="ddlJenisKuarters" runat="server" Width="200px" AutoPostBack="true"></asp:DropDownList>
+        </td>
     </tr>
 
     <tr>
          <td>NAMA KUARTERS</td>
          <td>:</td>
-         <td colspan="4"><asp:TextBox ID="txtNamaKuarters" runat="server" Width="400px" ></asp:TextBox></td>
+         <td colspan="4">
+             <asp:TextBox ID="txtNamaKuarters" runat="server" Width="400px" ></asp:TextBox>
+         </td>
     </tr>
 
     <tr>
@@ -77,12 +88,13 @@
     </tr> 
     
     <tr>
-         <td style="width: 15%;">EMEL</td>
-         <td width:1%;">:</td>
-         <td colspan="4"><asp:TextBox ID="txtEmel" runat="server" Width="200px" ></asp:TextBox></td>
+        <td style="width: 15%;">EMEL</td>
+        <td style="width: 1%;">:</td>
+        <td colspan="4">
+            <asp:TextBox ID="txtEmel" runat="server" Width="200px"></asp:TextBox>
+        </td>
     </tr>
-    
-   
+
 </table>
 
 <br />

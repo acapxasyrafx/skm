@@ -117,6 +117,8 @@
     <Content Include="commoncontrol\configuration\konfigurasi_pangkalan.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_pangkat.ascx" />
     <Content Include="commoncontrol\configuration\konfigurasi_surat.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_surat_tawaran.ascx" />
+    <Content Include="commoncontrol\configuration\konfigurasi_unit.ascx" />
     <Content Include="commoncontrol\maintenance\rekod_penyelenggaraan.ascx" />
     <Content Include="commoncontrol\main\homepage.ascx" />
     <Content Include="commoncontrol\main\login_page.ascx" />
@@ -156,6 +158,7 @@
     <Content Include="icons\calendar.png" />
     <Content Include="icons\checkmark_approve.png" />
     <Content Include="icons\checkmark_declined.png" />
+    <Content Include="icons\clear.svg" />
     <Content Include="icons\delete.png" />
     <Content Include="icons\deletedustbin.png" />
     <Content Include="icons\download.gif" />
@@ -170,6 +173,7 @@
     <Content Include="icons\select.png" />
     <Content Include="icons\send.png" />
     <Content Include="icons\verified-text-paper.png" />
+    <Content Include="icons\x-button.png" />
     <Content Include="img\backlog.jpg" />
     <Content Include="img\tudmlogo.png" />
     <Content Include="Konfigurasi.aspx" />
@@ -183,6 +187,7 @@
     <Content Include="Konfigurasi.Sistem.aspx" />
     <Content Include="commoncontrol\configuration\konfigurasi_sistem.ascx" />
     <Content Include="Konfigurasi.Surat.Tawaran.aspx" />
+    <Content Include="Konfigurasi.Unit.Kuarters.aspx" />
     <Content Include="Maklumat.Penempatan.Pemohon.aspx" />
     <Content Include="Maklumat.Permohonan.aspx" />
     <Content Include="Maklumat.Permohonan.Pengguna.aspx" />
@@ -447,6 +452,20 @@
     </Compile>
     <Compile Include="commoncontrol\configuration\konfigurasi_surat.ascx.vb">
       <DependentUpon>konfigurasi_surat.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_surat_tawaran.ascx.designer.vb">
+      <DependentUpon>konfigurasi_surat_tawaran.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_surat_tawaran.ascx.vb">
+      <DependentUpon>konfigurasi_surat_tawaran.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_unit.ascx.designer.vb">
+      <DependentUpon>konfigurasi_unit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="commoncontrol\configuration\konfigurasi_unit.ascx.vb">
+      <DependentUpon>konfigurasi_unit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="commoncontrol\maintenance\rekod_penyelenggaraan.ascx.designer.vb">
@@ -730,6 +749,13 @@
     </Compile>
     <Compile Include="Konfigurasi.Surat.Tawaran.aspx.vb">
       <DependentUpon>Konfigurasi.Surat.Tawaran.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Konfigurasi.Unit.Kuarters.aspx.designer.vb">
+      <DependentUpon>Konfigurasi.Unit.Kuarters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Konfigurasi.Unit.Kuarters.aspx.vb">
+      <DependentUpon>Konfigurasi.Unit.Kuarters.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Maklumat.Penempatan.Pemohon.aspx.designer.vb">
