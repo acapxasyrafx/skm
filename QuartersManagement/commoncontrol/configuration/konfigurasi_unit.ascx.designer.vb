@@ -68,6 +68,15 @@ Partial Public Class konfigurasi_unit
     Protected WithEvents ddlKuarters As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''ddlStatusUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlStatusUnit As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
     '''tbCari control.
     '''</summary>
     '''<remarks>
@@ -320,13 +329,13 @@ Partial Public Class konfigurasi_unit
     Protected WithEvents tbPangaspuriNoUnit As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''ddlStatusUnit control.
+    '''ddlInsertStatusUnit control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlStatusUnit As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlInsertStatusUnit As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
     '''MsgBottom control.

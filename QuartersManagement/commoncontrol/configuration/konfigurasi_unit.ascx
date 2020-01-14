@@ -46,6 +46,13 @@
                         </asp:DropDownList>
                     </td>
                 </tr>
+                <tr>
+                    <td style="width: 150px;">Status Unit</td>
+                    <td style="width: 5px;">:</td>
+                    <td>
+                        <asp:DropDownList runat="server" id="ddlStatusUnit" CssClass="input" AutoPostBack="true"></asp:DropDownList>
+                    </td>
+                </tr>
                 <tr class="fbform_mheader">
                     <td colspan="4">Carian Unit</td>
                 </tr>
@@ -93,17 +100,18 @@
 
                                     <asp:TemplateField HeaderText="Unit">
                                         <ItemTemplate>
-                                            <asp:Label ID="unit_nama" runat="server" Text='<%# IIf(Eval("unit_nama").ToString.Equals(""), Eval("unit_nama_lain").ToString, Eval("unit_nama").ToString) %>'></asp:Label>
+                                            <asp:Label ID="unit_nama" runat="server" Text='<%# nama_kuarters(Eval("unit_id")) %>'></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Kuarters">
+                                    <asp:TemplateField HeaderText="Kuarters (Jenis Kuarters)">
                                         <ItemTemplate>
-                                            <asp:Label ID="kuarters_nama" runat="server" Text='<%# Bind("kuarters_nama")%>'></asp:Label>
+                                            <asp:Label ID="kuarters_nama" runat="server" Text='<%# Bind("kuarters_nama") %>'></asp:Label>
+                                            (<asp:Label ID="jenis_kuarters" runat="server" Text='<%# Bind("jenisKuarters_nama") %>'></asp:Label>)
                                         </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="30%" />
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="20%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
 
@@ -112,6 +120,14 @@
                                             <asp:Label ID="pangkalan_nama" runat="server" Text='<%# Bind("pangkalan_nama")%>'></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="30%" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+
+                                    <asp:TemplateField HeaderText="Unit Status">
+                                        <ItemTemplate>
+                                            <asp:Label ID="unit_status" runat="server" Text='<%# Bind("config_parameter") %>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
 
@@ -273,13 +289,7 @@
                         <td style="width: 150px;">Status Unit</td>
                         <td style="width: 5px;">:</td>
                         <td>
-                            <asp:DropDownList runat="server" ID="ddlStatusUnit" CssClass="input">
-                                <asp:ListItem Text="-- PILIH --" />
-                                <asp:ListItem Text="SEDIA UNTUK DIDUDUK" Value="Available" />
-                                <asp:ListItem Text="DALAM PROSES" Value="On Hold" />
-                                <asp:ListItem Text="DIDUDUKI" Value="Occupied" />
-                                <asp:ListItem Text="DALAM PROSES BAIK PULIH" Value="Under Maintenace" />
-                            </asp:DropDownList>
+                            <asp:DropDownList runat="server" ID="ddlInsertStatusUnit" CssClass="input"></asp:DropDownList>
                         </td>
                     </tr>
                 </table>

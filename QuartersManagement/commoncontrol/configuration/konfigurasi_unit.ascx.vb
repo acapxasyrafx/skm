@@ -27,6 +27,7 @@ Public Class konfigurasi_unit
         check_session()
         load_units()
         load_pangkalan()
+        load_status_unit()
     End Sub
 
     Protected Sub check_session()
@@ -47,12 +48,17 @@ Public Class konfigurasi_unit
                 A.unit_id
 	            , A.unit_nama
 	            , (A.unit_blok + '-' + A.unit_tingkat + '-' + unit_nombor) AS 'unit_nama_lain'
+                , A.unit_status
+                , E.config_parameter
 	            , B.kuarters_nama
 	            , C.pangkalan_nama
+                , D.jenisKuarters_nama
             FROM 
 	            spk_unit A
 	            LEFT JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
-	            LEFT JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id"
+	            LEFT JOIN spk_pangkalan C ON C.pangkalan_id = B.pangkalan_id
+                LEFT JOIN spk_jenisKuarters D ON D.jenisKuarters_id = B.jenisKuarters_id
+				LEFT JOIN general_config E ON E.config_value = A.unit_status"
         Dim whereQuery As String = " WHERE A.unit_id IS NOT NULL"
         Dim orderQuery As String = " ORDER BY C.pangkalan_nama ASC;"
 
@@ -68,6 +74,11 @@ Public Class konfigurasi_unit
             whereQuery += " AND (A.unit_nama LIKE '%@carian%')
                             OR ((A.unit_blok + '-' + A.unit_tingkat + '-' + A.unit_nombor) LIKE '%@carian%')"
         End If
+
+        If ddlStatusUnit.SelectedIndex > 0 Then
+            whereQuery += " AND A.unit_status = @UnitStatus"
+        End If
+
         query = tempQuery & whereQuery & orderQuery
         Return query
     End Function
@@ -84,6 +95,10 @@ Public Class konfigurasi_unit
                 End If
                 If ddlPangkalan.SelectedIndex > 0 Then
                     cmd.Parameters.Add("@pangkalanID", SqlDbType.Int).Value = ddlPangkalan.SelectedValue
+                End If
+
+                If ddlStatusUnit.SelectedIndex > 0 Then
+                    cmd.Parameters.Add("@UnitStatus", SqlDbType.NVarChar).Value = ddlStatusUnit.SelectedValue
                 End If
                 Try
                     conn.Open()
@@ -174,10 +189,46 @@ Public Class konfigurasi_unit
             End Using
         End Using
     End Sub
+
+    Protected Sub load_status_unit()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT * FROM general_config WHERE config_type = @ConfigType ORDER BY config_idx ASC;")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@ConfigType", SqlDbType.NVarChar).Value = "STATUS UNIT KUARTERS"
+                Try
+                    conn.Open()
+                    Dim ds As New DataSet
+                    Using sda As New SqlDataAdapter(cmd)
+                        sda.Fill(ds)
+
+                        ddlStatusUnit.DataSource = ds
+                        ddlStatusUnit.DataTextField = "config_parameter"
+                        ddlStatusUnit.DataValueField = "config_value"
+                        ddlStatusUnit.DataBind()
+                        ddlStatusUnit.Items.Insert(0, New ListItem("-- PILIH --", Nothing))
+
+                        ddlInsertStatusUnit.DataSource = ds
+                        ddlInsertStatusUnit.DataTextField = "config_parameter"
+                        ddlInsertStatusUnit.DataValueField = "config_value"
+                        ddlInsertStatusUnit.DataBind()
+                        ddlInsertStatusUnit.Items.Insert(0, New ListItem("-- PILIH --", Nothing))
+                    End Using
+                Catch ex As Exception
+                    Debug.WriteLine("ERROR(load_status_unit-konfigurasi_unit: 196): " & ex.Message)
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
     Private Sub ddlPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlPangkalan.SelectedIndexChanged
         If ddlPangkalan.SelectedIndex > 0 Then
             load_kuarters()
             ddlKuarters.Enabled = True
+        Else
+            ddlKuarters.SelectedIndex = 0
+            ddlKuarters.Enabled = False
         End If
         load_units()
     End Sub
@@ -232,6 +283,51 @@ Public Class konfigurasi_unit
         Else
             Return "-"
         End If
+    End Function
+
+    Protected Function nama_kuarters(ByVal unitID As Integer)
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT 
+	            C.jenisKuarters_nama
+	            , A.unit_nama
+	            , A.unit_blok
+	            , A.unit_tingkat
+	            , A.unit_nombor
+            FROM 
+	            spk_unit A 
+	            LEFT JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
+	            LEFT JOIN spk_jenisKuarters C ON C.jenisKuarters_id = B.jenisKuarters_id
+            WHERE
+	            A.unit_id = @UnitID;")
+                cmd.Connection = conn
+                cmd.Parameters.Add("@UnitID", SqlDbType.Int).Value = unitID
+                Try
+                    conn.Open()
+                    Dim sdr As SqlDataReader
+                    sdr = cmd.ExecuteReader
+                    If sdr.HasRows Then
+                        While (sdr.Read)
+                            If sdr("jenisKuarters_nama").ToString.Contains("BANGLO") Then
+                                Return (sdr("unit_nama"))
+                            ElseIf sdr("jenisKuarters_nama").ToString.Contains("TERES") Or sdr("jenisKuarters_nama").ToString.Contains("BERKEMBAR") Then
+                                Return (sdr("unit_tingkat") & "-" & sdr("unit_nombor"))
+                            ElseIf sdr("jenisKuarters_nama").ToString.Contains("PANGSAPURI") Then
+                                Return (sdr("unit_blok") & "-" & sdr("unit_tingkat") & "-" & sdr("unit_nombor"))
+                            End If
+                        End While
+                    Else
+                        Debug.WriteLine("ERROR(nama_kuarters:konfigurasi_unit:268): NOT FOUND")
+                        Return ""
+                    End If
+                Catch ex As Exception
+                    Debug.WriteLine("ERROR(nama_kuarters:konfigurasi_unit:271): " & ex.Message)
+                    Return ""
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+
     End Function
 
     Private Sub open()
@@ -371,17 +467,6 @@ Public Class konfigurasi_unit
         open()
     End Sub
 
-    Private Sub clear_form()
-        ddlInsertKuarters.SelectedIndex = 0
-        ddlInsertKuarters.SelectedIndex = 0
-        tbBangloNama.Text = ""
-        tbTeresNoBaris.Text = ""
-        tbTeresNoUnit.Text = ""
-        tbPangaspuriNoUnit.Text = ""
-        tbPangsapuriTingkat.Text = ""
-        tbPangsapuriBlok.Text = ""
-    End Sub
-
     Private Sub ddlInsertPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlInsertPangkalan.SelectedIndexChanged
         If ddlInsertPangkalan.SelectedIndex > 0 Then
             load_form_kuarters()
@@ -464,8 +549,7 @@ Public Class konfigurasi_unit
                     cmd.Parameters.Add("@UnitNo", SqlDbType.NVarChar, 50).Value = IIf(panelBanglo.Visible.Equals(True), "", IIf(panelPangsapuri.Visible.Equals(True), pangsapuri_no_unit, teres_no_unit))
                     cmd.Parameters.Add("@UnitTingkat", SqlDbType.NVarChar, 50).Value = IIf(panelBanglo.Visible.Equals(True), "", IIf(panelPangsapuri.Visible.Equals(True), pangsapuri_no_tingkat, teres_no_baris))
                     cmd.Parameters.Add("@UnitBlok", SqlDbType.NVarChar, 50).Value = IIf(panelBanglo.Visible.Equals(True), "", IIf(panelPangsapuri.Visible.Equals(True), pangsapuri_no_blok, ""))
-                    cmd.Parameters.Add("@UnitStatus", SqlDbType.NVarChar, 50).Value = ddlStatusUnit.SelectedValue
-
+                    cmd.Parameters.Add("@UnitStatus", SqlDbType.NVarChar, 50).Value = ddlInsertStatusUnit.SelectedValue
                     Try
                         conn.Open()
                         If Session("tambah_unit") IsNot Nothing And Session("tambah_unit").Equals(True) Then
@@ -544,9 +628,11 @@ Public Class konfigurasi_unit
                             While (sdr.Read)
                                 lblNamaPangkalan.Text = sdr("pangkalan_nama").ToString
                                 lblNamaKuarters.Text = sdr("kuarters_nama").ToString
-                                ddlStatusUnit.SelectedValue = sdr("unit_status")
+                                lblJenisKuarters.Text = sdr("jenisKuarters_nama").ToString
+                                divJenisKuarters.Visible = True
+                                ddlInsertStatusUnit.SelectedValue = sdr("unit_status").ToString
                                 If sdr("jenisKuarters_nama").ToString.Contains("BANGLO") Then
-                                    tbBangloNama.Text = sdr("unit_nama")
+                                    tbBangloNama.Text = sdr("unit_nama").ToString()
                                     panelBanglo.Visible = True
                                 ElseIf sdr("jenisKuarters_nama").ToString.Contains("TERES") Or sdr("jenisKuarters_nama").ToString.Contains("BERKEMBAR") Then
                                     tbTeresNoBaris.Text = sdr("unit_tingkat")
@@ -561,10 +647,6 @@ Public Class konfigurasi_unit
                                     Debug.WriteLine("ERROR(RowCommand-konfigurasi_unit): Tiada Jenis Kuarters")
                                     message("ERROR", "SILA HUBUNGI PIHAK ADMIN ANDA.<br/> Tiada Jenis Kuarters")
                                 End If
-                                'tbNamaUnit.Text = IIf(sdr("unit_nama").ToString().Equals(""), sdr("unit_nama_lain"), sdr("unit_nama").ToString())
-                                'tbBlok.Text = sdr("unit_blok")
-                                'tbTingkat.Text = sdr("unit_tingkat")
-                                'tbNoUnit.Text = sdr("unit_nombor")
                             End While
                         End If
                         open()
@@ -619,11 +701,13 @@ Public Class konfigurasi_unit
                         cmd.Parameters.Add("@UnitNo", SqlDbType.NVarChar, 50).Value = IIf(panelBanglo.Visible.Equals(True), "", IIf(panelPangsapuri.Visible.Equals(True), pangsapuri_no_unit, teres_no_unit))
                         cmd.Parameters.Add("@UnitTingkat", SqlDbType.NVarChar, 50).Value = IIf(panelBanglo.Visible.Equals(True), "", IIf(panelPangsapuri.Visible.Equals(True), pangsapuri_no_tingkat, teres_no_baris))
                         cmd.Parameters.Add("@UnitBlok", SqlDbType.NVarChar, 50).Value = IIf(panelBanglo.Visible.Equals(True), "", IIf(panelPangsapuri.Visible.Equals(True), pangsapuri_no_blok, ""))
-                        cmd.Parameters.Add("@UnitStatus", SqlDbType.NVarChar, 50).Value = ddlStatusUnit.SelectedValue
+                        cmd.Parameters.Add("@UnitStatus", SqlDbType.NVarChar, 50).Value = ddlInsertStatusUnit.SelectedValue
+                        cmd.Parameters.Add("@UnitID", SqlDbType.Int).Value = IIf(Session("unit_id") IsNot Nothing, Session("unit_id"), Nothing)
                         conn.Open()
                         cmd.ExecuteNonQuery()
                         Return True
                     Catch ex As Exception
+                        Debug.WriteLine("ERROR(update-konfigurasi_unit:664): " & ex.Message)
                         Return False
                     Finally
                         conn.Close()
@@ -649,5 +733,14 @@ Public Class konfigurasi_unit
             Response.Redirect(Request.RawUrl)
             message("SUCCESS", "Berjaya Ubah Unit.")
         End If
+    End Sub
+
+    Private Sub datRespondent_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles datRespondent.PageIndexChanging
+        datRespondent.PageIndex = e.NewPageIndex
+        load_units()
+    End Sub
+
+    Private Sub ddlStatusUnit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlStatusUnit.SelectedIndexChanged
+        load_units()
     End Sub
 End Class
