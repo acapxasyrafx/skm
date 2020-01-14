@@ -143,6 +143,124 @@ Public Class konfigurasi_kuarters
         load_kuarters()
     End Sub
 
+    Private Sub open()
+        configKuarters.ActiveViewIndex = 1
+    End Sub
+
+    Private Sub close()
+        configKuarters.ActiveViewIndex = 0
+    End Sub
+
+    Private Sub load_form_negeri()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT 
+                    config_parameter, 
+                    config_value 
+                FROM 
+                    general_config 
+                WHERE 
+                    config_type = 'NEGERI' 
+                ORDER BY 
+                    config_parameter ASC;", conn)
+                Try
+                    conn.Open()
+                    Using sda As New SqlDataAdapter(cmd)
+                        Dim ds As New DataSet
+                        sda.Fill(ds)
+                        ddlFormNegeri.DataSource = ds
+                        ddlFormNegeri.DataValueField = "config_value"
+                        ddlFormNegeri.DataTextField = "config_parameter"
+                        ddlFormNegeri.DataBind()
+                        ddlFormNegeri.Items.Insert(0, New ListItem("-- PILIH --", String.Empty))
+                    End Using
+                Catch ex As Exception
+                    Debug.WriteLine("ERROR(load_form_negeri-konfigurasi-kuarters: 169): " & ex.Message)
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Private Sub load_form_pangkalan()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT pangkalan_id, pangkalan_nama FROM spk_pangkalan;", conn)
+                Try
+                    conn.Open()
+                    Using sda As New SqlDataAdapter(cmd)
+                        Dim ds As New DataSet
+                        sda.Fill(ds)
+                        ddlFormPangkalan.DataSource = ds
+                        ddlFormPangkalan.DataValueField = "pangkalan_id"
+                        ddlFormPangkalan.DataTextField = "pangkalan_nama"
+                        ddlFormPangkalan.DataBind()
+                        ddlFormPangkalan.Items.Insert(0, New ListItem("-- PILIH --", String.Empty))
+                    End Using
+                Catch ex As Exception
+                    Debug.WriteLine("ERROR(load_form_pangkalan-konfigurasi-kuarters: 192): " & ex.Message)
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Private Sub load_form_jenis_kuarters()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("SELECT jenisKuarters_id, jenisKuarters_nama FROM spk_jenisKuarters;", conn)
+                Try
+                    conn.Open()
+                    Using sda As New SqlDataAdapter(cmd)
+                        Dim ds As New DataSet
+                        sda.Fill(ds)
+                        ddlFormJenisKuarters.DataSource = ds
+                        ddlFormJenisKuarters.DataValueField = "jenisKuarters_id"
+                        ddlFormJenisKuarters.DataTextField = "jenisKuarters_nama"
+                        ddlFormJenisKuarters.DataBind()
+                        ddlFormJenisKuarters.Items.Insert(0, New ListItem("-- PILIH --", String.Empty))
+                    End Using
+                Catch ex As Exception
+                    Debug.WriteLine("ERROR(load_form_jenis_kuarters-konfigurasi-kuarters: 215): " & ex.Message)
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Private Sub NewKuarters_ServerClick(sender As Object, e As EventArgs) Handles NewKuarters.ServerClick
+        load_form_negeri()
+        load_form_pangkalan()
+        load_form_jenis_kuarters()
+        open()
+    End Sub
+
+    Private Sub ddlFormJenisKuarters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlFormJenisKuarters.SelectedIndexChanged
+        If ddlFormJenisKuarters.SelectedIndex > 0 Then
+            panelPangsapuri.Visible = True
+        End If
+    End Sub
+
+    Private Function validate_save() As Boolean
+        Return True
+    End Function
+
+    Private Function validate_update() As Boolean
+        Return True
+    End Function
+
+    Private Function save() As Boolean
+        Return True
+    End Function
+
+    Private Function read() As Boolean
+        Return True
+    End Function
+
+    Private Function insert() As Boolean
+        Return True
+    End Function
+
 
     ''--SAVE FUNCTION--'
     'Private Function Save() As Boolean
