@@ -311,6 +311,15 @@ Partial Public Class konfigurasi_unit
     Protected WithEvents tbPangsapuriBlok As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''lblBlok control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBlok As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''tbPangsapuriTingkat control.
     '''</summary>
     '''<remarks>
@@ -320,6 +329,15 @@ Partial Public Class konfigurasi_unit
     Protected WithEvents tbPangsapuriTingkat As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
+    '''lblTingkat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTingkat As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''tbPangaspuriNoUnit control.
     '''</summary>
     '''<remarks>
@@ -327,6 +345,15 @@ Partial Public Class konfigurasi_unit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents tbPangaspuriNoUnit As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''lblNoUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNoUnit As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''ddlInsertStatusUnit control.

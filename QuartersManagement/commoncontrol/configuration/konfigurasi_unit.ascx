@@ -268,6 +268,7 @@
                             <td style="width: 5px;">:</td>
                             <td>
                                 <asp:TextBox runat="server" ID="tbPangsapuriBlok" CssClass="input" />
+                                <asp:Label Text="" runat="server" id="lblBlok"/>
                             </td>
                         </tr>
                         <tr>
@@ -275,6 +276,7 @@
                             <td style="width: 5px;">:</td>
                             <td>
                                 <asp:TextBox runat="server" ID="tbPangsapuriTingkat" CssClass="input" />
+                                <asp:Label Text="" runat="server" id="lblTingkat"/>
                             </td>
                         </tr>
                         <tr>
@@ -282,6 +284,7 @@
                             <td style="width: 5px;">:</td>
                             <td>
                                 <asp:TextBox runat="server" ID="tbPangaspuriNoUnit" CssClass="input" />
+                                <asp:Label Text="" runat="server" id="lblNoUnit"/>
                             </td>
                         </tr>
                     </asp:Panel>
