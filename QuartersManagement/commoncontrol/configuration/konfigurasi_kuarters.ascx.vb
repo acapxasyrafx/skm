@@ -116,7 +116,7 @@ Public Class konfigurasi_kuarters
                 End If
 
                 If ddlJenisKuarters.SelectedIndex > 0 Then
-                    cmd.Parameters.Add("@JenisKuarters", SqlDbType.Int).Value = ddlJenisKuarters.SelectedValue
+                    cmd.Parameters.Add("@JenisKuartersID", SqlDbType.Int).Value = ddlJenisKuarters.SelectedValue
                 End If
 
                 If tbCari.Text.Length > 0 Then
@@ -236,183 +236,579 @@ Public Class konfigurasi_kuarters
     End Sub
 
     Private Sub ddlFormJenisKuarters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlFormJenisKuarters.SelectedIndexChanged
-        If ddlFormJenisKuarters.SelectedIndex > 0 Then
-            panelPangsapuri.Visible = True
+
+    End Sub
+
+    Private Sub message_form(ByVal msgType As String, ByVal msgText As String)
+        If msgType.Equals("ERROR") Then
+            message_top.Attributes("class") = "errorMsg"
+            message_bottom.Attributes("class") = "errorMsg"
+            strlbl_top.Text = strSysErrorAlert & "<br/>" & msgText
+            strlbl_bottom.Text = strSysErrorAlert & "<br/>" & msgText
+        Else
+            message_top.Attributes("class") = "successMsg"
+            message_bottom.Attributes("class") = "successrMsg"
+            strlbl_top.Text = msgText
+            strlbl_bottom.Text = msgText
         End If
     End Sub
 
-    Private Function validate_save() As Boolean
-        Return True
+    Private Sub message_list(ByVal msgType As String, ByVal msgText As String)
+        If msgType.Equals("ERROR") Then
+            message_top.Attributes("class") = "errorMsg"
+            message_bottom.Attributes("class") = "errorMsg"
+            strlbl_top.Text = strSysErrorAlert & "<br/>" & msgText
+            strlbl_bottom.Text = strSysErrorAlert & "<br/>" & msgText
+        Else
+            message_top.Attributes("class") = "successMsg"
+            message_bottom.Attributes("class") = "successrMsg"
+            strlbl_top.Text = msgText
+            strlbl_bottom.Text = msgText
+        End If
+    End Sub
+
+    Private Sub CancelTop_ServerClick(sender As Object, e As EventArgs) Handles CancelTop.ServerClick
+        close()
+        Response.Redirect(Request.RawUrl)
+    End Sub
+
+    Private Sub CancelBottom_ServerClick(sender As Object, e As EventArgs) Handles CancelBottom.ServerClick
+        close()
+        Response.Redirect(Request.RawUrl)
+    End Sub
+
+    Private Function validate_save_kuarters() As Boolean
+        If ddlFormPangkalan.SelectedIndex > 0 Then
+            If ddlFormJenisKuarters.SelectedIndex > 0 Then
+                If tbFormNama.Text.Length > 0 Then
+                    If tbFormAlamat.Text.Length > 0 Then
+                        If tbFormPostcode.Text.Length > 0 And tbFormPostcode.Text.Length <= 5 Then
+                            If tbFormBandar.Text.Length > 0 Then
+                                If ddlFormNegeri.SelectedIndex > 0 Then
+                                    If tbFormTelefon.Text.Length > 0 Then
+                                        If tbFormNoFax.Text.Length > 0 Then
+                                            If tbFormEmail.Text.Length > 0 Then
+                                                Return True
+                                            Else
+                                                message_form("ERROR", "SILA MASUKKAN EMAIL")
+                                                Return False
+                                            End If
+                                        Else
+                                            message_form("ERROR", "SILA MASUKKAN NO. FAX")
+                                            Return False
+                                        End If
+                                    Else
+                                        message_form("ERROR", "SILA MASUKKAN NO. TELEFON")
+                                        Return False
+                                    End If
+                                Else
+                                    message_form("ERROR", "SILA PILIH NAMA NEGERI")
+                                    Return False
+                                End If
+                            Else
+                                message_form("ERROR", "SILA ISI NAMA BANDAR")
+                                Return False
+                            End If
+                        Else
+                            message_form("ERROR", "SILA ISI POSKOD DENGAN BETUL")
+                            Return False
+                        End If
+                    Else
+                        message_form("ERROR", "SILA ISI ALAMAT KUARTERS")
+                        Return False
+                    End If
+                Else
+                    message_form("ERROR", "SILA ISI NAMA KUARTERS")
+                    Return False
+                End If
+            Else
+                message_form("ERROR", "SILA PILIH JENIS KUARTERS")
+                Return False
+            End If
+        Else
+            message_form("ERROR", "SILA PILIH NAMA PANGKALAN")
+            Return False
+        End If
     End Function
 
-    Private Function validate_update() As Boolean
-        Return True
+    Private Function save_kuarters()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("
+            INSERT INTO 
+                spk_kuarters 
+            VALUES(
+                @JenisKuartersID
+                , @PangkalanID
+                , 'MALAYSIA'
+                , @Negeri
+                , @Bandar
+                , @Poskod
+                , @Nama
+                , @Alamat
+                , @Telefon
+                , @Faks
+                , @Emel
+            )", conn)
+                cmd.Parameters.Add("@JenisKuartersID", SqlDbType.Int).Value = ddlFormJenisKuarters.SelectedValue
+                cmd.Parameters.Add("@PangkalanID", SqlDbType.Int).Value = ddlFormPangkalan.SelectedValue
+                cmd.Parameters.Add("@Negeri", SqlDbType.NVarChar).Value = ddlFormNegeri.SelectedValue.ToUpper
+                cmd.Parameters.Add("@Bandar", SqlDbType.NVarChar).Value = tbFormBandar.Text.ToUpper
+                cmd.Parameters.Add("@Poskod", SqlDbType.NVarChar, 5).Value = tbFormPostcode.Text
+                cmd.Parameters.Add("@Nama", SqlDbType.NVarChar).Value = tbFormNama.Text.ToUpper
+                cmd.Parameters.Add("@Alamat", SqlDbType.NVarChar).Value = tbFormAlamat.Text.ToUpper
+                cmd.Parameters.Add("@Telefon", SqlDbType.NVarChar, 10).Value = tbFormTelefon.Text
+                cmd.Parameters.Add("@Faks", SqlDbType.NVarChar, 10).Value = tbFormNoFax.Text
+                cmd.Parameters.Add("@Emel", SqlDbType.NVarChar).Value = tbFormEmail.Text
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                    Return True
+                Catch ex As Exception
+                    Debug.Write("ERROR(save_kuarters-konfigurasi_kuarters:342): " & ex.Message)
+                    message_form("ERROR", strSysErrorAlert & "<br/>" & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
     End Function
 
-    Private Function save() As Boolean
-        Return True
+    Private Sub SaveTop_ServerClick(sender As Object, e As EventArgs) Handles SaveTop.ServerClick
+        If validate_save_kuarters() Then
+            If save_kuarters() Then
+                close()
+                Response.Redirect(Request.RawUrl)
+            End If
+        End If
+    End Sub
+
+    Private Sub SaveBottom_ServerClick(sender As Object, e As EventArgs) Handles SaveBottom.ServerClick
+        If validate_save_kuarters() Then
+            If save_kuarters() Then
+                close()
+                Response.Redirect(Request.RawUrl)
+            End If
+        End If
+    End Sub
+
+    Private Function read_kuarters() As Boolean
+        If Session("kuarters_id") IsNot Nothing Then
+            Debug.WriteLine("KUARTERS ID: " & Session("kuarters_id"))
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand("SELECT * FROM spk_kuarters A WHERE A.kuarters_id = @KuartersID", conn)
+                    cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = Session("kuarters_id")
+                    Try
+                        conn.Open()
+                        Using sdr As SqlDataReader = cmd.ExecuteReader
+                            If sdr.HasRows Then
+                                While sdr.Read
+                                    hfKuartersID.Value = sdr("kuarters_id").ToString
+                                    ddlFormPangkalan.SelectedValue = sdr("pangkalan_id").ToString
+                                    hfPrevPangkalanID.Value = sdr("pangkalan_id").ToString
+                                    ddlFormJenisKuarters.SelectedValue = sdr("jenisKuarters_id").ToString
+                                    tbFormNama.Text = sdr("kuarters_nama").ToString
+                                    tbFormAlamat.Text = sdr("kuarters_alamat").ToString
+                                    tbFormPostcode.Text = sdr("kuarters_poskod").ToString
+                                    tbFormBandar.Text = sdr("kuarters_bandar").ToString
+                                    ddlFormNegeri.SelectedValue = sdr("kuarters_negeri").ToString
+                                    tbFormTelefon.Text = sdr("kuarters_telefon").ToString
+                                    tbFormNoFax.Text = sdr("kuarters_faks").ToString
+                                    tbFormEmail.Text = sdr("kuarters_emel").ToString
+                                End While
+                                Return True
+                            Else
+                                Debug.Write("ERROR(read_kuarters-konfigurasi_kuarters:420): HAS NO ROWS")
+                                Return False
+                            End If
+                        End Using
+                    Catch ex As Exception
+                        Debug.Write("ERROR(read_kuarters-konfigurasi_kuarters:409): " & ex.Message)
+                        message_form("ERROR", strSysErrorAlert & "<br/>" & ex.Message)
+                        Return False
+                    Finally
+                        conn.Close()
+                    End Try
+                End Using
+            End Using
+        Else
+            Debug.Write("ERROR(read_kuarters-konfigurasi_kuarters:409): SESSION NOT EXIST")
+            Return False
+        End If
     End Function
 
-    Private Function read() As Boolean
-        Return True
+    Private Function load_buildings() As Boolean
+        If Session("kuarters_id") IsNot Nothing Then
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand("SELECT * FROM spk_bangunan WHERE kuarters_id = @KuartersID;", conn)
+                    cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = Session("kuarters_id")
+                    Try
+                        conn.Open()
+                        Using sda As New SqlDataAdapter(cmd)
+                            Dim ds As New DataSet
+                            sda.Fill(ds)
+                            buildingList.DataSource = ds
+                            buildingList.DataBind()
+                        End Using
+                        Return True
+                    Catch ex As Exception
+                        Debug.Write("ERROR(read_building-konfigurasi_kuarters:432): " & ex.Message)
+                        message_list("ERROR", strSysErrorAlert & "<br/>" & ex.Message)
+                        Return False
+                    Finally
+                        conn.Close()
+                    End Try
+                End Using
+            End Using
+            Return False
+        Else
+            Return False
+        End If
     End Function
 
-    Private Function insert() As Boolean
-        Return True
+    Private Sub datRespondent_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles datRespondent.RowCommand
+        If e.CommandName.Equals("edit_kuarters") Then
+            Session("kuarters_id") = e.CommandArgument
+            load_form_negeri()
+            load_form_jenis_kuarters()
+            load_form_pangkalan()
+            If read_kuarters() Then
+                Dim jenisKuarters = ddlFormJenisKuarters.SelectedItem.Text.ToUpper
+                Debug.WriteLine("JENIS KUARTERS: " & jenisKuarters)
+                SaveBottom.Visible = False
+                UpdateBottom.Visible = True
+                SaveTop.Visible = False
+                UpdateTop.Visible = True
+                If jenisKuarters.Contains("PANGSAPURI") Or jenisKuarters.Contains("TERES") Or jenisKuarters.Contains("BERKEMBAR") Then
+                    If load_buildings() Then
+                        panelPangsapuri.Visible = True
+                    End If
+                End If
+                open()
+            End If
+        End If
+    End Sub
+
+    Private Sub datRespondent_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles datRespondent.RowDeleting
+        Dim kuartersID = datRespondent.DataKeys(e.RowIndex).Values("kuarters_id").ToString
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("DELETE FROM spk_kuarters WHERE kuarters_id = @KuartersID;", conn)
+                cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = kuartersID
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                    message_list("SUCCESS", "Berjaya padam item.")
+                Catch ex As Exception
+                    Debug.WriteLine("ERROR(datRespondent_RowDeleting-konfigurasi_kuarters:497): " & ex.Message)
+                    message_list("ERROR", strFailDelAlert & "<br/>" & ex.Message)
+                Finally
+                    conn.Close()
+                    load_kuarters()
+                End Try
+            End Using
+        End Using
+    End Sub
+
+    Private Sub btnTambah_Click(sender As Object, e As EventArgs) Handles btnTambah.Click
+        If Session("Kuarters_id") IsNot Nothing Then
+            'TODO - Validate save on refresh.
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand("
+                        INSERT INTO 
+                            spk_bangunan(bangunan_nama, bangunan_jumlah_aras, kuarters_id) 
+                        VALUES (@Nama,@Aras,@KuartersID);
+                    ")
+                    cmd.Connection = conn
+                    cmd.Parameters.Add("@Nama", SqlDbType.NVarChar).Value = tbNamaBangunan.Text
+                    cmd.Parameters.Add("@Aras", SqlDbType.Int).Value = tbJumlahArasBaris.Text
+                    cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = hfKuartersID.Value
+                    Try
+                        conn.Open()
+                        cmd.ExecuteNonQuery()
+                    Catch ex As Exception
+                        Debug.WriteLine("ERROR(datRespondent_RowDeleting-konfigurasi_kuarters:497): " & ex.Message)
+                        message_form("ERROR", strSaveFailAlert & "<br/>" & ex.Message)
+                    Finally
+                        conn.Close()
+                        load_buildings()
+                        message_form("SUCCESS", strSaveSuccessAlert)
+                    End Try
+                End Using
+            End Using
+        End If
+    End Sub
+
+    Private Function can_delete_building()
+        If Session("building_id") Then
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand("SELECT * FROM spk_unit WHERE bangunan_id = @BangunanID AND unit_status='Occupied'; ", conn)
+                    cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = Session("building_id")
+                    Try
+                        conn.Open()
+                        Using sdr As SqlDataReader = cmd.ExecuteReader
+                            If sdr.HasRows() Then
+                                Return False
+                            Else
+                                Return True
+                            End If
+                        End Using
+                    Catch ex As Exception
+                        Debug.WriteLine("ERROR(can_delete_building-konfigurasi_kuarters:550): " & ex.Message)
+                        Return False
+                    Finally
+                        conn.Close()
+                    End Try
+                End Using
+            End Using
+        Else
+            Debug.WriteLine("ERROR(can_delete_building-konfigurasi_kuarters:560): SESIION NOT EXIST")
+            Return False
+        End If
     End Function
 
+    Private Function delete_building()
+        If Session("building_id") IsNot Nothing Then
+            If can_delete_building() Then
+                Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                    Using cmd As New SqlCommand("DELETE FROM spk_bangunan WHERE bangunan_id = @BangunanID;", conn)
+                        cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = Session("building_id")
+                        Try
+                            conn.Open()
+                            cmd.ExecuteNonQuery()
+                            message_list("SUCCESS", "Berjaya padam item.")
+                            Return True
+                        Catch ex As Exception
+                            Debug.WriteLine("ERROR(datRespondent_RowDeleting-konfigurasi_kuarters:497): " & ex.Message)
+                            message_form("ERROR", strFailDelAlert & "<br/>" & ex.Message)
+                            Return False
+                        Finally
+                            conn.Close()
+                            Session("building_id") = Nothing
+                            load_buildings()
+                        End Try
+                    End Using
+                End Using
+            Else
+                Debug.WriteLine("ERROR(delete_building-konfigurasi_kuarters:586): CANNOT DELETE")
+                Return False
+            End If
+        Else
+            Debug.WriteLine("ERROR(delete_building-konfigurasi_kuarters:590): SESSION NOT EXIST")
+            Return False
+        End If
+    End Function
 
-    ''--SAVE FUNCTION--'
-    'Private Function Save() As Boolean
+    Private Function read_building()
+        If Session("building_id") IsNot Nothing Then
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand("SELECT * FROM spk_bangunan WHERE bangunan_id = @BangunanID;", conn)
+                    cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = Session("building_id")
+                    Try
+                        conn.Open()
+                        Using sdr As SqlDataReader = cmd.ExecuteReader
+                            If sdr.HasRows Then
+                                While sdr.Read
+                                    hfBangunanID.Value = sdr("bangunan_id")
+                                    lblNamaBangunan.Text = sdr("bangunan_nama")
+                                    ddlNoTingkat.Items.Clear()
+                                    Dim i As Integer
+                                    For i = 1 To Integer.Parse(sdr("bangunan_jumlah_aras"))
+                                        Dim item As New ListItem(i, i)
+                                        ddlNoTingkat.Items.Add(item)
+                                    Next
+                                    ddlNoTingkat.Items.Insert(0, New ListItem("-- PILIH --", String.Empty))
+                                End While
+                                Return True
+                            Else
+                                Debug.WriteLine("ERROR(read_building-konfigurasi_kuarters:580): NO ROWS")
+                                Return False
+                            End If
+                        End Using
+                    Catch ex As Exception
+                        Debug.WriteLine("ERROR(read_building-konfigurasi_kuarters:586): " & ex.Message)
+                        message_form("ERROR", strRecordBindAlert & "<br/>" & ex.Message)
+                        Return False
+                    Finally
+                        conn.Close()
+                    End Try
+                End Using
+            End Using
+        Else
+            Debug.WriteLine("ERROR(read_building-konfigurasi_kuarters:625): SESSION NOT EXIST")
+            defaultPanel.Visible = True
+            maklumatBangunan.Visible = False
+            Return False
+        End If
+    End Function
 
-    '    If Not Request.QueryString("edit") = "" Then
+    Private Sub buildingList_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles buildingList.RowCommand
+        If Session("kuarters_id") IsNot Nothing Then
+            Session("building_id") = e.CommandArgument
+            If e.CommandName.Equals("Ubah") Then
+                If read_building() Then
+                    defaultPanel.Visible = False
+                    maklumatBangunan.Visible = True
+                End If
+            ElseIf e.CommandName.Equals("Padam") Then
+                If can_delete_building() Then
+                    If delete_building() Then
+                        load_buildings()
+                    End If
+                Else
+                    Debug.WriteLine("ERRORR(buildingList_RowCommand-konfigurasi_kuarters:644): CANNOT DELETE")
+                End If
+            End If
+        End If
+    End Sub
 
-    '        strSQL = "UPDATE spk_kuarters SET "
+    Private Function validate_jumlah_unit()
+        If ddlNoTingkat.SelectedIndex > 0 Then
+            If tbJumlahUnit.Text.Length > 0 Then
+                Return True
+            Else
+                message_form("ERROR", "Sila Masukkan Jumlah Unit")
+                Return False
+            End If
+        Else
+            message_form("ERROR", "Sila Pilih Nombor Tingkat/Baris Unit")
+            Return False
+        End If
+    End Function
 
-    '        strSQL += " jenisKuarters_id = UPPER('" & ddlJenisKuarters.SelectedValue & "'),"
-    '        strSQL += " pangkalan_id = UPPER('" & ddlPangkalan.SelectedValue & "'),"
-    '        strSQL += " kuarters_negeri = UPPER('" & ddlNegeri.SelectedValue & "'),"
-    '        strSQL += " kuarters_bandar = UPPER('" & txtBandar.Text & "'),"
-    '        strSQL += " kuarters_poskod = UPPER('" & txtPoskod.Text & "'),"
-    '        strSQL += " kuarters_nama = UPPER('" & txtNamaKuarters.Text & "'),"
-    '        strSQL += " kuarters_alamat = UPPER('" & txtAlamat.Text & "'),"
-    '        strSQL += " kuarters_telefon = UPPER('" & txtTelefon.Text & "'),"
-    '        strSQL += " kuarters_faks = '" & txtFaks.Text & "',"
-    '        strSQL += " kuarters_emel = UPPER('" & txtEmel.Text & "')"
+    Protected Function has_units() As Boolean
+        If Session("building_id") IsNot Nothing Then
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand("SELECT count(*) as jumlah_unit FROM spk_unit WHERE bangunan_id = @BangunanID;", conn)
+                    Try
+                        conn.Open()
+                        Using sdr As SqlDataReader = cmd.ExecuteReader
+                            If sdr.HasRows() Then
+                                Return True
+                            Else
+                                Return False
+                            End If
+                        End Using
+                    Catch ex As Exception
+                        message_form("ERROR", strSysErrorAlert & "<br/>" & ex.Message)
+                        Return False
+                    Finally
+                        conn.Close()
+                    End Try
+                End Using
+            End Using
+        Else
+            Debug.WriteLine("ERROR(has_units-konfigurasi_kuarters:686): SESSION NOT EXIST")
+            defaultPanel.Visible = True
+            maklumatBangunan.Visible = False
+            Return False
+        End If
+    End Function
 
+    Private Sub btnTambahUnit_Click(sender As Object, e As EventArgs) Handles btnTambahUnit.Click
+        If Session("building_id") IsNot Nothing Then
+            If validate_jumlah_unit() Then
+                Dim jumlahUnit = Integer.Parse(tbJumlahUnit.Text)
+                Dim i As Integer = 1
+                If has_units() Then
+                    Debug.WriteLine("ERRORR(buildingList_RowCommand-konfigurasi_kuarters:644): CANNOT EDIT")
+                Else
+                    Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                        Using cmd As New SqlCommand("INSERT INTO 
+                            spk_unit(kuarters_id, bangunan_id, unit_nama, unit_nombor, unit_tingkat, unit_blok, unit_status)
+                            VALUES (@KuartersID, @PangkalanID, @BangunanID, @UnitNama, @UnitNo, @UnitTingkat, @UnitBlok, @UnitStatus);", conn)
+                            For i = 1 To jumlahUnit
+                                Try
+                                    cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = hfKuartersID.Value
+                                    cmd.Parameters.Add("@PangkalanID", SqlDbType.Int).Value = hfPrevPangkalanID.Value
+                                    cmd.Parameters.Add("@UnitNama", SqlDbType.NVarChar).Value = lblNamaBangunan.Text & "-" & ddlNoTingkat.SelectedValue & "-" & i
+                                    cmd.Parameters.Add("@UnitTingkat", SqlDbType.Int).Value = ddlNoTingkat.SelectedValue
+                                    cmd.Parameters.Add("@UnitNo", SqlDbType.Int).Value = i
+                                    cmd.Parameters.Add("@UnitBlok", SqlDbType.NVarChar).Value = lblNamaBangunan.Text
+                                    cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = Session("building_id")
+                                    cmd.Parameters.Add("@UnitStatus", SqlDbType.NVarChar).Value = "Under Maintenance"
+                                    conn.Open()
+                                    cmd.ExecuteNonQuery()
+                                Catch ex As Exception
+                                    Debug.WriteLine("ERROR(btnTambahUnit_click-konfigurasi_kuarters:708): " & ex.Message)
+                                Finally
+                                    conn.Close()
+                                End Try
+                            Next
+                        End Using
+                    End Using
+                End If
+            End If
+        Else
+            Debug.WriteLine("ERROR(btnTambahUnit-konfigurasi_kuarters:732): SESSION NOT EXIST")
+            defaultPanel.Visible = True
+            maklumatBangunan.Visible = False
+        End If
+    End Sub
 
-    '        strSQL += " WHERE kuarters_id = '" & Request.QueryString("edit") & "'"
+    Private Function update_kuarters()
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("UPDATE 
+                spk_kuarters 
+            SET 
+                jenisKuarters_id = @JenisKuarters
+                , pangkalan_id = @Pangkalan
+                , kuarters_negara = @Negara
+                , kuarters_negeri = @Negeri
+                , kuarters_bandar = @Bandar
+                , kuarters_poskod = @Poskod
+                , kuarters_nama = @Nama
+                , kuarters_alamat = @Alamat
+                , kuarters_telefon = @Telefon
+                , kuarters_faks = @Faks
+                , kuarters_emel = @Emel
+            WHERE kuarters_id = @KuartersID;", conn)
+                cmd.Parameters.Add("@JenisKuarters", SqlDbType.Int).Value = ddlFormJenisKuarters.SelectedValue
+                cmd.Parameters.Add("@Pangkalan", SqlDbType.Int).Value = ddlFormPangkalan.SelectedValue
+                cmd.Parameters.Add("@Negara", SqlDbType.NVarChar).Value = "MALAYSIA"
+                cmd.Parameters.Add("@Negeri", SqlDbType.NVarChar).Value = ddlFormNegeri.SelectedValue.ToUpper
+                cmd.Parameters.Add("@Bandar", SqlDbType.NVarChar).Value = tbFormBandar.Text.ToUpper
+                cmd.Parameters.Add("@Poskod", SqlDbType.NVarChar).Value = tbFormPostcode.Text
+                cmd.Parameters.Add("@Nama", SqlDbType.NVarChar).Value = tbFormNama.Text.ToUpper
+                cmd.Parameters.Add("@Alamat", SqlDbType.NVarChar).Value = tbFormAlamat.Text.ToUpper
+                cmd.Parameters.Add("@Telefon", SqlDbType.NVarChar).Value = tbFormTelefon.Text
+                cmd.Parameters.Add("@Faks", SqlDbType.NVarChar).Value = tbFormNoFax.Text
+                cmd.Parameters.Add("@Emel", SqlDbType.NVarChar).Value = tbFormEmail.Text
+                cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = hfKuartersID.Value
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                    Return True
+                Catch ex As Exception
+                    Debug.WriteLine("ERROR(update_kuarters-konfigurasi_kuarters:753): " & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+    End Function
 
-    '    Else
-    '        strSQL = "INSERT INTO spk_kuarters (jenisKuarters_id, pangkalan_id, kuarters_negeri, kuarters_bandar, kuarters_poskod, kuarters_nama, kuarters_alamat, kuarters_telefon, kuarters_faks, kuarters_emel)"
+    Private Sub UpdateTop_ServerClick(sender As Object, e As EventArgs) Handles UpdateTop.ServerClick
+        If validate_save_kuarters() Then
+            If update_kuarters() Then
+                Response.Redirect(Request.RawUrl)
+            End If
+        End If
+    End Sub
 
-    '        strSQL += " VALUES ("
-    '        strSQL += " UPPER('" & ddlJenisKuarters.SelectedValue & "'),"
-    '        strSQL += " UPPER('" & ddlPangkalan.SelectedValue & "'),"
-    '        strSQL += " UPPER('" & ddlNegeri.SelectedValue & "'),"
-    '        strSQL += " UPPER('" & txtBandar.Text & "'),"
-    '        strSQL += " UPPER('" & txtPoskod.Text & "'),"
-    '        strSQL += " UPPER('" & txtNamaKuarters.Text & "'),"
-    '        strSQL += " UPPER('" & txtAlamat.Text & "'),"
-    '        strSQL += " UPPER('" & txtTelefon.Text & "'),"
-    '        strSQL += " UPPER('" & txtFaks.Text & "'),"
-    '        strSQL += " UPPER('" & txtEmel.Text & "'))"
+    Private Sub UpdateBottom_ServerClick(sender As Object, e As EventArgs) Handles UpdateBottom.ServerClick
+        If validate_save_kuarters() Then
+            If update_kuarters() Then
+                Response.Redirect(Request.RawUrl)
+            End If
+        End If
+    End Sub
 
-    '    End If
+    Private Sub ddlPangkalan_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlPangkalan.SelectedIndexChanged
+        load_kuarters()
+    End Sub
 
-    '    strRet = oCommon.ExecuteSQL(strSQL)
-
-    '    If strRet = "0" Then
-    '        Return True
-    '    Else
-    '        MsgTop.Attributes("class") = "errorMsg"
-    '        strlbl_top.Text = strSysErrorAlert
-    '        MsgBottom.Attributes("class") = "errorMsg"
-    '        strlbl_bottom.Text = strSysErrorAlert & "<br>" & strRet
-    '        Return False
-    '    End If
-
-    'End Function
-
-    ''--DATA VALIDATION--'
-    'Private Function ValidateData() As Boolean
-    '    'If Not oCommon.isNumeric(txtidx.Text) Then
-    '    '    txtidx.Focus()
-    '    '    Return False
-
-    '    'End If
-    '    Return True
-    'End Function
-
-    'Private Sub SaveFunction_ServerClick(sender As Object, e As EventArgs) Handles SaveFunction.ServerClick
-
-    '    strlbl_bottom.Text = ""
-    '    strlbl_top.Text = ""
-    '    '--validate--'
-    '    If ValidateData() = False Then
-    '        MsgTop.Attributes("class") = "errorMsg"
-    '        strlbl_top.Text = strDataValAlert
-    '        MsgBottom.Attributes("class") = "errorMsg"
-    '        strlbl_bottom.Text = strDataValAlert
-    '        Exit Sub
-    '    End If
-    '    Try
-    '        '--execute--'
-    '        If Save() = True Then
-    '            MsgTop.Attributes("class") = "successMsg"
-    '            strlbl_top.Text = strSaveSuccessAlert
-    '            MsgBottom.Attributes("class") = "successMsg"
-    '            strlbl_bottom.Text = strSaveSuccessAlert
-    '        Else
-    '            MsgTop.Attributes("class") = "errorMsg"
-    '            strlbl_top.Text = strSaveFailAlert
-    '            MsgBottom.Attributes("class") = "errorMsg"
-    '            strlbl_bottom.Text = strSaveFailAlert
-    '        End If
-    '    Catch ex As Exception
-    '        MsgTop.Attributes("class") = "errorMsg"
-    '        strlbl_top.Text = strSysErrorAlert
-    '        MsgBottom.Attributes("class") = "errorMsg"
-    '        strlbl_bottom.Text = strSysErrorAlert & "<br>" & ex.Message
-    '    End Try
-
-    '    If Not Request.QueryString("edit") = "" Then
-    '        Dim Pagelabel As String = lblConfig.Text & "&q=" & lblQ.Text & "&lblTop=" & strlbl_top.Text & "&lblBottom=" & strlbl_top.Text
-    '        Response.Redirect("Konfigurasi.Kuarters.aspx?p=" & Pagelabel)
-    '    Else
-    '        strRet = BindData(datRespondent)
-    '    End If
-
-
-
-    'End Sub
-    ''--REFRESH BUTTON--'
-    'Private Sub Refresh_ServerClick(sender As Object, e As EventArgs) Handles Refresh.ServerClick
-    '    Dim Pagelabel As String = lblConfig.Text & "&q=" & lblQ.Text
-    '    Response.Redirect("Konfigurasi.Kuarters.aspx?p=" & Pagelabel)
-    'End Sub
-
-    'Private Sub requestPage()
-    '    lblConfig.Text = Request.QueryString("p")
-    '    lblQ.Text = Request.QueryString("q")
-    '    If Not Request.QueryString("lblBottom") = "" Then
-    '        strlbl_top.Text = Request.QueryString("lblTop")
-    '        strlbl_bottom.Text = Request.QueryString("lblBottom")
-    '    End If
-    'End Sub
-
-    'Private Sub clear()
-    '    ddlNegeri.SelectedValue = ""
-    '    ddlPangkalan.SelectedValue = ""
-    '    ddlJenisKuarters.Text = ""
-    '    txtNamaKuarters.Text = ""
-    '    txtAlamat.Text = ""
-    '    txtPoskod.Text = ""
-    '    txtBandar.Text = ""
-    '    txtTelefon.Text = ""
-    '    txtFaks.Text = ""
-    '    txtEmel.Text = ""
-    'End Sub
-
-    ''--DELETE FUNCTION--'
-    'Private Sub datRespondent_RowDeleting(sender As Object, e As GridViewDeleteEventArgs) Handles datRespondent.RowDeleting
-
-    '    Dim strCID = datRespondent.DataKeys(e.RowIndex).Values("kuarters_id").ToString
-
-    '    'chk session to prevent postback
-    '    If Not strCID = Session("strCID") Then
-    '        strSQL = "DELETE FROM spk_kuarters WHERE kuarters_id = '" & strCID & "'"
-    '        strRet = oCommon.ExecuteSQL(strSQL)
-
-    '        Session("strCID") = ""
-    '    End If
-    '    strRet = BindData(datRespondent)
-
-    'End Sub
-
-    'Private Sub ddlNegeri_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlNegeri.SelectedIndexChanged
-    '    requestPangkalan()
-    '    strRet = BindData(datRespondent)
-    'End Sub
-
+    Private Sub ddlJenisKuarters_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlJenisKuarters.SelectedIndexChanged
+        load_kuarters()
+    End Sub
 End Class

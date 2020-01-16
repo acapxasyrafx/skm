@@ -122,6 +122,24 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
+    '''MsgBottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
+    '''strlbl_bottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''Span1 control.
     '''</summary>
     '''<remarks>
@@ -149,6 +167,15 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents SaveTop As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
+    '''UpdateTop control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdateTop As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
     '''CancelTop control.
     '''</summary>
     '''<remarks>
@@ -167,6 +194,15 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents ddlFormPangkalan As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''hfPrevPangkalanID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hfPrevPangkalanID As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
     '''ddlFormJenisKuarters control.
     '''</summary>
     '''<remarks>
@@ -174,6 +210,24 @@ Partial Public Class konfigurasi_kuarters
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents ddlFormJenisKuarters As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''hfKuartersID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hfKuartersID As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''tbFormNama control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbFormNama As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
     '''tbFormAlamat control.
@@ -212,6 +266,42 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents ddlFormNegeri As Global.System.Web.UI.WebControls.DropDownList
 
     '''<summary>
+    '''tbFormTelefon control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbFormTelefon As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''tbFormNoFax control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbFormNoFax As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''tbFormEmail control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbFormEmail As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''panelTeres control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents panelTeres As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
     '''panelPangsapuri control.
     '''</summary>
     '''<remarks>
@@ -219,6 +309,105 @@ Partial Public Class konfigurasi_kuarters
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents panelPangsapuri As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''tbNamaBangunan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbNamaBangunan As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''tbJumlahArasBaris control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbJumlahArasBaris As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnTambah control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnTambah As Global.System.Web.UI.WebControls.Button
+
+    '''<summary>
+    '''buildingList control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents buildingList As Global.System.Web.UI.WebControls.GridView
+
+    '''<summary>
+    '''defaultPanel control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents defaultPanel As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''maklumatBangunan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents maklumatBangunan As Global.System.Web.UI.WebControls.Panel
+
+    '''<summary>
+    '''lblNamaBangunan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNamaBangunan As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
+    '''hfBangunanID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hfBangunanID As Global.System.Web.UI.WebControls.HiddenField
+
+    '''<summary>
+    '''ddlNoTingkat control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlNoTingkat As Global.System.Web.UI.WebControls.DropDownList
+
+    '''<summary>
+    '''tbJumlahUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tbJumlahUnit As Global.System.Web.UI.WebControls.TextBox
+
+    '''<summary>
+    '''btnTambahUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnTambahUnit As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
     '''Span2 control.
@@ -230,13 +419,13 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents Span2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''Label1 control.
+    '''message_bottom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents message_bottom As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''SaveBottom control.
@@ -248,6 +437,15 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents SaveBottom As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
+    '''UpdateBottom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdateBottom As Global.System.Web.UI.HtmlControls.HtmlAnchor
+
+    '''<summary>
     '''CancelBottom control.
     '''</summary>
     '''<remarks>
@@ -255,22 +453,4 @@ Partial Public Class konfigurasi_kuarters
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents CancelBottom As Global.System.Web.UI.HtmlControls.HtmlAnchor
-
-    '''<summary>
-    '''MsgBottom control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
-    '''<summary>
-    '''strlbl_bottom control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
 End Class
