@@ -1,4 +1,6 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data
+Imports System.Data.SqlClient
+Imports System.Configuration
 
 Public Class konfigurasi_kuarters
     Inherits System.Web.UI.UserControl
@@ -23,12 +25,6 @@ Public Class konfigurasi_kuarters
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
             load_page()
-            Dim test1 As String = "0"
-            Dim test2 As Boolean = True
-            If test1.GetType = GetType(String) Then
-                Debug.WriteLine("TEST1: " & test1.GetType.ToString)
-                Debug.WriteLine("TEST2: " & test2.GetType.ToString)
-            End If
         End If
     End Sub
 
@@ -400,7 +396,7 @@ Public Class konfigurasi_kuarters
 
     Private Function read_kuarters() As Boolean
         If Session("kuarters_id") IsNot Nothing Then
-            Debug.WriteLine("KUARTERS ID: " & Session("kuarters_id"))
+            Debug.WriteLine("KUARTERS ID(read_kuarters): " & Session("kuarters_id"))
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand("SELECT * FROM spk_kuarters A WHERE A.kuarters_id = @KuartersID", conn)
                     cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = Session("kuarters_id")
@@ -445,6 +441,7 @@ Public Class konfigurasi_kuarters
 
     Private Function load_buildings() As Boolean
         If Session("kuarters_id") IsNot Nothing Then
+            Debug.WriteLine("KUARTERS ID(load_building): " & Session("kuarters_id"))
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand("SELECT 
 	                A.bangunan_id
@@ -536,6 +533,7 @@ Public Class konfigurasi_kuarters
 
     Private Sub btnTambah_Click(sender As Object, e As EventArgs) Handles btnTambah.Click
         If Session("Kuarters_id") IsNot Nothing Then
+            Debug.WriteLine("KUARTERS ID(btnTambah_Click): " & Session("kuarters_id"))
             'TODO - Validate save on refresh.
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand("
@@ -593,6 +591,7 @@ Public Class konfigurasi_kuarters
 
     Private Function delete_building()
         If Session("building_id") IsNot Nothing Then
+            Debug.WriteLine("BUILDING ID(delete_building): " & Session("building_id"))
             If can_delete_building() Then
                 Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                     Using cmd As New SqlCommand("DELETE FROM spk_unit WHERE bangunan_id = @BangunanID; DELETE FROM spk_bangunan WHERE bangunan_id = @BangunanID;")
@@ -626,6 +625,7 @@ Public Class konfigurasi_kuarters
 
     Private Function read_building()
         If Session("building_id") IsNot Nothing Then
+            Debug.WriteLine("BUILDING ID(read_building): " & Session("building_id"))
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand("SELECT * FROM spk_bangunan WHERE bangunan_id = @BangunanID;", conn)
                     cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = Session("building_id")
@@ -670,6 +670,10 @@ Public Class konfigurasi_kuarters
 
     Private Sub buildingList_RowCommand(sender As Object, e As GridViewCommandEventArgs) Handles buildingList.RowCommand
         If Session("kuarters_id") IsNot Nothing Then
+            Debug.WriteLine("KUARTERS ID(buildingList_RowCommand): " & Session("kuarters_id"))
+            If Session("building_id") IsNot Nothing Then
+                Session("building_id") = Nothing
+            End If
             Session("building_id") = e.CommandArgument
             If e.CommandName.Equals("Ubah") Then
                 If read_building() Then
@@ -704,6 +708,7 @@ Public Class konfigurasi_kuarters
 
     Protected Function has_units() As Boolean
         If Session("building_id") IsNot Nothing Then
+            Debug.WriteLine("BUILDING ID(has_units): " & Session("building_id"))
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand("SELECT count(*) as jumlah_unit FROM spk_unit WHERE bangunan_id = @BangunanID;", conn)
                     Try
@@ -733,6 +738,7 @@ Public Class konfigurasi_kuarters
 
     Private Sub btnTambahUnit_Click(sender As Object, e As EventArgs) Handles btnTambahUnit.Click
         If Session("building_id") IsNot Nothing Then
+            Debug.WriteLine("BUILDING ID(btnTambahUnit_click): " & Session("building_id"))
             If validate_jumlah_unit() Then
                 Dim i As Integer = 1
                 Dim jumlahUnitBaru = Integer.Parse(tbJumlahUnit.Text)
@@ -740,25 +746,48 @@ Public Class konfigurasi_kuarters
                 If jumlahUnitSimpan - jumlahUnitBaru > 0 Then
                     Debug.WriteLine("btnTambah_click: REMOVE UNIT")
                     Dim jumlahOccupied = total_occupied_unit()
-                    If jumlahOccupied >= jumlahUnitBaru Then
+                    If jumlahOccupied > jumlahUnitBaru Then
                         Debug.WriteLine("Unit occupied/on hold more than to remove")
-                        'TODO: ADD MESSAGE CANNOT REMOVE(Occupied > removed)
+                        'TODO: INSERT MESSAGE CANNOT REMOVE(Occupied > removed)
+                    ElseIf jumlahOccupied = jumlahUnitBaru Then
+                        Dim deleteUnits = delete_other_unit()
+                        If deleteUnits.Equals("") Then
+                            'TODO: INSERT ERROR MESSAGE(DELETE UNITS ERROR)
+                        Else
+                            If deleteUnits Then
+                                'TODO: INSERT SUCCESS MESSAGE
+                            Else
+                                'TODO: INSERT ERROR MESSAGE(DELETE UNITS FAILED)
+                            End If
+                        End If
                     Else
-                        If delete_other_unit() Then
-                            For i = 1 To jumlahUnitBaru
-                                Dim unit_nama = lblNamaBangunan.Text & "-" & ddlNoTingkat.SelectedValue & "-" & i
-                                Dim isExist = unit_exist(unit_nama)
-                                'If the return is boolean
-                                If isExist.GetType = GetType(Boolean) Then
-                                    If isExist Then
-
+                        Dim deleteUnits = delete_other_unit()
+                        If deleteUnits.Equals("0") Then
+                            'TODO: INSERT ERROR MESSAGE(DELETE UNITS ERROR)
+                        Else
+                            If deleteUnits Then
+                                For i = 1 To jumlahUnitBaru
+                                    Dim unit_nama = lblNamaBangunan.Text & "-" & ddlNoTingkat.SelectedValue & "-" & i
+                                    Dim isExist = unit_exist(unit_nama)
+                                    'If the return is boolean
+                                    If isExist.Equals("0") Then
+                                        'TODO: INSERT ERRORS MESSAGES(CHECK EXIST FAILED)
                                     Else
-                                        insert_unit(i)
+                                        If isExist Then
+                                            Debug.WriteLine("Unit Exist: " & unit_nama)
+                                            Continue For
+                                        Else
+                                            If insert_unit(i) Then
+                                                Continue For
+                                            Else
+                                                'TODO: INSERT ERROR MESSAGE(INSERT UNIT FAILED)
+                                            End If
+                                        End If
                                     End If
-                                Else
-                                    'TODO: ADD ERRORS MESSAGES
-                                End If
-                            Next
+                                Next
+                            Else
+                                ' TODO: INSERT ERROR MESSAGE HERE(DELETE FAILED/ERROR)
+                            End If
                         End If
                     End If
                 ElseIf jumlahUnitSimpan - jumlahUnitBaru <= 0 Then
@@ -766,23 +795,23 @@ Public Class konfigurasi_kuarters
                     For i = 1 To jumlahUnitBaru
                         Dim unit_nama = lblNamaBangunan.Text & "-" & ddlNoTingkat.SelectedValue & "-" & i
                         Dim isExist = unit_exist(unit_nama)
-                        If isExist.GetType = GetType(Boolean) Then
-                            If unit_exist(unit_nama) Then
+                        If isExist.Equals("0") Then
+                            'TODO: INSERT ERRORS MESSAGES (CHECK EXIST FAILED)
+                        Else
+                            If isExist Then
                                 Continue For
                             Else
                                 If insert_unit(i) Then
-                                    Session("building_id") = Nothing
-                                    load_buildings()
+                                    Continue For
                                 Else
-                                    'TODO: INSERT ERROR MESSAGE
+                                    'TODO: INSERT ERROR MESSAGE(INSERT UNIT FAILED)
                                 End If
                             End If
-                        Else
-                            'TODO: ADD ERRORS MESSAGES
                         End If
                     Next
                 Else
                     Debug.WriteLine("btnTambah_click: ELSE")
+                    'TODO: INSERT ERROR MESSAGE(CASE ELSE ACTION)
                     Return
                 End If
             End If
@@ -792,6 +821,7 @@ Public Class konfigurasi_kuarters
             defaultPanel.Visible = True
             maklumatBangunan.Visible = False
         End If
+        load_buildings()
     End Sub
 
     Private Function update_kuarters()
@@ -863,6 +893,7 @@ Public Class konfigurasi_kuarters
 
     Protected Function total_units() As Integer
         If Session("building_id") IsNot Nothing Then
+            Debug.WriteLine("BUILDING ID(total_units): " & Session("building_id"))
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand("SELECT COUNT(*) FROM spk_unit WHERE bangunan_id = @BangunanID AND unit_tingkat = @Tingkat", conn)
                     cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = Session("building_id")
@@ -872,7 +903,7 @@ Public Class konfigurasi_kuarters
                         Dim jumlahUnit As Integer = Integer.Parse(cmd.ExecuteScalar)
                         Return jumlahUnit
                     Catch ex As Exception
-                        Debug.WriteLine("ERROR(total_units-konfigurasi_kuarters:841): " & ex.Message)
+                        Debug.WriteLine("ERROR(total_units-konfigurasi_kuarters:882): " & ex.Message)
                         Return Nothing
                     Finally
                         conn.Close()
@@ -896,6 +927,7 @@ Public Class konfigurasi_kuarters
 
     Private Function can_delete_kuarters() As Boolean
         If Session("kuarters_id") IsNot Nothing Then
+            Debug.WriteLine("KUARTERS ID(can_delete_kuarters): " & Session("kuarters_id"))
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand("SELECT count(*) FROM spk_unit WHERE kuarters_id = @KuartersID AND unit_status='Occupied';", conn)
                     cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = Session("kuarters_id")
@@ -911,6 +943,8 @@ Public Class konfigurasi_kuarters
                     Catch ex As Exception
                         Debug.WriteLine("ERROR(can_delete_kuarters-konfigurasi_kuarters:879): " & ex.Message)
                         Return False
+                    Finally
+                        conn.Close()
                     End Try
                 End Using
             End Using
@@ -923,38 +957,35 @@ Public Class konfigurasi_kuarters
     End Function
 
     Private Function unit_exist(ByVal unit_name As String)
-        If Session("kuarters_id") IsNot Nothing Then
-            If Session("building_id") IsNot Nothing Then
-                Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-                    Using cmd As New SqlCommand("SELECT * FROM spk_unit WHERE bangunan_id = @BangunanID AND kuarters_id = @KuartersID AND pangkalan_id = @PangkalanID AND unit_tingkat = @UnitTingkat AND unit_nama = @UnitNama", conn)
-                        cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = hfBangunanID.Value
-                        cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = hfKuartersID.Value
-                        cmd.Parameters.Add("@PangkalanID", SqlDbType.Int).Value = hfPrevPangkalanID.Value
-                        cmd.Parameters.Add("@UnitTingkat", SqlDbType.Int).Value = ddlNoTingkat.SelectedValue
-                        cmd.Parameters.Add("@UnitNama", SqlDbType.NVarChar).Value = unit_name
-                        Try
-                            conn.Open()
-                            Dim sdr As SqlDataReader = cmd.ExecuteReader
-                            If sdr.HasRows Then
-                                Return True
-                            Else
-                                Return False
-                            End If
-                        Catch ex As Exception
-                            Debug.WriteLine("ERROR(unit_exist-konfigurasi_kuarters(925)): " & ex.Message)
-                            'TODO: ADD ERROR MESSAGE HERE
-                            Return "0"
-                        End Try
-                    End Using
+        If Session("building_id") IsNot Nothing Then
+            Debug.WriteLine("BUILDING ID(unit_exist): " & Session("building_id"))
+            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                Using cmd As New SqlCommand("SELECT * FROM spk_unit WHERE bangunan_id = @BangunanID AND kuarters_id = @KuartersID AND pangkalan_id = @PangkalanID AND unit_tingkat = @UnitTingkat AND unit_nama = @UnitNama", conn)
+                    cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = hfBangunanID.Value
+                    cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = hfKuartersID.Value
+                    cmd.Parameters.Add("@PangkalanID", SqlDbType.Int).Value = hfPrevPangkalanID.Value
+                    cmd.Parameters.Add("@UnitTingkat", SqlDbType.Int).Value = ddlNoTingkat.SelectedValue
+                    cmd.Parameters.Add("@UnitNama", SqlDbType.NVarChar).Value = unit_name
+                    Try
+                        conn.Open()
+                        Dim sdr As SqlDataReader = cmd.ExecuteReader
+                        If sdr.HasRows Then
+                            Return True
+                        Else
+                            Return False
+                        End If
+                    Catch ex As Exception
+                        Debug.WriteLine("ERROR(unit_exist-konfigurasi_kuarters(925)): " & ex.Message)
+                        'TODO: ADD ERROR MESSAGE HERE
+                        Return "0"
+                    End Try
                 End Using
-            Else
-                Debug.WriteLine("ERROR(unit_exist-konfigurasi_kuarters:934): building_id SESSION NOT EXIST")
-                Return "0"
-            End If
+            End Using
         Else
-            Debug.WriteLine("ERROR(unit_exist-konfigurasi_kuarters:938): kuarters_id SESSION NOT EXIST")
+            Debug.WriteLine("ERROR(insert_unit-konfigurasi_kuarters:962): building_id SESSION NOT EXIST")
             Return "0"
         End If
+
     End Function
 
     Private Function insert_unit(ByVal i As Integer)
@@ -970,7 +1001,7 @@ Public Class konfigurasi_kuarters
                     cmd.Parameters.Add("@UnitTingkat", SqlDbType.Int).Value = ddlNoTingkat.SelectedValue
                     cmd.Parameters.Add("@UnitNo", SqlDbType.Int).Value = i
                     cmd.Parameters.Add("@UnitBlok", SqlDbType.NVarChar).Value = lblNamaBangunan.Text
-                    cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = Session("building_id")
+                    cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = hfBangunanID.Value
                     cmd.Parameters.Add("@UnitStatus", SqlDbType.NVarChar).Value = "Under Maintenance"
                     Try
                         conn.Open()
@@ -993,7 +1024,9 @@ Public Class konfigurasi_kuarters
 
     Private Function total_occupied_unit()
         If Session("kuarters_id") IsNot Nothing Then
+            Debug.WriteLine("KUARTERS ID(total_occupied_unit): " & Session("kuarters_id"))
             If Session("building_id") IsNot Nothing Then
+                Debug.WriteLine("BUILDING ID(total_occupied_unit): " & Session("building_id"))
                 Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                     Using cmd As New SqlCommand("SELECT 
                 Count(*)  
@@ -1008,7 +1041,7 @@ Public Class konfigurasi_kuarters
                     conn)
                         cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = hfBangunanID.Value
                         cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = hfKuartersID.Value
-                        cmd.Parameters.Add("@PangkalanID", SqlDbType.Int).Value = hfPrevPangkalanID
+                        cmd.Parameters.Add("@PangkalanID", SqlDbType.Int).Value = hfPrevPangkalanID.Value
                         cmd.Parameters.Add("@UnitTingkat", SqlDbType.Int).Value = ddlNoTingkat.SelectedValue
                         Try
                             conn.Open()
@@ -1033,7 +1066,9 @@ Public Class konfigurasi_kuarters
 
     Private Function delete_other_unit()
         If Session("kuarters_id") IsNot Nothing Then
+            Debug.WriteLine("KUARTERS ID(delete_other_unit): " & Session("kuarters_id"))
             If Session("building_id") IsNot Nothing Then
+                Debug.WriteLine("BUILDING ID(delete_other_unit): " & Session("building_id"))
                 Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                     Using cmd As New SqlCommand("DELETE FROM 
 	                spk_unit 
@@ -1047,13 +1082,14 @@ Public Class konfigurasi_kuarters
                     conn)
                         cmd.Parameters.Add("@BangunanID", SqlDbType.Int).Value = hfBangunanID.Value
                         cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = hfKuartersID.Value
-                        cmd.Parameters.Add("@PangkalanID", SqlDbType.Int).Value = hfPrevPangkalanID
-                        cmd.Parameters.Add("@NoTIngkat", SqlDbType.Int).Value = ddlNoTingkat.SelectedValue
+                        cmd.Parameters.Add("@PangkalanID", SqlDbType.Int).Value = hfPrevPangkalanID.Value
+                        cmd.Parameters.Add("@NoTingkat", SqlDbType.Int).Value = ddlNoTingkat.SelectedValue
                         cmd.Parameters.Add("@StatusOccupied", SqlDbType.NVarChar).Value = "Occupied"
                         cmd.Parameters.Add("@StatusOnHold", SqlDbType.NVarChar).Value = "On Hold"
                         Try
                             conn.Open()
                             Return Integer.Parse(cmd.ExecuteNonQuery)
+                            Return True
                         Catch ex As Exception
                             Debug.WriteLine("ERROR(delete_other_unit-konfigurasi_kuarters): " & ex.Message)
                             'TODO: ADD ERROR MESSAGE HERE
@@ -1072,4 +1108,14 @@ Public Class konfigurasi_kuarters
             Return "0"
         End If
     End Function
+
+    Private Sub datRespondent_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles datRespondent.PageIndexChanging
+        datRespondent.PageIndex = e.NewPageIndex
+        load_kuarters()
+    End Sub
+
+    Private Sub buildingList_PageIndexChanging(sender As Object, e As GridViewPageEventArgs) Handles buildingList.PageIndexChanging
+        buildingList.PageIndex = e.NewPageIndex
+        load_buildings()
+    End Sub
 End Class

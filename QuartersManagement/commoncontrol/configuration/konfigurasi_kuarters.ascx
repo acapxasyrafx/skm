@@ -197,7 +197,11 @@
             </table>  
             <table class ="fbform">
                 <tr>
-                    <td><span id ="MsgBottom" runat ="server" ><asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label></span></td>
+                    <td>
+                        <span id ="MsgBottom" runat ="server" >
+                            <asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label>
+                        </span>
+                    </td>
                 </tr>
             </table>
         </asp:View>
