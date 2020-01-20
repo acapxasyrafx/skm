@@ -153,7 +153,7 @@
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="Action">
+                                    <asp:TemplateField HeaderText="Tindakan">
                                         <ItemTemplate>
                                             <asp:ImageButton
                                                 Width="25px"
@@ -375,7 +375,15 @@
                                                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                                 </asp:TemplateField>
 
-                                                <asp:TemplateField HeaderText="Action">
+                                                <asp:TemplateField HeaderText="Jumlah Unit">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="bangunan_jumlah_unit" runat="server" Text='<%# Bind("jumlah_unit")%>'></asp:Label>
+                                                    </ItemTemplate>
+                                                    <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="2%" />
+                                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                </asp:TemplateField>
+
+                                                <asp:TemplateField HeaderText="Tindakan">
                                                     <ItemTemplate>
                                                          <asp:ImageButton
                                                             Width="25px"
@@ -446,7 +454,7 @@
                                         <td style="width: 100px;">No. Aras/Baris</td>
                                         <td style="width: 5px;">:</td>
                                         <td style="">
-                                            <asp:DropDownList runat="server" ID="ddlNoTingkat" CssClass="input"></asp:DropDownList>
+                                            <asp:DropDownList runat="server" ID="ddlNoTingkat" CssClass="input" AutoPostBack="true"></asp:DropDownList>
                                         </td>
                                     </tr>
 
