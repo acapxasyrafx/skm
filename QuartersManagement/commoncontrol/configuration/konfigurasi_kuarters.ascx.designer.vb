@@ -23,22 +23,22 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents configKuarters As Global.System.Web.UI.WebControls.MultiView
 
     '''<summary>
-    '''MsgTop control.
+    '''MsgListTop control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents MsgTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents MsgListTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''strlbl_top control.
+    '''listlbl_top control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents strlbl_top As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents listlbl_top As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''NewKuarters control.
@@ -122,40 +122,40 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents datRespondent As Global.System.Web.UI.WebControls.GridView
 
     '''<summary>
-    '''MsgBottom control.
+    '''MsgListBottom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents MsgBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents MsgListBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''strlbl_bottom control.
+    '''listlbl_bottom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents strlbl_bottom As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents listlbl_bottom As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
-    '''Span1 control.
+    '''MsgFormTop control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Span1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents MsgFormTop As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''message_top control.
+    '''formlbl_top control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents message_top As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents formlbl_top As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''SaveTop control.
@@ -410,22 +410,22 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents btnTambahUnit As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
-    '''Span2 control.
+    '''MsgFormBottom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents Span2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    Protected WithEvents MsgFormBottom As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
-    '''message_bottom control.
+    '''formlbl_bottom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents message_bottom As Global.System.Web.UI.WebControls.Label
+    Protected WithEvents formlbl_bottom As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
     '''SaveBottom control.

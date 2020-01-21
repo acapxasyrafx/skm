@@ -243,29 +243,29 @@ Public Class konfigurasi_kuarters
 
     Private Sub message_form(ByVal msgType As String, ByVal msgText As String)
         If msgType.Equals("ERROR") Then
-            message_top.Attributes("class") = "errorMsg"
-            message_bottom.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert & "<br/>" & msgText
-            strlbl_bottom.Text = strSysErrorAlert & "<br/>" & msgText
+            MsgFormTop.Attributes("class") = "errorMsg"
+            MsgFormBottom.Attributes("class") = "errorMsg"
+            formlbl_top.Text = strSysErrorAlert & "<br/>" & msgText
+            formlbl_bottom.Text = strSysErrorAlert & "<br/>" & msgText
         Else
-            message_top.Attributes("class") = "successMsg"
-            message_bottom.Attributes("class") = "successrMsg"
-            strlbl_top.Text = msgText
-            strlbl_bottom.Text = msgText
+            MsgFormTop.Attributes("class") = "successMsg"
+            MsgFormBottom.Attributes("class") = "successrMsg"
+            formlbl_top.Text = msgText
+            formlbl_bottom.Text = msgText
         End If
     End Sub
 
     Private Sub message_list(ByVal msgType As String, ByVal msgText As String)
         If msgType.Equals("ERROR") Then
-            message_top.Attributes("class") = "errorMsg"
-            message_bottom.Attributes("class") = "errorMsg"
-            strlbl_top.Text = strSysErrorAlert & "<br/>" & msgText
-            strlbl_bottom.Text = strSysErrorAlert & "<br/>" & msgText
-        Else
-            message_top.Attributes("class") = "successMsg"
-            message_bottom.Attributes("class") = "successrMsg"
-            strlbl_top.Text = msgText
-            strlbl_bottom.Text = msgText
+            MsgListTop.Attributes("class") = "errorMsg"
+            MsgListBottom.Attributes("class") = "errorMsg"
+            listlbl_top.Text = strSysErrorAlert & "<br/>" & msgText
+            listlbl_bottom.Text = strSysErrorAlert & "<br/>" & msgText
+        ElseIf msgType.Equals("SUCCESS") Then
+            MsgListTop.Attributes("class") = "successMsg"
+            MsgListBottom.Attributes("class") = "successrMsg"
+            listlbl_top.Text = msgText
+            listlbl_bottom.Text = msgText
         End If
     End Sub
 
@@ -280,55 +280,75 @@ Public Class konfigurasi_kuarters
     End Sub
 
     Private Function validate_save_kuarters() As Boolean
-        If ddlFormPangkalan.SelectedIndex > 0 Then
-            If ddlFormJenisKuarters.SelectedIndex > 0 Then
-                If tbFormNama.Text.Length > 0 Then
-                    If tbFormAlamat.Text.Length > 0 Then
-                        If tbFormPostcode.Text.Length > 0 And tbFormPostcode.Text.Length <= 5 Then
-                            If tbFormBandar.Text.Length > 0 Then
-                                If ddlFormNegeri.SelectedIndex > 0 Then
-                                    If tbFormTelefon.Text.Length > 0 Then
-                                        If tbFormNoFax.Text.Length > 0 Then
-                                            If tbFormEmail.Text.Length > 0 Then
+        If tbFormEmail.Text.Length > 0 Then
+            If tbFormNoFax.Text.Length > 0 Then
+                If tbFormTelefon.Text.Length > 0 Then
+                    If ddlFormNegeri.SelectedIndex > 0 Then
+                        If tbFormBandar.Text.Length > 0 Then
+                            If tbFormPostcode.Text.Length > 0 And tbFormPostcode.Text.Length <= 5 Then
+                                If tbFormAlamat.Text.Length > 0 Then
+                                    If tbFormNama.Text.Length > 0 Then
+                                        If ddlFormJenisKuarters.SelectedIndex > 0 Then
+                                            If ddlFormPangkalan.SelectedIndex > 0 Then
                                                 Return True
                                             Else
-                                                message_form("ERROR", "SILA MASUKKAN EMAIL")
+                                                message_form("ERROR", "SILA PILIH NAMA PANGKALAN")
                                                 Return False
                                             End If
                                         Else
-                                            message_form("ERROR", "SILA MASUKKAN NO. FAX")
+                                            message_form("ERROR", "SILA PILIH JENIS KUARTERS")
                                             Return False
                                         End If
                                     Else
-                                        message_form("ERROR", "SILA MASUKKAN NO. TELEFON")
+                                        message_form("ERROR", "SILA ISI NAMA KUARTERS")
                                         Return False
                                     End If
                                 Else
-                                    message_form("ERROR", "SILA PILIH NAMA NEGERI")
+                                    message_form("ERROR", "SILA ISI ALAMAT KUARTERS")
                                     Return False
                                 End If
                             Else
-                                message_form("ERROR", "SILA ISI NAMA BANDAR")
+                                message_form("ERROR", "SILA ISI POSKOD DENGAN BETUL")
                                 Return False
                             End If
                         Else
-                            message_form("ERROR", "SILA ISI POSKOD DENGAN BETUL")
+                            message_form("ERROR", "SILA ISI NAMA BANDAR")
                             Return False
                         End If
                     Else
-                        message_form("ERROR", "SILA ISI ALAMAT KUARTERS")
+                        message_form("ERROR", "SILA PILIH NAMA NEGERI")
                         Return False
                     End If
                 Else
-                    message_form("ERROR", "SILA ISI NAMA KUARTERS")
+                    message_form("ERROR", "SILA MASUKKAN NO. TELEFON")
                     Return False
                 End If
             Else
-                message_form("ERROR", "SILA PILIH JENIS KUARTERS")
+                message_form("ERROR", "SILA MASUKKAN NO. FAX")
                 Return False
             End If
         Else
-            message_form("ERROR", "SILA PILIH NAMA PANGKALAN")
+            message_form("ERROR", "SILA MASUKKAN EMAIL")
+            Return False
+        End If
+    End Function
+
+    Private Function validate_building() As Boolean
+        Dim jumlahAras As Integer
+        If tbJumlahArasBaris.Text.Length > 0 Then
+            If Integer.TryParse(tbJumlahArasBaris.Text, jumlahAras) Then
+                If tbNamaBangunan.Text.Length > 0 Then
+                    Return True
+                Else
+                    message_form("ERROR", "SILA MASUKKAN NAMA BANGUNAN")
+                    Return False
+                End If
+            Else
+                message_form("ERROR", "SILA MASUKKAN JUMLAH ARAS BANGUNAN YANG BETUL")
+                Return False
+            End If
+        Else
+            message_form("ERROR", "SILA MASUKKAN JUMLAH ARAS BANGUNAN")
             Return False
         End If
     End Function
@@ -381,6 +401,7 @@ Public Class konfigurasi_kuarters
             If save_kuarters() Then
                 close()
                 Response.Redirect(Request.RawUrl)
+                message_list("SUCCESS", strSaveSuccessAlert)
             End If
         End If
     End Sub
@@ -390,6 +411,7 @@ Public Class konfigurasi_kuarters
             If save_kuarters() Then
                 close()
                 Response.Redirect(Request.RawUrl)
+                message_list("SUCCESS", strSaveSuccessAlert)
             End If
         End If
     End Sub
@@ -468,7 +490,7 @@ Public Class konfigurasi_kuarters
                         Return True
                     Catch ex As Exception
                         Debug.Write("ERROR(read_building-konfigurasi_kuarters:432): " & ex.Message)
-                        message_list("ERROR", strSysErrorAlert & "<br/>" & ex.Message)
+                        message_form("ERROR", strSysErrorAlert & "<br/>" & ex.Message)
                         Return False
                     Finally
                         conn.Close()
@@ -535,29 +557,31 @@ Public Class konfigurasi_kuarters
         If Session("Kuarters_id") IsNot Nothing Then
             Debug.WriteLine("KUARTERS ID(btnTambah_Click): " & Session("kuarters_id"))
             'TODO - Validate save on refresh.
-            Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-                Using cmd As New SqlCommand("
+            If validate_building() Then
+                Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+                    Using cmd As New SqlCommand("
                         INSERT INTO 
                             spk_bangunan(bangunan_nama, bangunan_jumlah_aras, kuarters_id) 
                         VALUES (@Nama,@Aras,@KuartersID);
                     ")
-                    cmd.Connection = conn
-                    cmd.Parameters.Add("@Nama", SqlDbType.NVarChar).Value = tbNamaBangunan.Text.ToUpper
-                    cmd.Parameters.Add("@Aras", SqlDbType.Int).Value = tbJumlahArasBaris.Text
-                    cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = hfKuartersID.Value
-                    Try
-                        conn.Open()
-                        cmd.ExecuteNonQuery()
-                    Catch ex As Exception
-                        Debug.WriteLine("ERROR(datRespondent_RowDeleting-konfigurasi_kuarters:497): " & ex.Message)
-                        message_form("ERROR", strSaveFailAlert & "<br/>" & ex.Message)
-                    Finally
-                        conn.Close()
-                        load_buildings()
-                        message_form("SUCCESS", strSaveSuccessAlert)
-                    End Try
+                        cmd.Connection = conn
+                        cmd.Parameters.Add("@Nama", SqlDbType.NVarChar).Value = tbNamaBangunan.Text.ToUpper
+                        cmd.Parameters.Add("@Aras", SqlDbType.Int).Value = tbJumlahArasBaris.Text
+                        cmd.Parameters.Add("@KuartersID", SqlDbType.Int).Value = hfKuartersID.Value
+                        Try
+                            conn.Open()
+                            cmd.ExecuteNonQuery()
+                        Catch ex As Exception
+                            Debug.WriteLine("ERROR(datRespondent_RowDeleting-konfigurasi_kuarters:497): " & ex.Message)
+                            message_form("ERROR", strSaveFailAlert & "<br/>" & ex.Message)
+                        Finally
+                            conn.Close()
+                            load_buildings()
+                            message_form("SUCCESS", strSaveSuccessAlert)
+                        End Try
+                    End Using
                 End Using
-            End Using
+            End If
         End If
     End Sub
 
@@ -600,7 +624,7 @@ Public Class konfigurasi_kuarters
                         Try
                             conn.Open()
                             cmd.ExecuteNonQuery()
-                            message_list("SUCCESS", "Berjaya padam item.")
+                            message_form("SUCCESS", "Berjaya padam item.")
                             Return True
                         Catch ex As Exception
                             Debug.WriteLine("ERROR(datRespondent_RowDeleting-konfigurasi_kuarters:497): " & ex.Message)
@@ -687,21 +711,28 @@ Public Class konfigurasi_kuarters
                     End If
                 Else
                     Debug.WriteLine("ERROR(buildingList_RowCommand-konfigurasi_kuarters:644): CANNOT DELETE")
+                    message_form("ERROR", strFailDelAlert)
                 End If
             End If
         End If
     End Sub
 
     Private Function validate_jumlah_unit()
-        If ddlNoTingkat.SelectedIndex > 0 Then
-            If tbJumlahUnit.Text.Length > 0 Then
-                Return True
+        Dim jumlahUnit As Integer
+        If tbJumlahUnit.Text.Length > 0 Then
+            If Integer.TryParse(tbJumlahUnit.Text, jumlahUnit) Then
+                If ddlNoTingkat.SelectedIndex > 0 Then
+                    Return True
+                Else
+                    message_form("ERROR", "SILA PILIH NO. TINGKAT/No. BARIS.")
+                    Return False
+                End If
             Else
-                message_form("ERROR", "Sila Masukkan Jumlah Unit")
+                message_form("ERROR", "JUMLAH UNIT HANYA TERIMA NOMBOR.")
                 Return False
             End If
         Else
-            message_form("ERROR", "Sila Pilih Nombor Tingkat/Baris Unit")
+            message_form("ERROR", "SILA MASUKKAN JUMLAH UNIT.")
             Return False
         End If
     End Function
@@ -746,57 +777,64 @@ Public Class konfigurasi_kuarters
                 If jumlahUnitSimpan - jumlahUnitBaru > 0 Then
                     Debug.WriteLine("btnTambah_click: REMOVE UNIT")
                     Dim jumlahOccupied = total_occupied_unit()
-                    If jumlahOccupied > jumlahUnitBaru Then
-                        Debug.WriteLine("Unit occupied/on hold more than to remove")
-                        'TODO: INSERT MESSAGE CANNOT REMOVE(Occupied > removed)
-                    ElseIf jumlahOccupied = jumlahUnitBaru Then
-                        Dim deleteUnits = delete_other_unit()
-                        If deleteUnits.Equals("") Then
-                            'TODO: INSERT ERROR MESSAGE(DELETE UNITS ERROR)
-                        Else
-                            If deleteUnits Then
-                                'TODO: INSERT SUCCESS MESSAGE
-                            Else
-                                'TODO: INSERT ERROR MESSAGE(DELETE UNITS FAILED)
-                            End If
-                        End If
+                    If jumlahOccupied.GetType = GetType(String) And jumlahOccupied.Equals("0") Then
+                        Debug.WriteLine("ERROR(btnTambahUnit_Click): total_occupied_unit() ERROR")
                     Else
-                        Dim deleteUnits = delete_other_unit()
-                        If deleteUnits.Equals("0") Then
-                            'TODO: INSERT ERROR MESSAGE(DELETE UNITS ERROR)
+                        If jumlahOccupied > jumlahUnitBaru Then
+                            Debug.WriteLine("ERROR(btnTambahUnit_Click): Unit occupied/on hold more than to remove")
+                            message_form("ERROR", "SILA PASTIKAN TIADA UNIT YAND DIDUDUKI ATAU DALAM PROSES PERMOHONAN SEBELUM KURANGKAN JUMLAH UNIT.")
+                        ElseIf jumlahOccupied = jumlahUnitBaru Then
+                            Debug.WriteLine("ERROR(btnTambahUnit_Click): jumlaOccupied = jumlahUnitBaru")
+                            Dim deleteUnits = delete_other_unit()
+                            If deleteUnits.Equals("0") Then
+                                Debug.WriteLine("ERROR(btnTambahUnit_Click): delete_other_unit() ERROR.")
+                            Else
+                                If deleteUnits Then
+                                    message_form("SUCCESS", "UBAH UNIT BERJAYA.")
+                                Else
+                                    message_form("ERROR", "UBAH UNIT GAGAL.<br/>" & strSaveFailAlert & ".")
+                                End If
+                            End If
                         Else
-                            If deleteUnits Then
-                                For i = 1 To jumlahUnitBaru
-                                    Dim unit_nama = lblNamaBangunan.Text & "-" & ddlNoTingkat.SelectedValue & "-" & i
-                                    Dim isExist = unit_exist(unit_nama)
-                                    'If the return is boolean
-                                    If isExist.Equals("0") Then
-                                        'TODO: INSERT ERRORS MESSAGES(CHECK EXIST FAILED)
-                                    Else
-                                        If isExist Then
-                                            Debug.WriteLine("Unit Exist: " & unit_nama)
-                                            Continue For
+                            Debug.WriteLine("ERROR(btnTambahUnit_Click): Others")
+                            Dim deleteUnits = delete_other_unit()
+                            If deleteUnits.Equals("0") Then
+                                Debug.WriteLine("ERROR(btnTambahUnit_Click): delete_other_unit() ERROR")
+                            Else
+                                If deleteUnits Then
+                                    For i = 1 To jumlahUnitBaru
+                                        Dim unit_nama = lblNamaBangunan.Text & "-" & ddlNoTingkat.SelectedValue & "-" & i
+                                        Dim isExist = unit_exist(unit_nama)
+                                        'If the return is boolean
+                                        If isExist.Equals("0") Then
+                                            Debug.WriteLine("ERROR(btnTambahUnit_Click): unit_exist ERROR")
                                         Else
-                                            If insert_unit(i) Then
+                                            If isExist Then
+                                                Debug.WriteLine("ERROR(btnTambahUnit_Click): unit " & unit_nama & " EXIST")
                                                 Continue For
                                             Else
-                                                'TODO: INSERT ERROR MESSAGE(INSERT UNIT FAILED)
+                                                If insert_unit(i) Then
+                                                    Continue For
+                                                Else
+                                                    message_form("ERROR", "TAMBAH UNIT GAGAL.<br/>" & strSaveFailAlert)
+                                                End If
                                             End If
                                         End If
-                                    End If
-                                Next
-                            Else
-                                ' TODO: INSERT ERROR MESSAGE HERE(DELETE FAILED/ERROR)
+                                    Next
+                                Else
+                                    Debug.WriteLine("ERROR(btnTambahUnit_Click): delete_other_unit() ERROR.")
+                                End If
                             End If
                         End If
                     End If
+
                 ElseIf jumlahUnitSimpan - jumlahUnitBaru <= 0 Then
                     Debug.WriteLine("btnTambah_click: ADD UNIT")
                     For i = 1 To jumlahUnitBaru
                         Dim unit_nama = lblNamaBangunan.Text & "-" & ddlNoTingkat.SelectedValue & "-" & i
                         Dim isExist = unit_exist(unit_nama)
                         If isExist.Equals("0") Then
-                            'TODO: INSERT ERRORS MESSAGES (CHECK EXIST FAILED)
+                            Debug.WriteLine("ERROR(btnTambahUnit_Click): unit_exist() ERROR")
                         Else
                             If isExist Then
                                 Continue For
@@ -804,20 +842,20 @@ Public Class konfigurasi_kuarters
                                 If insert_unit(i) Then
                                     Continue For
                                 Else
-                                    'TODO: INSERT ERROR MESSAGE(INSERT UNIT FAILED)
+                                    message_form("ERROR", "TAMBAH UNIT GAGAL.<br/>" & strSaveFailAlert)
                                 End If
                             End If
                         End If
                     Next
                 Else
                     Debug.WriteLine("btnTambah_click: ELSE")
-                    'TODO: INSERT ERROR MESSAGE(CASE ELSE ACTION)
+                    message_form("ERROR", "SILA HUBUNGI SISTEM ADMIN.<br/> ELSE PATH.")
                     Return
                 End If
             End If
         Else
             Debug.WriteLine("ERROR(btnTambahUnit-konfigurasi_kuarters:790): building_id SESSION NOT EXIST")
-            'TODO: ADD ERROR MESSAGE
+            message_form("ERROR", "SILA HUBUNGI SISTEM ADMIN.<br/> SESSION ID NOT EXIST.")
             defaultPanel.Visible = True
             maklumatBangunan.Visible = False
         End If
@@ -870,7 +908,9 @@ Public Class konfigurasi_kuarters
     Private Sub UpdateTop_ServerClick(sender As Object, e As EventArgs) Handles UpdateTop.ServerClick
         If validate_save_kuarters() Then
             If update_kuarters() Then
+                close()
                 Response.Redirect(Request.RawUrl)
+                message_list("SUCCESS", strSaveSuccessAlert)
             End If
         End If
     End Sub
@@ -878,7 +918,9 @@ Public Class konfigurasi_kuarters
     Private Sub UpdateBottom_ServerClick(sender As Object, e As EventArgs) Handles UpdateBottom.ServerClick
         If validate_save_kuarters() Then
             If update_kuarters() Then
+                close()
                 Response.Redirect(Request.RawUrl)
+                message_list("SUCCESS", strSaveSuccessAlert)
             End If
         End If
     End Sub
@@ -983,6 +1025,7 @@ Public Class konfigurasi_kuarters
             End Using
         Else
             Debug.WriteLine("ERROR(insert_unit-konfigurasi_kuarters:962): building_id SESSION NOT EXIST")
+            message_form("ERROR", "SILA HUBUNGI SISTEM ADMIN.<br/> SESSION ID NOT EXIST")
             Return "0"
         End If
 
@@ -1049,7 +1092,8 @@ Public Class konfigurasi_kuarters
                         Catch ex As Exception
                             Debug.WriteLine("ERROR(total_occupied_unit-konfigurasi_kuarters): " & ex.Message)
                             'TODO: ADD ERROR MESSAGE HERE
-                            Return False
+                            message_form("ERROR", "SILA HUBUNGI SISTEM ADMIN.<br/>" & ex.Message)
+                            Return "0"
                         End Try
                     End Using
                 End Using
@@ -1061,7 +1105,6 @@ Public Class konfigurasi_kuarters
             Debug.WriteLine("ERROR(total_occupied_unit-konfigurasi_kuarters:1027): kuarters_id SESSION NOT EXIST")
             Return "0"
         End If
-
     End Function
 
     Private Function delete_other_unit()
@@ -1088,12 +1131,13 @@ Public Class konfigurasi_kuarters
                         cmd.Parameters.Add("@StatusOnHold", SqlDbType.NVarChar).Value = "On Hold"
                         Try
                             conn.Open()
-                            Return Integer.Parse(cmd.ExecuteNonQuery)
+                            cmd.ExecuteNonQuery()
                             Return True
                         Catch ex As Exception
                             Debug.WriteLine("ERROR(delete_other_unit-konfigurasi_kuarters): " & ex.Message)
                             'TODO: ADD ERROR MESSAGE HERE
-                            Return False
+                            message_form("ERROR", "SILA HUBUNGI SISTEM ADMIN<br/>" & ex.Message)
+                            Return "0"
                         Finally
                             conn.Close()
                         End Try
@@ -1101,10 +1145,12 @@ Public Class konfigurasi_kuarters
                 End Using
             Else
                 Debug.WriteLine("ERROR(delete_other_unit-konfigurasi_kuarters:1067): building_id SESSION NOT EXIST")
+                message_form("ERROR", "SILA HUBUNGI SYSTEM ADMIN<br/>SESSION ID NOT EXIST")
                 Return "0"
             End If
         Else
             Debug.WriteLine("ERROR(delete_other_unit-konfigurasi_kuarters:1071): kuarters_id SESSION NOT EXIST")
+            message_form("ERROR", "SILA HUBUNGI SYSTEM ADMIN<br/>SESSION ID NOT EXIST")
             Return "0"
         End If
     End Function

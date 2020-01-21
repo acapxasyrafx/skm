@@ -33,8 +33,8 @@
             <table class="fbform" style="width: 100%">
                 <tr class="fbform_header">
                     <td>
-                        <span id="MsgTop" runat="server">
-                            <asp:Label ID="strlbl_top" runat="server"></asp:Label>
+                        <span id="MsgListTop" runat="server">
+                            <asp:Label ID="listlbl_top" runat="server"></asp:Label>
                         </span>
                     </td>
                     <td>
@@ -198,8 +198,8 @@
             <table class ="fbform">
                 <tr>
                     <td>
-                        <span id ="MsgBottom" runat ="server" >
-                            <asp:Label ID ="strlbl_bottom" runat ="server" ></asp:Label>
+                        <span id ="MsgListBottom" runat ="server" >
+                            <asp:Label ID ="listlbl_bottom" runat ="server" ></asp:Label>
                         </span>
                     </td>
                 </tr>
@@ -209,8 +209,8 @@
             <table class="fbform" style="width: 100%">
                 <tr class="fbform_header">
                     <td>
-                        <span id="Span1" runat="server">
-                            <asp:Label ID="message_top" runat="server"></asp:Label>
+                        <span id="MsgFormTop" runat="server">
+                            <asp:Label ID="formlbl_top" runat="server"></asp:Label>
                         </span>
                     </td>
                     <td>
@@ -434,7 +434,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="3" style="color:red;">
-                                            <span style="">Sila pilih bangunan untuk di pamer</span>
+                                            <span style="">Sila pilih bangunan untuk dipamerkan</span>
                                         </td>
                                     </tr>
                                 </table>
@@ -486,8 +486,8 @@
              <table class="fbform" style="width: 100%">
                 <tr class="fbform_header">
                     <td>
-                        <span id="Span2" runat="server">
-                            <asp:Label ID="message_bottom" runat="server"></asp:Label>
+                        <span id="MsgFormBottom" runat="server">
+                            <asp:Label ID="formlbl_bottom" runat="server"></asp:Label>
                         </span>
                     </td>
                     <td>
