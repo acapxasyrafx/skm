@@ -34,9 +34,7 @@ Public Class konfigurasi_unit
         If Session("user_id") = Nothing Then
             Response.Redirect("default.aspx")
         Else
-            If Session("user_type").Equals("ADMIN") Then
-
-            Else
+            If Not Session("user_type").Equals("ADMIN") Then
                 Response.Redirect("default.aspx")
             End If
         End If
