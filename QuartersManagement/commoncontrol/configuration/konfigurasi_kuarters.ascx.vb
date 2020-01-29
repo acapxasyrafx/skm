@@ -93,7 +93,7 @@ Public Class konfigurasi_kuarters
 	        LEFT JOIN spk_pangkalan B ON B.pangkalan_id = A.pangkalan_id
 	        LEFT JOIN spk_jenisKuarters C ON C.jenisKuarters_id = A.jenisKuarters_id"
         Dim whereQuery = " WHERE kuarters_nama IS NOT NULL"
-        Dim orderQuery = " ORDER BY kuarters_nama ASC;"
+        Dim orderQuery = " ORDER BY pangkalan_nama ASC;"
 
         If ddlPangkalan.SelectedIndex > 0 Then
             whereQuery += " AND A.pangkalan_id = @PangkalanID"
