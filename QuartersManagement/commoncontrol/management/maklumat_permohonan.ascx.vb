@@ -83,11 +83,10 @@ Public Class maklumat_permohonan
 					LEFT JOIN spk_suratTawaran H ON H.permohonan_id = A.permohonan_id
 					LEFT JOIN spk_unit I ON I.unit_id = A.unit_id
                 WHERE
-                    A.permohonan_id = " & permohonanID & "
-                ;
-            ", conn)
+                    A.permohonan_id = @PermohonanID;", conn)
             Try
                 conn.Open()
+                cmd.Parameters.Add("@PermohonanID", SqlDbType.Int).Value = permohonanID
                 Using reader As SqlDataReader = cmd.ExecuteReader
                     If reader.HasRows Then
                         While reader.Read()

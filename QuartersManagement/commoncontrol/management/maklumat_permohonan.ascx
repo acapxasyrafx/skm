@@ -257,7 +257,7 @@
         display: flex;
         justify-content:space-evenly;
         flex-direction: row;
-        width: 99.3%;
+        width: 100%;
     }
 
     .maklumat-permohonan {
