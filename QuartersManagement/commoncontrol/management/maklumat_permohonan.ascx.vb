@@ -70,7 +70,7 @@ Public Class maklumat_permohonan
 					, H.suratTawaran_content
 					, H.suratTawaran_tarikh_dibuat
                     , I.unit_id
-					, (I.unit_blok + '-' + I.unit_tingkat + '-' + I.unit_nombor) as 'unit_nama'
+					, I.unit_nama
                     , A.permohonan_tarikh_kemasukan
                 FROM 
 	                spk_permohonan A
@@ -349,12 +349,17 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
 
     Private Sub btnTerimaTawaran_Click(sender As Object, e As EventArgs) Handles btnTerimaTawaran.Click
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("UPDATE spk_permohonan SET permohonan_status='PERMOHONAN DITERIMA', permohonan_sub_status = 'TERIMA TAWARAN UNIT' WHERE permohonan_id = @permohonanID;
-                UPDATE spk_unit SET unit_status='Occupied' WHERE unit_id = @unitID
+            Using cmd As New SqlCommand("UPDATE spk_permohonan SET permohonan_status=@StatusPermohonan, permohonan_sub_status = @SubStatus WHERE permohonan_id = @permohonanID;
+                UPDATE spk_unit SET unit_status='Occupied' WHERE unit_id = @unitID;
+                INSERT INTO spk_logPermohonan VALUES(@penggunaID,@permohonanID, @tarikh, @StatusPermohonan);
             ")
                 cmd.Connection = conn
                 cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("permohonan")
+                cmd.Parameters.Add("@SubStatus", SqlDbType.NVarChar).Value = "TERIMA TAWARAN UNIT"
                 cmd.Parameters.Add("@unitID", SqlDbType.Int).Value = hfUnitID.Value
+                cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
+                cmd.Parameters.Add("@tarikh", SqlDbType.NVarChar).Value = Date.Now
+                cmd.Parameters.Add("@StatusPermohonan", SqlDbType.NVarChar).Value = "PERMOHONAN DITERIMA"
                 Try
                     conn.Open()
                     cmd.ExecuteNonQuery()
@@ -371,12 +376,13 @@ INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status
     Private Sub btnTolakTawaran_Click(sender As Object, e As EventArgs) Handles btnTolakTawaran.Click
         Dim query = "
         UPDATE spk_permohonan SET permohonan_status = 'PERMOHONAN DITOLAK' , permohonan_sub_status = 'TOLAK TAWARAN UNIT' , permohonan_nota = @sebab , permohonan_tarikh = '" & Date.Now.ToString("dd/MM/yy") & "' WHERE permohonan_id = @permohonanID; 
-        INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (" & pID.Value & ", @permohonanID, '" & Date.Now & "', 'PERMOHONAN DITOLAK');
+        INSERT INTO spk_logPermohonan(pengguna_id, permohonan_id, log_tarikh, log_status) VALUES (@penggunaID, @permohonanID, '" & Date.Now & "', 'PERMOHONAN DITOLAK');
         UPDATE spk_unit SET unit_status='Available' WHERE unit_id = @unitID"
         If tbSebabBatal.Text.Length > 0 Then
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand(query)
                     cmd.Connection = conn
+                    cmd.Parameters.Add("@penggunaID", SqlDbType.Int).Value = pID.Value
                     cmd.Parameters.Add("@sebab", SqlDbType.NVarChar, 50).Value = tbSebabTolak.Text
                     cmd.Parameters.Add("@permohonanID", SqlDbType.Int).Value = Request.QueryString("permohonan")
                     cmd.Parameters.Add("@unitID", SqlDbType.Int).Value = hfUnitID.Value

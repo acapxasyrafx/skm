@@ -718,8 +718,8 @@
                     </asp:View>
                     <%-- Permohonan diterima --%>
                     <asp:View runat="server">
-                        <div class="maklumat-batal fbform">
-                            <table>
+                        <div class="maklumat-batal">
+                            <table class="fbform" style="width:100%; height: 100%;">
                                  <tr class="fbform_mheader">
                                     <td colspan="3">Keputusan Permohonan</td>
                                 </tr>

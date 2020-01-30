@@ -102,7 +102,7 @@ Public Class maklumat_pemohon_menunggu
                 ,   A.permohonan_mata
 	            ,	E.historyKeluarga_tempat_tinggal
 	            ,	E.historyKeluarga_tarikh_mula
-				,	(G.unit_blok + '-' + g.unit_tingkat + '-' + g.unit_nombor) as unit_nama
+				,	G.unit_nama
                 ,   H.suratTawaran_content
             FROM 
                 spk_permohonan A
@@ -211,8 +211,16 @@ Public Class maklumat_pemohon_menunggu
     Private Function checkKekosongan(ByVal kuartersID As Integer) As Boolean
         Dim jumlahKekosongan As Integer = 0
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("SELECT COUNT(*) jumlah_kekosongan FROM spk_unit WHERE unit_status = 'Available' AND kuarters_id = @kuartersID;")
+            Using cmd As New SqlCommand("SELECT 
+	                COUNT(*) jumlah_kekosongan
+                FROM 
+	                spk_unit 
+	                JOIN general_config ON general_config.config_value = spk_unit.unit_status
+                WHERE
+	                config_value = @Status
+	                AND kuarters_id = @kuartersID;")
                 cmd.Connection = conn
+                cmd.Parameters.Add("@Status", SqlDbType.NVarChar).Value = "Available"
                 cmd.Parameters.Add("@kuartersID", SqlDbType.Int).Value = kuartersID
                 Try
                     conn.Open()
@@ -234,17 +242,17 @@ Public Class maklumat_pemohon_menunggu
 
     Private Sub loadUnitAvailable(ByVal kuartersID As Integer)
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("
-                SELECT 
+            Using cmd As New SqlCommand("SELECT 
                     unit_id, 
-                    (unit_blok + '-' + unit_tingkat + '-' + unit_nombor) AS nama_unit 
+                    unit_nama
                 FROM 
                     spk_unit 
                 WHERE 
-                    kuarters_id = @kuartersID AND unit_status = 'Available';"
-                )
+                    kuarters_id = @kuartersID 
+                    AND unit_status = @Status;")
                 Dim ds As New DataSet
                 cmd.Connection = conn
+                cmd.Parameters.Add("@Status", SqlDbType.NVarChar).Value = "Available"
                 cmd.Parameters.Add("@kuartersID", SqlDbType.Int).Value = kuartersID
                 Try
                     conn.Open()
@@ -252,7 +260,7 @@ Public Class maklumat_pemohon_menunggu
                     da.Fill(ds, "AnyTable")
                     ddlUnitKuarters.DataSource = ds
                     ddlUnitKuarters.DataValueField = "unit_id"
-                    ddlUnitKuarters.DataTextField = "nama_unit"
+                    ddlUnitKuarters.DataTextField = "unit_nama"
                     ddlUnitKuarters.DataBind()
                     ddlUnitKuarters.Items.Insert(0, New ListItem("-- SILA PILIH --", String.Empty))
                 Catch ex As Exception
@@ -318,12 +326,13 @@ Public Class maklumat_pemohon_menunggu
 	                LEFT JOIN spk_unit B ON B.kuarters_id = A.kuarters_id
                 WHERE 
 	                A.pangkalan_id = @pangkalanID 
-	                AND B.unit_status = 'Available'
+	                AND B.unit_status = @Status
                 ORDER BY kuarters_nama ASC;
                 ")
                 Dim ds As New DataSet
                 cmd.Connection = conn
                 cmd.Parameters.Add("@pangkalanID", SqlDbType.Int).Value = pangkalanID
+                cmd.Parameters.Add("@Status", SqlDbType.NVarChar).Value = "Available"
                 Try
                     conn.Open()
                     Dim da As New SqlDataAdapter(cmd)

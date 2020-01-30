@@ -325,6 +325,7 @@
                 <td style="width: 5px;">:</td>
                 <td><asp:Label Text="text" runat="server" ID="lblStatusKuarter" /></td>
             </tr>
+
             <tr runat="server" id="trUnitDitawarkan" visible="false">
                 <td style="width: 150px;">Unit Yang Ditawarkan</td>
                 <td style="width: 5px;">:</td>
