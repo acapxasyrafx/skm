@@ -47,15 +47,9 @@ Public Class maklumat_pemohon_menunggu
 
     Private Function readMaklumatAnak() As Boolean
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim table As DataTable = New DataTable
-            Dim da As New SqlDataAdapter(
-                    "SELECT 
-	                    * 
-                    FROM 
-	                    spk_historyAnak
-                    WHERE
-	                    permohonan_id = " & Request.QueryString("uid") & ";",
-                    conn)
+            Dim cmd As New SqlCommand("SELECT * FROM spk_historyAnak WHERE permohonan_id = @PermohonnaID;", conn)
+            cmd.Parameters.Add("@PermohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
+            Dim da As New SqlDataAdapter(cmd)
             Try
                 conn.Open()
                 da.Fill(dataAnak, "AnyTable")

@@ -224,6 +224,10 @@
                             HorizontalAlign="Center" />
                         <EditRowStyle BackColor="#999999" />
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                        <EmptyDataTemplate>
+                            <span style="color: red;">TIADA</span>
+                        </EmptyDataTemplate>
+                        <EmptyDataRowStyle HorizontalAlign="Center" VerticalAlign="Bottom" BackColor="White" ForeColor="#284775" />
                     </asp:GridView>
                 </td>
             </tr>
