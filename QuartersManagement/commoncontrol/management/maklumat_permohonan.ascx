@@ -428,6 +428,10 @@
                                                 <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle" HorizontalAlign="Center" />
                                                 <EditRowStyle BackColor="#999999" />
                                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                                <EmptyDataTemplate>
+                                                    <span style="color: red;">TIADA</span>
+                                                </EmptyDataTemplate>
+                                                <EmptyDataRowStyle HorizontalAlign="Center" VerticalAlign="Bottom" BackColor="White" ForeColor="#284775" />
                                             </asp:GridView>
                                         </td>
                                     </tr>
@@ -451,6 +455,13 @@
                        <td style="width: 5px;">:</td>
                        <td>
                            <asp:Label runat="server" ID="lblKuarterDipohon" />
+                       </td>
+                   </tr>
+                   <tr>
+                       <td style="width: 150px;">Nama Pangkalan</td>
+                       <td style="width: 5px;">:</td>
+                       <td>
+                           <asp:Label runat="server" ID="lblPangkalanNama" />
                        </td>
                    </tr>
                    <tr>
@@ -561,8 +572,8 @@
                     </asp:View>
                     <%-- Tawaran unit --%>
                     <asp:View runat="server">
-                        <div class="surat-tawaran fbform">
-                            <table style="width:100%; height: 100%;">
+                        <div class="surat-tawaran fbform" style="width:100%; height: 100%;">
+                            <table>
                                 <tr class="fbform_mheader">
                                     <td colspan="3">Status Permohonan</td>
                                 </tr>
@@ -627,7 +638,7 @@
                                         <ItemTemplate>
                                             <%# Container.DataItemIndex + 1 %>
                                         </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="5%" />
                                         <ItemStyle VerticalAlign="Middle" />
                                     </asp:TemplateField>
 
@@ -635,7 +646,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblKuarters" runat="server" Text='<%# Bind("kuarters_nama")%>'></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="25%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
 
@@ -646,6 +657,15 @@
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
+                                    
+                                    <asp:TemplateField HeaderText="Pangkalan">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblPangkalanKuarters" runat="server" Text='<%# Bind("pangkalan_nama")%>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+
                                 </Columns>
                                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
                                 <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
@@ -719,21 +739,24 @@
                     <%-- Permohonan diterima --%>
                     <asp:View runat="server">
                         <div class="maklumat-batal">
-                            <table class="fbform" style="width:100%; height: 100%;">
-                                 <tr class="fbform_mheader">
+                            <table class="fbform" style="width: 100%; height: 100%;">
+                                <tr class="fbform_mheader">
                                     <td colspan="3">Keputusan Permohonan</td>
                                 </tr>
                                 <tr>
-                                    <td style="width:150px;">Status Permohonan</td>
-                                    <td style="width:5px;">:</td>
-                                    <td><asp:Label Text="text" runat="server" ID="lblKeputusanTerima"/></td>
+                                    <td style="width: 150px;">Status Permohonan</td>
+                                    <td style="width: 5px;">:</td>
+                                    <td>
+                                        <asp:Label Text="text" runat="server" ID="lblKeputusanTerima" /></td>
                                 </tr>
+                            </table>
+                            <table class="fbform" style="width: 100%; height: 100%;">
                                 <tr class="fbform_mheader">
                                     <td colspan="3">Surat Tawaran</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">
-                                        <div class="fbform">
+                                    <td colspan="3" class="fbform">
+                                        <div>
                                             <p runat="server" id="pSuratTawaran"></p>
                                         </div>
                                     </td>

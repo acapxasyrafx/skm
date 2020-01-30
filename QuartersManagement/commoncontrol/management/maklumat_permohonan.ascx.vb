@@ -72,6 +72,7 @@ Public Class maklumat_permohonan
                     , I.unit_id
 					, I.unit_nama
                     , A.permohonan_tarikh_kemasukan
+                    , J.pangkalan_nama
                 FROM 
 	                spk_permohonan A
 	                LEFT JOIN spk_kuarters B ON B.kuarters_id = A.kuarters_id
@@ -82,6 +83,7 @@ Public Class maklumat_permohonan
 	                LEFT JOIN spk_pengguna G ON G.pengguna_id = D.pengguna_id
 					LEFT JOIN spk_suratTawaran H ON H.permohonan_id = A.permohonan_id
 					LEFT JOIN spk_unit I ON I.unit_id = A.unit_id
+                    LEFT JOIN spk_pangkalan J ON J.pangkalan_id = B.pangkalan_id
                 WHERE
                     A.permohonan_id = @PermohonanID;", conn)
             Try
@@ -101,7 +103,8 @@ Public Class maklumat_permohonan
                             lblJenisTempatTinggal.Text = reader("historyKeluarga_tempat_tinggal").ToString()
                             lblTarikhMulaMenetap.Text = reader("historyKeluarga_tarikh_mula").ToString()
                             lblKuarterDipohon.Text = reader("kuarters_nama").ToString()
-                            lblTarikhPermohonan.Text = reader("permohonan_tarikh").ToString()
+                            lblPangkalanNama.Text = reader("pangkalan_nama").ToString()
+                            lblTarikhPermohonan.Text = Convert.ToDateTime(reader("permohonan_tarikh")).ToString("dd/MM/yyyy")
                             statusPermohonan = reader("permohonan_status").ToString()
                             subStatusPermohonan = reader("permohonan_sub_status").ToString()
                             hfUnitID.Value = reader("unit_id").ToString()

@@ -47,7 +47,7 @@ Public Class maklumat_pemohon_menunggu
 
     Private Function readMaklumatAnak() As Boolean
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_historyAnak WHERE permohonan_id = @PermohonnaID;", conn)
+            Dim cmd As New SqlCommand("SELECT * FROM spk_historyAnak WHERE permohonan_id = @PermohonanID;", conn)
             cmd.Parameters.Add("@PermohonanID", SqlDbType.Int).Value = Request.QueryString("uid")
             Dim da As New SqlDataAdapter(cmd)
             Try
@@ -509,7 +509,7 @@ Public Class maklumat_pemohon_menunggu
             If datepicker.Text.Count > 0 Then
                 Debug.WriteLine("Date: " & datepicker.Text)
                 Debug.WriteLine("IsDate: " & IsDate(Convert.ToDateTime(datepicker.Text).ToString("dd/MM/yy")))
-                If IsDate(Convert.ToDateTime(datepicker.Text).ToString("dd/MM/yy")) Then
+                If IsDate(Convert.ToDateTime(datepicker.Text).ToString("dd/MM/yyyy")) Then
                     Return True
                 Else
                     Debug.WriteLine("Error(validateUnitSubmit-makluamt_pemohon_menunggu:510): Tarikh Kemasukan tak berformat betul")
