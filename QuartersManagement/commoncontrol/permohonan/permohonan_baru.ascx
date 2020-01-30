@@ -229,9 +229,15 @@
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Tindakan">
                                         <ItemTemplate>
-                                            <span runat="server" style="float: right">
-                                                <asp:ImageButton Width="12" Height="12" ID="btnView" CommandName="ViewApllicant" CommandArgument='<%#Eval("permohonan_id")%>' runat="server" ImageUrl="~/icons/form_process.png" ToolTip="Lihat Profil" />
-                                            </span>
+                                            <asp:ImageButton
+                                                Width="25px"
+                                                Height="25px"
+                                                runat="server"
+                                                ID="btnView"
+                                                CommandName="ViewApllicant"
+                                                CommandArgument='<%#Eval("permohonan_id") %>'
+                                                ImageUrl="~/icons/test.svg"
+                                                ToolTip="Lihat Profil?" />
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="right" VerticalAlign="Top" />
                                         <ItemStyle VerticalAlign="Middle" />
