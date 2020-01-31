@@ -154,7 +154,8 @@ Public Class permohonan_kuarters
 
     Private Sub loadKuarters()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters WHERE pangkalan_id = " & ddlSenaraiPangkalan.SelectedValue & ";", conn)
+            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters WHERE pangkalan_id = @PangkalanID ORDER BY kuarters_nama ASC;", conn)
+            cmd.Parameters.Add("@PangkalanID", SqlDbType.Int).Value = ddlSenaraiPangkalan.SelectedValue
             Dim ds As New DataSet
             Try
                 conn.Open()
