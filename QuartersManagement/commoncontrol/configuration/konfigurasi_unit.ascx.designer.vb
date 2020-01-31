@@ -95,6 +95,24 @@ Partial Public Class konfigurasi_unit
     Protected WithEvents btnCari As Global.System.Web.UI.WebControls.Button
 
     '''<summary>
+    '''btnGroupStatusUnit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnGroupStatusUnit As Global.System.Web.UI.HtmlControls.HtmlTableRow
+
+    '''<summary>
+    '''rptStatusBtn control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rptStatusBtn As Global.System.Web.UI.WebControls.Repeater
+
+    '''<summary>
     '''Panel control.
     '''</summary>
     '''<remarks>

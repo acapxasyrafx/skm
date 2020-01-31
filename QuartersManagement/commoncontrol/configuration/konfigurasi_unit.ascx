@@ -19,7 +19,7 @@
                     </td>
                     <td>
                         <span class="buttonMenu">
-                            <a href="#" runat="server" id="tambahUnit">
+                            <a href="#" runat="server" id="tambahUnit" visible="false">
                                 <img title="Tamabah Baru?" style="vertical-align: middle;" src="icons/add.png" width="25" height="25" alt="" />
                             </a>
                         </span>
@@ -34,18 +34,27 @@
                     <td style="width: 150px;">Nama Pangkalan</td>
                     <td style="width: 5px;">:</td>
                     <td colspan="2">
-                        <asp:DropDownList runat="server" ID="ddlPangkalan" AutoPostBack="true"></asp:DropDownList>
+                        <asp:DropDownList runat="server" ID="ddlPangkalan" AutoPostBack="true" CssClass="input" ></asp:DropDownList>
                     </td>
                 </tr>
                 <tr>
                     <td style="width: 150px;">Nama Kuarters</td>
                     <td style="width: 5px;">:</td>
                     <td colspan="2">
-                        <asp:DropDownList runat="server" ID="ddlKuarters" AutoPostBack="true" Enabled="false">
+                        <asp:DropDownList runat="server" ID="ddlKuarters" AutoPostBack="true" Enabled="false" CssClass="input" >
                             <asp:ListItem Text="--Sila Pilih Pangkalan Terlebih Dahulu--" />
                         </asp:DropDownList>
                     </td>
                 </tr>
+              <%--  <tr>
+                    <td style="width: 150px">Nama Blok/No. Lot</td>
+                    <td style="width: 5px">:</td>
+                    <td colspan="2">
+                        <asp:DropDownList runat="server" ID="ddlBangunan" AutoPostBack="true" Enabled="false" CssClass="input" >
+                            <asp:ListItem Text="--Sila Pilih Kuarters Terlebih Dahulu--" />
+                        </asp:DropDownList>
+                    </td>
+                </tr>--%>
                 <tr>
                     <td style="width: 150px;">Status Unit</td>
                     <td style="width: 5px;">:</td>
@@ -60,14 +69,29 @@
                     <td style="width: 150px;">Nama Unit</td>
                     <td style="width: 5px;">:</td>
                     <td>
-                        <asp:TextBox runat="server" ID="tbCari" />
+                        <asp:TextBox runat="server" ID="tbCari"  CssClass="input" />
                         <asp:Button Text="Cari" runat="server" ID="btnCari" />
                     </td>
                 </tr>
             </table>
             <table class="fbform" style="width: 100%;">
                 <tr class="fbform_mheader">
-                    <td colspan="3">Senarai Unit
+                    <td colspan="3">Senarai Unit</td>
+                </tr>
+                <tr runat="server" id="btnGroupStatusUnit" visible="false">
+                    <td>
+                        <div class="btn-group" style="width:100%">
+                            Ubah Status Unit:
+                            <asp:Repeater runat="server" ID="rptStatusBtn">
+                                <ItemTemplate>
+                                    <asp:Button 
+                                        Text='<%# Bind("config_parameter") %>' 
+                                        CommandArgument='<%# Bind("config_value") %>' 
+                                        runat="server" ID="btnStatusUnit" OnClick="change_status"
+                                    />
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -87,17 +111,30 @@
                                 CssClass="gridview_footer">
                                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                                 <Columns>
+                                    <asp:TemplateField HeaderText="Pilih">
+                                        <ItemTemplate>
+                                            <asp:CheckBox 
+                                                ID="chUnit" 
+                                                runat="server" 
+                                                AutoPostBack="true"
+                                                OnCheckedChanged="ckUnit_OnChanged"
+                                            />
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="1%" />
+                                        <ItemStyle VerticalAlign="Middle" />
+                                    </asp:TemplateField>
+
                                     <asp:TemplateField HeaderText="#">
                                         <ItemTemplate>
                                             <%# Container.DataItemIndex + 1 %>
                                         </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="5%" />
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="3%" />
                                         <ItemStyle VerticalAlign="Middle" />
                                     </asp:TemplateField>
 
                                     <asp:TemplateField HeaderText="Unit">
                                         <ItemTemplate>
-                                            <asp:Label ID="unit_nama" runat="server" Text='<%# nama_kuarters(Eval("unit_id")) %>'></asp:Label>
+                                            <asp:Label ID="unit_nama" runat="server" Text='<%# Bind("unit_nama") %>'></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />

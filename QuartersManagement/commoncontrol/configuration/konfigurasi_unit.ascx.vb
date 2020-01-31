@@ -45,7 +45,6 @@ Public Class konfigurasi_unit
         Dim tempQuery As String = "SELECT 
                 A.unit_id
 	            , A.unit_nama
-	            , (A.unit_blok + '-' + A.unit_tingkat + '-' + unit_nombor) AS 'unit_nama_lain'
                 , A.unit_status
                 , E.config_parameter
 	            , B.kuarters_nama
@@ -69,8 +68,7 @@ Public Class konfigurasi_unit
         End If
 
         If tbCari.Text.Length > 0 Then
-            whereQuery += " AND (A.unit_nama LIKE '%@carian%')
-                            OR ((A.unit_blok + '-' + A.unit_tingkat + '-' + A.unit_nombor) LIKE '%@carian%')"
+            whereQuery += " AND A.unit_nama LIKE '%@carian%'"
         End If
 
         If ddlStatusUnit.SelectedIndex > 0 Then
@@ -210,6 +208,9 @@ Public Class konfigurasi_unit
                         ddlInsertStatusUnit.DataValueField = "config_value"
                         ddlInsertStatusUnit.DataBind()
                         ddlInsertStatusUnit.Items.Insert(0, New ListItem("-- PILIH --", Nothing))
+
+                        rptStatusBtn.DataSource = ds
+                        rptStatusBtn.DataBind()
                     End Using
                 Catch ex As Exception
                     Debug.WriteLine("ERROR(load_status_unit-konfigurasi_unit: 196): " & ex.Message)
@@ -584,7 +585,6 @@ Public Class konfigurasi_unit
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand("SELECT 
 	                a.unit_nama
-	                , (a.unit_blok +'-'+a.unit_tingkat+'-'+a.unit_nombor) unit_nama_lain
 	                , a.unit_blok
 	                , a.unit_tingkat
 	                , a.unit_nombor
@@ -720,5 +720,65 @@ Public Class konfigurasi_unit
 
     Private Sub ddlStatusUnit_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ddlStatusUnit.SelectedIndexChanged
         load_units()
+    End Sub
+
+    Protected Sub ckUnit_OnChanged(sender As Object, e As EventArgs)
+        Dim count As Integer = 0
+        For Each row As GridViewRow In datRespondent.Rows
+            If row.RowType = DataControlRowType.DataRow Then
+                Dim chRow As CheckBox = TryCast(row.Cells(0).FindControl("chUnit"), CheckBox)
+                If chRow.Checked Then
+                    count += 1
+                Else
+                    Continue For
+                End If
+            End If
+        Next
+        If count > 0 Then
+            btnGroupStatusUnit.Visible = True
+        Else
+            btnGroupStatusUnit.Visible = False
+        End If
+    End Sub
+
+    Private Function update_unit_status(ByVal unitID As Integer, ByVal status As String)
+        Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
+            Using cmd As New SqlCommand("UPDATE spk_unit SET unit_status = @Status WHERE unit_id = @UnitID;", conn)
+                cmd.Parameters.Add("@Status", SqlDbType.NVarChar).Value = status
+                cmd.Parameters.Add("@UnitID", SqlDbType.Int).Value = unitID
+                Try
+                    conn.Open()
+                    cmd.ExecuteNonQuery()
+                    Return True
+                Catch ex As Exception
+                    Debug.WriteLine("ERRRO(update_unit_status-konfigurasi_unit): " & ex.Message)
+                    Return False
+                Finally
+                    conn.Close()
+                End Try
+            End Using
+        End Using
+    End Function
+
+    Protected Sub change_status(sender As Object, e As EventArgs)
+        Dim item As RepeaterItem = TryCast((TryCast(sender, Button)).NamingContainer, RepeaterItem)
+        Dim status = (TryCast(item.FindControl("btnStatusUnit"), Button)).CommandArgument
+        For Each row As GridViewRow In datRespondent.Rows
+            If row.RowType = DataControlRowType.DataRow Then
+                Dim cbRow As CheckBox = TryCast(row.Cells(0).FindControl("chUnit"), CheckBox)
+                If cbRow.Checked Then
+                    Dim unitID = datRespondent.DataKeys(row.RowIndex).Item("unit_id").ToString()
+                    If update_unit_status(unitID, status) Then
+                        cbRow.Checked = False
+                    Else
+
+                    End If
+                End If
+            Else
+                Continue For
+            End If
+        Next
+        load_units()
+        btnGroupStatusUnit.Visible = False
     End Sub
 End Class
