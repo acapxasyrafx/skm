@@ -154,7 +154,16 @@ Public Class permohonan_kuarters
 
     Private Sub loadKuarters()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Dim cmd As New SqlCommand("SELECT * FROM spk_kuarters WHERE pangkalan_id = @PangkalanID ORDER BY kuarters_nama ASC;", conn)
+            Dim cmd As New SqlCommand("SELECT 
+                A.kuarters_id
+                , (A.kuarters_nama + ' ('+ B.jenisKuarters_nama + ')' )  kuarters_nama
+            FROM 
+                spk_kuarters A
+                JOIN spk_jenisKuarters B ON B.jenisKuarters_id = A.jenisKuarters_id
+            WHERE 
+                A.pangkalan_id = @PangkalanID 
+            ORDER BY 
+                A.kuarters_nama ASC;", conn)
             cmd.Parameters.Add("@PangkalanID", SqlDbType.Int).Value = ddlSenaraiPangkalan.SelectedValue
             Dim ds As New DataSet
             Try
