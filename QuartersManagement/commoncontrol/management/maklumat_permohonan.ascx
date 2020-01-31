@@ -257,7 +257,7 @@
         display: flex;
         justify-content:space-evenly;
         flex-direction: row;
-        width: 99.3%;
+        width: 100%;
     }
 
     .maklumat-permohonan {
@@ -282,7 +282,13 @@
     }
 
     .maklumat-ditolak {
-        width: 101%;
+        height: 100%;
+        width: 100%;
+    }
+
+    .surat-tawaran {
+        width: 100%;
+        height: 100%;
     }
 </style>
 <div class="status-permohonan" style="height: 85vh;">
@@ -428,6 +434,10 @@
                                                 <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" VerticalAlign="Middle" HorizontalAlign="Center" />
                                                 <EditRowStyle BackColor="#999999" />
                                                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+                                                <EmptyDataTemplate>
+                                                    <span style="color: red;">TIADA</span>
+                                                </EmptyDataTemplate>
+                                                <EmptyDataRowStyle HorizontalAlign="Center" VerticalAlign="Bottom" BackColor="White" ForeColor="#284775" />
                                             </asp:GridView>
                                         </td>
                                     </tr>
@@ -451,6 +461,13 @@
                        <td style="width: 5px;">:</td>
                        <td>
                            <asp:Label runat="server" ID="lblKuarterDipohon" />
+                       </td>
+                   </tr>
+                   <tr>
+                       <td style="width: 150px;">Nama Pangkalan</td>
+                       <td style="width: 5px;">:</td>
+                       <td>
+                           <asp:Label runat="server" ID="lblPangkalanNama" />
                        </td>
                    </tr>
                    <tr>
@@ -562,18 +579,18 @@
                     <%-- Tawaran unit --%>
                     <asp:View runat="server">
                         <div class="surat-tawaran fbform">
-                            <table style="width:100%; height: 100%;">
+                            <table>
                                 <tr class="fbform_mheader">
                                     <td colspan="3">Status Permohonan</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" style="align-content:center; text-align:center;">
-                                       <p runat="server" id="pText"></p>
+                                    <td colspan="3" style="align-content: center; text-align: center;">
+                                        <p runat="server" id="pText"></p>
                                         <div class="fbform">
                                             <p runat="server" id="divSuratTawaran"></p>
                                         </div>
                                         <div class="btn-group" runat="server" id="btnGroupTerimaTawaran">
-                                            <asp:Button Text="Terima" runat="server" ID="btnTerimaTawaran"/>
+                                            <asp:Button Text="Terima" runat="server" ID="btnTerimaTawaran" />
                                             <input type="button" id="openModal2" value="Tolak" />
                                         </div>
                                         <div id="modal2" class="modal">
@@ -585,14 +602,13 @@
                                                 <div class="modal-body">
                                                     <h4>Sebab menolak unit ditawarkan:</h4>
                                                     <div>
-                                                        <asp:TextBox 
-                                                            runat="server" 
+                                                        <asp:TextBox
+                                                            runat="server"
                                                             ID="tbSebabTolak"
                                                             Text="Lokasi unit tak bersesuaian"
                                                             TextMode="MultiLine"
-                                                            width="400px"
-                                                            height="150px"
-                                                        />
+                                                            Width="400px"
+                                                            Height="150px" />
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -627,7 +643,7 @@
                                         <ItemTemplate>
                                             <%# Container.DataItemIndex + 1 %>
                                         </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="5%" />
                                         <ItemStyle VerticalAlign="Middle" />
                                     </asp:TemplateField>
 
@@ -635,7 +651,7 @@
                                         <ItemTemplate>
                                             <asp:Label ID="lblKuarters" runat="server" Text='<%# Bind("kuarters_nama")%>'></asp:Label>
                                         </ItemTemplate>
-                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="25%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
 
@@ -646,6 +662,15 @@
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     </asp:TemplateField>
+                                    
+                                    <asp:TemplateField HeaderText="Pangkalan">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblPangkalanKuarters" runat="server" Text='<%# Bind("pangkalan_nama")%>'></asp:Label>
+                                        </ItemTemplate>
+                                        <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="40%" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+
                                 </Columns>
                                 <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
                                 <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
@@ -694,7 +719,7 @@
                     <%-- Keputusan batal/tolak --%>
                     <asp:View runat="server">
                         <div class="maklumat-ditolak">
-                            <table class="fbform" style="width:100%; height: 100%;">
+                            <table class="fbform">
                                 <tr class="fbform_mheader">
                                     <td colspan="3">Keputusan Permohonan</td>
                                 </tr>
@@ -711,29 +736,34 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">Permohonan anda ditolak/dibatalkan. Sila buat permohonan baru(<asp:LinkButton Text="Ke Halaman Permohonan Kuarters" runat="server" ID="lbPermohonanBaru"/>)</td>
+                                    <td colspan="3">
+                                        Permohonan anda ditolak/dibatalkan. Sila buat permohonan baru (<asp:LinkButton Font-Bold="true" Text="Ke Halaman Permohonan Kuarters" runat="server" ID="lbPermohonanBaru"/>)
+                                    </td>
                                 </tr>
                             </table>
                         </div>
                     </asp:View>
                     <%-- Permohonan diterima --%>
                     <asp:View runat="server">
-                        <div class="maklumat-batal fbform">
-                            <table>
-                                 <tr class="fbform_mheader">
+                        <div class="maklumat-batal">
+                            <table class="fbform" style="width: 100%; height: 100%;">
+                                <tr class="fbform_mheader">
                                     <td colspan="3">Keputusan Permohonan</td>
                                 </tr>
                                 <tr>
-                                    <td style="width:150px;">Status Permohonan</td>
-                                    <td style="width:5px;">:</td>
-                                    <td><asp:Label Text="text" runat="server" ID="lblKeputusanTerima"/></td>
+                                    <td style="width: 150px;">Status Permohonan</td>
+                                    <td style="width: 5px;">:</td>
+                                    <td>
+                                        <asp:Label Text="text" runat="server" ID="lblKeputusanTerima" /></td>
                                 </tr>
+                            </table>
+                            <table class="fbform" style="width: 100%; height: 100%;">
                                 <tr class="fbform_mheader">
                                     <td colspan="3">Surat Tawaran</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">
-                                        <div class="fbform">
+                                    <td colspan="3" class="fbform">
+                                        <div>
                                             <p runat="server" id="pSuratTawaran"></p>
                                         </div>
                                     </td>

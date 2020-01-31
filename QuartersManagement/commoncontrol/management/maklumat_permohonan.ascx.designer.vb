@@ -185,6 +185,15 @@ Partial Public Class maklumat_permohonan
     Protected WithEvents lblKuarterDipohon As Global.System.Web.UI.WebControls.Label
 
     '''<summary>
+    '''lblPangkalanNama control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblPangkalanNama As Global.System.Web.UI.WebControls.Label
+
+    '''<summary>
     '''lblTarikhPermohonan control.
     '''</summary>
     '''<remarks>

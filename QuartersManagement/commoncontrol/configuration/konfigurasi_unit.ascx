@@ -60,12 +60,9 @@
                     <td style="width: 150px;">Nama Unit</td>
                     <td style="width: 5px;">:</td>
                     <td>
-                        <asp:TextBox runat="server" ID="tbCari" /></td>
-                </tr>
-                <tr>
-                    <td style="width: 150px;"></td>
-                    <td>
-                        <asp:Button Text="Cari" runat="server" ID="btnCari" /></td>
+                        <asp:TextBox runat="server" ID="tbCari" />
+                        <asp:Button Text="Cari" runat="server" ID="btnCari" />
+                    </td>
                 </tr>
             </table>
             <table class="fbform" style="width: 100%;">

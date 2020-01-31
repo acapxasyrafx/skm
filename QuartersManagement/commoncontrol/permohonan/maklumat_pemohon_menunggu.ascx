@@ -217,6 +217,10 @@
                                 <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                             </asp:TemplateField>
                         </Columns>
+                        <EmptyDataTemplate>
+                            <span style="color: red;">TIADA</span>
+                        </EmptyDataTemplate>
+                        <EmptyDataRowStyle HorizontalAlign="Center" VerticalAlign="Bottom" BackColor="White" ForeColor="#284775" />
                         <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" Font-Underline="true" />
                         <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" CssClass="cssPager" />
                         <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
@@ -325,6 +329,7 @@
                 <td style="width: 5px;">:</td>
                 <td><asp:Label Text="text" runat="server" ID="lblStatusKuarter" /></td>
             </tr>
+
             <tr runat="server" id="trUnitDitawarkan" visible="false">
                 <td style="width: 150px;">Unit Yang Ditawarkan</td>
                 <td style="width: 5px;">:</td>
