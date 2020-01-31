@@ -282,7 +282,13 @@
     }
 
     .maklumat-ditolak {
-        width: 101%;
+        height: 100%;
+        width: 100%;
+    }
+
+    .surat-tawaran {
+        width: 100%;
+        height: 100%;
     }
 </style>
 <div class="status-permohonan" style="height: 85vh;">
@@ -572,19 +578,19 @@
                     </asp:View>
                     <%-- Tawaran unit --%>
                     <asp:View runat="server">
-                        <div class="surat-tawaran fbform" style="width:100%; height: 100%;">
+                        <div class="surat-tawaran fbform">
                             <table>
                                 <tr class="fbform_mheader">
                                     <td colspan="3">Status Permohonan</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3" style="align-content:center; text-align:center;">
-                                       <p runat="server" id="pText"></p>
+                                    <td colspan="3" style="align-content: center; text-align: center;">
+                                        <p runat="server" id="pText"></p>
                                         <div class="fbform">
                                             <p runat="server" id="divSuratTawaran"></p>
                                         </div>
                                         <div class="btn-group" runat="server" id="btnGroupTerimaTawaran">
-                                            <asp:Button Text="Terima" runat="server" ID="btnTerimaTawaran"/>
+                                            <asp:Button Text="Terima" runat="server" ID="btnTerimaTawaran" />
                                             <input type="button" id="openModal2" value="Tolak" />
                                         </div>
                                         <div id="modal2" class="modal">
@@ -596,14 +602,13 @@
                                                 <div class="modal-body">
                                                     <h4>Sebab menolak unit ditawarkan:</h4>
                                                     <div>
-                                                        <asp:TextBox 
-                                                            runat="server" 
+                                                        <asp:TextBox
+                                                            runat="server"
                                                             ID="tbSebabTolak"
                                                             Text="Lokasi unit tak bersesuaian"
                                                             TextMode="MultiLine"
-                                                            width="400px"
-                                                            height="150px"
-                                                        />
+                                                            Width="400px"
+                                                            Height="150px" />
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -714,7 +719,7 @@
                     <%-- Keputusan batal/tolak --%>
                     <asp:View runat="server">
                         <div class="maklumat-ditolak">
-                            <table class="fbform" style="width:100%; height: 100%;">
+                            <table class="fbform">
                                 <tr class="fbform_mheader">
                                     <td colspan="3">Keputusan Permohonan</td>
                                 </tr>
@@ -731,7 +736,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">Permohonan anda ditolak/dibatalkan. Sila buat permohonan baru(<asp:LinkButton Text="Ke Halaman Permohonan Kuarters" runat="server" ID="lbPermohonanBaru"/>)</td>
+                                    <td colspan="3">
+                                        Permohonan anda ditolak/dibatalkan. Sila buat permohonan baru (<asp:LinkButton Font-Bold="true" Text="Ke Halaman Permohonan Kuarters" runat="server" ID="lbPermohonanBaru"/>)
+                                    </td>
                                 </tr>
                             </table>
                         </div>
