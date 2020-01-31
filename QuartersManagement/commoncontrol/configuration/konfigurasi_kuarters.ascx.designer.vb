@@ -185,6 +185,15 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents CancelTop As Global.System.Web.UI.HtmlControls.HtmlAnchor
 
     '''<summary>
+    '''divKuarters control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divKuarters As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+
+    '''<summary>
     '''ddlFormPangkalan control.
     '''</summary>
     '''<remarks>
@@ -293,13 +302,13 @@ Partial Public Class konfigurasi_kuarters
     Protected WithEvents tbFormEmail As Global.System.Web.UI.WebControls.TextBox
 
     '''<summary>
-    '''panelTeres control.
+    '''divUnit control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents panelTeres As Global.System.Web.UI.WebControls.Panel
+    Protected WithEvents divUnit As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 
     '''<summary>
     '''panelPangsapuri control.

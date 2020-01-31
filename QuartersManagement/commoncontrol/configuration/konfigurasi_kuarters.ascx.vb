@@ -463,7 +463,6 @@ Public Class konfigurasi_kuarters
 
     Private Function load_buildings() As Boolean
         If Session("kuarters_id") IsNot Nothing Then
-            Debug.WriteLine("KUARTERS ID(load_building): " & Session("kuarters_id"))
             Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
                 Using cmd As New SqlCommand("SELECT 
 	                A.bangunan_id
@@ -499,6 +498,7 @@ Public Class konfigurasi_kuarters
             End Using
             Return False
         Else
+            Debug.WriteLine("KUARTERS ID SESSION NOT EXIST")
             Return False
         End If
     End Function
@@ -520,6 +520,9 @@ Public Class konfigurasi_kuarters
                     If load_buildings() Then
                         panelPangsapuri.Visible = True
                     End If
+                Else
+                    divUnit.Visible = False
+                    divKuarters.Style.Add("width", "100%")
                 End If
                 open()
             End If
@@ -785,16 +788,16 @@ Public Class konfigurasi_kuarters
                             message_form("ERROR", "SILA PASTIKAN TIADA UNIT YAND DIDUDUKI ATAU DALAM PROSES PERMOHONAN SEBELUM KURANGKAN JUMLAH UNIT.")
                         ElseIf jumlahOccupied = jumlahUnitBaru Then
                             Debug.WriteLine("ERROR(btnTambahUnit_Click): jumlaOccupied = jumlahUnitBaru")
-                            Dim deleteUnits = delete_other_unit()
-                            If deleteUnits.Equals("0") Then
-                                Debug.WriteLine("ERROR(btnTambahUnit_Click): delete_other_unit() ERROR.")
-                            Else
-                                If deleteUnits Then
-                                    message_form("SUCCESS", "UBAH UNIT BERJAYA.")
-                                Else
-                                    message_form("ERROR", "UBAH UNIT GAGAL.<br/>" & strSaveFailAlert & ".")
-                                End If
-                            End If
+                            'Dim deleteUnits = delete_other_unit()
+                            'If deleteUnits.Equals("0") Then
+                            '    Debug.WriteLine("ERROR(btnTambahUnit_Click): delete_other_unit() ERROR.")
+                            'Else
+                            '    If deleteUnits Then
+                            '        message_form("SUCCESS", "UBAH UNIT BERJAYA.")
+                            '    Else
+                            '        message_form("ERROR", "UBAH UNIT GAGAL.<br/>" & strSaveFailAlert & ".")
+                            '    End If
+                            'End If
                         Else
                             Debug.WriteLine("ERROR(btnTambahUnit_Click): Others")
                             Dim deleteUnits = delete_other_unit()

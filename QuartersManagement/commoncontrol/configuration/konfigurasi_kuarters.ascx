@@ -13,8 +13,13 @@
         display: flex;
         flex-direction: row;
         justify-content: stretch;
-        overflow: auto;
         width:100%;
+        height: 100%;
+    }
+    .columns {
+        display: flex;
+        flex-direction: column;
+        width:98.5%;
         height: 100%;
     }
     .left {
@@ -214,7 +219,7 @@
                         </span>
                     </td>
                     <td>
-                        <span class="buttonMenu">
+                        <span class="buttonMenu" runat="server" visible="false">
                             <a href="#" runat="server" id="SaveTop">
                                 <img title="Tambah?" style="vertical-align: middle;" src="icons/save.png" width="25" height="25" alt="::" />
                             </a> 
@@ -228,101 +233,102 @@
                     </td>
                 </tr>
             </table>
-            <div>
-                <table class="fbform" style="width: 100%;">
-                    <tr class="fbform_mheader">
-                        <td colspan="3">Maklumat Kuarters</td>
-                    </tr>
+            <div class="inline">
+                <div class="left" runat="server" id="divKuarters">
+                    <table class="fbform">
+                        <tr class="fbform_mheader">
+                            <td colspan="3">Maklumat Kuarters</td>
+                        </tr>
 
-                    <tr>
-                        <td style="width: 150px;">Nama Pangkalan</td>
-                        <td style="width: 5px;">:</td>
-                        <td>
-                            <asp:DropDownList runat="server" ID="ddlFormPangkalan" CssClass="input"></asp:DropDownList>
-                            <asp:HiddenField runat="server" ID="hfPrevPangkalanID" />   
-                        </td>
-                    </tr>
+                        <tr>
+                            <td style="width: 150px;">Nama Pangkalan</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:DropDownList runat="server" ID="ddlFormPangkalan" CssClass="input"></asp:DropDownList>
+                                <asp:HiddenField runat="server" ID="hfPrevPangkalanID" />
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td style="width: 150px;">Jenis Kuarters</td>
-                        <td style="width: 5px;">:</td>
-                        <td>
-                            <asp:DropDownList runat="server" ID="ddlFormJenisKuarters" CssClass="input"></asp:DropDownList>
-                            <asp:HiddenField runat="server" id="hfKuartersID"/>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td style="width: 150px;">Jenis Kuarters</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:DropDownList runat="server" ID="ddlFormJenisKuarters" CssClass="input"></asp:DropDownList>
+                                <asp:HiddenField runat="server" ID="hfKuartersID" />
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td style="width: 150px;">Nama Kuarters</td>
-                        <td style="width: 5px;">:</td>
-                        <td>
-                            <asp:TextBox runat="server" ID="tbFormNama" CssClass="input" />
-                        </td>
-                    </tr>
+                        <tr>
+                            <td style="width: 150px;">Nama Kuarters</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbFormNama" CssClass="input" />
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td style="width: 150px;">Alamat</td>
-                        <td style="width: 5px;">:</td>
-                        <td>
-                            <asp:TextBox runat="server" ID="tbFormAlamat" CssClass="input" />
-                        </td>
-                    </tr>
+                        <tr>
+                            <td style="width: 150px;">Alamat</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbFormAlamat" CssClass="input" />
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td style="width: 150px;">Poskod</td>
-                        <td style="width: 5px;">:</td>
-                        <td>
-                            <asp:TextBox runat="server" ID="tbFormPostcode" CssClass="input" type="number"/>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td style="width: 150px;">Poskod</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbFormPostcode" CssClass="input" type="number" />
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td style="width: 150px;">Bandar</td>
-                        <td style="width: 5px;">:</td>
-                        <td>
-                            <asp:TextBox runat="server" ID="tbFormBandar" CssClass="input" />
-                        </td>
-                    </tr>
+                        <tr>
+                            <td style="width: 150px;">Bandar</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbFormBandar" CssClass="input" />
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td style="width: 150px;">Negeri</td>
-                        <td style="width: 5px;">:</td>
-                        <td>
-                            <asp:DropDownList runat="server" ID="ddlFormNegeri" CssClass="input"></asp:DropDownList>
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td style="width: 150px;">No. Telefon</td>
-                        <td style="width: 5px;">:</td>
-                        <td>
-                            <asp:TextBox runat="server" ID="tbFormTelefon" ClientIDMode="Static" CssClass="input"/>
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td style="width: 150px;">No. Fax</td>
-                        <td style="width: 5px;">:</td>
-                        <td>
-                            <asp:TextBox runat="server" ID="tbFormNoFax" CssClass="input" ClientIDMode="Static"/>
-                            <input id="sameAsCheckbox" type="checkbox" onclick="Same();"/>Sama dengan No. telefon?
-                        </td>
-                    </tr>
+                        <tr>
+                            <td style="width: 150px;">Negeri</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:DropDownList runat="server" ID="ddlFormNegeri" CssClass="input"></asp:DropDownList>
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td style="width: 150px;">Email</td>
-                        <td style="width: 5px;">:</td>
-                        <td>
-                            <asp:TextBox runat="server" ID="tbFormEmail" CssClass="input" type="email"/>
-                        </td>
-                    </tr>
-                </table>
-                <asp:Panel runat="server" ID="panelTeres">
+                        <tr>
+                            <td style="width: 150px;">No. Telefon</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbFormTelefon" ClientIDMode="Static" CssClass="input" />
+                            </td>
+                        </tr>
 
-                </asp:Panel>
-                <asp:Panel runat="server" ID="panelPangsapuri" Visible="false">
-                    <div class="inline">
-                        <div class="left">
+                        <tr>
+                            <td style="width: 150px;">No. Fax</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbFormNoFax" CssClass="input" ClientIDMode="Static" />
+                                <input id="sameAsCheckbox" type="checkbox" onclick="Same();" />Sama dengan No. telefon?
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="width: 150px;">Email</td>
+                            <td style="width: 5px;">:</td>
+                            <td>
+                                <asp:TextBox runat="server" ID="tbFormEmail" CssClass="input" type="email" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="right" runat="server" id="divUnit">
+                    <%-- Pangsapuri/Teres/Berkembar --%>
+                    <asp:Panel runat="server" ID="panelPangsapuri" Visible="false">
+                        <div class="columns">
+                            <%-- BANGUNAN --%>
                             <table class="fbform">
                                 <tr class="fbform_mheader">
                                     <td colspan="3">Maklumat Bangunan Kuarters</td>
@@ -331,7 +337,7 @@
                                     <td>Nama Blok/ Lot   :
                                         <asp:TextBox runat="server" ID="tbNamaBangunan" />
                                     </td>
-                                    
+
                                     <td>Jumlah Aras / Baris Unit :
                                         <asp:TextBox runat="server" ID="tbJumlahArasBaris" />
                                         <asp:Button Text="Tambah" runat="server" ID="btnTambah" CssClass="btn" />
@@ -389,14 +395,14 @@
 
                                                 <asp:TemplateField HeaderText="Tindakan">
                                                     <ItemTemplate>
-                                                         <asp:ImageButton
+                                                        <asp:ImageButton
                                                             Width="25px"
                                                             Height="25px"
                                                             runat="server"
                                                             ID="ubah_btn"
                                                             CommandName="Ubah"
                                                             CommandArgument='<%#Eval("bangunan_id") %>'
-                                                            ImageUrl="~/icons/test.svg"
+                                                            ImageUrl="~/icons/select.png"
                                                             ToolTip="Ubah?" />
                                                         <asp:ImageButton
                                                             Width="25px"
@@ -410,7 +416,7 @@
                                                             ToolTip="Padam?" />
                                                     </ItemTemplate>
                                                     <HeaderStyle HorizontalAlign="Center" VerticalAlign="Middle" Width="2%" />
-                                                    <ItemStyle  HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                    <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle" />
                                                 </asp:TemplateField>
 
                                             </Columns>
@@ -425,62 +431,62 @@
                                     </td>
                                 </tr>
                             </table>
-                        </div>
-                        <div class="right">
-                            <asp:Panel runat="server" ID="defaultPanel">
-                                <table class="fbform">
-                                    <tr class="fbform_mheader">
-                                        <td colspan="3">Tamabah Unit</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3" style="color:red;">
-                                            <span style="">Sila pilih bangunan untuk dipamerkan</span>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </asp:Panel>
-                            <asp:Panel runat="server" ID="maklumatBangunan" Visible="false">
-                                <table class="fbform">
-                                    <tr class="fbform_mheader">
-                                        <td colspan="3">Tambah Unit</td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td style="width: 100px;">Nama Blok</td>
-                                        <td style="width: 5px;">:</td>
-                                        <td style="">
-                                            <asp:Label Text="" runat="server" id="lblNamaBangunan"/>
-                                            <asp:HiddenField runat="server" ID="hfBangunanID" />
-                                        </td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td style="width: 100px;">No. Aras/Baris</td>
-                                        <td style="width: 5px;">:</td>
-                                        <td style="">
-                                            <asp:DropDownList runat="server" ID="ddlNoTingkat" CssClass="input" AutoPostBack="true"></asp:DropDownList>
-                                        </td>
-                                    </tr>
+                            <%-- Unit --%>
+                            <div>
+                                <asp:Panel runat="server" ID="defaultPanel">
+                                    <table class="fbform" style="width: 100%;">
+                                        <tr class="fbform_mheader">
+                                            <td colspan="3">Ubah Unit</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="color: red;">
+                                                <span style="">Sila pilih bangunan untuk dipamerkan</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </asp:Panel>
+                                <asp:Panel runat="server" ID="maklumatBangunan" Visible="false">
+                                    <table class="fbform" style="width: 100%;">
+                                        <tr class="fbform_mheader">
+                                            <td colspan="3">Tambah Unit</td>
+                                        </tr>
 
-                                    <tr>
-                                        <td style="width: 100px;">Jumlah Unit</td>
-                                        <td style="width: 5px;">:</td>
-                                        <td style="">
-                                            <asp:TextBox runat="server" ID="tbJumlahUnit" type="number" CssClass="input"/>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td style="width: 100px;">Nama Blok</td>
+                                            <td style="width: 5px;">:</td>
+                                            <td style="">
+                                                <asp:Label Text="" runat="server" ID="lblNamaBangunan" />
+                                                <asp:HiddenField runat="server" ID="hfBangunanID" />
+                                            </td>
+                                        </tr>
 
-                                    <tr>
-                                        <td colspan="3" style="display: flex; justify-content:center;">
-                                            <asp:Button Text="Tambah Unit" runat="server" id="btnTambahUnit"/>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </asp:Panel>
+                                        <tr>
+                                            <td style="width: 100px;">No. Aras/Baris</td>
+                                            <td style="width: 5px;">:</td>
+                                            <td style="">
+                                                <asp:DropDownList runat="server" ID="ddlNoTingkat" CssClass="input" AutoPostBack="true"></asp:DropDownList>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="width: 100px;">Jumlah Unit</td>
+                                            <td style="width: 5px;">:</td>
+                                            <td style="">
+                                                <asp:TextBox runat="server" ID="tbJumlahUnit" type="number" CssClass="input" />
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="3" style="display: flex; justify-content: center;">
+                                                <asp:Button Text="Tambah Unit" runat="server" ID="btnTambahUnit" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </asp:Panel>
+                            </div>
                         </div>
-                    </div>
-                    
-                </asp:Panel>
+                    </asp:Panel>
+                </div>
             </div>
            
              <table class="fbform" style="width: 100%">
