@@ -142,7 +142,15 @@ Public Class konfigurasi_unit
 
     Protected Sub load_kuarters()
         Using conn As New SqlConnection(ConfigurationManager.AppSettings("ConnectionString"))
-            Using cmd As New SqlCommand("SELECT kuarters_nama, kuarters_id from spk_kuarters WHERE pangkalan_id = @pangkalanID;", conn)
+            Using cmd As New SqlCommand("SELECT 
+                    kuarters_nama + ' ('+ jenisKuarters_nama + ')' as 'kuarters_nama', 
+                    kuarters_id 
+                FROM 
+                    spk_kuarters 
+                    JOIN spk_jenisKuarters ON spk_jenisKuarters.jenisKuarters_id = spk_kuarters.kuarters_id
+                WHERE 
+                    pangkalan_id = @pangkalanID 
+                ORDER BY kuarters_nama ASC;", conn)
                 cmd.Parameters.Add("@pangkalanID", SqlDbType.Int).Value = ddlPangkalan.SelectedValue
                 Try
                     conn.Open()

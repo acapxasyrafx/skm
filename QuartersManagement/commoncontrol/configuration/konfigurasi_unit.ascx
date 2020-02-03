@@ -6,6 +6,9 @@
     .required {
         color:red;
     }
+    .text-bold{
+        font-weight: bold;
+    }
 </style>
 <div>
     <asp:MultiView ActiveViewIndex="0" runat="server" ID="viewConfig">
@@ -107,7 +110,7 @@
                                 GridLines="None"
                                 DataKeyNames="unit_id"
                                 Width="100%"
-                                PageSize="20"
+                                PageSize="16"
                                 CssClass="gridview_footer">
                                 <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
                                 <Columns>
@@ -134,7 +137,7 @@
 
                                     <asp:TemplateField HeaderText="Unit">
                                         <ItemTemplate>
-                                            <asp:Label ID="unit_nama" runat="server" Text='<%# Bind("unit_nama") %>'></asp:Label>
+                                            <asp:Label ID="unit_nama" runat="server" Text='<%# Bind("unit_nama") %>' CssClass="text-bold"></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
@@ -159,7 +162,7 @@
 
                                     <asp:TemplateField HeaderText="Unit Status">
                                         <ItemTemplate>
-                                            <asp:Label ID="unit_status" runat="server" Text='<%# Bind("config_parameter") %>'></asp:Label>
+                                            <asp:Label ID="unit_status" runat="server" Text='<%# Bind("config_parameter") %>' CssClass="text-bold"></asp:Label>
                                         </ItemTemplate>
                                         <HeaderStyle HorizontalAlign="Left" VerticalAlign="Top" Width="10%" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
